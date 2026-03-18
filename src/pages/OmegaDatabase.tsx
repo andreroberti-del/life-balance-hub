@@ -102,13 +102,13 @@ export default function OmegaDatabasePage() {
 
   const SortHeader = ({ label, field }: { label: string; field: SortKey }) => (
     <th
-      className="text-left px-6 py-3 font-medium cursor-pointer hover:text-slate-200 transition-colors"
+      className="text-left px-6 py-3 font-medium cursor-pointer hover:text-text2 transition-colors"
       onClick={() => handleSort(field)}
     >
       <div className="flex items-center gap-1">
         {label}
         <ArrowUpDown
-          className={`w-3 h-3 ${sortKey === field ? 'text-lime' : 'text-slate-600'}`}
+          className={`w-3 h-3 ${sortKey === field ? 'text-lime-darker' : 'text-text-light'}`}
         />
       </div>
     </th>
@@ -118,16 +118,16 @@ export default function OmegaDatabasePage() {
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-white">Omega Database</h2>
-          <p className="text-slate-400 mt-1">
+          <h2 className="text-2xl font-bold text-text">Omega Database</h2>
+          <p className="text-text2 mt-1">
             Compare marcas de omega-3 e resultados reais
           </p>
         </div>
-        <div className="flex gap-1 bg-dark3 rounded-xl p-1 border border-dark4/30">
+        <div className="flex gap-1 bg-white rounded-xl p-1 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
           <button
             onClick={() => setView('table')}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-              view === 'table' ? 'bg-lime/15 text-lime' : 'text-slate-400'
+              view === 'table' ? 'bg-lime text-dark' : 'text-text3'
             }`}
           >
             Tabela
@@ -135,7 +135,7 @@ export default function OmegaDatabasePage() {
           <button
             onClick={() => setView('chart')}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-              view === 'chart' ? 'bg-lime/15 text-lime' : 'text-slate-400'
+              view === 'chart' ? 'bg-lime text-dark' : 'text-text3'
             }`}
           >
             Grafico
@@ -145,30 +145,30 @@ export default function OmegaDatabasePage() {
 
       {/* Search */}
       <div className="relative max-w-md">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text3" />
         <input
           type="text"
           placeholder="Buscar marca ou fabricante..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full bg-dark3 border border-dark4/50 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-slate-500 outline-none focus:border-lime/50 transition-colors"
+          className="w-full bg-white border border-gray-200 rounded-xl pl-10 pr-4 py-2.5 text-sm text-text placeholder-text-light outline-none focus:border-lime-darker/50 focus:ring-1 focus:ring-lime-darker/20 transition-colors shadow-[0_1px_2px_rgba(0,0,0,0.04)]"
         />
       </div>
 
       {view === 'chart' ? (
-        <div className="bg-dark3 rounded-2xl p-6 border border-dark4/30">
-          <h3 className="text-lg font-semibold text-white mb-4">
+        <div className="bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+          <h3 className="text-lg font-semibold text-text mb-4">
             Ratio Omega 6:3 — Antes vs Depois
           </h3>
           <div className="h-96">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={chartData} layout="vertical" margin={{ left: 20 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#374762" strokeOpacity={0.3} />
-                <XAxis type="number" stroke="#64748b" fontSize={11} tickLine={false} axisLine={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#E8E8E2" />
+                <XAxis type="number" stroke="#8A9A90" fontSize={11} tickLine={false} axisLine={false} />
                 <YAxis
                   dataKey="name"
                   type="category"
-                  stroke="#64748b"
+                  stroke="#8A9A90"
                   fontSize={11}
                   tickLine={false}
                   axisLine={false}
@@ -176,26 +176,27 @@ export default function OmegaDatabasePage() {
                 />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#2d3a4e',
-                    border: '1px solid #374762',
+                    backgroundColor: '#fff',
+                    border: '1px solid #E8E8E2',
                     borderRadius: '12px',
-                    color: '#e2e8f0',
+                    color: '#1A1F1C',
                     fontSize: '13px',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
                   }}
                 />
-                <Legend wrapperStyle={{ color: '#94a3b8', fontSize: '12px' }} />
+                <Legend wrapperStyle={{ color: '#4A5A50', fontSize: '12px' }} />
                 <Bar dataKey="Antes" fill="#ef4444" radius={[0, 4, 4, 0]} barSize={14} />
-                <Bar dataKey="Depois" fill="#d4e157" radius={[0, 4, 4, 0]} barSize={14} />
+                <Bar dataKey="Depois" fill="#C6D63E" radius={[0, 4, 4, 0]} barSize={14} />
               </BarChart>
             </ResponsiveContainer>
           </div>
         </div>
       ) : (
-        <div className="bg-dark3 rounded-2xl border border-dark4/30 overflow-hidden">
+        <div className="bg-white rounded-2xl shadow-[0_1px_3px_rgba(0,0,0,0.04)] overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="text-slate-400 text-xs uppercase tracking-wider border-b border-dark4/30">
+                <tr className="text-text3 text-xs uppercase tracking-wider border-b border-gray-100">
                   <SortHeader label="Marca" field="name" />
                   <th className="text-left px-6 py-3 font-medium hidden lg:table-cell">Fabricante</th>
                   <SortHeader label="Omega-3" field="omega3_mg" />
@@ -212,48 +213,48 @@ export default function OmegaDatabasePage() {
                   return (
                     <tr
                       key={brand.id}
-                      className={`border-t border-dark4/20 transition-colors ${
+                      className={`border-t border-gray-50 transition-colors ${
                         isUserBrand
                           ? 'bg-lime/5 hover:bg-lime/10'
-                          : 'hover:bg-dark4/20'
+                          : 'hover:bg-bg/50'
                       }`}
                     >
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-2">
                           {isUserBrand && (
-                            <Star className="w-4 h-4 text-lime flex-shrink-0" />
+                            <Star className="w-4 h-4 text-lime-darker flex-shrink-0" />
                           )}
-                          <span className={`font-medium ${isUserBrand ? 'text-lime' : 'text-white'}`}>
+                          <span className={`font-medium ${isUserBrand ? 'text-lime-darker' : 'text-text'}`}>
                             {brand.name}
                           </span>
                         </div>
                       </td>
-                      <td className="px-6 py-4 text-slate-400 hidden lg:table-cell">
+                      <td className="px-6 py-4 text-text3 hidden lg:table-cell">
                         {brand.manufacturer}
                       </td>
-                      <td className="px-6 py-4 text-white font-semibold">
+                      <td className="px-6 py-4 text-text font-semibold">
                         {brand.omega3_mg} mg
                       </td>
-                      <td className="px-6 py-4 text-slate-300 hidden xl:table-cell">
+                      <td className="px-6 py-4 text-text2 hidden xl:table-cell">
                         {brand.epa_mg} mg
                       </td>
-                      <td className="px-6 py-4 text-slate-300 hidden xl:table-cell">
+                      <td className="px-6 py-4 text-text2 hidden xl:table-cell">
                         {brand.dha_mg} mg
                       </td>
-                      <td className="px-6 py-4 text-slate-300">
+                      <td className="px-6 py-4 text-text2">
                         {brand.currency === 'BRL' ? 'R$' : brand.currency === 'EUR' ? '\u20ac' : '$'}
                         {brand.price.toFixed(2)}
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-1.5">
-                          <Users className="w-3.5 h-3.5 text-slate-500" />
-                          <span className="text-slate-300">{brand.users_count.toLocaleString('pt-BR')}</span>
+                          <Users className="w-3.5 h-3.5 text-text3" />
+                          <span className="text-text2">{brand.users_count.toLocaleString('pt-BR')}</span>
                         </div>
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-1.5">
-                          <TrendingUp className="w-3.5 h-3.5 text-green-400" />
-                          <span className="text-green-400 font-semibold">
+                          <TrendingUp className="w-3.5 h-3.5 text-green-600" />
+                          <span className="text-green-600 font-semibold">
                             {brand.avg_improvement}%
                           </span>
                         </div>
@@ -269,24 +270,30 @@ export default function OmegaDatabasePage() {
 
       {/* Summary Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="bg-dark3 rounded-2xl p-6 border border-dark4/30 text-center">
-          <Database className="w-6 h-6 text-lime mx-auto mb-2" />
-          <p className="text-3xl font-bold text-white">{brands.length}</p>
-          <p className="text-sm text-slate-400">Marcas catalogadas</p>
+        <div className="bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)] text-center">
+          <div className="w-10 h-10 bg-lime/15 rounded-xl flex items-center justify-center mx-auto mb-2">
+            <Database className="w-5 h-5 text-lime-darker" />
+          </div>
+          <p className="text-3xl font-black text-text">{brands.length}</p>
+          <p className="text-sm text-text3">Marcas catalogadas</p>
         </div>
-        <div className="bg-dark3 rounded-2xl p-6 border border-dark4/30 text-center">
-          <Users className="w-6 h-6 text-blue-400 mx-auto mb-2" />
-          <p className="text-3xl font-bold text-white">
+        <div className="bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)] text-center">
+          <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center mx-auto mb-2">
+            <Users className="w-5 h-5 text-blue-500" />
+          </div>
+          <p className="text-3xl font-black text-text">
             {brands.reduce((sum, b) => sum + b.users_count, 0).toLocaleString('pt-BR')}
           </p>
-          <p className="text-sm text-slate-400">Usuarios ativos</p>
+          <p className="text-sm text-text3">Usuarios ativos</p>
         </div>
-        <div className="bg-dark3 rounded-2xl p-6 border border-dark4/30 text-center">
-          <TrendingUp className="w-6 h-6 text-green-400 mx-auto mb-2" />
-          <p className="text-3xl font-bold text-white">
+        <div className="bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)] text-center">
+          <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center mx-auto mb-2">
+            <TrendingUp className="w-5 h-5 text-green-600" />
+          </div>
+          <p className="text-3xl font-black text-text">
             {Math.round(brands.reduce((sum, b) => sum + b.avg_improvement, 0) / brands.length)}%
           </p>
-          <p className="text-sm text-slate-400">Melhoria media</p>
+          <p className="text-sm text-text3">Melhoria media</p>
         </div>
       </div>
     </div>

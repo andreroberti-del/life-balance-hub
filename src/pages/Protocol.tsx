@@ -29,7 +29,6 @@ const demoProtocol: ProtocolDay = {
   ratio_after: null,
   checkin_dates: Array.from({ length: 48 }, (_, i) => {
     const d = new Date(Date.now() - (53 - i) * 86400000);
-    // skip some days for realism
     if (i % 7 === 3 || i % 11 === 5) return '';
     return d.toISOString().split('T')[0];
   }).filter(Boolean),
@@ -50,20 +49,13 @@ function CircularProgress({
   return (
     <div className="relative inline-flex items-center justify-center">
       <svg width="220" height="220" className="-rotate-90">
+        <circle cx="110" cy="110" r={radius} fill="none" stroke="#EEEEE8" strokeWidth="12" />
         <circle
           cx="110"
           cy="110"
           r={radius}
           fill="none"
-          stroke="#374762"
-          strokeWidth="12"
-        />
-        <circle
-          cx="110"
-          cy="110"
-          r={radius}
-          fill="none"
-          stroke="#d4e157"
+          stroke="#C6D63E"
           strokeWidth="12"
           strokeLinecap="round"
           strokeDasharray={circumference}
@@ -72,8 +64,8 @@ function CircularProgress({
         />
       </svg>
       <div className="absolute text-center">
-        <p className="text-4xl font-extrabold text-white">{current}</p>
-        <p className="text-sm text-slate-400">de {total} dias</p>
+        <p className="text-5xl font-black text-text">{current}</p>
+        <p className="text-sm text-text3">de {total} dias</p>
       </div>
     </div>
   );
@@ -121,7 +113,7 @@ function CalendarGrid({
     <div className="space-y-1">
       <div className="grid grid-cols-7 gap-1 mb-1">
         {['S', 'T', 'Q', 'Q', 'S', 'S', 'D'].map((d, i) => (
-          <div key={i} className="text-center text-xs text-slate-500 py-1">
+          <div key={i} className="text-center text-xs text-text3 py-1">
             {d}
           </div>
         ))}
@@ -134,10 +126,10 @@ function CalendarGrid({
                 key={di}
                 className={`aspect-square rounded-md flex items-center justify-center text-xs ${
                   day.status === 'done'
-                    ? 'bg-lime/30 text-lime'
+                    ? 'bg-lime/30 text-lime-darker font-medium'
                     : day.status === 'missed'
-                    ? 'bg-red-500/15 text-red-400/60'
-                    : 'bg-dark4/30 text-slate-600'
+                    ? 'bg-red-50 text-red-400'
+                    : 'bg-bg2 text-text-light'
                 }`}
                 title={day.date}
               >
@@ -147,17 +139,17 @@ function CalendarGrid({
           </div>
         ))}
       </div>
-      <div className="flex items-center gap-4 mt-3 text-xs text-slate-400">
+      <div className="flex items-center gap-4 mt-3 text-xs text-text3">
         <div className="flex items-center gap-1.5">
           <div className="w-3 h-3 rounded bg-lime/30" />
           <span>Feito</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <div className="w-3 h-3 rounded bg-red-500/15" />
+          <div className="w-3 h-3 rounded bg-red-50" />
           <span>Perdido</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <div className="w-3 h-3 rounded bg-dark4/30" />
+          <div className="w-3 h-3 rounded bg-bg2" />
           <span>Futuro</span>
         </div>
       </div>
@@ -195,7 +187,6 @@ export default function ProtocolPage() {
     (protocol.checkin_dates.length / protocol.current_day) * 100
   );
 
-  // Streak chart data
   const streakData = Array.from({ length: Math.min(protocol.current_day, 30) }, (_, i) => {
     const dayNum = protocol.current_day - 29 + i;
     if (dayNum < 1) return null;
@@ -208,69 +199,72 @@ export default function ProtocolPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-white">Protocolo 120 Dias</h2>
-        <p className="text-slate-400 mt-1">Acompanhe sua jornada de transformacao</p>
+        <h2 className="text-2xl font-bold text-text">Protocolo 120 Dias</h2>
+        <p className="text-text2 mt-1">Acompanhe sua jornada de transformacao</p>
       </div>
 
       {/* Progress + Stats Row */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Circular Progress */}
-        <div className="bg-dark3 rounded-2xl p-8 border border-dark4/30 flex flex-col items-center justify-center">
-          <CircularProgress
-            current={protocol.current_day}
-            total={protocol.total_days}
-          />
-          <p className="text-sm text-slate-400 mt-4">
+        <div className="bg-white rounded-2xl p-8 shadow-[0_1px_3px_rgba(0,0,0,0.04)] flex flex-col items-center justify-center">
+          <CircularProgress current={protocol.current_day} total={protocol.total_days} />
+          <p className="text-sm text-text3 mt-4">
             {protocol.total_days - protocol.current_day} dias restantes
           </p>
         </div>
 
-        {/* Stats Cards */}
         <div className="lg:col-span-2 grid grid-cols-2 gap-4">
-          <div className="bg-dark3 rounded-2xl p-6 border border-dark4/30">
+          <div className="bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
             <div className="flex items-center gap-2 mb-3">
-              <Flame className="w-5 h-5 text-orange-400" />
-              <span className="text-sm text-slate-400">Aderencia</span>
+              <div className="w-8 h-8 bg-amber-50 rounded-lg flex items-center justify-center">
+                <Flame className="w-4 h-4 text-amber-500" />
+              </div>
+              <span className="text-sm text-text3">Aderencia</span>
             </div>
-            <p className="text-3xl font-bold text-white">{completionRate}%</p>
-            <p className="text-xs text-slate-500 mt-1">
+            <p className="text-3xl font-black text-text">{completionRate}%</p>
+            <p className="text-xs text-text-light mt-1">
               {protocol.checkin_dates.length} de {protocol.current_day} dias
             </p>
           </div>
 
-          <div className="bg-dark3 rounded-2xl p-6 border border-dark4/30">
+          <div className="bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
             <div className="flex items-center gap-2 mb-3">
-              <CheckCircle2 className="w-5 h-5 text-green-400" />
-              <span className="text-sm text-slate-400">Check-ins</span>
+              <div className="w-8 h-8 bg-green-50 rounded-lg flex items-center justify-center">
+                <CheckCircle2 className="w-4 h-4 text-green-600" />
+              </div>
+              <span className="text-sm text-text3">Check-ins</span>
             </div>
-            <p className="text-3xl font-bold text-white">
+            <p className="text-3xl font-black text-text">
               {protocol.checkin_dates.length}
             </p>
-            <p className="text-xs text-slate-500 mt-1">realizados</p>
+            <p className="text-xs text-text-light mt-1">realizados</p>
           </div>
 
-          <div className="bg-dark3 rounded-2xl p-6 border border-dark4/30">
+          <div className="bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
             <div className="flex items-center gap-2 mb-3">
-              <Calendar className="w-5 h-5 text-blue-400" />
-              <span className="text-sm text-slate-400">Inicio</span>
+              <div className="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center">
+                <Calendar className="w-4 h-4 text-blue-500" />
+              </div>
+              <span className="text-sm text-text3">Inicio</span>
             </div>
-            <p className="text-lg font-bold text-white">
+            <p className="text-lg font-bold text-text">
               {new Date(protocol.start_date).toLocaleDateString('pt-BR')}
             </p>
-            <p className="text-xs text-slate-500 mt-1">
+            <p className="text-xs text-text-light mt-1">
               Fim: {new Date(protocol.end_date).toLocaleDateString('pt-BR')}
             </p>
           </div>
 
-          <div className="bg-dark3 rounded-2xl p-6 border border-dark4/30">
+          <div className="bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
             <div className="flex items-center gap-2 mb-3">
-              <Clock className="w-5 h-5 text-purple-400" />
-              <span className="text-sm text-slate-400">Tempo restante</span>
+              <div className="w-8 h-8 bg-purple-50 rounded-lg flex items-center justify-center">
+                <Clock className="w-4 h-4 text-purple-500" />
+              </div>
+              <span className="text-sm text-text3">Tempo restante</span>
             </div>
-            <p className="text-lg font-bold text-white">
+            <p className="text-lg font-bold text-text">
               {protocol.total_days - protocol.current_day} dias
             </p>
-            <p className="text-xs text-slate-500 mt-1">
+            <p className="text-xs text-text-light mt-1">
               {Math.round(
                 ((protocol.total_days - protocol.current_day) / 7) * 10
               ) / 10}{' '}
@@ -281,8 +275,8 @@ export default function ProtocolPage() {
       </div>
 
       {/* Calendar View */}
-      <div className="bg-dark3 rounded-2xl p-6 border border-dark4/30">
-        <h3 className="text-lg font-semibold text-white mb-4">
+      <div className="bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+        <h3 className="text-lg font-bold text-text mb-4">
           Calendario de Check-ins
         </h3>
         <CalendarGrid
@@ -293,34 +287,34 @@ export default function ProtocolPage() {
       </div>
 
       {/* BalanceTest Results */}
-      <div className="bg-dark3 rounded-2xl p-6 border border-dark4/30">
-        <h3 className="text-lg font-semibold text-white mb-6">
+      <div className="bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+        <h3 className="text-lg font-bold text-text mb-6">
           Resultado BalanceTest
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="text-center p-6 bg-dark2/50 rounded-2xl">
-            <p className="text-sm text-slate-400 mb-2">Antes do Protocolo</p>
-            <p className="text-5xl font-extrabold text-red-400">
+          <div className="text-center p-6 bg-red-50/50 rounded-2xl">
+            <p className="text-sm text-text3 mb-2">Antes do Protocolo</p>
+            <p className="text-5xl font-black text-red-500">
               {protocol.ratio_before ?? '12.3'}
             </p>
-            <p className="text-sm text-slate-500 mt-2">Ratio Omega 6:3</p>
-            <div className="mt-3 h-2 bg-dark4 rounded-full overflow-hidden">
+            <p className="text-sm text-text3 mt-2">Ratio Omega 6:3</p>
+            <div className="mt-3 h-2 bg-red-100 rounded-full overflow-hidden">
               <div className="h-full bg-red-500 rounded-full" style={{ width: '82%' }} />
             </div>
-            <p className="text-xs text-red-400 mt-1">Acima do ideal (&lt;3:1)</p>
+            <p className="text-xs text-red-500 mt-1">Acima do ideal (&lt;3:1)</p>
           </div>
 
-          <div className="text-center p-6 bg-dark2/50 rounded-2xl">
-            <p className="text-sm text-slate-400 mb-2">Estimativa Atual</p>
+          <div className="text-center p-6 bg-lime/5 rounded-2xl">
+            <p className="text-sm text-text3 mb-2">Estimativa Atual</p>
             {protocol.ratio_after ? (
               <>
-                <p className="text-5xl font-extrabold text-lime">
+                <p className="text-5xl font-black text-lime-darker">
                   {protocol.ratio_after}
                 </p>
-                <p className="text-sm text-slate-500 mt-2">Ratio Omega 6:3</p>
-                <div className="mt-3 h-2 bg-dark4 rounded-full overflow-hidden">
+                <p className="text-sm text-text3 mt-2">Ratio Omega 6:3</p>
+                <div className="mt-3 h-2 bg-lime/20 rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-lime rounded-full"
+                    className="h-full bg-lime-darker rounded-full"
                     style={{ width: `${Math.min((protocol.ratio_after / 15) * 100, 100)}%` }}
                   />
                 </div>
@@ -328,14 +322,14 @@ export default function ProtocolPage() {
             ) : (
               <>
                 <div className="flex items-center justify-center gap-2">
-                  <TrendingDown className="w-8 h-8 text-lime" />
-                  <p className="text-5xl font-extrabold text-lime">~4.2</p>
+                  <TrendingDown className="w-8 h-8 text-lime-darker" />
+                  <p className="text-5xl font-black text-lime-darker">~4.2</p>
                 </div>
-                <p className="text-sm text-slate-500 mt-2">Ratio Omega 6:3 (estimado)</p>
-                <div className="mt-3 h-2 bg-dark4 rounded-full overflow-hidden">
-                  <div className="h-full bg-lime rounded-full" style={{ width: '28%' }} />
+                <p className="text-sm text-text3 mt-2">Ratio Omega 6:3 (estimado)</p>
+                <div className="mt-3 h-2 bg-lime/20 rounded-full overflow-hidden">
+                  <div className="h-full bg-lime-darker rounded-full" style={{ width: '28%' }} />
                 </div>
-                <p className="text-xs text-lime mt-1">
+                <p className="text-xs text-lime-darker mt-1">
                   Faca o BalanceTest para confirmar
                 </p>
               </>
@@ -345,22 +339,22 @@ export default function ProtocolPage() {
       </div>
 
       {/* Streak Chart */}
-      <div className="bg-dark3 rounded-2xl p-6 border border-dark4/30">
-        <h3 className="text-lg font-semibold text-white mb-4">Evolucao do Streak</h3>
+      <div className="bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+        <h3 className="text-lg font-bold text-text mb-4">Evolucao do Streak</h3>
         <div className="h-64">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={streakData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#374762" strokeOpacity={0.3} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#E8E8E2" />
               <XAxis
                 dataKey="day"
-                stroke="#64748b"
+                stroke="#8A9A90"
                 fontSize={11}
                 tickLine={false}
                 axisLine={false}
                 interval={4}
               />
               <YAxis
-                stroke="#64748b"
+                stroke="#8A9A90"
                 fontSize={11}
                 tickLine={false}
                 axisLine={false}
@@ -368,20 +362,21 @@ export default function ProtocolPage() {
               />
               <Tooltip
                 contentStyle={{
-                  backgroundColor: '#2d3a4e',
-                  border: '1px solid #374762',
+                  backgroundColor: '#fff',
+                  border: '1px solid #E8E8E2',
                   borderRadius: '12px',
-                  color: '#e2e8f0',
+                  color: '#1A1F1C',
                   fontSize: '13px',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
                 }}
               />
               <Line
                 type="monotone"
                 dataKey="streak"
-                stroke="#d4e157"
+                stroke="#C6D63E"
                 strokeWidth={2.5}
                 dot={false}
-                activeDot={{ r: 5, fill: '#d4e157' }}
+                activeDot={{ r: 5, fill: '#E7FE55', stroke: '#1A1F1C', strokeWidth: 2 }}
               />
             </LineChart>
           </ResponsiveContainer>

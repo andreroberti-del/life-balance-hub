@@ -11,14 +11,14 @@ export default function LoadingSpinner({
 }: LoadingSpinnerProps) {
   const content = (
     <div className="flex flex-col items-center justify-center gap-3">
-      <Loader2 className="w-8 h-8 text-lime animate-spin" />
-      <p className="text-sm text-slate-400">{message}</p>
+      <Loader2 className="w-8 h-8 text-lime-darker animate-spin" />
+      <p className="text-sm text-text3">{message}</p>
     </div>
   );
 
   if (fullPage) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-dark">
+      <div className="min-h-screen flex items-center justify-center bg-bg">
         {content}
       </div>
     );

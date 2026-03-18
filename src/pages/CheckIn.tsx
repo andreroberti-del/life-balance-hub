@@ -40,7 +40,6 @@ export default function CheckInPage() {
   const [history, setHistory] = useState<Partial<CheckInType>[]>([]);
   const [expandedRow, setExpandedRow] = useState<string | null>(null);
 
-  // Form state
   const [weight, setWeight] = useState('');
   const [sleepQuality, setSleepQuality] = useState(3);
   const [waterLiters, setWaterLiters] = useState('');
@@ -93,7 +92,6 @@ export default function CheckInPage() {
       const result = await saveCheckIn(checkin);
       if (result) {
         setHistory([result, ...history]);
-        // Reset form
         setWeight('');
         setSleepQuality(3);
         setWaterLiters('');
@@ -120,24 +118,22 @@ export default function CheckInPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-white">Check-in Diario</h2>
-        <p className="text-slate-400 mt-1">Registre seus dados de hoje</p>
+        <h2 className="text-2xl font-bold text-text">Check-in Diario</h2>
+        <p className="text-text2 mt-1">Registre seus dados de hoje</p>
       </div>
 
-      {/* Success Banner */}
       {saved && (
-        <div className="flex items-center gap-3 p-4 bg-green-500/10 border border-green-500/30 rounded-2xl">
-          <CheckCircle2 className="w-5 h-5 text-green-400 flex-shrink-0" />
-          <p className="text-sm text-green-400">Check-in salvo com sucesso!</p>
+        <div className="flex items-center gap-3 p-4 bg-green-50 border border-green-200 rounded-2xl">
+          <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0" />
+          <p className="text-sm text-green-700">Check-in salvo com sucesso!</p>
         </div>
       )}
 
       {/* Check-in Form */}
-      <form onSubmit={handleSubmit} className="bg-dark3 rounded-2xl p-6 border border-dark4/30">
+      <form onSubmit={handleSubmit} className="bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Weight */}
           <div>
-            <label className="flex items-center gap-2 text-sm text-slate-400 mb-2">
+            <label className="flex items-center gap-2 text-sm text-text2 mb-2">
               <Scale className="w-4 h-4" /> Peso (kg)
             </label>
             <input
@@ -146,13 +142,12 @@ export default function CheckInPage() {
               value={weight}
               onChange={(e) => setWeight(e.target.value)}
               placeholder="Ex: 82.5"
-              className="w-full bg-dark2 border border-dark4/50 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 outline-none focus:border-lime/50 transition-colors"
+              className="w-full bg-bg border border-gray-200 rounded-xl px-4 py-3 text-sm text-text placeholder-text-light outline-none focus:border-lime-darker/50 focus:ring-1 focus:ring-lime-darker/20 transition-colors"
             />
           </div>
 
-          {/* Sleep Quality */}
           <div>
-            <label className="flex items-center gap-2 text-sm text-slate-400 mb-2">
+            <label className="flex items-center gap-2 text-sm text-text2 mb-2">
               <Moon className="w-4 h-4" /> Qualidade do Sono
             </label>
             <div className="space-y-2">
@@ -164,11 +159,11 @@ export default function CheckInPage() {
                 onChange={(e) => setSleepQuality(parseInt(e.target.value))}
                 className="w-full"
               />
-              <div className="flex justify-between text-xs text-slate-500">
+              <div className="flex justify-between text-xs text-text3">
                 {sleepLabels.map((label, i) => (
                   <span
                     key={label}
-                    className={i + 1 === sleepQuality ? 'text-lime font-semibold' : ''}
+                    className={i + 1 === sleepQuality ? 'text-lime-darker font-semibold' : ''}
                   >
                     {label}
                   </span>
@@ -177,9 +172,8 @@ export default function CheckInPage() {
             </div>
           </div>
 
-          {/* Water */}
           <div>
-            <label className="flex items-center gap-2 text-sm text-slate-400 mb-2">
+            <label className="flex items-center gap-2 text-sm text-text2 mb-2">
               <Droplets className="w-4 h-4" /> Agua (litros)
             </label>
             <input
@@ -188,13 +182,12 @@ export default function CheckInPage() {
               value={waterLiters}
               onChange={(e) => setWaterLiters(e.target.value)}
               placeholder="Ex: 2.5"
-              className="w-full bg-dark2 border border-dark4/50 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 outline-none focus:border-lime/50 transition-colors"
+              className="w-full bg-bg border border-gray-200 rounded-xl px-4 py-3 text-sm text-text placeholder-text-light outline-none focus:border-lime-darker/50 focus:ring-1 focus:ring-lime-darker/20 transition-colors"
             />
           </div>
 
-          {/* Waist */}
           <div>
-            <label className="flex items-center gap-2 text-sm text-slate-400 mb-2">
+            <label className="flex items-center gap-2 text-sm text-text2 mb-2">
               <Ruler className="w-4 h-4" /> Cintura (cm)
             </label>
             <input
@@ -203,13 +196,12 @@ export default function CheckInPage() {
               value={waist}
               onChange={(e) => setWaist(e.target.value)}
               placeholder="Ex: 90"
-              className="w-full bg-dark2 border border-dark4/50 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 outline-none focus:border-lime/50 transition-colors"
+              className="w-full bg-bg border border-gray-200 rounded-xl px-4 py-3 text-sm text-text placeholder-text-light outline-none focus:border-lime-darker/50 focus:ring-1 focus:ring-lime-darker/20 transition-colors"
             />
           </div>
 
-          {/* Blood Pressure */}
           <div>
-            <label className="flex items-center gap-2 text-sm text-slate-400 mb-2">
+            <label className="flex items-center gap-2 text-sm text-text2 mb-2">
               <Heart className="w-4 h-4" /> Pressao Arterial
             </label>
             <div className="flex gap-2">
@@ -218,21 +210,20 @@ export default function CheckInPage() {
                 value={bpSys}
                 onChange={(e) => setBpSys(e.target.value)}
                 placeholder="Sis"
-                className="w-1/2 bg-dark2 border border-dark4/50 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 outline-none focus:border-lime/50 transition-colors"
+                className="w-1/2 bg-bg border border-gray-200 rounded-xl px-4 py-3 text-sm text-text placeholder-text-light outline-none focus:border-lime-darker/50 focus:ring-1 focus:ring-lime-darker/20 transition-colors"
               />
               <input
                 type="number"
                 value={bpDia}
                 onChange={(e) => setBpDia(e.target.value)}
                 placeholder="Dia"
-                className="w-1/2 bg-dark2 border border-dark4/50 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 outline-none focus:border-lime/50 transition-colors"
+                className="w-1/2 bg-bg border border-gray-200 rounded-xl px-4 py-3 text-sm text-text placeholder-text-light outline-none focus:border-lime-darker/50 focus:ring-1 focus:ring-lime-darker/20 transition-colors"
               />
             </div>
           </div>
 
-          {/* Glucose */}
           <div>
-            <label className="flex items-center gap-2 text-sm text-slate-400 mb-2">
+            <label className="flex items-center gap-2 text-sm text-text2 mb-2">
               <Activity className="w-4 h-4" /> Glicose (mg/dL)
             </label>
             <input
@@ -240,33 +231,31 @@ export default function CheckInPage() {
               value={glucose}
               onChange={(e) => setGlucose(e.target.value)}
               placeholder="Ex: 95"
-              className="w-full bg-dark2 border border-dark4/50 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 outline-none focus:border-lime/50 transition-colors"
+              className="w-full bg-bg border border-gray-200 rounded-xl px-4 py-3 text-sm text-text placeholder-text-light outline-none focus:border-lime-darker/50 focus:ring-1 focus:ring-lime-darker/20 transition-colors"
             />
           </div>
 
-          {/* Took Omega */}
           <div className="flex items-center gap-3 mt-6">
             <button
               type="button"
               onClick={() => setTookOmega(!tookOmega)}
               className={`w-12 h-7 rounded-full transition-colors relative ${
-                tookOmega ? 'bg-lime' : 'bg-dark4'
+                tookOmega ? 'bg-lime' : 'bg-gray-200'
               }`}
             >
               <span
-                className={`absolute top-1 w-5 h-5 rounded-full bg-white transition-transform ${
+                className={`absolute top-1 w-5 h-5 rounded-full bg-white shadow-sm transition-transform ${
                   tookOmega ? 'left-6' : 'left-1'
                 }`}
               />
             </button>
-            <label className="flex items-center gap-2 text-sm text-slate-300">
-              <Pill className="w-4 h-4 text-slate-400" /> Tomou Omega hoje
+            <label className="flex items-center gap-2 text-sm text-text2">
+              <Pill className="w-4 h-4 text-text3" /> Tomou Omega hoje
             </label>
           </div>
 
-          {/* Notes */}
           <div className="md:col-span-2">
-            <label className="flex items-center gap-2 text-sm text-slate-400 mb-2">
+            <label className="flex items-center gap-2 text-sm text-text2 mb-2">
               <FileText className="w-4 h-4" /> Observacoes
             </label>
             <textarea
@@ -274,7 +263,7 @@ export default function CheckInPage() {
               onChange={(e) => setNotes(e.target.value)}
               placeholder="Como voce se sentiu hoje?"
               rows={3}
-              className="w-full bg-dark2 border border-dark4/50 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 outline-none focus:border-lime/50 transition-colors resize-none"
+              className="w-full bg-bg border border-gray-200 rounded-xl px-4 py-3 text-sm text-text placeholder-text-light outline-none focus:border-lime-darker/50 focus:ring-1 focus:ring-lime-darker/20 transition-colors resize-none"
             />
           </div>
         </div>
@@ -291,9 +280,9 @@ export default function CheckInPage() {
       </form>
 
       {/* History Table */}
-      <div className="bg-dark3 rounded-2xl border border-dark4/30 overflow-hidden">
-        <div className="p-6 border-b border-dark4/30">
-          <h3 className="text-lg font-semibold text-white">Historico de Check-ins</h3>
+      <div className="bg-white rounded-2xl shadow-[0_1px_3px_rgba(0,0,0,0.04)] overflow-hidden">
+        <div className="p-6 border-b border-gray-100">
+          <h3 className="text-lg font-semibold text-text">Historico de Check-ins</h3>
         </div>
 
         {history.length === 0 ? (
@@ -305,7 +294,7 @@ export default function CheckInPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="text-slate-400 text-xs uppercase tracking-wider">
+                <tr className="text-text3 text-xs uppercase tracking-wider">
                   <th className="text-left px-6 py-3 font-medium">Data</th>
                   <th className="text-left px-6 py-3 font-medium">Peso</th>
                   <th className="text-left px-6 py-3 font-medium">Sono</th>
@@ -317,91 +306,91 @@ export default function CheckInPage() {
               </thead>
               <tbody>
                 {history.map((item) => (
-                  <>
-                    <tr
-                      key={item.id || item.date}
-                      className="border-t border-dark4/20 hover:bg-dark4/20 transition-colors cursor-pointer"
-                      onClick={() =>
-                        setExpandedRow(
-                          expandedRow === (item.id || item.date)
-                            ? null
-                            : (item.id || item.date) ?? null
-                        )
-                      }
-                    >
-                      <td className="px-6 py-4 text-white font-medium">
-                        {item.date
-                          ? new Date(item.date + 'T12:00:00').toLocaleDateString('pt-BR')
-                          : '-'}
-                      </td>
-                      <td className="px-6 py-4 text-slate-300">
-                        {item.weight?.toFixed(1) ?? '-'} kg
-                      </td>
-                      <td className="px-6 py-4">
-                        <div className="flex gap-0.5">
-                          {[1, 2, 3, 4, 5].map((s) => (
-                            <div
-                              key={s}
-                              className={`w-2 h-2 rounded-full ${
-                                s <= (item.sleep_quality ?? 0)
-                                  ? 'bg-lime'
-                                  : 'bg-dark4'
-                              }`}
-                            />
-                          ))}
+                  <tr
+                    key={item.id || item.date}
+                    className="border-t border-gray-50 hover:bg-bg/50 transition-colors cursor-pointer"
+                    onClick={() =>
+                      setExpandedRow(
+                        expandedRow === (item.id || item.date)
+                          ? null
+                          : (item.id || item.date) ?? null
+                      )
+                    }
+                  >
+                    <td className="px-6 py-4 text-text font-medium">
+                      {item.date
+                        ? new Date(item.date + 'T12:00:00').toLocaleDateString('pt-BR')
+                        : '-'}
+                    </td>
+                    <td className="px-6 py-4 text-text2">
+                      {item.weight?.toFixed(1) ?? '-'} kg
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="flex gap-0.5">
+                        {[1, 2, 3, 4, 5].map((s) => (
+                          <div
+                            key={s}
+                            className={`w-2 h-2 rounded-full ${
+                              s <= (item.sleep_quality ?? 0)
+                                ? 'bg-lime-darker'
+                                : 'bg-gray-200'
+                            }`}
+                          />
+                        ))}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 text-text2">
+                      {item.water_liters?.toFixed(1) ?? '-'} L
+                    </td>
+                    <td className="px-6 py-4 text-text2">
+                      {item.waist?.toFixed(1) ?? '-'} cm
+                    </td>
+                    <td className="px-6 py-4">
+                      {item.took_omega ? (
+                        <span className="inline-flex items-center gap-1 text-green-600 text-xs">
+                          <CheckCircle2 className="w-3.5 h-3.5" /> Sim
+                        </span>
+                      ) : (
+                        <span className="text-text-light text-xs">Nao</span>
+                      )}
+                    </td>
+                    <td className="px-6 py-4 text-text3">
+                      {expandedRow === (item.id || item.date) ? (
+                        <ChevronUp className="w-4 h-4" />
+                      ) : (
+                        <ChevronDown className="w-4 h-4" />
+                      )}
+                    </td>
+                  </tr>
+                ))}
+                {history.map((item) =>
+                  expandedRow === (item.id || item.date) ? (
+                    <tr key={`${item.id || item.date}-detail`} className="border-t border-gray-50">
+                      <td colSpan={7} className="px-6 py-4 bg-bg/50">
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
+                          <div>
+                            <span className="text-text3">Pressao</span>
+                            <p className="text-text2 mt-0.5">
+                              {item.blood_pressure_sys && item.blood_pressure_dia
+                                ? `${item.blood_pressure_sys}/${item.blood_pressure_dia} mmHg`
+                                : '-'}
+                            </p>
+                          </div>
+                          <div>
+                            <span className="text-text3">Glicose</span>
+                            <p className="text-text2 mt-0.5">
+                              {item.glucose ? `${item.glucose} mg/dL` : '-'}
+                            </p>
+                          </div>
+                          <div className="md:col-span-2">
+                            <span className="text-text3">Observacoes</span>
+                            <p className="text-text2 mt-0.5">{item.notes || '-'}</p>
+                          </div>
                         </div>
                       </td>
-                      <td className="px-6 py-4 text-slate-300">
-                        {item.water_liters?.toFixed(1) ?? '-'} L
-                      </td>
-                      <td className="px-6 py-4 text-slate-300">
-                        {item.waist?.toFixed(1) ?? '-'} cm
-                      </td>
-                      <td className="px-6 py-4">
-                        {item.took_omega ? (
-                          <span className="inline-flex items-center gap-1 text-green-400 text-xs">
-                            <CheckCircle2 className="w-3.5 h-3.5" /> Sim
-                          </span>
-                        ) : (
-                          <span className="text-slate-500 text-xs">Nao</span>
-                        )}
-                      </td>
-                      <td className="px-6 py-4 text-slate-500">
-                        {expandedRow === (item.id || item.date) ? (
-                          <ChevronUp className="w-4 h-4" />
-                        ) : (
-                          <ChevronDown className="w-4 h-4" />
-                        )}
-                      </td>
                     </tr>
-                    {expandedRow === (item.id || item.date) && (
-                      <tr key={`${item.id || item.date}-detail`} className="border-t border-dark4/10">
-                        <td colSpan={7} className="px-6 py-4 bg-dark2/30">
-                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
-                            <div>
-                              <span className="text-slate-500">Pressao</span>
-                              <p className="text-slate-300 mt-0.5">
-                                {item.blood_pressure_sys && item.blood_pressure_dia
-                                  ? `${item.blood_pressure_sys}/${item.blood_pressure_dia} mmHg`
-                                  : '-'}
-                              </p>
-                            </div>
-                            <div>
-                              <span className="text-slate-500">Glicose</span>
-                              <p className="text-slate-300 mt-0.5">
-                                {item.glucose ? `${item.glucose} mg/dL` : '-'}
-                              </p>
-                            </div>
-                            <div className="md:col-span-2">
-                              <span className="text-slate-500">Observacoes</span>
-                              <p className="text-slate-300 mt-0.5">{item.notes || '-'}</p>
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                    )}
-                  </>
-                ))}
+                  ) : null
+                )}
               </tbody>
             </table>
           </div>

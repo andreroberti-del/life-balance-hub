@@ -20,7 +20,7 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
   if (loading) return <LoadingSpinner fullPage />;
 
   // For demo purposes, allow access even without auth
-  // In production, uncomment: if (!user) return <Navigate to="/login" />;
+  // In production, uncomment: const { user } = useAuth(); if (!user) return <Navigate to="/login" />;
   return <>{children}</>;
 }
 

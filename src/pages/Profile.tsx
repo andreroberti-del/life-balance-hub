@@ -78,27 +78,27 @@ export default function ProfilePage() {
   return (
     <div className="space-y-6 max-w-3xl">
       <div>
-        <h2 className="text-2xl font-bold text-white">Perfil</h2>
-        <p className="text-slate-400 mt-1">Gerencie suas informacoes pessoais</p>
+        <h2 className="text-2xl font-bold text-text">Perfil</h2>
+        <p className="text-text2 mt-1">Gerencie suas informacoes pessoais</p>
       </div>
 
       {saved && (
-        <div className="flex items-center gap-3 p-4 bg-green-500/10 border border-green-500/30 rounded-2xl">
-          <CheckCircle2 className="w-5 h-5 text-green-400 flex-shrink-0" />
-          <p className="text-sm text-green-400">Perfil atualizado com sucesso!</p>
+        <div className="flex items-center gap-3 p-4 bg-green-50 border border-green-200 rounded-2xl">
+          <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0" />
+          <p className="text-sm text-green-700">Perfil atualizado com sucesso!</p>
         </div>
       )}
 
       {/* Avatar Section */}
-      <div className="bg-dark3 rounded-2xl p-6 border border-dark4/30">
+      <div className="bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
         <div className="flex items-center gap-5">
-          <div className="w-20 h-20 rounded-2xl bg-lime/20 flex items-center justify-center text-lime text-2xl font-bold">
+          <div className="w-20 h-20 rounded-2xl bg-lime/20 flex items-center justify-center text-lime-darker text-2xl font-bold">
             {initials}
           </div>
           <div>
-            <p className="text-lg font-semibold text-white">{name || 'Usuario'}</p>
-            <p className="text-sm text-slate-400">{profile?.email || user?.email || ''}</p>
-            <p className="text-xs text-slate-500 mt-1">
+            <p className="text-lg font-semibold text-text">{name || 'Usuario'}</p>
+            <p className="text-sm text-text3">{profile?.email || user?.email || ''}</p>
+            <p className="text-xs text-text-light mt-1">
               Membro desde{' '}
               {profile?.created_at
                 ? new Date(profile.created_at).toLocaleDateString('pt-BR')
@@ -109,36 +109,36 @@ export default function ProfilePage() {
       </div>
 
       {/* Profile Form */}
-      <form onSubmit={handleSave} className="bg-dark3 rounded-2xl p-6 border border-dark4/30">
-        <h3 className="text-lg font-semibold text-white mb-6">Informacoes Pessoais</h3>
+      <form onSubmit={handleSave} className="bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+        <h3 className="text-lg font-bold text-text mb-6">Informacoes Pessoais</h3>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <div>
-            <label className="flex items-center gap-2 text-sm text-slate-400 mb-1.5">
+            <label className="flex items-center gap-2 text-sm text-text2 mb-1.5">
               <User className="w-4 h-4" /> Nome Completo
             </label>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full bg-dark2 border border-dark4/50 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 outline-none focus:border-lime/50 transition-colors"
+              className="w-full bg-bg border border-gray-200 rounded-xl px-4 py-3 text-sm text-text outline-none focus:border-lime-darker/50 focus:ring-1 focus:ring-lime-darker/20 transition-colors"
             />
           </div>
 
           <div>
-            <label className="flex items-center gap-2 text-sm text-slate-400 mb-1.5">
+            <label className="flex items-center gap-2 text-sm text-text2 mb-1.5">
               <Calendar className="w-4 h-4" /> Data de Nascimento
             </label>
             <input
               type="date"
               value={birthDate}
               onChange={(e) => setBirthDate(e.target.value)}
-              className="w-full bg-dark2 border border-dark4/50 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-lime/50 transition-colors [color-scheme:dark]"
+              className="w-full bg-bg border border-gray-200 rounded-xl px-4 py-3 text-sm text-text outline-none focus:border-lime-darker/50 focus:ring-1 focus:ring-lime-darker/20 transition-colors"
             />
           </div>
 
           <div>
-            <label className="flex items-center gap-2 text-sm text-slate-400 mb-1.5">
+            <label className="flex items-center gap-2 text-sm text-text2 mb-1.5">
               <Scale className="w-4 h-4" /> Peso (kg)
             </label>
             <input
@@ -147,12 +147,12 @@ export default function ProfilePage() {
               value={weight}
               onChange={(e) => setWeight(e.target.value)}
               placeholder="Ex: 82.5"
-              className="w-full bg-dark2 border border-dark4/50 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 outline-none focus:border-lime/50 transition-colors"
+              className="w-full bg-bg border border-gray-200 rounded-xl px-4 py-3 text-sm text-text placeholder-text-light outline-none focus:border-lime-darker/50 focus:ring-1 focus:ring-lime-darker/20 transition-colors"
             />
           </div>
 
           <div>
-            <label className="flex items-center gap-2 text-sm text-slate-400 mb-1.5">
+            <label className="flex items-center gap-2 text-sm text-text2 mb-1.5">
               <Ruler className="w-4 h-4" /> Altura (cm)
             </label>
             <input
@@ -160,12 +160,12 @@ export default function ProfilePage() {
               value={height}
               onChange={(e) => setHeight(e.target.value)}
               placeholder="Ex: 175"
-              className="w-full bg-dark2 border border-dark4/50 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 outline-none focus:border-lime/50 transition-colors"
+              className="w-full bg-bg border border-gray-200 rounded-xl px-4 py-3 text-sm text-text placeholder-text-light outline-none focus:border-lime-darker/50 focus:ring-1 focus:ring-lime-darker/20 transition-colors"
             />
           </div>
 
           <div>
-            <label className="flex items-center gap-2 text-sm text-slate-400 mb-1.5">
+            <label className="flex items-center gap-2 text-sm text-text2 mb-1.5">
               <Ruler className="w-4 h-4" /> Cintura (cm)
             </label>
             <input
@@ -174,18 +174,18 @@ export default function ProfilePage() {
               value={waist}
               onChange={(e) => setWaist(e.target.value)}
               placeholder="Ex: 90"
-              className="w-full bg-dark2 border border-dark4/50 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 outline-none focus:border-lime/50 transition-colors"
+              className="w-full bg-bg border border-gray-200 rounded-xl px-4 py-3 text-sm text-text placeholder-text-light outline-none focus:border-lime-darker/50 focus:ring-1 focus:ring-lime-darker/20 transition-colors"
             />
           </div>
 
           <div>
-            <label className="flex items-center gap-2 text-sm text-slate-400 mb-1.5">
+            <label className="flex items-center gap-2 text-sm text-text2 mb-1.5">
               <User className="w-4 h-4" /> Genero
             </label>
             <select
               value={gender}
               onChange={(e) => setGender(e.target.value)}
-              className="w-full bg-dark2 border border-dark4/50 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-lime/50 transition-colors appearance-none"
+              className="w-full bg-bg border border-gray-200 rounded-xl px-4 py-3 text-sm text-text outline-none focus:border-lime-darker/50 focus:ring-1 focus:ring-lime-darker/20 transition-colors appearance-none"
             >
               <option value="">Selecione</option>
               {genders.map((g) => (
@@ -197,7 +197,7 @@ export default function ProfilePage() {
           </div>
 
           <div>
-            <label className="flex items-center gap-2 text-sm text-slate-400 mb-1.5">
+            <label className="flex items-center gap-2 text-sm text-text2 mb-1.5">
               <Pill className="w-4 h-4" /> Marca de Omega
             </label>
             <input
@@ -205,18 +205,18 @@ export default function ProfilePage() {
               value={omegaBrand}
               onChange={(e) => setOmegaBrand(e.target.value)}
               placeholder="Ex: Zinzino BalanceOil+"
-              className="w-full bg-dark2 border border-dark4/50 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 outline-none focus:border-lime/50 transition-colors"
+              className="w-full bg-bg border border-gray-200 rounded-xl px-4 py-3 text-sm text-text placeholder-text-light outline-none focus:border-lime-darker/50 focus:ring-1 focus:ring-lime-darker/20 transition-colors"
             />
           </div>
 
           <div>
-            <label className="flex items-center gap-2 text-sm text-slate-400 mb-1.5">
+            <label className="flex items-center gap-2 text-sm text-text2 mb-1.5">
               <Globe className="w-4 h-4" /> Idioma
             </label>
             <select
               value={language}
               onChange={(e) => setLanguage(e.target.value)}
-              className="w-full bg-dark2 border border-dark4/50 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-lime/50 transition-colors appearance-none"
+              className="w-full bg-bg border border-gray-200 rounded-xl px-4 py-3 text-sm text-text outline-none focus:border-lime-darker/50 focus:ring-1 focus:ring-lime-darker/20 transition-colors appearance-none"
             >
               {languages.map((l) => (
                 <option key={l.code} value={l.code}>
@@ -231,7 +231,7 @@ export default function ProfilePage() {
           <button
             type="button"
             onClick={signOut}
-            className="flex items-center gap-2 px-5 py-2.5 text-red-400 hover:bg-red-500/10 rounded-xl text-sm font-medium transition-colors"
+            className="flex items-center gap-2 px-5 py-2.5 text-red-500 hover:bg-red-50 rounded-xl text-sm font-medium transition-colors"
           >
             <LogOut className="w-4 h-4" />
             Sair da conta

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import {
-  LineChart,
-  Line,
+  AreaChart,
+  Area,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -11,22 +11,22 @@ import {
 import {
   Scale,
   Moon,
-  Droplets,
   Ruler,
-  Flame,
+  Heart,
   Activity,
   Users,
   TrendingUp,
+  TrendingDown,
   Calendar,
   CheckCircle2,
+  Flame,
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
-import MetricCard from '../components/MetricCard';
 import LoadingSpinner from '../components/LoadingSpinner';
+import MetricCard from '../components/MetricCard';
 import { getCheckIns, getUserStreak, getCommunityMetrics } from '../lib/api';
 import type { CheckIn, CommunityMetrics, UserStreak } from '../types';
 
-// Demo data for when Supabase has no data
 const demoCheckins: Partial<CheckIn>[] = Array.from({ length: 30 }, (_, i) => ({
   date: new Date(Date.now() - (29 - i) * 86400000).toISOString().split('T')[0],
   weight: 82 - i * 0.15 + Math.random() * 0.5,
@@ -53,10 +53,10 @@ const demoStreak: UserStreak = {
 };
 
 const recentActivity = [
-  { type: 'checkin', text: 'Check-in diario registrado', time: '2h atras', icon: CheckCircle2 },
-  { type: 'scan', text: 'Produto escaneado: Omega Pure', time: '5h atras', icon: Activity },
-  { type: 'streak', text: 'Streak de 12 dias alcancado!', time: '1d atras', icon: Flame },
-  { type: 'community', text: 'Novo membro entrou na comunidade', time: '2d atras', icon: Users },
+  { text: 'Check-in diario registrado', time: '2h atras', icon: CheckCircle2, color: 'bg-green-50 text-green-600' },
+  { text: 'Produto escaneado: Omega Pure', time: '5h atras', icon: Activity, color: 'bg-blue-50 text-blue-600' },
+  { text: 'Streak de 12 dias alcancado!', time: '1d atras', icon: Flame, color: 'bg-amber-50 text-amber-600' },
+  { text: 'Novo membro na comunidade', time: '2d atras', icon: Users, color: 'bg-purple-50 text-purple-600' },
 ];
 
 export default function DashboardHome() {
@@ -73,14 +73,12 @@ export default function DashboardHome() {
         setLoading(false);
         return;
       }
-
       try {
         const [cks, str, com] = await Promise.all([
           getCheckIns(user.id, 30),
           getUserStreak(user.id),
           getCommunityMetrics(),
         ]);
-
         setCheckins(cks.length > 0 ? cks : demoCheckins as CheckIn[]);
         setStreak(str.total_checkins > 0 ? str : demoStreak);
         setCommunity(com || demoCommunity);
@@ -90,7 +88,6 @@ export default function DashboardHome() {
         setLoading(false);
       }
     }
-
     loadData();
   }, [user]);
 
@@ -101,47 +98,47 @@ export default function DashboardHome() {
   const latestSleep = checkins[0]?.sleep_quality ?? 4;
   const omegaRatio = 4.2;
 
-  const weightData = [...checkins]
-    .reverse()
-    .map((c) => ({
-      date: c.date
-        ? new Date(c.date).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' })
-        : '',
-      weight: Number((c.weight ?? 0).toFixed(1)),
-    }));
+  const weightData = [...checkins].reverse().map((c) => ({
+    date: c.date ? new Date(c.date).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }) : '',
+    weight: Number((c.weight ?? 0).toFixed(1)),
+  }));
 
-  const weightSparkline = [...checkins].reverse().map((c) => c.weight ?? 0);
-  const sleepSparkline = [...checkins].reverse().map((c) => c.sleep_quality ?? 0);
-  const waterSparkline = [...checkins].reverse().map((c) => c.water_liters ?? 0);
-  const waistSparkline = [...checkins].reverse().map((c) => c.waist ?? 0);
+  const greeting = () => {
+    const hour = new Date().getHours();
+    if (hour < 12) return 'Bom dia';
+    if (hour < 18) return 'Boa tarde';
+    return 'Boa noite';
+  };
 
   return (
     <div className="space-y-6">
-      {/* Welcome Card */}
-      <div className="bg-gradient-to-r from-dark3 to-dark3/60 rounded-2xl p-6 border border-dark4/30">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div>
-            <h2 className="text-2xl font-bold text-white">
-              Ola, {profile?.name?.split(' ')[0] || 'Usuario'}!
-            </h2>
-            <p className="text-slate-400 mt-1">
-              Dia <span className="text-lime font-semibold">54</span> do Protocolo 120
-            </p>
-          </div>
-          <div className="flex items-center gap-6">
-            <div className="flex items-center gap-2">
-              <Flame className="w-5 h-5 text-orange-400" />
-              <div>
-                <p className="text-2xl font-bold text-white">{streak.current_streak}</p>
-                <p className="text-xs text-slate-400">dias seguidos</p>
-              </div>
+      {/* Welcome Section */}
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <h2 className="text-2xl font-bold text-text">
+            {greeting()}, {profile?.name?.split(' ')[0] || 'Usuario'}
+          </h2>
+          <p className="text-text2 mt-1">
+            Dia <span className="text-text font-bold">54</span> do Protocolo 120 — Continue assim!
+          </p>
+        </div>
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5 bg-white rounded-2xl px-4 py-3 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+            <div className="w-8 h-8 bg-amber-50 rounded-lg flex items-center justify-center">
+              <Flame className="w-4 h-4 text-amber-500" />
             </div>
-            <div className="flex items-center gap-2">
-              <Calendar className="w-5 h-5 text-lime" />
-              <div>
-                <p className="text-2xl font-bold text-white">{streak.total_checkins}</p>
-                <p className="text-xs text-slate-400">check-ins</p>
-              </div>
+            <div>
+              <p className="text-xl font-black text-text leading-none">{streak.current_streak}</p>
+              <p className="text-[10px] text-text3 uppercase tracking-wider">dias seguidos</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2.5 bg-white rounded-2xl px-4 py-3 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+            <div className="w-8 h-8 bg-lime/20 rounded-lg flex items-center justify-center">
+              <Calendar className="w-4 h-4 text-lime-darker" />
+            </div>
+            <div>
+              <p className="text-xl font-black text-text leading-none">{streak.total_checkins}</p>
+              <p className="text-[10px] text-text3 uppercase tracking-wider">check-ins</p>
             </div>
           </div>
         </div>
@@ -155,7 +152,7 @@ export default function DashboardHome() {
           unit="kg"
           trend={-2.3}
           icon={Scale}
-          sparklineData={weightSparkline}
+          iconBg="bg-blue-50 text-blue-500"
         />
         <MetricCard
           title="Cintura"
@@ -163,7 +160,7 @@ export default function DashboardHome() {
           unit="cm"
           trend={-1.8}
           icon={Ruler}
-          sparklineData={waistSparkline}
+          iconBg="bg-purple-50 text-purple-500"
         />
         <MetricCard
           title="Sono"
@@ -171,47 +168,53 @@ export default function DashboardHome() {
           unit="/5"
           trend={5}
           icon={Moon}
-          sparklineData={sleepSparkline}
+          iconBg="bg-indigo-50 text-indigo-500"
         />
         <MetricCard
           title="Ratio Omega"
           value={omegaRatio}
           unit=":1"
           trend={-18}
-          icon={Droplets}
-          sparklineData={waterSparkline}
+          icon={Heart}
+          iconBg="bg-lime/15 text-lime-darker"
         />
       </div>
 
-      {/* Main Content Grid */}
+      {/* Main Grid */}
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
         {/* Weight Chart */}
-        <div className="xl:col-span-2 bg-dark3 rounded-2xl p-6 border border-dark4/30">
+        <div className="xl:col-span-2 bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h3 className="text-lg font-semibold text-white">Evolucao do Peso</h3>
-              <p className="text-sm text-slate-400">Ultimos 30 dias</p>
+              <h3 className="text-lg font-bold text-text">Evolucao do Peso</h3>
+              <p className="text-sm text-text3">Ultimos 30 dias</p>
             </div>
-            <div className="flex items-center gap-2 text-sm">
-              <TrendingUp className="w-4 h-4 text-green-400" />
-              <span className="text-green-400">-2.3 kg</span>
+            <div className="flex items-center gap-1.5 bg-green-50 text-green-600 text-sm font-semibold px-3 py-1.5 rounded-full">
+              <TrendingDown className="w-3.5 h-3.5" />
+              -2.3 kg
             </div>
           </div>
 
           <div className="h-72">
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={weightData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#374762" strokeOpacity={0.3} />
+              <AreaChart data={weightData}>
+                <defs>
+                  <linearGradient id="weightGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#E7FE55" stopOpacity={0.3} />
+                    <stop offset="100%" stopColor="#E7FE55" stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" stroke="#E8E8E2" />
                 <XAxis
                   dataKey="date"
-                  stroke="#64748b"
+                  stroke="#8A9A90"
                   fontSize={11}
                   tickLine={false}
                   axisLine={false}
                   interval={Math.floor(weightData.length / 6)}
                 />
                 <YAxis
-                  stroke="#64748b"
+                  stroke="#8A9A90"
                   fontSize={11}
                   tickLine={false}
                   axisLine={false}
@@ -220,81 +223,67 @@ export default function DashboardHome() {
                 />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#2d3a4e',
-                    border: '1px solid #374762',
+                    backgroundColor: '#fff',
+                    border: '1px solid #E8E8E2',
                     borderRadius: '12px',
-                    color: '#e2e8f0',
+                    color: '#1A1F1C',
                     fontSize: '13px',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
                   }}
-                  labelStyle={{ color: '#94a3b8' }}
+                  labelStyle={{ color: '#8A9A90' }}
                 />
-                <Line
+                <Area
                   type="monotone"
                   dataKey="weight"
-                  stroke="#d4e157"
+                  stroke="#C6D63E"
                   strokeWidth={2.5}
+                  fill="url(#weightGradient)"
                   dot={false}
-                  activeDot={{ r: 5, fill: '#d4e157', stroke: '#1a2332', strokeWidth: 2 }}
+                  activeDot={{ r: 5, fill: '#E7FE55', stroke: '#1A1F1C', strokeWidth: 2 }}
                 />
-              </LineChart>
+              </AreaChart>
             </ResponsiveContainer>
           </div>
         </div>
 
-        {/* Right Sidebar */}
-        <div className="space-y-6">
-          {/* Community Stats */}
-          <div className="bg-dark3 rounded-2xl p-6 border border-dark4/30">
-            <h3 className="text-lg font-semibold text-white mb-4">Comunidade</h3>
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-blue-500/10 rounded-lg flex items-center justify-center">
-                    <Users className="w-4 h-4 text-blue-400" />
+        {/* Right Column */}
+        <div className="space-y-5">
+          {/* Community - Dark Card */}
+          <div className="bg-dark rounded-2xl p-5">
+            <h3 className="text-sm font-semibold text-white/60 uppercase tracking-wider mb-4">Comunidade</h3>
+            <div className="space-y-3.5">
+              {[
+                { label: 'Membros', value: community.total_members, icon: Users, color: 'bg-blue-500/20 text-blue-400' },
+                { label: 'Kg perdidos', value: community.total_kg_lost, icon: Scale, color: 'bg-green-500/20 text-green-400' },
+                { label: 'Melhoria ratio', value: `${community.avg_ratio_improvement}%`, icon: TrendingUp, color: 'bg-lime/20 text-lime' },
+              ].map((item) => (
+                <div key={item.label} className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className={`w-8 h-8 ${item.color} rounded-lg flex items-center justify-center`}>
+                      <item.icon className="w-4 h-4" />
+                    </div>
+                    <span className="text-sm text-white/50">{item.label}</span>
                   </div>
-                  <span className="text-sm text-slate-400">Membros</span>
+                  <span className="text-lg font-bold text-white">
+                    {typeof item.value === 'number' ? item.value.toLocaleString('pt-BR') : item.value}
+                  </span>
                 </div>
-                <span className="text-lg font-bold text-white">
-                  {community.total_members.toLocaleString('pt-BR')}
-                </span>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-green-500/10 rounded-lg flex items-center justify-center">
-                    <Scale className="w-4 h-4 text-green-400" />
-                  </div>
-                  <span className="text-sm text-slate-400">Kg perdidos</span>
-                </div>
-                <span className="text-lg font-bold text-white">
-                  {community.total_kg_lost.toLocaleString('pt-BR')}
-                </span>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-lime/10 rounded-lg flex items-center justify-center">
-                    <Activity className="w-4 h-4 text-lime" />
-                  </div>
-                  <span className="text-sm text-slate-400">Melhoria ratio</span>
-                </div>
-                <span className="text-lg font-bold text-white">
-                  {community.avg_ratio_improvement}%
-                </span>
-              </div>
+              ))}
             </div>
           </div>
 
           {/* Recent Activity */}
-          <div className="bg-dark3 rounded-2xl p-6 border border-dark4/30">
-            <h3 className="text-lg font-semibold text-white mb-4">Atividade Recente</h3>
+          <div className="bg-white rounded-2xl p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+            <h3 className="text-sm font-semibold text-text2 uppercase tracking-wider mb-4">Atividade Recente</h3>
             <div className="space-y-3">
               {recentActivity.map((item, i) => (
                 <div key={i} className="flex items-start gap-3">
-                  <div className="w-8 h-8 bg-dark4/50 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <item.icon className="w-4 h-4 text-slate-400" />
+                  <div className={`w-8 h-8 ${item.color} rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5`}>
+                    <item.icon className="w-4 h-4" />
                   </div>
                   <div className="min-w-0">
-                    <p className="text-sm text-slate-300 leading-tight">{item.text}</p>
-                    <p className="text-xs text-slate-500 mt-0.5">{item.time}</p>
+                    <p className="text-sm text-text leading-tight">{item.text}</p>
+                    <p className="text-[11px] text-text3 mt-0.5">{item.time}</p>
                   </div>
                 </div>
               ))}

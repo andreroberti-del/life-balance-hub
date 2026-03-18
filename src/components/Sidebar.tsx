@@ -27,7 +27,7 @@ const navItems = [
   { to: '/community', icon: Users, label: 'Comunidade' },
   { to: '/protocol', icon: Target, label: 'Protocolo 120' },
   { to: '/profile', icon: UserCircle, label: 'Perfil' },
-  { to: '/settings', icon: Settings, label: 'Settings' },
+  { to: '/settings', icon: Settings, label: 'Configuracoes' },
 ];
 
 export default function Sidebar({ open, onClose }: SidebarProps) {
@@ -35,40 +35,42 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
     <>
       {open && (
         <div
-          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden"
           onClick={onClose}
         />
       )}
 
       <aside
         className={`
-          fixed top-0 left-0 h-full w-64 bg-dark z-50
-          border-r border-dark4/50
+          fixed top-0 left-0 h-full w-[240px] bg-white z-50
+          border-r border-gray-100
           flex flex-col
           transition-transform duration-300 ease-in-out
           lg:translate-x-0 lg:static lg:z-auto
           ${open ? 'translate-x-0' : '-translate-x-full'}
         `}
       >
-        <div className="flex items-center justify-between p-6 border-b border-dark4/30">
+        {/* Logo */}
+        <div className="flex items-center justify-between px-5 py-6">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-lime/20 rounded-xl flex items-center justify-center">
-              <Leaf className="w-6 h-6 text-lime" />
+            <div className="w-10 h-10 bg-lime rounded-xl flex items-center justify-center shadow-sm">
+              <Leaf className="w-5 h-5 text-dark" />
             </div>
             <div>
-              <h1 className="text-lg font-bold text-white">Life Balance</h1>
-              <p className="text-xs text-slate-400">Wellness Hub</p>
+              <h1 className="text-base font-bold text-text">Life Balance</h1>
+              <p className="text-[10px] text-text3 tracking-wide uppercase">Wellness Hub</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="lg:hidden p-1 rounded-lg hover:bg-dark3 text-slate-400"
+            className="lg:hidden p-1.5 rounded-lg hover:bg-gray-100 text-text3"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
-        <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
+        {/* Navigation */}
+        <nav className="flex-1 px-3 space-y-0.5 overflow-y-auto">
           {navItems.map((item) => (
             <NavLink
               key={item.to}
@@ -76,29 +78,30 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
               end={item.to === '/'}
               onClick={onClose}
               className={({ isActive }) =>
-                `flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
+                `flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-medium transition-all duration-200 ${
                   isActive
-                    ? 'bg-lime/15 text-lime border-l-2 border-lime'
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-dark3/50'
+                    ? 'bg-lime text-dark shadow-sm'
+                    : 'text-text2 hover:text-text hover:bg-gray-50'
                 }`
               }
             >
-              <item.icon className="w-5 h-5 flex-shrink-0" />
+              <item.icon className="w-[18px] h-[18px] flex-shrink-0" />
               {item.label}
             </NavLink>
           ))}
         </nav>
 
-        <div className="p-4 border-t border-dark4/30">
-          <div className="px-4 py-3 bg-dark3/50 rounded-xl">
-            <p className="text-xs text-slate-400">Protocolo 120 Dias</p>
-            <div className="mt-2 h-1.5 bg-dark4 rounded-full overflow-hidden">
+        {/* Protocol Progress */}
+        <div className="px-4 pb-5">
+          <div className="px-4 py-3.5 bg-dark rounded-2xl">
+            <p className="text-[11px] text-white/50 uppercase tracking-wider font-medium">Protocolo 120 Dias</p>
+            <div className="mt-2.5 h-1.5 bg-white/10 rounded-full overflow-hidden">
               <div
-                className="h-full bg-lime rounded-full"
+                className="h-full bg-lime rounded-full transition-all duration-500"
                 style={{ width: '45%' }}
               />
             </div>
-            <p className="text-xs text-slate-500 mt-1">Dia 54 de 120</p>
+            <p className="text-[11px] text-white/40 mt-1.5">Dia 54 de 120</p>
           </div>
         </div>
       </aside>
