@@ -9,7 +9,6 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import {
-  Target,
   Flame,
   Calendar,
   TrendingDown,
