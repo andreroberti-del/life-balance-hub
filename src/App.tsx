@@ -15,7 +15,7 @@ import Profile from './pages/Profile';
 import Settings from './pages/Settings';
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
-  const { user, loading } = useAuth();
+  const { loading } = useAuth();
 
   if (loading) return <LoadingSpinner fullPage />;
 
