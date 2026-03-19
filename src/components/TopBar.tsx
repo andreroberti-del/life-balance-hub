@@ -1,4 +1,4 @@
-import { Menu, Search, Bell, Sun, Moon } from 'lucide-react';
+import { Menu, Search, Bell } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useState } from 'react';
 
