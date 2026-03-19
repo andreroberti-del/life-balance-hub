@@ -235,7 +235,7 @@ export default function TestTracking() {
             onClick={() => setStatusFilter(f.key as TestStatus | 'all')}
             style={{
               padding: '8px 16px', borderRadius: '10px', fontSize: '13px', fontWeight: 600,
-              border: 'none', cursor: 'pointer',
+              cursor: 'pointer',
               background: statusFilter === f.key ? '#E7FE55' : '#2d3a4e',
               color: statusFilter === f.key ? '#0F1511' : 'rgba(255,255,255,0.5)',
               border: statusFilter === f.key ? 'none' : '1px solid rgba(255,255,255,0.08)',

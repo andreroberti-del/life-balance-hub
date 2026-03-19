@@ -268,7 +268,7 @@ export default function FollowUps() {
             onClick={() => setFilter(f.key as FollowUpType | 'all')}
             style={{
               padding: '8px 16px', borderRadius: '10px', fontSize: '13px', fontWeight: 600,
-              border: 'none', cursor: 'pointer',
+              cursor: 'pointer',
               background: filter === f.key ? '#E7FE55' : '#2d3a4e',
               color: filter === f.key ? '#0F1511' : 'rgba(255,255,255,0.5)',
               border: filter === f.key ? 'none' : '1px solid rgba(255,255,255,0.08)',
