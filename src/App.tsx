@@ -13,6 +13,11 @@ import Community from './pages/Community';
 import Protocol from './pages/Protocol';
 import Profile from './pages/Profile';
 import Settings from './pages/Settings';
+import Pipeline from './pages/crm/Pipeline';
+import FollowUps from './pages/crm/FollowUps';
+import Clients from './pages/crm/Clients';
+import TestTracking from './pages/crm/TestTracking';
+import Performance from './pages/crm/Performance';
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { loading } = useAuth();
@@ -69,6 +74,11 @@ function AppRoutes() {
         <Route path="/protocol" element={<Protocol />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/crm/pipeline" element={<Pipeline />} />
+        <Route path="/crm/followups" element={<FollowUps />} />
+        <Route path="/crm/clients" element={<Clients />} />
+        <Route path="/crm/tests" element={<TestTracking />} />
+        <Route path="/crm/performance" element={<Performance />} />
       </Route>
 
       <Route path="*" element={<Navigate to="/" />} />
