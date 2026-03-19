@@ -1,6 +1,5 @@
-import { useState } from 'react';
 import { AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
-import { Users, Target, UserCheck, DollarSign, TestTube2, TrendingUp, TrendingDown } from 'lucide-react';
+import { Users, Target, UserCheck, DollarSign, TestTube2, TrendingUp } from 'lucide-react';
 
 const funnelData = [
   { stage: 'Novo', count: 45, color: 'hsl(252,60%,62%)' },
