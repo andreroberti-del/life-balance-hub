@@ -77,6 +77,348 @@ export type Database = {
           },
         ]
       }
+      crm_balance_tests: {
+        Row: {
+          client_id: string | null
+          client_name: string
+          created_at: string | null
+          id: string
+          is_retest: boolean | null
+          lead_id: string | null
+          notes: string | null
+          omega3_index: number | null
+          omega6_ratio: number | null
+          partner_id: string
+          pdf_url: string | null
+          previous_test_id: string | null
+          result_date: string | null
+          sent_date: string | null
+          status: string
+          test_type: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          client_id?: string | null
+          client_name: string
+          created_at?: string | null
+          id?: string
+          is_retest?: boolean | null
+          lead_id?: string | null
+          notes?: string | null
+          omega3_index?: number | null
+          omega6_ratio?: number | null
+          partner_id: string
+          pdf_url?: string | null
+          previous_test_id?: string | null
+          result_date?: string | null
+          sent_date?: string | null
+          status?: string
+          test_type?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          client_id?: string | null
+          client_name?: string
+          created_at?: string | null
+          id?: string
+          is_retest?: boolean | null
+          lead_id?: string | null
+          notes?: string | null
+          omega3_index?: number | null
+          omega6_ratio?: number | null
+          partner_id?: string
+          pdf_url?: string | null
+          previous_test_id?: string | null
+          result_date?: string | null
+          sent_date?: string | null
+          status?: string
+          test_type?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crm_balance_tests_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "crm_clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "crm_balance_tests_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "crm_leads"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "crm_balance_tests_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "crm_balance_tests_previous_test_id_fkey"
+            columns: ["previous_test_id"]
+            isOneToOne: false
+            referencedRelation: "crm_balance_tests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      crm_clients: {
+        Row: {
+          created_at: string | null
+          email: string | null
+          id: string
+          lead_id: string | null
+          lifetime_value: number | null
+          name: string
+          next_reorder_date: string | null
+          next_retest_date: string | null
+          notes: string | null
+          partner_id: string
+          phone: string | null
+          products: Json | null
+          protocol_start_date: string | null
+          status: string | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          email?: string | null
+          id?: string
+          lead_id?: string | null
+          lifetime_value?: number | null
+          name: string
+          next_reorder_date?: string | null
+          next_retest_date?: string | null
+          notes?: string | null
+          partner_id: string
+          phone?: string | null
+          products?: Json | null
+          protocol_start_date?: string | null
+          status?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          email?: string | null
+          id?: string
+          lead_id?: string | null
+          lifetime_value?: number | null
+          name?: string
+          next_reorder_date?: string | null
+          next_retest_date?: string | null
+          notes?: string | null
+          partner_id?: string
+          phone?: string | null
+          products?: Json | null
+          protocol_start_date?: string | null
+          status?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crm_clients_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "crm_leads"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "crm_clients_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "crm_clients_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      crm_follow_ups: {
+        Row: {
+          client_id: string | null
+          completed_at: string | null
+          created_at: string | null
+          description: string | null
+          due_date: string
+          id: string
+          lead_id: string | null
+          partner_id: string
+          priority: string | null
+          snoozed_until: string | null
+          suggested_message: string | null
+          title: string
+          type: string
+        }
+        Insert: {
+          client_id?: string | null
+          completed_at?: string | null
+          created_at?: string | null
+          description?: string | null
+          due_date: string
+          id?: string
+          lead_id?: string | null
+          partner_id: string
+          priority?: string | null
+          snoozed_until?: string | null
+          suggested_message?: string | null
+          title: string
+          type: string
+        }
+        Update: {
+          client_id?: string | null
+          completed_at?: string | null
+          created_at?: string | null
+          description?: string | null
+          due_date?: string
+          id?: string
+          lead_id?: string | null
+          partner_id?: string
+          priority?: string | null
+          snoozed_until?: string | null
+          suggested_message?: string | null
+          title?: string
+          type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crm_follow_ups_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "crm_clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "crm_follow_ups_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "crm_leads"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "crm_follow_ups_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      crm_lead_activities: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          id: string
+          lead_id: string
+          metadata: Json | null
+          partner_id: string
+          title: string
+          type: string
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          lead_id: string
+          metadata?: Json | null
+          partner_id: string
+          title: string
+          type: string
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          lead_id?: string
+          metadata?: Json | null
+          partner_id?: string
+          title?: string
+          type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crm_lead_activities_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "crm_leads"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "crm_lead_activities_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      crm_leads: {
+        Row: {
+          converted_at: string | null
+          created_at: string | null
+          email: string | null
+          id: string
+          lost_reason: string | null
+          name: string
+          notes: string | null
+          partner_id: string
+          phone: string | null
+          source: string | null
+          stage: string
+          tags: string[] | null
+          updated_at: string | null
+        }
+        Insert: {
+          converted_at?: string | null
+          created_at?: string | null
+          email?: string | null
+          id?: string
+          lost_reason?: string | null
+          name: string
+          notes?: string | null
+          partner_id: string
+          phone?: string | null
+          source?: string | null
+          stage?: string
+          tags?: string[] | null
+          updated_at?: string | null
+        }
+        Update: {
+          converted_at?: string | null
+          created_at?: string | null
+          email?: string | null
+          id?: string
+          lost_reason?: string | null
+          name?: string
+          notes?: string | null
+          partner_id?: string
+          phone?: string | null
+          source?: string | null
+          stage?: string
+          tags?: string[] | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crm_leads_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       daily_checkins: {
         Row: {
           blood_pressure_dia: number | null
@@ -361,6 +703,81 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      get_follow_ups_today: {
+        Args: { p_partner_id: string }
+        Returns: {
+          client_id: string | null
+          completed_at: string | null
+          created_at: string | null
+          description: string | null
+          due_date: string
+          id: string
+          lead_id: string | null
+          partner_id: string
+          priority: string | null
+          snoozed_until: string | null
+          suggested_message: string | null
+          title: string
+          type: string
+        }[]
+        SetofOptions: {
+          from: "*"
+          to: "crm_follow_ups"
+          isOneToOne: false
+          isSetofReturn: true
+        }
+      }
+      get_overdue_follow_ups: {
+        Args: { p_partner_id: string }
+        Returns: {
+          client_id: string | null
+          completed_at: string | null
+          created_at: string | null
+          description: string | null
+          due_date: string
+          id: string
+          lead_id: string | null
+          partner_id: string
+          priority: string | null
+          snoozed_until: string | null
+          suggested_message: string | null
+          title: string
+          type: string
+        }[]
+        SetofOptions: {
+          from: "*"
+          to: "crm_follow_ups"
+          isOneToOne: false
+          isSetofReturn: true
+        }
+      }
+      get_performance_metrics: {
+        Args: {
+          p_partner_id: string
+          p_period_end: string
+          p_period_start: string
+        }
+        Returns: {
+          active_clients: number
+          completed_follow_ups: number
+          conversion_rate: number
+          converted_leads: number
+          lost_leads: number
+          new_leads: number
+          tests_completed: number
+          tests_sent: number
+          total_clients: number
+          total_follow_ups: number
+          total_leads: number
+        }[]
+      }
+      get_pipeline_stats: {
+        Args: { p_partner_id: string }
+        Returns: {
+          count: number
+          stage: string
+        }[]
+      }
       get_protocol_day: { Args: { p_user_id: string }; Returns: number }
       get_user_streak: { Args: { p_user_id: string }; Returns: number }
     }
