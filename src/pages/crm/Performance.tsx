@@ -1,207 +1,110 @@
-import { useState } from 'react';
-import {
-  AreaChart,
-  Area,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  Cell,
-} from 'recharts';
-import {
-  Users,
-  Target,
-  UserCheck,
-  DollarSign,
-  TestTube2,
-  TrendingUp,
-  TrendingDown,
-
-
-
-} from 'lucide-react';
-
-const cardStyle: React.CSSProperties = {
-  background: '#2d3a4e',
-  borderRadius: '16px',
-  padding: '24px',
-  border: '1px solid rgba(255,255,255,0.08)',
-};
+import { AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
+import { Users, Target, UserCheck, DollarSign, TestTube2, TrendingUp } from 'lucide-react';
 
 const funnelData = [
-  { stage: 'Novo', count: 45, color: '#E7FE55' },
-  { stage: 'Contato', count: 38, color: '#D4F04E' },
-  { stage: 'Conversa', count: 28, color: '#B8D93E' },
-  { stage: 'Apresentacao', count: 20, color: '#9CC22E' },
-  { stage: 'Decisao', count: 14, color: '#80AB1E' },
-  { stage: 'Cliente', count: 10, color: '#22C55E' },
-  { stage: 'Partner', count: 3, color: '#3B82F6' },
+  { stage: 'Novo', count: 45, color: 'hsl(252,60%,62%)' },
+  { stage: 'Contato', count: 38, color: 'hsl(252,65%,72%)' },
+  { stage: 'Conversa', count: 28, color: 'hsl(211,90%,61%)' },
+  { stage: 'Apresentação', count: 20, color: 'hsl(36,100%,57%)' },
+  { stage: 'Decisão', count: 14, color: 'hsl(45,100%,56%)' },
+  { stage: 'Cliente', count: 10, color: 'hsl(122,39%,49%)' },
+  { stage: 'Partner', count: 3, color: 'hsl(291,47%,51%)' },
 ];
 
 const leadsOverTime = [
-  { month: 'Set', leads: 8 },
-  { month: 'Out', leads: 12 },
-  { month: 'Nov', leads: 15 },
-  { month: 'Dez', leads: 10 },
-  { month: 'Jan', leads: 18 },
-  { month: 'Fev', leads: 22 },
-  { month: 'Mar', leads: 28 },
+  { month: 'Set', leads: 8 }, { month: 'Out', leads: 12 }, { month: 'Nov', leads: 15 },
+  { month: 'Dez', leads: 10 }, { month: 'Jan', leads: 18 }, { month: 'Fev', leads: 22 }, { month: 'Mar', leads: 28 },
 ];
 
 const sourceData = [
-  { source: 'Instagram', count: 35, color: '#E1306C' },
-  { source: 'WhatsApp', count: 28, color: '#25D366' },
-  { source: 'Indicacao', count: 20, color: '#8B5CF6' },
-  { source: 'Website', count: 12, color: '#3B82F6' },
-  { source: 'Eventos', count: 8, color: '#F59E0B' },
+  { source: 'Instagram', count: 35, color: '#E1306C' }, { source: 'WhatsApp', count: 28, color: '#25D366' },
+  { source: 'Indicação', count: 20, color: '#8B5CF6' }, { source: 'Website', count: 12, color: '#3B82F6' }, { source: 'Eventos', count: 8, color: '#F59E0B' },
 ];
 
 const activityFeed = [
-  { text: 'Maria Silva avancou para Contato', time: '10 min atras', type: 'pipeline' as const },
-  { text: 'Follow-up com Roberto concluido', time: '25 min atras', type: 'followup' as const },
-  { text: 'BalanceTest de Camila: resultado 4.8:1', time: '1h atras', type: 'test' as const },
-  { text: 'Novo lead: Larissa Gomes (Instagram)', time: '2h atras', type: 'lead' as const },
-  { text: 'Beatriz Cardoso indicou novo lead', time: '3h atras', type: 'referral' as const },
-  { text: 'Recompra processada: Rafael Nunes', time: '5h atras', type: 'purchase' as const },
-  { text: 'Patricia concluiu apresentacao', time: '6h atras', type: 'pipeline' as const },
-  { text: 'Re-teste agendado: Fernando Martins', time: '1d atras', type: 'test' as const },
+  { text: 'Maria Silva avançou para Contato', time: '10 min atrás', type: 'pipeline' },
+  { text: 'Follow-up com Roberto concluído', time: '25 min atrás', type: 'followup' },
+  { text: 'BalanceTest de Camila: resultado 4.8:1', time: '1h atrás', type: 'test' },
+  { text: 'Novo lead: Larissa Gomes (Instagram)', time: '2h atrás', type: 'lead' },
+  { text: 'Beatriz Cardoso indicou novo lead', time: '3h atrás', type: 'referral' },
+  { text: 'Recompra processada: Rafael Nunes', time: '5h atrás', type: 'purchase' },
+  { text: 'Patrícia concluiu apresentação', time: '6h atrás', type: 'pipeline' },
+  { text: 'Re-teste agendado: Fernando Martins', time: '1d atrás', type: 'test' },
 ];
 
-const activityColors: Record<string, string> = {
-  pipeline: '#E7FE55',
-  followup: '#3B82F6',
-  test: '#8B5CF6',
-  lead: '#22C55E',
-  referral: '#F59E0B',
-  purchase: '#EC4899',
-};
+const activityColors: Record<string, string> = { pipeline: 'bg-accent', followup: 'bg-blue', test: 'bg-purple', lead: 'bg-green', referral: 'bg-orange', purchase: 'bg-red' };
 
 export default function Performance() {
-  const [loading, setLoading] = useState(false);
-
-  useState(() => {
-    setLoading(true);
-    const t = setTimeout(() => setLoading(false), 600);
-    return () => clearTimeout(t);
-  });
-
-  if (loading) {
-    return (
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '400px' }}>
-        <div style={{ textAlign: 'center' }}>
-          <div style={{
-            width: '40px', height: '40px', border: '3px solid rgba(255,255,255,0.08)', borderTopColor: '#E7FE55',
-            borderRadius: '50%', animation: 'spin 0.8s linear infinite', margin: '0 auto 16px',
-          }} />
-          <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px' }}>Carregando performance...</p>
-          <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
-        </div>
-      </div>
-    );
-  }
-
   const maxFunnel = Math.max(...funnelData.map(d => d.count));
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-      {/* Header */}
+    <div className="flex flex-col gap-6">
       <div>
-        <h2 style={{ fontSize: '24px', fontWeight: 700, color: 'rgba(255,255,255,0.9)', margin: 0 }}>Performance</h2>
-        <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px', marginTop: '4px' }}>Visao geral do seu desempenho como Partner</p>
+        <h2 className="text-2xl font-bold text-text">Performance</h2>
+        <p className="text-sm text-text4 mt-1">Visão geral do seu desempenho como Partner</p>
       </div>
 
-      {/* KPI Cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))', gap: '16px' }}>
+      {/* KPIs */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
         {[
-          { label: 'Total Leads', value: '103', trend: '+18%', trendUp: true, icon: Users, iconColor: '#6366F1', iconBg: '#EEF2FF' },
-          { label: 'Taxa de Conversao', value: '22.3%', trend: '+3.2%', trendUp: true, icon: Target, iconColor: '#22C55E', iconBg: '#F0FDF4' },
-          { label: 'Clientes Ativos', value: '23', trend: '+4', trendUp: true, icon: UserCheck, iconColor: '#06B6D4', iconBg: '#ECFEFF' },
-          { label: 'Receita Mensal (est.)', value: 'R$ 8.4K', trend: '+12%', trendUp: true, icon: DollarSign, iconColor: '#8B5CF6', iconBg: '#F5F3FF' },
-          { label: 'Testes Este Mes', value: '7', trend: '+2', trendUp: true, icon: TestTube2, iconColor: '#F59E0B', iconBg: '#FFFBEB' },
+          { label: 'Total Leads', value: '103', trend: '+18%', icon: Users, cls: 'text-accent bg-accent-bg' },
+          { label: 'Conversão', value: '22.3%', trend: '+3.2%', icon: Target, cls: 'text-green bg-green-bg' },
+          { label: 'Clientes Ativos', value: '23', trend: '+4', icon: UserCheck, cls: 'text-blue bg-blue-bg' },
+          { label: 'Receita (est.)', value: 'R$ 8.4K', trend: '+12%', icon: DollarSign, cls: 'text-purple bg-purple-bg' },
+          { label: 'Testes Mês', value: '7', trend: '+2', icon: TestTube2, cls: 'text-orange bg-orange-bg' },
         ].map(kpi => (
-          <div key={kpi.label} style={cardStyle}>
-            <div style={{ display: 'flex', alignItems: 'start', justifyContent: 'space-between', marginBottom: '12px' }}>
-              <div style={{
-                width: '42px', height: '42px', borderRadius: '14px',
-                background: kpi.iconBg, display: 'flex', alignItems: 'center', justifyContent: 'center',
-              }}>
-                <kpi.icon style={{ width: '18px', height: '18px', color: kpi.iconColor }} />
-              </div>
-              <div style={{
-                display: 'flex', alignItems: 'center', gap: '3px', fontSize: '12px', fontWeight: 600,
-                color: kpi.trendUp ? '#22C55E' : '#EF4444',
-                background: kpi.trendUp ? '#F0FDF4' : '#FEF2F2',
-                padding: '3px 8px', borderRadius: '8px',
-              }}>
-                {kpi.trendUp ? <TrendingUp style={{ width: '11px', height: '11px' }} /> : <TrendingDown style={{ width: '11px', height: '11px' }} />}
-                {kpi.trend}
+          <div key={kpi.label} className="bg-card rounded-3xl p-5 border border-border shadow-card">
+            <div className="flex items-start justify-between mb-3">
+              <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${kpi.cls}`}><kpi.icon className="w-[18px] h-[18px]" /></div>
+              <div className="flex items-center gap-1 text-xs font-semibold text-green bg-green-bg px-2 py-0.5 rounded-lg">
+                <TrendingUp className="w-[11px] h-[11px]" />{kpi.trend}
               </div>
             </div>
-            <p style={{ fontSize: '28px', fontWeight: 800, color: 'rgba(255,255,255,0.9)', margin: '0 0 2px', lineHeight: 1 }}>{kpi.value}</p>
-            <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', margin: 0 }}>{kpi.label}</p>
+            <p className="text-2xl font-extrabold text-text leading-none">{kpi.value}</p>
+            <p className="text-xs text-text4 mt-1">{kpi.label}</p>
           </div>
         ))}
       </div>
 
       {/* Charts Row */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(380px, 1fr))', gap: '20px' }}>
-        {/* Pipeline Funnel */}
-        <div style={cardStyle}>
-          <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'rgba(255,255,255,0.9)', margin: '0 0 4px' }}>Funil do Pipeline</h3>
-          <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', margin: '0 0 20px' }}>Distribuicao de leads por estagio</p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        {/* Funnel */}
+        <div className="bg-card rounded-3xl p-6 border border-border shadow-card">
+          <h3 className="text-base font-bold text-text mb-1">Funil do Pipeline</h3>
+          <p className="text-xs text-text4 mb-5">Distribuição de leads por estágio</p>
+          <div className="space-y-2.5">
             {funnelData.map(item => (
-              <div key={item.stage} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <span style={{ width: '90px', fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.7)', textAlign: 'right', flexShrink: 0 }}>
-                  {item.stage}
-                </span>
-                <div style={{ flex: 1, background: '#1a2332', borderRadius: '8px', height: '32px', overflow: 'hidden' }}>
-                  <div style={{
-                    width: `${(item.count / maxFunnel) * 100}%`,
-                    height: '100%',
-                    background: item.color,
-                    borderRadius: '8px',
-                    display: 'flex', alignItems: 'center', paddingLeft: '12px',
-                    transition: 'width 0.6s ease',
-                    minWidth: '40px',
-                  }}>
-                    <span style={{ fontSize: '12px', fontWeight: 700, color: '#0F1511' }}>{item.count}</span>
+              <div key={item.stage} className="flex items-center gap-3">
+                <span className="w-[90px] text-[13px] font-semibold text-text3 text-right flex-shrink-0">{item.stage}</span>
+                <div className="flex-1 bg-bg rounded-lg h-8 overflow-hidden border border-border-light">
+                  <div className="h-full rounded-lg flex items-center pl-3 min-w-[40px] transition-all duration-500" style={{ width: `${(item.count / maxFunnel) * 100}%`, background: item.color }}>
+                    <span className="text-xs font-bold text-white">{item.count}</span>
                   </div>
                 </div>
-                <span style={{ width: '40px', fontSize: '11px', color: 'rgba(255,255,255,0.5)', textAlign: 'right' }}>
-                  {((item.count / funnelData[0].count) * 100).toFixed(0)}%
-                </span>
+                <span className="w-10 text-[11px] text-text4 text-right">{((item.count / funnelData[0].count) * 100).toFixed(0)}%</span>
               </div>
             ))}
           </div>
         </div>
 
         {/* Leads Over Time */}
-        <div style={cardStyle}>
-          <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'rgba(255,255,255,0.9)', margin: '0 0 4px' }}>Leads ao Longo do Tempo</h3>
-          <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', margin: '0 0 20px' }}>Novos leads por mes</p>
-          <div style={{ height: '260px' }}>
+        <div className="bg-card rounded-3xl p-6 border border-border shadow-card">
+          <h3 className="text-base font-bold text-text mb-1">Leads ao Longo do Tempo</h3>
+          <p className="text-xs text-text4 mb-5">Novos leads por mês</p>
+          <div className="h-[260px]">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={leadsOverTime}>
                 <defs>
-                  <linearGradient id="leadsGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#E7FE55" stopOpacity={0.3} />
-                    <stop offset="100%" stopColor="#E7FE55" stopOpacity={0} />
+                  <linearGradient id="lg" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="hsl(252,60%,62%)" stopOpacity={0.2} />
+                    <stop offset="100%" stopColor="hsl(252,60%,62%)" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
-                <XAxis dataKey="month" stroke="rgba(255,255,255,0.5)" fontSize={12} tickLine={false} axisLine={false} />
-                <YAxis stroke="rgba(255,255,255,0.5)" fontSize={12} tickLine={false} axisLine={false} width={30} />
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: '#2d3a4e', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px',
-                    color: 'rgba(255,255,255,0.9)', fontSize: '13px', boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
-                  }}
-                />
-                <Area type="monotone" dataKey="leads" stroke="#C6D63E" strokeWidth={2.5} fill="url(#leadsGradient)" dot={false} activeDot={{ r: 5, fill: '#E7FE55', stroke: '#1a2332', strokeWidth: 2 }} />
+                <CartesianGrid strokeDasharray="3 3" stroke="hsl(240,15%,90%)" />
+                <XAxis dataKey="month" stroke="hsl(240,12%,72%)" fontSize={12} tickLine={false} axisLine={false} />
+                <YAxis stroke="hsl(240,12%,72%)" fontSize={12} tickLine={false} axisLine={false} width={30} />
+                <Tooltip contentStyle={{ backgroundColor: '#fff', border: '1px solid hsl(240,15%,88%)', borderRadius: '12px', fontSize: '13px' }} />
+                <Area type="monotone" dataKey="leads" stroke="hsl(252,60%,62%)" strokeWidth={2.5} fill="url(#lg)" dot={false} activeDot={{ r: 5, fill: 'hsl(252,60%,62%)', stroke: '#fff', strokeWidth: 2 }} />
               </AreaChart>
             </ResponsiveContainer>
           </div>
@@ -209,65 +112,47 @@ export default function Performance() {
       </div>
 
       {/* Bottom Row */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px' }}>
-        {/* Follow-up Completion */}
-        <div style={cardStyle}>
-          <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'rgba(255,255,255,0.9)', margin: '0 0 4px' }}>Taxa de Follow-up</h3>
-          <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', margin: '0 0 20px' }}>Conclusao de follow-ups este mes</p>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px 0' }}>
-            <div style={{ position: 'relative', width: '160px', height: '160px' }}>
-              <svg viewBox="0 0 120 120" style={{ width: '100%', height: '100%' }}>
-                <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="12" />
-                <circle
-                  cx="60" cy="60" r="50" fill="none" stroke="#E7FE55" strokeWidth="12"
-                  strokeLinecap="round"
-                  strokeDasharray={`${2 * Math.PI * 50 * 0.87} ${2 * Math.PI * 50 * 0.13}`}
-                  transform="rotate(-90 60 60)"
-                />
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        {/* Follow-up Ring */}
+        <div className="bg-card rounded-3xl p-6 border border-border shadow-card">
+          <h3 className="text-base font-bold text-text mb-1">Taxa de Follow-up</h3>
+          <p className="text-xs text-text4 mb-5">Conclusão este mês</p>
+          <div className="flex items-center justify-center py-4">
+            <div className="relative w-[160px] h-[160px]">
+              <svg viewBox="0 0 120 120" className="w-full h-full">
+                <circle cx="60" cy="60" r="50" fill="none" stroke="hsl(240,15%,90%)" strokeWidth="12" />
+                <circle cx="60" cy="60" r="50" fill="none" stroke="hsl(252,60%,62%)" strokeWidth="12" strokeLinecap="round"
+                  strokeDasharray={`${2 * Math.PI * 50 * 0.87} ${2 * Math.PI * 50 * 0.13}`} transform="rotate(-90 60 60)" />
               </svg>
-              <div style={{
-                position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column',
-                alignItems: 'center', justifyContent: 'center',
-              }}>
-                <p style={{ fontSize: '32px', fontWeight: 800, color: 'rgba(255,255,255,0.9)', margin: 0, lineHeight: 1 }}>87%</p>
-                <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.5)', margin: '4px 0 0' }}>Concluidos</p>
+              <div className="absolute inset-0 flex flex-col items-center justify-center">
+                <p className="text-3xl font-extrabold text-text leading-none">87%</p>
+                <p className="text-[11px] text-text4 mt-1">Concluídos</p>
               </div>
             </div>
           </div>
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '24px' }}>
-            {[
-              { label: 'Concluidos', value: 42, color: '#22C55E' },
-              { label: 'Pendentes', value: 6, color: '#F59E0B' },
-              { label: 'Atrasados', value: 2, color: '#EF4444' },
-            ].map(item => (
-              <div key={item.label} style={{ textAlign: 'center' }}>
-                <p style={{ fontSize: '20px', fontWeight: 800, color: 'rgba(255,255,255,0.9)', margin: 0 }}>{item.value}</p>
-                <p style={{ fontSize: '11px', color: item.color, fontWeight: 600, margin: '2px 0 0' }}>{item.label}</p>
+          <div className="flex justify-center gap-6">
+            {[{ label: 'Concluídos', value: 42, cls: 'text-green' }, { label: 'Pendentes', value: 6, cls: 'text-orange' }, { label: 'Atrasados', value: 2, cls: 'text-red' }].map(item => (
+              <div key={item.label} className="text-center">
+                <p className="text-xl font-extrabold text-text">{item.value}</p>
+                <p className={`text-[11px] font-semibold ${item.cls}`}>{item.label}</p>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Top Sources */}
-        <div style={cardStyle}>
-          <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'rgba(255,255,255,0.9)', margin: '0 0 4px' }}>Principais Fontes</h3>
-          <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', margin: '0 0 20px' }}>De onde vem seus leads</p>
-          <div style={{ height: '280px' }}>
+        {/* Sources */}
+        <div className="bg-card rounded-3xl p-6 border border-border shadow-card">
+          <h3 className="text-base font-bold text-text mb-1">Principais Fontes</h3>
+          <p className="text-xs text-text4 mb-5">De onde vêm seus leads</p>
+          <div className="h-[280px]">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={sourceData} layout="vertical" barCategoryGap="20%">
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" horizontal={false} />
-                <XAxis type="number" stroke="rgba(255,255,255,0.5)" fontSize={12} tickLine={false} axisLine={false} />
-                <YAxis type="category" dataKey="source" stroke="rgba(255,255,255,0.5)" fontSize={12} tickLine={false} axisLine={false} width={80} />
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: '#2d3a4e', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px',
-                    color: 'rgba(255,255,255,0.9)', fontSize: '13px', boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
-                  }}
-                />
+                <CartesianGrid strokeDasharray="3 3" stroke="hsl(240,15%,90%)" horizontal={false} />
+                <XAxis type="number" stroke="hsl(240,12%,72%)" fontSize={12} tickLine={false} axisLine={false} />
+                <YAxis type="category" dataKey="source" stroke="hsl(240,12%,72%)" fontSize={12} tickLine={false} axisLine={false} width={80} />
+                <Tooltip contentStyle={{ backgroundColor: '#fff', border: '1px solid hsl(240,15%,88%)', borderRadius: '12px', fontSize: '13px' }} />
                 <Bar dataKey="count" radius={[0, 8, 8, 0]} barSize={24}>
-                  {sourceData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
+                  {sourceData.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.color} />)}
                 </Bar>
               </BarChart>
             </ResponsiveContainer>
@@ -275,20 +160,16 @@ export default function Performance() {
         </div>
 
         {/* Activity Feed */}
-        <div style={cardStyle}>
-          <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'rgba(255,255,255,0.9)', margin: '0 0 4px' }}>Atividade Recente</h3>
-          <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', margin: '0 0 20px' }}>Ultimas acoes no CRM</p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+        <div className="bg-card rounded-3xl p-6 border border-border shadow-card">
+          <h3 className="text-base font-bold text-text mb-1">Atividade Recente</h3>
+          <p className="text-xs text-text4 mb-5">Últimas ações no CRM</p>
+          <div className="space-y-3.5">
             {activityFeed.map((item, i) => (
-              <div key={i} style={{ display: 'flex', alignItems: 'start', gap: '12px' }}>
-                <div style={{
-                  width: '10px', height: '10px', borderRadius: '50%', marginTop: '5px',
-                  background: activityColors[item.type], flexShrink: 0,
-                  boxShadow: `0 0 0 3px ${activityColors[item.type]}20`,
-                }} />
-                <div style={{ flex: 1 }}>
-                  <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.9)', margin: 0, lineHeight: 1.4 }}>{item.text}</p>
-                  <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.5)', margin: '2px 0 0' }}>{item.time}</p>
+              <div key={i} className="flex items-start gap-3">
+                <div className={`w-2.5 h-2.5 rounded-full mt-1.5 flex-shrink-0 ${activityColors[item.type]}`} />
+                <div>
+                  <p className="text-[13px] text-text leading-snug">{item.text}</p>
+                  <p className="text-[11px] text-text4 mt-0.5">{item.time}</p>
                 </div>
               </div>
             ))}
