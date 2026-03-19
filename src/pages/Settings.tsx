@@ -19,7 +19,7 @@ interface SettingToggleProps {
 
 function SettingToggle({ label, description, enabled, onChange }: SettingToggleProps) {
   return (
-    <div className="flex items-center justify-between py-4 border-b border-gray-100 last:border-0">
+    <div className="flex items-center justify-between py-4 border-b border-border last:border-0">
       <div>
         <p className="text-sm font-medium text-text">{label}</p>
         <p className="text-xs text-text3 mt-0.5">{description}</p>
@@ -27,7 +27,7 @@ function SettingToggle({ label, description, enabled, onChange }: SettingToggleP
       <button
         onClick={() => onChange(!enabled)}
         className={`w-11 h-6 rounded-full transition-colors relative flex-shrink-0 ${
-          enabled ? 'bg-lime' : 'bg-gray-200'
+          enabled ? 'bg-lime' : 'bg-[rgba(255,255,255,0.1)]'
         }`}
       >
         <span
@@ -47,7 +47,7 @@ interface SettingLinkProps {
 
 function SettingLink({ label, description, external }: SettingLinkProps) {
   return (
-    <button className="w-full flex items-center justify-between py-4 border-b border-gray-100 last:border-0 hover:bg-bg/50 transition-colors text-left rounded-lg">
+    <button className="w-full flex items-center justify-between py-4 border-b border-border last:border-0 hover:bg-dark3 transition-colors text-left rounded-lg">
       <div>
         <p className="text-sm font-medium text-text">{label}</p>
         <p className="text-xs text-text3 mt-0.5">{description}</p>
@@ -77,9 +77,9 @@ export default function SettingsPage() {
       </div>
 
       {/* Notifications */}
-      <div className="bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+      <div className="bg-card rounded-2xl p-6 border border-border">
         <div className="flex items-center gap-3 mb-4">
-          <div className="w-9 h-9 bg-blue-50 rounded-xl flex items-center justify-center">
+          <div className="w-9 h-9 bg-blue-500/15 rounded-xl flex items-center justify-center">
             <Bell className="w-5 h-5 text-blue-500" />
           </div>
           <h3 className="text-lg font-bold text-text">Notificacoes</h3>
@@ -112,24 +112,24 @@ export default function SettingsPage() {
       </div>
 
       {/* Appearance */}
-      <div className="bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+      <div className="bg-card rounded-2xl p-6 border border-border">
         <div className="flex items-center gap-3 mb-4">
-          <div className="w-9 h-9 bg-purple-50 rounded-xl flex items-center justify-center">
+          <div className="w-9 h-9 bg-purple-500/15 rounded-xl flex items-center justify-center">
             <Palette className="w-5 h-5 text-purple-500" />
           </div>
           <h3 className="text-lg font-bold text-text">Aparencia</h3>
         </div>
 
-        <div className="py-4 border-b border-gray-100">
+        <div className="py-4 border-b border-border">
           <p className="text-sm font-medium text-text mb-3">Tema</p>
           <div className="flex gap-3">
-            <button className="flex items-center gap-2 px-4 py-2.5 bg-lime/15 border border-lime/30 rounded-xl text-sm text-lime-darker font-medium">
-              <div className="w-4 h-4 rounded-full bg-bg border-2 border-lime-darker" />
+            <button className="flex items-center gap-2 px-4 py-2.5 bg-dark3 border border-border rounded-xl text-sm text-text3">
+              <div className="w-4 h-4 rounded-full bg-white border-2 border-border" />
               Claro
             </button>
-            <button className="flex items-center gap-2 px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-text3">
-              <div className="w-4 h-4 rounded-full bg-dark border-2 border-gray-300" />
-              Escuro (em breve)
+            <button className="flex items-center gap-2 px-4 py-2.5 bg-lime/15 border border-lime/30 rounded-xl text-sm text-lime-darker font-medium">
+              <div className="w-4 h-4 rounded-full bg-dark border-2 border-lime-darker" />
+              Escuro
             </button>
           </div>
         </div>
@@ -140,7 +140,7 @@ export default function SettingsPage() {
             <button className="px-4 py-2.5 bg-lime/15 border border-lime/30 rounded-xl text-sm text-lime-darker font-medium">
               Metrico (kg, cm)
             </button>
-            <button className="px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-text3">
+            <button className="px-4 py-2.5 bg-dark3 border border-border rounded-xl text-sm text-text3">
               Imperial (lb, in)
             </button>
           </div>
@@ -148,9 +148,9 @@ export default function SettingsPage() {
       </div>
 
       {/* Privacy */}
-      <div className="bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+      <div className="bg-card rounded-2xl p-6 border border-border">
         <div className="flex items-center gap-3 mb-4">
-          <div className="w-9 h-9 bg-green-50 rounded-xl flex items-center justify-center">
+          <div className="w-9 h-9 bg-green-500/15 rounded-xl flex items-center justify-center">
             <Shield className="w-5 h-5 text-green-600" />
           </div>
           <h3 className="text-lg font-bold text-text">Privacidade & Dados</h3>
@@ -167,9 +167,9 @@ export default function SettingsPage() {
       </div>
 
       {/* About */}
-      <div className="bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+      <div className="bg-card rounded-2xl p-6 border border-border">
         <div className="flex items-center gap-3 mb-4">
-          <div className="w-9 h-9 bg-gray-100 rounded-xl flex items-center justify-center">
+          <div className="w-9 h-9 bg-dark3 rounded-xl flex items-center justify-center">
             <HelpCircle className="w-5 h-5 text-text3" />
           </div>
           <h3 className="text-lg font-bold text-text">Sobre</h3>
@@ -191,7 +191,7 @@ export default function SettingsPage() {
           external
         />
 
-        <div className="flex items-center justify-between py-4 text-xs text-text-light">
+        <div className="flex items-center justify-between py-4 text-xs text-text4">
           <div className="flex items-center gap-2">
             <Database className="w-3.5 h-3.5" />
             <span>Life Balance Hub v1.0.0</span>

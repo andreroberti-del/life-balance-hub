@@ -1,4 +1,4 @@
-import { Loader2 } from 'lucide-react';
+import { Leaf } from 'lucide-react';
 
 interface LoadingSpinnerProps {
   message?: string;
@@ -10,15 +10,20 @@ export default function LoadingSpinner({
   fullPage = false,
 }: LoadingSpinnerProps) {
   const content = (
-    <div className="flex flex-col items-center justify-center gap-3">
-      <Loader2 className="w-8 h-8 text-lime-darker animate-spin" />
-      <p className="text-sm text-text3">{message}</p>
+    <div className="flex flex-col items-center justify-center gap-4">
+      <div className="relative">
+        <div className="w-12 h-12 border-2 border-border rounded-full animate-spin border-t-lime" />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <Leaf className="w-5 h-5 text-lime" />
+        </div>
+      </div>
+      {message && <p className="text-sm text-text3">{message}</p>}
     </div>
   );
 
   if (fullPage) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-bg">
+      <div className="min-h-screen flex items-center justify-center bg-dark">
         {content}
       </div>
     );

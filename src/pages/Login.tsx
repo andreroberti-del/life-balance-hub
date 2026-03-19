@@ -28,56 +28,61 @@ export default function Login() {
 
   return (
     <div className="min-h-screen bg-dark flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
+      {/* Background pattern */}
+      <div className="fixed inset-0 topo-pattern opacity-30" />
+
+      <div className="relative w-full max-w-md">
+        {/* Logo */}
         <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-lime/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <Leaf className="w-9 h-9 text-lime" />
+          <div className="w-16 h-16 bg-lime rounded-2xl flex items-center justify-center mx-auto shadow-[0_4px_16px_rgba(212,225,87,0.3)] lime-glow">
+            <Leaf className="w-8 h-8 text-dark" />
           </div>
-          <h1 className="text-3xl font-bold text-white mb-2">Life Balance</h1>
-          <p className="text-white/40">Seu hub de bem-estar inteligente</p>
+          <h1 className="text-2xl font-bold text-text mt-5">Life Balance</h1>
+          <p className="text-text3 mt-1">Seu hub de bem-estar inteligente</p>
         </div>
 
-        <div className="bg-dark3 rounded-2xl p-8 border border-dark4/50">
-          <h2 className="text-xl font-semibold text-white mb-6">Entrar</h2>
+        {/* Login Card */}
+        <div className="bg-dark2 rounded-2xl p-8 border border-border">
+          <h2 className="text-xl font-bold text-text mb-6">Entrar</h2>
 
           {error && (
-            <div className="mb-4 p-3 bg-red-500/10 border border-red-500/30 rounded-xl text-red-400 text-sm">
+            <div className="mb-4 p-3 bg-red-bg border border-[rgba(239,83,80,0.2)] rounded-xl text-red text-sm">
               {error}
             </div>
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm text-white/50 mb-1.5">Email</label>
+              <label className="block text-sm text-text3 mb-1.5">Email</label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" />
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-text4" />
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="seu@email.com"
                   required
-                  className="w-full bg-dark2 border border-dark4/50 rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder-white/20 outline-none focus:border-lime/50 transition-colors"
+                  className="w-full bg-dark3 border border-border rounded-xl pl-11 pr-4 py-3 text-sm text-text placeholder:text-text4 outline-none focus:border-[rgba(212,225,87,0.4)] focus:ring-1 focus:ring-[rgba(212,225,87,0.15)] transition-all"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-sm text-white/50 mb-1.5">Senha</label>
+              <label className="block text-sm text-text3 mb-1.5">Senha</label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" />
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-text4" />
                 <input
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Sua senha"
                   required
-                  className="w-full bg-dark2 border border-dark4/50 rounded-xl pl-10 pr-12 py-3 text-sm text-white placeholder-white/20 outline-none focus:border-lime/50 transition-colors"
+                  className="w-full bg-dark3 border border-border rounded-xl pl-11 pr-12 py-3 text-sm text-text placeholder:text-text4 outline-none focus:border-[rgba(212,225,87,0.4)] focus:ring-1 focus:ring-[rgba(212,225,87,0.15)] transition-all"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-text4 hover:text-text3"
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
@@ -87,7 +92,7 @@ export default function Login() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-lime text-dark font-semibold py-3 rounded-xl hover:bg-lime-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-lime text-dark font-bold py-3 rounded-xl hover:bg-lime2 transition-all shadow-[0_2px_8px_rgba(212,225,87,0.25)] hover:shadow-[0_4px_16px_rgba(212,225,87,0.35)] disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? 'Entrando...' : 'Entrar'}
             </button>
@@ -95,16 +100,16 @@ export default function Login() {
 
           <div className="relative my-6">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-dark4/50" />
+              <div className="w-full border-t border-border" />
             </div>
             <div className="relative flex justify-center text-xs">
-              <span className="bg-dark3 px-3 text-white/30">ou continue com</span>
+              <span className="bg-dark2 px-3 text-text4">ou continue com</span>
             </div>
           </div>
 
           <button
             onClick={signInWithGoogle}
-            className="w-full flex items-center justify-center gap-3 bg-dark2 border border-dark4/50 py-3 rounded-xl text-sm text-white/70 hover:bg-dark4/50 transition-colors"
+            className="w-full flex items-center justify-center gap-3 bg-dark3 border border-border py-3 rounded-xl text-sm text-text2 hover:bg-dark4 transition-all"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24">
               <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" />
@@ -115,9 +120,9 @@ export default function Login() {
             Continuar com Google
           </button>
 
-          <p className="text-center text-sm text-white/40 mt-6">
-            Nao tem uma conta?{' '}
-            <Link to="/signup" className="text-lime hover:underline">
+          <p className="text-center text-sm text-text3 mt-6">
+            Não tem uma conta?{' '}
+            <Link to="/signup" className="text-lime font-semibold hover:text-lime2">
               Criar conta
             </Link>
           </p>

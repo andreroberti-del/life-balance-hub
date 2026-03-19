@@ -83,14 +83,14 @@ export default function ProfilePage() {
       </div>
 
       {saved && (
-        <div className="flex items-center gap-3 p-4 bg-green-50 border border-green-200 rounded-2xl">
-          <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0" />
-          <p className="text-sm text-green-700">Perfil atualizado com sucesso!</p>
+        <div className="flex items-center gap-3 p-4 bg-green-500/10 border border-green-500/30 rounded-2xl">
+          <CheckCircle2 className="w-5 h-5 text-green-400 flex-shrink-0" />
+          <p className="text-sm text-green-400">Perfil atualizado com sucesso!</p>
         </div>
       )}
 
       {/* Avatar Section */}
-      <div className="bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+      <div className="bg-card rounded-2xl p-6 border border-border">
         <div className="flex items-center gap-5">
           <div className="w-20 h-20 rounded-2xl bg-lime/20 flex items-center justify-center text-lime-darker text-2xl font-bold">
             {initials}
@@ -98,7 +98,7 @@ export default function ProfilePage() {
           <div>
             <p className="text-lg font-semibold text-text">{name || 'Usuario'}</p>
             <p className="text-sm text-text3">{profile?.email || user?.email || ''}</p>
-            <p className="text-xs text-text-light mt-1">
+            <p className="text-xs text-text4 mt-1">
               Membro desde{' '}
               {profile?.created_at
                 ? new Date(profile.created_at).toLocaleDateString('pt-BR')
@@ -109,7 +109,7 @@ export default function ProfilePage() {
       </div>
 
       {/* Profile Form */}
-      <form onSubmit={handleSave} className="bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+      <form onSubmit={handleSave} className="bg-card rounded-2xl p-6 border border-border">
         <h3 className="text-lg font-bold text-text mb-6">Informacoes Pessoais</h3>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -121,7 +121,7 @@ export default function ProfilePage() {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full bg-bg border border-gray-200 rounded-xl px-4 py-3 text-sm text-text outline-none focus:border-lime-darker/50 focus:ring-1 focus:ring-lime-darker/20 transition-colors"
+              className="w-full bg-dark3 border border-border rounded-xl px-4 py-3 text-sm text-text outline-none focus:border-lime/50 focus:ring-1 focus:ring-lime/20 transition-colors"
             />
           </div>
 
@@ -133,7 +133,7 @@ export default function ProfilePage() {
               type="date"
               value={birthDate}
               onChange={(e) => setBirthDate(e.target.value)}
-              className="w-full bg-bg border border-gray-200 rounded-xl px-4 py-3 text-sm text-text outline-none focus:border-lime-darker/50 focus:ring-1 focus:ring-lime-darker/20 transition-colors"
+              className="w-full bg-dark3 border border-border rounded-xl px-4 py-3 text-sm text-text outline-none focus:border-lime/50 focus:ring-1 focus:ring-lime/20 transition-colors"
             />
           </div>
 
@@ -147,7 +147,7 @@ export default function ProfilePage() {
               value={weight}
               onChange={(e) => setWeight(e.target.value)}
               placeholder="Ex: 82.5"
-              className="w-full bg-bg border border-gray-200 rounded-xl px-4 py-3 text-sm text-text placeholder-text-light outline-none focus:border-lime-darker/50 focus:ring-1 focus:ring-lime-darker/20 transition-colors"
+              className="w-full bg-dark3 border border-border rounded-xl px-4 py-3 text-sm text-text placeholder:text-text4 outline-none focus:border-lime/50 focus:ring-1 focus:ring-lime/20 transition-colors"
             />
           </div>
 
@@ -160,7 +160,7 @@ export default function ProfilePage() {
               value={height}
               onChange={(e) => setHeight(e.target.value)}
               placeholder="Ex: 175"
-              className="w-full bg-bg border border-gray-200 rounded-xl px-4 py-3 text-sm text-text placeholder-text-light outline-none focus:border-lime-darker/50 focus:ring-1 focus:ring-lime-darker/20 transition-colors"
+              className="w-full bg-dark3 border border-border rounded-xl px-4 py-3 text-sm text-text placeholder:text-text4 outline-none focus:border-lime/50 focus:ring-1 focus:ring-lime/20 transition-colors"
             />
           </div>
 
@@ -174,7 +174,7 @@ export default function ProfilePage() {
               value={waist}
               onChange={(e) => setWaist(e.target.value)}
               placeholder="Ex: 90"
-              className="w-full bg-bg border border-gray-200 rounded-xl px-4 py-3 text-sm text-text placeholder-text-light outline-none focus:border-lime-darker/50 focus:ring-1 focus:ring-lime-darker/20 transition-colors"
+              className="w-full bg-dark3 border border-border rounded-xl px-4 py-3 text-sm text-text placeholder:text-text4 outline-none focus:border-lime/50 focus:ring-1 focus:ring-lime/20 transition-colors"
             />
           </div>
 
@@ -185,7 +185,7 @@ export default function ProfilePage() {
             <select
               value={gender}
               onChange={(e) => setGender(e.target.value)}
-              className="w-full bg-bg border border-gray-200 rounded-xl px-4 py-3 text-sm text-text outline-none focus:border-lime-darker/50 focus:ring-1 focus:ring-lime-darker/20 transition-colors appearance-none"
+              className="w-full bg-dark3 border border-border rounded-xl px-4 py-3 text-sm text-text outline-none focus:border-lime/50 focus:ring-1 focus:ring-lime/20 transition-colors appearance-none"
             >
               <option value="">Selecione</option>
               {genders.map((g) => (
@@ -205,7 +205,7 @@ export default function ProfilePage() {
               value={omegaBrand}
               onChange={(e) => setOmegaBrand(e.target.value)}
               placeholder="Ex: Zinzino BalanceOil+"
-              className="w-full bg-bg border border-gray-200 rounded-xl px-4 py-3 text-sm text-text placeholder-text-light outline-none focus:border-lime-darker/50 focus:ring-1 focus:ring-lime-darker/20 transition-colors"
+              className="w-full bg-dark3 border border-border rounded-xl px-4 py-3 text-sm text-text placeholder:text-text4 outline-none focus:border-lime/50 focus:ring-1 focus:ring-lime/20 transition-colors"
             />
           </div>
 
@@ -216,7 +216,7 @@ export default function ProfilePage() {
             <select
               value={language}
               onChange={(e) => setLanguage(e.target.value)}
-              className="w-full bg-bg border border-gray-200 rounded-xl px-4 py-3 text-sm text-text outline-none focus:border-lime-darker/50 focus:ring-1 focus:ring-lime-darker/20 transition-colors appearance-none"
+              className="w-full bg-dark3 border border-border rounded-xl px-4 py-3 text-sm text-text outline-none focus:border-lime/50 focus:ring-1 focus:ring-lime/20 transition-colors appearance-none"
             >
               {languages.map((l) => (
                 <option key={l.code} value={l.code}>
@@ -231,7 +231,7 @@ export default function ProfilePage() {
           <button
             type="button"
             onClick={signOut}
-            className="flex items-center gap-2 px-5 py-2.5 text-red-500 hover:bg-red-50 rounded-xl text-sm font-medium transition-colors"
+            className="flex items-center gap-2 px-5 py-2.5 text-red-400 hover:bg-red-500/10 rounded-xl text-sm font-medium transition-colors"
           >
             <LogOut className="w-4 h-4" />
             Sair da conta

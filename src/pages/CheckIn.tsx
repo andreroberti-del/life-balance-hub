@@ -123,14 +123,14 @@ export default function CheckInPage() {
       </div>
 
       {saved && (
-        <div className="flex items-center gap-3 p-4 bg-green-50 border border-green-200 rounded-2xl">
-          <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0" />
-          <p className="text-sm text-green-700">Check-in salvo com sucesso!</p>
+        <div className="flex items-center gap-3 p-4 bg-green-500/10 border border-green-500/30 rounded-2xl">
+          <CheckCircle2 className="w-5 h-5 text-green-400 flex-shrink-0" />
+          <p className="text-sm text-green-400">Check-in salvo com sucesso!</p>
         </div>
       )}
 
       {/* Check-in Form */}
-      <form onSubmit={handleSubmit} className="bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+      <form onSubmit={handleSubmit} className="bg-card rounded-2xl p-6 border border-border">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div>
             <label className="flex items-center gap-2 text-sm text-text2 mb-2">
@@ -142,7 +142,7 @@ export default function CheckInPage() {
               value={weight}
               onChange={(e) => setWeight(e.target.value)}
               placeholder="Ex: 82.5"
-              className="w-full bg-bg border border-gray-200 rounded-xl px-4 py-3 text-sm text-text placeholder-text-light outline-none focus:border-lime-darker/50 focus:ring-1 focus:ring-lime-darker/20 transition-colors"
+              className="w-full bg-dark3 border border-border rounded-xl px-4 py-3 text-sm text-text placeholder:text-text4 outline-none focus:border-lime/50 focus:ring-1 focus:ring-lime/20 transition-colors"
             />
           </div>
 
@@ -182,7 +182,7 @@ export default function CheckInPage() {
               value={waterLiters}
               onChange={(e) => setWaterLiters(e.target.value)}
               placeholder="Ex: 2.5"
-              className="w-full bg-bg border border-gray-200 rounded-xl px-4 py-3 text-sm text-text placeholder-text-light outline-none focus:border-lime-darker/50 focus:ring-1 focus:ring-lime-darker/20 transition-colors"
+              className="w-full bg-dark3 border border-border rounded-xl px-4 py-3 text-sm text-text placeholder:text-text4 outline-none focus:border-lime/50 focus:ring-1 focus:ring-lime/20 transition-colors"
             />
           </div>
 
@@ -196,7 +196,7 @@ export default function CheckInPage() {
               value={waist}
               onChange={(e) => setWaist(e.target.value)}
               placeholder="Ex: 90"
-              className="w-full bg-bg border border-gray-200 rounded-xl px-4 py-3 text-sm text-text placeholder-text-light outline-none focus:border-lime-darker/50 focus:ring-1 focus:ring-lime-darker/20 transition-colors"
+              className="w-full bg-dark3 border border-border rounded-xl px-4 py-3 text-sm text-text placeholder:text-text4 outline-none focus:border-lime/50 focus:ring-1 focus:ring-lime/20 transition-colors"
             />
           </div>
 
@@ -210,14 +210,14 @@ export default function CheckInPage() {
                 value={bpSys}
                 onChange={(e) => setBpSys(e.target.value)}
                 placeholder="Sis"
-                className="w-1/2 bg-bg border border-gray-200 rounded-xl px-4 py-3 text-sm text-text placeholder-text-light outline-none focus:border-lime-darker/50 focus:ring-1 focus:ring-lime-darker/20 transition-colors"
+                className="w-1/2 bg-dark3 border border-border rounded-xl px-4 py-3 text-sm text-text placeholder:text-text4 outline-none focus:border-lime/50 focus:ring-1 focus:ring-lime/20 transition-colors"
               />
               <input
                 type="number"
                 value={bpDia}
                 onChange={(e) => setBpDia(e.target.value)}
                 placeholder="Dia"
-                className="w-1/2 bg-bg border border-gray-200 rounded-xl px-4 py-3 text-sm text-text placeholder-text-light outline-none focus:border-lime-darker/50 focus:ring-1 focus:ring-lime-darker/20 transition-colors"
+                className="w-1/2 bg-dark3 border border-border rounded-xl px-4 py-3 text-sm text-text placeholder:text-text4 outline-none focus:border-lime/50 focus:ring-1 focus:ring-lime/20 transition-colors"
               />
             </div>
           </div>
@@ -231,7 +231,7 @@ export default function CheckInPage() {
               value={glucose}
               onChange={(e) => setGlucose(e.target.value)}
               placeholder="Ex: 95"
-              className="w-full bg-bg border border-gray-200 rounded-xl px-4 py-3 text-sm text-text placeholder-text-light outline-none focus:border-lime-darker/50 focus:ring-1 focus:ring-lime-darker/20 transition-colors"
+              className="w-full bg-dark3 border border-border rounded-xl px-4 py-3 text-sm text-text placeholder:text-text4 outline-none focus:border-lime/50 focus:ring-1 focus:ring-lime/20 transition-colors"
             />
           </div>
 
@@ -240,7 +240,7 @@ export default function CheckInPage() {
               type="button"
               onClick={() => setTookOmega(!tookOmega)}
               className={`w-12 h-7 rounded-full transition-colors relative ${
-                tookOmega ? 'bg-lime' : 'bg-gray-200'
+                tookOmega ? 'bg-lime' : 'bg-[rgba(255,255,255,0.1)]'
               }`}
             >
               <span
@@ -263,7 +263,7 @@ export default function CheckInPage() {
               onChange={(e) => setNotes(e.target.value)}
               placeholder="Como voce se sentiu hoje?"
               rows={3}
-              className="w-full bg-bg border border-gray-200 rounded-xl px-4 py-3 text-sm text-text placeholder-text-light outline-none focus:border-lime-darker/50 focus:ring-1 focus:ring-lime-darker/20 transition-colors resize-none"
+              className="w-full bg-dark3 border border-border rounded-xl px-4 py-3 text-sm text-text placeholder:text-text4 outline-none focus:border-lime/50 focus:ring-1 focus:ring-lime/20 transition-colors resize-none"
             />
           </div>
         </div>
@@ -280,8 +280,8 @@ export default function CheckInPage() {
       </form>
 
       {/* History Table */}
-      <div className="bg-white rounded-2xl shadow-[0_1px_3px_rgba(0,0,0,0.04)] overflow-hidden">
-        <div className="p-6 border-b border-gray-100">
+      <div className="bg-card rounded-2xl border border-border overflow-hidden">
+        <div className="p-6 border-b border-border">
           <h3 className="text-lg font-semibold text-text">Historico de Check-ins</h3>
         </div>
 
@@ -308,7 +308,7 @@ export default function CheckInPage() {
                 {history.map((item) => (
                   <tr
                     key={item.id || item.date}
-                    className="border-t border-gray-50 hover:bg-bg/50 transition-colors cursor-pointer"
+                    className="border-t border-border hover:bg-[rgba(255,255,255,0.03)] transition-colors cursor-pointer"
                     onClick={() =>
                       setExpandedRow(
                         expandedRow === (item.id || item.date)
@@ -333,7 +333,7 @@ export default function CheckInPage() {
                             className={`w-2 h-2 rounded-full ${
                               s <= (item.sleep_quality ?? 0)
                                 ? 'bg-lime-darker'
-                                : 'bg-gray-200'
+                                : 'bg-[rgba(255,255,255,0.1)]'
                             }`}
                           />
                         ))}
@@ -351,7 +351,7 @@ export default function CheckInPage() {
                           <CheckCircle2 className="w-3.5 h-3.5" /> Sim
                         </span>
                       ) : (
-                        <span className="text-text-light text-xs">Nao</span>
+                        <span className="text-text4 text-xs">Nao</span>
                       )}
                     </td>
                     <td className="px-6 py-4 text-text3">
@@ -365,8 +365,8 @@ export default function CheckInPage() {
                 ))}
                 {history.map((item) =>
                   expandedRow === (item.id || item.date) ? (
-                    <tr key={`${item.id || item.date}-detail`} className="border-t border-gray-50">
-                      <td colSpan={7} className="px-6 py-4 bg-bg/50">
+                    <tr key={`${item.id || item.date}-detail`} className="border-t border-border">
+                      <td colSpan={7} className="px-6 py-4 bg-dark3/50">
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
                           <div>
                             <span className="text-text3">Pressao</span>

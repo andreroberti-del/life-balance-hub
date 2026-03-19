@@ -27,10 +27,10 @@ const demoScans: ScanResult[] = [
 ];
 
 const verdictConfig = {
-  excellent: { label: 'Excelente', color: 'bg-green-50 text-green-600', icon: CheckCircle2 },
-  good: { label: 'Bom', color: 'bg-blue-50 text-blue-600', icon: CheckCircle2 },
-  moderate: { label: 'Moderado', color: 'bg-amber-50 text-amber-600', icon: AlertCircle },
-  avoid: { label: 'Evitar', color: 'bg-red-50 text-red-600', icon: XCircle },
+  excellent: { label: 'Excelente', color: 'bg-green-500/15 text-green-400', icon: CheckCircle2 },
+  good: { label: 'Bom', color: 'bg-blue-500/15 text-blue-400', icon: CheckCircle2 },
+  moderate: { label: 'Moderado', color: 'bg-amber-500/15 text-amber-400', icon: AlertCircle },
+  avoid: { label: 'Evitar', color: 'bg-red-500/15 text-red-400', icon: XCircle },
 };
 
 const filterOptions = [
@@ -107,11 +107,11 @@ export default function ScannerPage() {
             placeholder="Buscar produto..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full bg-white border border-gray-200 rounded-xl pl-10 pr-4 py-2.5 text-sm text-text placeholder-text-light outline-none focus:border-lime-darker/50 focus:ring-1 focus:ring-lime-darker/20 transition-colors shadow-[0_1px_2px_rgba(0,0,0,0.04)]"
+            className="w-full bg-dark3 border border-border rounded-xl pl-10 pr-4 py-2.5 text-sm text-text placeholder:text-text4 outline-none focus:border-lime/50 focus:ring-1 focus:ring-lime/20 transition-colors"
           />
         </div>
 
-        <div className="flex gap-1 bg-white rounded-xl p-1 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+        <div className="flex gap-1 bg-card rounded-xl p-1 border border-border">
           <Filter className="w-4 h-4 text-text3 self-center ml-2" />
           {filterOptions.map((opt) => (
             <button
@@ -137,10 +137,10 @@ export default function ScannerPage() {
           description="Escaneie produtos usando o app mobile para ver o historico aqui"
         />
       ) : (
-        <div className="bg-white rounded-2xl shadow-[0_1px_3px_rgba(0,0,0,0.04)] overflow-hidden">
+        <div className="bg-card rounded-2xl border border-border overflow-hidden">
           <table className="w-full text-sm">
             <thead>
-              <tr className="text-text3 text-xs uppercase tracking-wider border-b border-gray-100">
+              <tr className="text-text4 text-xs uppercase tracking-wider border-b border-border">
                 <th className="text-left px-6 py-3 font-medium">Produto</th>
                 <th className="text-left px-6 py-3 font-medium">Score</th>
                 <th className="text-left px-6 py-3 font-medium">Veredito</th>
@@ -155,7 +155,7 @@ export default function ScannerPage() {
                 return (
                   <tr
                     key={scan.id}
-                    className="border-t border-gray-50 hover:bg-bg/50 transition-colors cursor-pointer"
+                    className="border-t border-border hover:bg-[rgba(255,255,255,0.03)] transition-colors cursor-pointer"
                     onClick={() =>
                       setExpandedId(expandedId === scan.id ? null : scan.id)
                     }
@@ -165,12 +165,12 @@ export default function ScannerPage() {
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-2">
-                        <div className="w-10 h-10 rounded-xl bg-bg flex items-center justify-center">
+                        <div className="w-10 h-10 rounded-xl bg-dark3 flex items-center justify-center">
                           <span className={`text-lg font-bold ${getScoreColor(scan.score)}`}>
                             {scan.score}
                           </span>
                         </div>
-                        <div className="w-16 h-1.5 bg-bg2 rounded-full overflow-hidden hidden sm:block">
+                        <div className="w-16 h-1.5 bg-dark32 rounded-full overflow-hidden hidden sm:block">
                           <div
                             className={`h-full rounded-full ${getScoreBg(scan.score)}`}
                             style={{ width: `${scan.score}%` }}
@@ -199,8 +199,8 @@ export default function ScannerPage() {
               })}
               {filteredScans.map((scan) =>
                 expandedId === scan.id ? (
-                  <tr key={`${scan.id}-detail`} className="border-t border-gray-50">
-                    <td colSpan={5} className="px-6 py-5 bg-bg/50">
+                  <tr key={`${scan.id}-detail`} className="border-t border-border">
+                    <td colSpan={5} className="px-6 py-5 bg-dark3/50">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                           <h4 className="text-xs text-text3 uppercase tracking-wider mb-2">
@@ -210,7 +210,7 @@ export default function ScannerPage() {
                             {scan.ingredients.map((ing, i) => (
                               <span
                                 key={i}
-                                className="px-2.5 py-1 bg-white border border-gray-200 rounded-lg text-xs text-text2"
+                                className="px-2.5 py-1 bg-dark3 border border-border rounded-lg text-xs text-text2"
                               >
                                 {ing}
                               </span>
@@ -221,7 +221,7 @@ export default function ScannerPage() {
                           <h4 className="text-xs text-text3 uppercase tracking-wider mb-2">
                             Impacto Pessoal
                           </h4>
-                          <div className="flex items-start gap-2 p-3 bg-white border border-gray-200 rounded-xl">
+                          <div className="flex items-start gap-2 p-3 bg-dark3 border border-border rounded-xl">
                             {scan.verdict === 'avoid' ? (
                               <AlertTriangle className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
                             ) : (

@@ -67,10 +67,10 @@ const retestAlerts: RetestAlert[] = [
 ];
 
 const cardStyle: React.CSSProperties = {
-  background: '#fff',
+  background: '#2d3a4e',
   borderRadius: '16px',
   padding: '24px',
-  boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
+  border: '1px solid rgba(255,255,255,0.08)',
 };
 
 export default function TestTracking() {
@@ -130,10 +130,10 @@ export default function TestTracking() {
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '400px' }}>
         <div style={{ textAlign: 'center' }}>
           <div style={{
-            width: '40px', height: '40px', border: '3px solid #E8E8E2', borderTopColor: '#E7FE55',
+            width: '40px', height: '40px', border: '3px solid rgba(255,255,255,0.08)', borderTopColor: '#E7FE55',
             borderRadius: '50%', animation: 'spin 0.8s linear infinite', margin: '0 auto 16px',
           }} />
-          <p style={{ color: '#8A9A90', fontSize: '14px' }}>Carregando testes...</p>
+          <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px' }}>Carregando testes...</p>
           <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
         </div>
       </div>
@@ -145,8 +145,8 @@ export default function TestTracking() {
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
         <div>
-          <h2 style={{ fontSize: '24px', fontWeight: 700, color: '#1A1F1C', margin: 0 }}>Testes BalanceTest</h2>
-          <p style={{ color: '#8A9A90', fontSize: '14px', marginTop: '4px' }}>Acompanhe todos os testes de Omega-6:3</p>
+          <h2 style={{ fontSize: '24px', fontWeight: 700, color: 'rgba(255,255,255,0.9)', margin: 0 }}>Testes BalanceTest</h2>
+          <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px', marginTop: '4px' }}>Acompanhe todos os testes de Omega-6:3</p>
         </div>
         <button
           onClick={() => setShowAddForm(true)}
@@ -176,8 +176,8 @@ export default function TestTracking() {
                 <stat.icon style={{ width: '18px', height: '18px', color: stat.iconColor }} />
               </div>
               <div>
-                <p style={{ fontSize: '24px', fontWeight: 800, color: '#1A1F1C', lineHeight: 1, margin: 0 }}>{stat.value}</p>
-                <p style={{ fontSize: '12px', color: '#8A9A90', marginTop: '2px' }}>{stat.label}</p>
+                <p style={{ fontSize: '24px', fontWeight: 800, color: 'rgba(255,255,255,0.9)', lineHeight: 1, margin: 0 }}>{stat.value}</p>
+                <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', marginTop: '2px' }}>{stat.label}</p>
               </div>
             </div>
           </div>
@@ -189,18 +189,18 @@ export default function TestTracking() {
         <div style={{ ...cardStyle, borderLeft: '3px solid #F59E0B', padding: '20px 24px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
             <AlertTriangle style={{ width: '16px', height: '16px', color: '#F59E0B' }} />
-            <span style={{ fontSize: '14px', fontWeight: 700, color: '#1A1F1C' }}>Alertas de Re-teste ({overdueRetests})</span>
-            <span style={{ fontSize: '12px', color: '#8A9A90' }}>Clientes com mais de 120 dias desde o ultimo teste</span>
+            <span style={{ fontSize: '14px', fontWeight: 700, color: 'rgba(255,255,255,0.9)' }}>Alertas de Re-teste ({overdueRetests})</span>
+            <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)' }}>Clientes com mais de 120 dias desde o ultimo teste</span>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             {retestAlerts.filter(r => r.daysSince >= 120).map((alert, i) => (
               <div key={i} style={{
                 display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                padding: '12px 16px', background: '#FFFBEB', borderRadius: '12px', flexWrap: 'wrap', gap: '8px',
+                padding: '12px 16px', background: 'rgba(245,158,11,0.1)', borderRadius: '12px', flexWrap: 'wrap', gap: '8px',
               }}>
                 <div>
-                  <p style={{ fontSize: '14px', fontWeight: 600, color: '#1A1F1C', margin: 0 }}>{alert.clientName}</p>
-                  <p style={{ fontSize: '12px', color: '#8A9A90', margin: '2px 0 0' }}>
+                  <p style={{ fontSize: '14px', fontWeight: 600, color: 'rgba(255,255,255,0.9)', margin: 0 }}>{alert.clientName}</p>
+                  <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', margin: '2px 0 0' }}>
                     Ultimo teste: {new Date(alert.lastTestDate).toLocaleDateString('pt-BR')} — Ratio: {alert.lastRatio}:1 — {alert.daysSince} dias atras
                   </p>
                 </div>
@@ -236,9 +236,9 @@ export default function TestTracking() {
             style={{
               padding: '8px 16px', borderRadius: '10px', fontSize: '13px', fontWeight: 600,
               border: 'none', cursor: 'pointer',
-              background: statusFilter === f.key ? '#E7FE55' : '#fff',
-              color: statusFilter === f.key ? '#0F1511' : '#8A9A90',
-              boxShadow: statusFilter === f.key ? '0 2px 8px rgba(231,254,85,0.3)' : '0 1px 3px rgba(0,0,0,0.04)',
+              background: statusFilter === f.key ? '#E7FE55' : '#2d3a4e',
+              color: statusFilter === f.key ? '#0F1511' : 'rgba(255,255,255,0.5)',
+              border: statusFilter === f.key ? 'none' : '1px solid rgba(255,255,255,0.08)',
             }}
           >
             {f.label}
@@ -254,15 +254,15 @@ export default function TestTracking() {
         }} onClick={() => setShowAddForm(false)}>
           <div style={{ ...cardStyle, width: '100%', maxWidth: '440px', margin: '16px' }} onClick={e => e.stopPropagation()}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px' }}>
-              <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#1A1F1C', margin: 0 }}>Novo Teste</h3>
-              <button onClick={() => setShowAddForm(false)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#8A9A90', padding: '4px' }}>
+              <h3 style={{ fontSize: '18px', fontWeight: 700, color: 'rgba(255,255,255,0.9)', margin: 0 }}>Novo Teste</h3>
+              <button onClick={() => setShowAddForm(false)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'rgba(255,255,255,0.5)', padding: '4px' }}>
                 <X style={{ width: '18px', height: '18px' }} />
               </button>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-              <input value={newTest.clientName} onChange={e => setNewTest(p => ({ ...p, clientName: e.target.value }))} placeholder="Nome do cliente" style={{ width: '100%', padding: '12px 16px', borderRadius: '12px', border: '1px solid #E8E8E2', fontSize: '14px', outline: 'none', background: '#F5F5F0', boxSizing: 'border-box' }} />
-              <input value={newTest.clientPhone} onChange={e => setNewTest(p => ({ ...p, clientPhone: e.target.value }))} placeholder="Telefone" style={{ width: '100%', padding: '12px 16px', borderRadius: '12px', border: '1px solid #E8E8E2', fontSize: '14px', outline: 'none', background: '#F5F5F0', boxSizing: 'border-box' }} />
-              <select value={newTest.testType} onChange={e => setNewTest(p => ({ ...p, testType: e.target.value as 'primeiro' | 'reteste' }))} style={{ width: '100%', padding: '12px 16px', borderRadius: '12px', border: '1px solid #E8E8E2', fontSize: '14px', outline: 'none', background: '#F5F5F0', boxSizing: 'border-box' }}>
+              <input value={newTest.clientName} onChange={e => setNewTest(p => ({ ...p, clientName: e.target.value }))} placeholder="Nome do cliente" style={{ width: '100%', padding: '12px 16px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.08)', fontSize: '14px', outline: 'none', background: '#1a2332', boxSizing: 'border-box' }} />
+              <input value={newTest.clientPhone} onChange={e => setNewTest(p => ({ ...p, clientPhone: e.target.value }))} placeholder="Telefone" style={{ width: '100%', padding: '12px 16px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.08)', fontSize: '14px', outline: 'none', background: '#1a2332', boxSizing: 'border-box' }} />
+              <select value={newTest.testType} onChange={e => setNewTest(p => ({ ...p, testType: e.target.value as 'primeiro' | 'reteste' }))} style={{ width: '100%', padding: '12px 16px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.08)', fontSize: '14px', outline: 'none', background: '#1a2332', boxSizing: 'border-box' }}>
                 <option value="primeiro">Primeiro Teste</option>
                 <option value="reteste">Re-teste</option>
               </select>
@@ -292,7 +292,7 @@ export default function TestTracking() {
                   </div>
                   <div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '2px' }}>
-                      <p style={{ fontSize: '15px', fontWeight: 700, color: '#1A1F1C', margin: 0 }}>{test.clientName}</p>
+                      <p style={{ fontSize: '15px', fontWeight: 700, color: 'rgba(255,255,255,0.9)', margin: 0 }}>{test.clientName}</p>
                       <span style={{
                         fontSize: '10px', fontWeight: 600, padding: '2px 8px', borderRadius: '6px',
                         color: sConfig.color, background: sConfig.bg,
@@ -307,7 +307,7 @@ export default function TestTracking() {
                         {test.testType === 'primeiro' ? '1o Teste' : 'Re-teste'}
                       </span>
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '12px', color: '#8A9A90' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '12px', color: 'rgba(255,255,255,0.5)' }}>
                       <span>Enviado: {new Date(test.dateSent).toLocaleDateString('pt-BR')}</span>
                       {test.status !== 'pronto' && (
                         <span style={{ display: 'flex', alignItems: 'center', gap: '3px' }}>
@@ -329,7 +329,7 @@ export default function TestTracking() {
                       }}>
                         {test.result.ratio}:1
                       </p>
-                      <p style={{ fontSize: '10px', color: '#8A9A90', margin: '1px 0 0' }}>Ratio atual</p>
+                      <p style={{ fontSize: '10px', color: 'rgba(255,255,255,0.5)', margin: '1px 0 0' }}>Ratio atual</p>
                     </div>
                     {test.result.previousRatio && (
                       <div style={{ textAlign: 'center' }}>
@@ -339,7 +339,7 @@ export default function TestTracking() {
                             -{((test.result.previousRatio - test.result.ratio) / test.result.previousRatio * 100).toFixed(0)}%
                           </span>
                         </div>
-                        <p style={{ fontSize: '10px', color: '#8A9A90', margin: '1px 0 0' }}>vs anterior ({test.result.previousRatio}:1)</p>
+                        <p style={{ fontSize: '10px', color: 'rgba(255,255,255,0.5)', margin: '1px 0 0' }}>vs anterior ({test.result.previousRatio}:1)</p>
                       </div>
                     )}
                     <a
@@ -381,8 +381,8 @@ export default function TestTracking() {
 
         {filtered.length === 0 && (
           <div style={{ ...cardStyle, padding: '48px', textAlign: 'center' }}>
-            <TestTube2 style={{ width: '32px', height: '32px', color: '#C0C8C3', margin: '0 auto 12px' }} />
-            <p style={{ color: '#8A9A90', fontSize: '14px', margin: 0 }}>Nenhum teste encontrado</p>
+            <TestTube2 style={{ width: '32px', height: '32px', color: 'rgba(255,255,255,0.3)', margin: '0 auto 12px' }} />
+            <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px', margin: 0 }}>Nenhum teste encontrado</p>
           </div>
         )}
       </div>

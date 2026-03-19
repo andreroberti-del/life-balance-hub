@@ -67,7 +67,7 @@ export default function CommunityPage() {
   const TrendBadge = ({ value }: { value: number }) => (
     <div
       className={`flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full ${
-        value >= 0 ? 'bg-green-50 text-green-600' : 'bg-red-50 text-red-500'
+        value >= 0 ? 'bg-green-500/15 text-green-400' : 'bg-red-500/15 text-red-400'
       }`}
     >
       {value >= 0 ? (
@@ -87,7 +87,7 @@ export default function CommunityPage() {
       </div>
 
       {/* Hero Stat */}
-      <div className="bg-gradient-to-br from-lime/15 via-white to-white rounded-2xl p-8 border border-lime/20 text-center shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+      <div className="bg-gradient-to-br from-lime/10 via-card to-card rounded-2xl p-8 border border-lime/20 text-center">
         <p className="text-sm text-lime-darker font-medium uppercase tracking-wider mb-2">
           Nossa comunidade ja perdeu
         </p>
@@ -102,10 +102,10 @@ export default function CommunityPage() {
 
       {/* Metric Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+        <div className="bg-card rounded-2xl p-6 border border-border">
           <div className="flex items-center justify-between mb-3">
-            <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center">
-              <Users className="w-5 h-5 text-blue-500" />
+            <div className="w-10 h-10 bg-blue-500/15 rounded-xl flex items-center justify-center">
+              <Users className="w-5 h-5 text-blue-400" />
             </div>
             <TrendBadge value={metrics.members_trend} />
           </div>
@@ -115,10 +115,10 @@ export default function CommunityPage() {
           <p className="text-sm text-text3 mt-1">Membros ativos</p>
         </div>
 
-        <div className="bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+        <div className="bg-card rounded-2xl p-6 border border-border">
           <div className="flex items-center justify-between mb-3">
-            <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center">
-              <Scale className="w-5 h-5 text-green-600" />
+            <div className="w-10 h-10 bg-green-500/15 rounded-xl flex items-center justify-center">
+              <Scale className="w-5 h-5 text-green-400" />
             </div>
             <TrendBadge value={metrics.kg_trend} />
           </div>
@@ -128,7 +128,7 @@ export default function CommunityPage() {
           <p className="text-sm text-text3 mt-1">Kg perdidos total</p>
         </div>
 
-        <div className="bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+        <div className="bg-card rounded-2xl p-6 border border-border">
           <div className="flex items-center justify-between mb-3">
             <div className="w-10 h-10 bg-lime/15 rounded-xl flex items-center justify-center">
               <Activity className="w-5 h-5 text-lime-darker" />
@@ -139,10 +139,10 @@ export default function CommunityPage() {
           <p className="text-sm text-text3 mt-1">Melhoria ratio medio</p>
         </div>
 
-        <div className="bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+        <div className="bg-card rounded-2xl p-6 border border-border">
           <div className="flex items-center justify-between mb-3">
-            <div className="w-10 h-10 bg-purple-50 rounded-xl flex items-center justify-center">
-              <Target className="w-5 h-5 text-purple-500" />
+            <div className="w-10 h-10 bg-purple-500/15 rounded-xl flex items-center justify-center">
+              <Target className="w-5 h-5 text-purple-400" />
             </div>
           </div>
           <p className="text-3xl font-black text-text">
@@ -153,8 +153,8 @@ export default function CommunityPage() {
       </div>
 
       {/* Leaderboard */}
-      <div className="bg-white rounded-2xl shadow-[0_1px_3px_rgba(0,0,0,0.04)] overflow-hidden">
-        <div className="p-6 border-b border-gray-100">
+      <div className="bg-card rounded-2xl border border-border overflow-hidden">
+        <div className="p-6 border-b border-border">
           <h3 className="text-lg font-bold text-text">Ranking — Top Resultados</h3>
           <p className="text-sm text-text3 mt-1">
             Os membros com maiores transformacoes
@@ -164,7 +164,7 @@ export default function CommunityPage() {
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="text-text3 text-xs uppercase tracking-wider border-b border-gray-100">
+              <tr className="text-text3 text-xs uppercase tracking-wider border-b border-border">
                 <th className="text-left px-6 py-3 font-medium w-16">#</th>
                 <th className="text-left px-6 py-3 font-medium">Membro</th>
                 <th className="text-left px-6 py-3 font-medium">Kg Perdidos</th>
@@ -183,14 +183,14 @@ export default function CommunityPage() {
                 return (
                   <tr
                     key={entry.rank}
-                    className={`border-t border-gray-50 transition-colors hover:bg-bg/50 ${
+                    className={`border-t border-border transition-colors hover:bg-[rgba(255,255,255,0.03)] ${
                       entry.rank <= 3 ? 'bg-lime/3' : ''
                     }`}
                   >
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-2">
                         <RankIcon
-                          className={`w-5 h-5 ${rankColors[entry.rank] || 'text-text-light'}`}
+                          className={`w-5 h-5 ${rankColors[entry.rank] || 'text-text4'}`}
                         />
                         <span
                           className={`font-bold ${
@@ -203,7 +203,7 @@ export default function CommunityPage() {
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full bg-bg2 flex items-center justify-center text-xs font-semibold text-text2">
+                        <div className="w-8 h-8 rounded-full bg-dark3 flex items-center justify-center text-xs font-semibold text-text2">
                           {entry.name
                             .split(' ')
                             .map((n) => n[0])
@@ -232,12 +232,12 @@ export default function CommunityPage() {
       </div>
 
       {/* Total Check-ins */}
-      <div className="bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)] text-center">
+      <div className="bg-card rounded-2xl p-6 border border-border text-center">
         <p className="text-sm text-text3 mb-2">Total de check-ins realizados</p>
         <p className="text-4xl font-black text-text">
           {metrics.total_checkins.toLocaleString('pt-BR')}
         </p>
-        <p className="text-sm text-text-light mt-1">e contando...</p>
+        <p className="text-sm text-text4 mt-1">e contando...</p>
       </div>
     </div>
   );

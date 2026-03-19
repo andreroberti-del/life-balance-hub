@@ -25,10 +25,10 @@ import {
 } from 'lucide-react';
 
 const cardStyle: React.CSSProperties = {
-  background: '#fff',
+  background: '#2d3a4e',
   borderRadius: '16px',
   padding: '24px',
-  boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
+  border: '1px solid rgba(255,255,255,0.08)',
 };
 
 const funnelData = [
@@ -93,10 +93,10 @@ export default function Performance() {
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '400px' }}>
         <div style={{ textAlign: 'center' }}>
           <div style={{
-            width: '40px', height: '40px', border: '3px solid #E8E8E2', borderTopColor: '#E7FE55',
+            width: '40px', height: '40px', border: '3px solid rgba(255,255,255,0.08)', borderTopColor: '#E7FE55',
             borderRadius: '50%', animation: 'spin 0.8s linear infinite', margin: '0 auto 16px',
           }} />
-          <p style={{ color: '#8A9A90', fontSize: '14px' }}>Carregando performance...</p>
+          <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px' }}>Carregando performance...</p>
           <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
         </div>
       </div>
@@ -109,8 +109,8 @@ export default function Performance() {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
       {/* Header */}
       <div>
-        <h2 style={{ fontSize: '24px', fontWeight: 700, color: '#1A1F1C', margin: 0 }}>Performance</h2>
-        <p style={{ color: '#8A9A90', fontSize: '14px', marginTop: '4px' }}>Visao geral do seu desempenho como Partner</p>
+        <h2 style={{ fontSize: '24px', fontWeight: 700, color: 'rgba(255,255,255,0.9)', margin: 0 }}>Performance</h2>
+        <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px', marginTop: '4px' }}>Visao geral do seu desempenho como Partner</p>
       </div>
 
       {/* KPI Cards */}
@@ -140,8 +140,8 @@ export default function Performance() {
                 {kpi.trend}
               </div>
             </div>
-            <p style={{ fontSize: '28px', fontWeight: 800, color: '#1A1F1C', margin: '0 0 2px', lineHeight: 1 }}>{kpi.value}</p>
-            <p style={{ fontSize: '12px', color: '#8A9A90', margin: 0 }}>{kpi.label}</p>
+            <p style={{ fontSize: '28px', fontWeight: 800, color: 'rgba(255,255,255,0.9)', margin: '0 0 2px', lineHeight: 1 }}>{kpi.value}</p>
+            <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', margin: 0 }}>{kpi.label}</p>
           </div>
         ))}
       </div>
@@ -150,15 +150,15 @@ export default function Performance() {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(380px, 1fr))', gap: '20px' }}>
         {/* Pipeline Funnel */}
         <div style={cardStyle}>
-          <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#1A1F1C', margin: '0 0 4px' }}>Funil do Pipeline</h3>
-          <p style={{ fontSize: '12px', color: '#8A9A90', margin: '0 0 20px' }}>Distribuicao de leads por estagio</p>
+          <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'rgba(255,255,255,0.9)', margin: '0 0 4px' }}>Funil do Pipeline</h3>
+          <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', margin: '0 0 20px' }}>Distribuicao de leads por estagio</p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             {funnelData.map(item => (
               <div key={item.stage} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <span style={{ width: '90px', fontSize: '13px', fontWeight: 600, color: '#4A5A50', textAlign: 'right', flexShrink: 0 }}>
+                <span style={{ width: '90px', fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.7)', textAlign: 'right', flexShrink: 0 }}>
                   {item.stage}
                 </span>
-                <div style={{ flex: 1, background: '#F5F5F0', borderRadius: '8px', height: '32px', overflow: 'hidden' }}>
+                <div style={{ flex: 1, background: '#1a2332', borderRadius: '8px', height: '32px', overflow: 'hidden' }}>
                   <div style={{
                     width: `${(item.count / maxFunnel) * 100}%`,
                     height: '100%',
@@ -171,7 +171,7 @@ export default function Performance() {
                     <span style={{ fontSize: '12px', fontWeight: 700, color: '#0F1511' }}>{item.count}</span>
                   </div>
                 </div>
-                <span style={{ width: '40px', fontSize: '11px', color: '#8A9A90', textAlign: 'right' }}>
+                <span style={{ width: '40px', fontSize: '11px', color: 'rgba(255,255,255,0.5)', textAlign: 'right' }}>
                   {((item.count / funnelData[0].count) * 100).toFixed(0)}%
                 </span>
               </div>
@@ -181,8 +181,8 @@ export default function Performance() {
 
         {/* Leads Over Time */}
         <div style={cardStyle}>
-          <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#1A1F1C', margin: '0 0 4px' }}>Leads ao Longo do Tempo</h3>
-          <p style={{ fontSize: '12px', color: '#8A9A90', margin: '0 0 20px' }}>Novos leads por mes</p>
+          <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'rgba(255,255,255,0.9)', margin: '0 0 4px' }}>Leads ao Longo do Tempo</h3>
+          <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', margin: '0 0 20px' }}>Novos leads por mes</p>
           <div style={{ height: '260px' }}>
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={leadsOverTime}>
@@ -192,16 +192,16 @@ export default function Performance() {
                     <stop offset="100%" stopColor="#E7FE55" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#E8E8E2" />
-                <XAxis dataKey="month" stroke="#8A9A90" fontSize={12} tickLine={false} axisLine={false} />
-                <YAxis stroke="#8A9A90" fontSize={12} tickLine={false} axisLine={false} width={30} />
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
+                <XAxis dataKey="month" stroke="rgba(255,255,255,0.5)" fontSize={12} tickLine={false} axisLine={false} />
+                <YAxis stroke="rgba(255,255,255,0.5)" fontSize={12} tickLine={false} axisLine={false} width={30} />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#fff', border: '1px solid #E8E8E2', borderRadius: '12px',
-                    color: '#1A1F1C', fontSize: '13px', boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+                    backgroundColor: '#2d3a4e', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px',
+                    color: 'rgba(255,255,255,0.9)', fontSize: '13px', boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
                   }}
                 />
-                <Area type="monotone" dataKey="leads" stroke="#C6D63E" strokeWidth={2.5} fill="url(#leadsGradient)" dot={false} activeDot={{ r: 5, fill: '#E7FE55', stroke: '#1A1F1C', strokeWidth: 2 }} />
+                <Area type="monotone" dataKey="leads" stroke="#C6D63E" strokeWidth={2.5} fill="url(#leadsGradient)" dot={false} activeDot={{ r: 5, fill: '#E7FE55', stroke: '#1a2332', strokeWidth: 2 }} />
               </AreaChart>
             </ResponsiveContainer>
           </div>
@@ -212,12 +212,12 @@ export default function Performance() {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px' }}>
         {/* Follow-up Completion */}
         <div style={cardStyle}>
-          <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#1A1F1C', margin: '0 0 4px' }}>Taxa de Follow-up</h3>
-          <p style={{ fontSize: '12px', color: '#8A9A90', margin: '0 0 20px' }}>Conclusao de follow-ups este mes</p>
+          <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'rgba(255,255,255,0.9)', margin: '0 0 4px' }}>Taxa de Follow-up</h3>
+          <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', margin: '0 0 20px' }}>Conclusao de follow-ups este mes</p>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px 0' }}>
             <div style={{ position: 'relative', width: '160px', height: '160px' }}>
               <svg viewBox="0 0 120 120" style={{ width: '100%', height: '100%' }}>
-                <circle cx="60" cy="60" r="50" fill="none" stroke="#F5F5F0" strokeWidth="12" />
+                <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="12" />
                 <circle
                   cx="60" cy="60" r="50" fill="none" stroke="#E7FE55" strokeWidth="12"
                   strokeLinecap="round"
@@ -229,8 +229,8 @@ export default function Performance() {
                 position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column',
                 alignItems: 'center', justifyContent: 'center',
               }}>
-                <p style={{ fontSize: '32px', fontWeight: 800, color: '#1A1F1C', margin: 0, lineHeight: 1 }}>87%</p>
-                <p style={{ fontSize: '11px', color: '#8A9A90', margin: '4px 0 0' }}>Concluidos</p>
+                <p style={{ fontSize: '32px', fontWeight: 800, color: 'rgba(255,255,255,0.9)', margin: 0, lineHeight: 1 }}>87%</p>
+                <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.5)', margin: '4px 0 0' }}>Concluidos</p>
               </div>
             </div>
           </div>
@@ -241,7 +241,7 @@ export default function Performance() {
               { label: 'Atrasados', value: 2, color: '#EF4444' },
             ].map(item => (
               <div key={item.label} style={{ textAlign: 'center' }}>
-                <p style={{ fontSize: '20px', fontWeight: 800, color: '#1A1F1C', margin: 0 }}>{item.value}</p>
+                <p style={{ fontSize: '20px', fontWeight: 800, color: 'rgba(255,255,255,0.9)', margin: 0 }}>{item.value}</p>
                 <p style={{ fontSize: '11px', color: item.color, fontWeight: 600, margin: '2px 0 0' }}>{item.label}</p>
               </div>
             ))}
@@ -250,18 +250,18 @@ export default function Performance() {
 
         {/* Top Sources */}
         <div style={cardStyle}>
-          <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#1A1F1C', margin: '0 0 4px' }}>Principais Fontes</h3>
-          <p style={{ fontSize: '12px', color: '#8A9A90', margin: '0 0 20px' }}>De onde vem seus leads</p>
+          <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'rgba(255,255,255,0.9)', margin: '0 0 4px' }}>Principais Fontes</h3>
+          <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', margin: '0 0 20px' }}>De onde vem seus leads</p>
           <div style={{ height: '280px' }}>
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={sourceData} layout="vertical" barCategoryGap="20%">
-                <CartesianGrid strokeDasharray="3 3" stroke="#E8E8E2" horizontal={false} />
-                <XAxis type="number" stroke="#8A9A90" fontSize={12} tickLine={false} axisLine={false} />
-                <YAxis type="category" dataKey="source" stroke="#8A9A90" fontSize={12} tickLine={false} axisLine={false} width={80} />
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" horizontal={false} />
+                <XAxis type="number" stroke="rgba(255,255,255,0.5)" fontSize={12} tickLine={false} axisLine={false} />
+                <YAxis type="category" dataKey="source" stroke="rgba(255,255,255,0.5)" fontSize={12} tickLine={false} axisLine={false} width={80} />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#fff', border: '1px solid #E8E8E2', borderRadius: '12px',
-                    color: '#1A1F1C', fontSize: '13px', boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+                    backgroundColor: '#2d3a4e', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px',
+                    color: 'rgba(255,255,255,0.9)', fontSize: '13px', boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
                   }}
                 />
                 <Bar dataKey="count" radius={[0, 8, 8, 0]} barSize={24}>
@@ -276,8 +276,8 @@ export default function Performance() {
 
         {/* Activity Feed */}
         <div style={cardStyle}>
-          <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#1A1F1C', margin: '0 0 4px' }}>Atividade Recente</h3>
-          <p style={{ fontSize: '12px', color: '#8A9A90', margin: '0 0 20px' }}>Ultimas acoes no CRM</p>
+          <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'rgba(255,255,255,0.9)', margin: '0 0 4px' }}>Atividade Recente</h3>
+          <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', margin: '0 0 20px' }}>Ultimas acoes no CRM</p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
             {activityFeed.map((item, i) => (
               <div key={i} style={{ display: 'flex', alignItems: 'start', gap: '12px' }}>
@@ -287,8 +287,8 @@ export default function Performance() {
                   boxShadow: `0 0 0 3px ${activityColors[item.type]}20`,
                 }} />
                 <div style={{ flex: 1 }}>
-                  <p style={{ fontSize: '13px', color: '#1A1F1C', margin: 0, lineHeight: 1.4 }}>{item.text}</p>
-                  <p style={{ fontSize: '11px', color: '#8A9A90', margin: '2px 0 0' }}>{item.time}</p>
+                  <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.9)', margin: 0, lineHeight: 1.4 }}>{item.text}</p>
+                  <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.5)', margin: '2px 0 0' }}>{item.time}</p>
                 </div>
               </div>
             ))}

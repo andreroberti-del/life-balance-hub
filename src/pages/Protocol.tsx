@@ -49,7 +49,7 @@ function CircularProgress({
   return (
     <div className="relative inline-flex items-center justify-center">
       <svg width="220" height="220" className="-rotate-90">
-        <circle cx="110" cy="110" r={radius} fill="none" stroke="#EEEEE8" strokeWidth="12" />
+        <circle cx="110" cy="110" r={radius} fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="12" />
         <circle
           cx="110"
           cy="110"
@@ -128,8 +128,8 @@ function CalendarGrid({
                   day.status === 'done'
                     ? 'bg-lime/30 text-lime-darker font-medium'
                     : day.status === 'missed'
-                    ? 'bg-red-50 text-red-400'
-                    : 'bg-bg2 text-text-light'
+                    ? 'bg-red-500/15 text-red-400'
+                    : 'bg-dark3 text-text4'
                 }`}
                 title={day.date}
               >
@@ -145,11 +145,11 @@ function CalendarGrid({
           <span>Feito</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <div className="w-3 h-3 rounded bg-red-50" />
+          <div className="w-3 h-3 rounded bg-red-500/15" />
           <span>Perdido</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <div className="w-3 h-3 rounded bg-bg2" />
+          <div className="w-3 h-3 rounded bg-dark3" />
           <span>Futuro</span>
         </div>
       </div>
@@ -205,7 +205,7 @@ export default function ProtocolPage() {
 
       {/* Progress + Stats Row */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="bg-white rounded-2xl p-8 shadow-[0_1px_3px_rgba(0,0,0,0.04)] flex flex-col items-center justify-center">
+        <div className="bg-card rounded-2xl p-8 border border-border flex flex-col items-center justify-center">
           <CircularProgress current={protocol.current_day} total={protocol.total_days} />
           <p className="text-sm text-text3 mt-4">
             {protocol.total_days - protocol.current_day} dias restantes
@@ -213,22 +213,22 @@ export default function ProtocolPage() {
         </div>
 
         <div className="lg:col-span-2 grid grid-cols-2 gap-4">
-          <div className="bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+          <div className="bg-card rounded-2xl p-6 border border-border">
             <div className="flex items-center gap-2 mb-3">
-              <div className="w-8 h-8 bg-amber-50 rounded-lg flex items-center justify-center">
+              <div className="w-8 h-8 bg-amber-500/15 rounded-lg flex items-center justify-center">
                 <Flame className="w-4 h-4 text-amber-500" />
               </div>
               <span className="text-sm text-text3">Aderencia</span>
             </div>
             <p className="text-3xl font-black text-text">{completionRate}%</p>
-            <p className="text-xs text-text-light mt-1">
+            <p className="text-xs text-text4 mt-1">
               {protocol.checkin_dates.length} de {protocol.current_day} dias
             </p>
           </div>
 
-          <div className="bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+          <div className="bg-card rounded-2xl p-6 border border-border">
             <div className="flex items-center gap-2 mb-3">
-              <div className="w-8 h-8 bg-green-50 rounded-lg flex items-center justify-center">
+              <div className="w-8 h-8 bg-green-500/15 rounded-lg flex items-center justify-center">
                 <CheckCircle2 className="w-4 h-4 text-green-600" />
               </div>
               <span className="text-sm text-text3">Check-ins</span>
@@ -236,12 +236,12 @@ export default function ProtocolPage() {
             <p className="text-3xl font-black text-text">
               {protocol.checkin_dates.length}
             </p>
-            <p className="text-xs text-text-light mt-1">realizados</p>
+            <p className="text-xs text-text4 mt-1">realizados</p>
           </div>
 
-          <div className="bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+          <div className="bg-card rounded-2xl p-6 border border-border">
             <div className="flex items-center gap-2 mb-3">
-              <div className="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center">
+              <div className="w-8 h-8 bg-blue-500/15 rounded-lg flex items-center justify-center">
                 <Calendar className="w-4 h-4 text-blue-500" />
               </div>
               <span className="text-sm text-text3">Inicio</span>
@@ -249,14 +249,14 @@ export default function ProtocolPage() {
             <p className="text-lg font-bold text-text">
               {new Date(protocol.start_date).toLocaleDateString('pt-BR')}
             </p>
-            <p className="text-xs text-text-light mt-1">
+            <p className="text-xs text-text4 mt-1">
               Fim: {new Date(protocol.end_date).toLocaleDateString('pt-BR')}
             </p>
           </div>
 
-          <div className="bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+          <div className="bg-card rounded-2xl p-6 border border-border">
             <div className="flex items-center gap-2 mb-3">
-              <div className="w-8 h-8 bg-purple-50 rounded-lg flex items-center justify-center">
+              <div className="w-8 h-8 bg-purple-500/15 rounded-lg flex items-center justify-center">
                 <Clock className="w-4 h-4 text-purple-500" />
               </div>
               <span className="text-sm text-text3">Tempo restante</span>
@@ -264,7 +264,7 @@ export default function ProtocolPage() {
             <p className="text-lg font-bold text-text">
               {protocol.total_days - protocol.current_day} dias
             </p>
-            <p className="text-xs text-text-light mt-1">
+            <p className="text-xs text-text4 mt-1">
               {Math.round(
                 ((protocol.total_days - protocol.current_day) / 7) * 10
               ) / 10}{' '}
@@ -275,7 +275,7 @@ export default function ProtocolPage() {
       </div>
 
       {/* Calendar View */}
-      <div className="bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+      <div className="bg-card rounded-2xl p-6 border border-border">
         <h3 className="text-lg font-bold text-text mb-4">
           Calendario de Check-ins
         </h3>
@@ -287,12 +287,12 @@ export default function ProtocolPage() {
       </div>
 
       {/* BalanceTest Results */}
-      <div className="bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+      <div className="bg-card rounded-2xl p-6 border border-border">
         <h3 className="text-lg font-bold text-text mb-6">
           Resultado BalanceTest
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="text-center p-6 bg-red-50/50 rounded-2xl">
+          <div className="text-center p-6 bg-red-500/10 rounded-2xl">
             <p className="text-sm text-text3 mb-2">Antes do Protocolo</p>
             <p className="text-5xl font-black text-red-500">
               {protocol.ratio_before ?? '12.3'}
@@ -339,22 +339,22 @@ export default function ProtocolPage() {
       </div>
 
       {/* Streak Chart */}
-      <div className="bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+      <div className="bg-card rounded-2xl p-6 border border-border">
         <h3 className="text-lg font-bold text-text mb-4">Evolucao do Streak</h3>
         <div className="h-64">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={streakData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#E8E8E2" />
+              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
               <XAxis
                 dataKey="day"
-                stroke="#8A9A90"
+                stroke="rgba(255,255,255,0.5)"
                 fontSize={11}
                 tickLine={false}
                 axisLine={false}
                 interval={4}
               />
               <YAxis
-                stroke="#8A9A90"
+                stroke="rgba(255,255,255,0.5)"
                 fontSize={11}
                 tickLine={false}
                 axisLine={false}
@@ -362,12 +362,12 @@ export default function ProtocolPage() {
               />
               <Tooltip
                 contentStyle={{
-                  backgroundColor: '#fff',
-                  border: '1px solid #E8E8E2',
+                  backgroundColor: '#2d3a4e',
+                  border: '1px solid rgba(255,255,255,0.1)',
                   borderRadius: '12px',
-                  color: '#1A1F1C',
+                  color: 'rgba(255,255,255,0.9)',
                   fontSize: '13px',
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+                  boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
                 }}
               />
               <Line
@@ -376,7 +376,7 @@ export default function ProtocolPage() {
                 stroke="#C6D63E"
                 strokeWidth={2.5}
                 dot={false}
-                activeDot={{ r: 5, fill: '#E7FE55', stroke: '#1A1F1C', strokeWidth: 2 }}
+                activeDot={{ r: 5, fill: '#E7FE55', stroke: '#1a2332', strokeWidth: 2 }}
               />
             </LineChart>
           </ResponsiveContainer>

@@ -9,243 +9,159 @@ import {
   Target,
   UserCircle,
   Settings,
-  X,
   Leaf,
   Kanban,
   Bell,
   UserCheck,
   TestTube2,
   BarChart2,
+  ChevronsLeft,
+  ChevronsRight,
+  type LucideIcon,
 } from 'lucide-react';
 
 interface SidebarProps {
-  open: boolean;
-  onClose: () => void;
+  expanded: boolean;
+  onToggle: () => void;
 }
 
 const wellnessItems = [
-  { to: '/', icon: LayoutDashboard, label: 'Dashboard' },
-  { to: '/checkin', icon: ClipboardCheck, label: 'Check-in' },
-  { to: '/data', icon: BarChart3, label: 'Dados' },
-  { to: '/scanner', icon: ScanLine, label: 'Scanner' },
-  { to: '/omega', icon: Database, label: 'Omega Database' },
-  { to: '/community', icon: Users, label: 'Comunidade' },
-  { to: '/protocol', icon: Target, label: 'Protocolo 120' },
+  { to: '/', icon: LayoutDashboard, label: 'Dashboard', short: 'Home' },
+  { to: '/checkin', icon: ClipboardCheck, label: 'Check-in', short: 'Check' },
+  { to: '/data', icon: BarChart3, label: 'Dados', short: 'Data' },
+  { to: '/scanner', icon: ScanLine, label: 'Scanner', short: 'Scan' },
+  { to: '/omega', icon: Database, label: 'Omega Database', short: 'Omega' },
+  { to: '/community', icon: Users, label: 'Comunidade', short: 'Social' },
+  { to: '/protocol', icon: Target, label: 'Protocolo 120', short: 'Proto' },
 ];
 
 const crmItems = [
-  { to: '/crm/pipeline', icon: Kanban, label: 'Pipeline' },
-  { to: '/crm/followups', icon: Bell, label: 'Follow-ups' },
-  { to: '/crm/clients', icon: UserCheck, label: 'Clientes' },
-  { to: '/crm/tests', icon: TestTube2, label: 'Testes' },
-  { to: '/crm/performance', icon: BarChart2, label: 'Performance' },
+  { to: '/crm/pipeline', icon: Kanban, label: 'Pipeline', short: 'Pipe' },
+  { to: '/crm/followups', icon: Bell, label: 'Follow-ups', short: 'Follow' },
+  { to: '/crm/clients', icon: UserCheck, label: 'Clientes', short: 'Client' },
+  { to: '/crm/tests', icon: TestTube2, label: 'Testes', short: 'Tests' },
+  { to: '/crm/performance', icon: BarChart2, label: 'Performance', short: 'Perf' },
 ];
 
 const bottomItems = [
-  { to: '/profile', icon: UserCircle, label: 'Perfil' },
-  { to: '/settings', icon: Settings, label: 'Configuracoes' },
+  { to: '/profile', icon: UserCircle, label: 'Perfil', short: 'Perfil' },
+  { to: '/settings', icon: Settings, label: 'Configurações', short: 'Config' },
 ];
 
-const linkBase: React.CSSProperties = {
-  display: 'flex',
-  alignItems: 'center',
-  gap: '12px',
-  padding: '12px 16px',
-  borderRadius: '14px',
-  fontSize: '13px',
-  fontWeight: 500,
-  transition: 'all 0.2s',
-  textDecoration: 'none',
-};
-
-export default function Sidebar({ open, onClose }: SidebarProps) {
+function SidebarNavItem({ to, icon: Icon, label, short, expanded, end }: {
+  to: string;
+  icon: LucideIcon;
+  label: string;
+  short: string;
+  expanded: boolean;
+  end?: boolean;
+}) {
   return (
-    <>
-      {open && (
-        <div
-          style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.15)', backdropFilter: 'blur(4px)', zIndex: 40 }}
-          onClick={onClose}
-          className="lg:hidden"
-        />
+    <NavLink
+      to={to}
+      end={end}
+      className={({ isActive }) =>
+        `group relative flex items-center rounded-2xl transition-all duration-200 ${
+          expanded
+            ? 'gap-3 px-4 py-2.5'
+            : 'flex-col justify-center w-full py-2'
+        } ${
+          isActive
+            ? 'bg-lime text-dark shadow-[0_4px_12px_rgba(212,225,87,0.25)]'
+            : 'text-[rgba(255,255,255,0.35)] hover:text-[rgba(255,255,255,0.7)] hover:bg-[rgba(255,255,255,0.06)]'
+        }`
+      }
+    >
+      <Icon className={expanded ? 'w-[18px] h-[18px]' : 'w-[20px] h-[20px]'} strokeWidth={1.8} />
+      {expanded ? (
+        <span className="text-[13px] font-medium whitespace-nowrap">{label}</span>
+      ) : (
+        <span className="text-[9px] font-medium mt-0.5 leading-tight">{short}</span>
       )}
+    </NavLink>
+  );
+}
 
-      <aside
-        style={{
-          width: '260px',
-          minWidth: '260px',
-          height: '100vh',
-          background: '#fff',
-          borderRight: '1px solid rgba(0,0,0,0.06)',
-          display: 'flex',
-          flexDirection: 'column',
-          transition: 'transform 0.3s ease',
-          zIndex: 50,
-        }}
-        className={`fixed top-0 left-0 lg:static ${open ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}
-      >
-        {/* Logo */}
-        <div style={{ padding: '28px 24px 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <div style={{
-              width: '44px', height: '44px', background: '#E7FE55', borderRadius: '14px',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              boxShadow: '0 2px 8px rgba(231,254,85,0.3)',
-            }}>
-              <Leaf style={{ width: '20px', height: '20px', color: '#0F1511' }} />
-            </div>
-            <div>
-              <h1 style={{ fontSize: '16px', fontWeight: 700, color: '#1A1F1C', letterSpacing: '-0.3px' }}>Life Balance</h1>
-              <p style={{ fontSize: '10px', color: '#8A9A90', letterSpacing: '2px', textTransform: 'uppercase', marginTop: '2px' }}>Wellness Hub</p>
-            </div>
+export default function Sidebar({ expanded, onToggle }: SidebarProps) {
+  return (
+    <aside
+      className={`hidden lg:flex h-screen bg-dark2 border-r border-border flex-col transition-all duration-300 ease-in-out ${
+        expanded ? 'w-[220px] min-w-[220px]' : 'w-[72px] min-w-[72px]'
+      }`}
+    >
+      {/* Logo + Toggle */}
+      <div className={`flex items-center pt-5 pb-4 ${expanded ? 'px-5 justify-between' : 'px-0 justify-center flex-col gap-3'}`}>
+        <div className={`flex items-center ${expanded ? 'gap-3' : 'justify-center'}`}>
+          <div className="w-10 h-10 bg-lime rounded-xl flex items-center justify-center shadow-[0_4px_12px_rgba(212,225,87,0.25)] flex-shrink-0">
+            <Leaf className="w-5 h-5 text-dark" strokeWidth={2.2} />
           </div>
-          <button
-            onClick={onClose}
-            className="lg:hidden"
-            style={{ padding: '8px', borderRadius: '10px', border: 'none', background: 'transparent', cursor: 'pointer', color: '#8A9A90' }}
-          >
-            <X style={{ width: '16px', height: '16px' }} />
-          </button>
+          {expanded && (
+            <div className="overflow-hidden">
+              <h1 className="text-sm font-bold text-text leading-tight whitespace-nowrap">Life Balance</h1>
+              <p className="text-[9px] text-text4 tracking-[1.5px] uppercase">Hub</p>
+            </div>
+          )}
+        </div>
+        <button
+          onClick={onToggle}
+          className={`w-7 h-7 rounded-lg bg-dark3 border border-border flex items-center justify-center text-text4 hover:text-text3 hover:bg-dark4 transition-colors flex-shrink-0 ${
+            expanded ? '' : ''
+          }`}
+        >
+          {expanded ? <ChevronsLeft className="w-3.5 h-3.5" /> : <ChevronsRight className="w-3.5 h-3.5" />}
+        </button>
+      </div>
+
+      {/* Navigation */}
+      <nav className={`flex-1 overflow-y-auto ${expanded ? 'px-3' : 'px-2'}`}>
+        {/* Wellness Section */}
+        <div className="flex flex-col gap-0.5">
+          {wellnessItems.map((item) => (
+            <SidebarNavItem key={item.to} {...item} expanded={expanded} end={item.to === '/'} />
+          ))}
         </div>
 
-        {/* Navigation */}
-        <nav style={{ flex: 1, padding: '0 16px', overflowY: 'auto' }}>
-          {/* Wellness Section */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-            {wellnessItems.map((item) => (
-              <NavLink
-                key={item.to}
-                to={item.to}
-                end={item.to === '/'}
-                onClick={onClose}
-                style={({ isActive }) => ({
-                  ...linkBase,
-                  background: isActive ? '#E7FE55' : 'transparent',
-                  color: isActive ? '#0F1511' : '#4A5A50',
-                  fontWeight: isActive ? 600 : 500,
-                  boxShadow: isActive ? '0 1px 3px rgba(231,254,85,0.3)' : 'none',
-                })}
-                onMouseEnter={(e) => {
-                  const target = e.currentTarget;
-                  if (!target.classList.contains('active')) {
-                    target.style.background = 'rgba(0,0,0,0.03)';
-                    target.style.color = '#1A1F1C';
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  const target = e.currentTarget;
-                  if (!target.classList.contains('active')) {
-                    target.style.background = 'transparent';
-                    target.style.color = '#4A5A50';
-                  }
-                }}
-              >
-                <item.icon style={{ width: '18px', height: '18px', flexShrink: 0 }} />
-                {item.label}
-              </NavLink>
-            ))}
-          </div>
-
-          {/* CRM Separator */}
-          <div style={{ margin: '16px 0 12px', padding: '0 16px' }}>
-            <div style={{ height: '1px', background: 'rgba(0,0,0,0.06)' }} />
-            <p style={{ fontSize: '10px', fontWeight: 700, color: '#8A9A90', textTransform: 'uppercase', letterSpacing: '2px', marginTop: '12px' }}>CRM</p>
-          </div>
-
-          {/* CRM Section */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-            {crmItems.map((item) => (
-              <NavLink
-                key={item.to}
-                to={item.to}
-                onClick={onClose}
-                style={({ isActive }) => ({
-                  ...linkBase,
-                  background: isActive ? '#E7FE55' : 'transparent',
-                  color: isActive ? '#0F1511' : '#4A5A50',
-                  fontWeight: isActive ? 600 : 500,
-                  boxShadow: isActive ? '0 1px 3px rgba(231,254,85,0.3)' : 'none',
-                })}
-                onMouseEnter={(e) => {
-                  const target = e.currentTarget;
-                  if (!target.classList.contains('active')) {
-                    target.style.background = 'rgba(0,0,0,0.03)';
-                    target.style.color = '#1A1F1C';
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  const target = e.currentTarget;
-                  if (!target.classList.contains('active')) {
-                    target.style.background = 'transparent';
-                    target.style.color = '#4A5A50';
-                  }
-                }}
-              >
-                <item.icon style={{ width: '18px', height: '18px', flexShrink: 0 }} />
-                {item.label}
-              </NavLink>
-            ))}
-          </div>
-
-          {/* Bottom Separator */}
-          <div style={{ margin: '16px 0 12px', padding: '0 16px' }}>
-            <div style={{ height: '1px', background: 'rgba(0,0,0,0.06)' }} />
-          </div>
-
-          {/* Bottom Items */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-            {bottomItems.map((item) => (
-              <NavLink
-                key={item.to}
-                to={item.to}
-                onClick={onClose}
-                style={({ isActive }) => ({
-                  ...linkBase,
-                  background: isActive ? '#E7FE55' : 'transparent',
-                  color: isActive ? '#0F1511' : '#4A5A50',
-                  fontWeight: isActive ? 600 : 500,
-                  boxShadow: isActive ? '0 1px 3px rgba(231,254,85,0.3)' : 'none',
-                })}
-                onMouseEnter={(e) => {
-                  const target = e.currentTarget;
-                  if (!target.classList.contains('active')) {
-                    target.style.background = 'rgba(0,0,0,0.03)';
-                    target.style.color = '#1A1F1C';
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  const target = e.currentTarget;
-                  if (!target.classList.contains('active')) {
-                    target.style.background = 'transparent';
-                    target.style.color = '#4A5A50';
-                  }
-                }}
-              >
-                <item.icon style={{ width: '18px', height: '18px', flexShrink: 0 }} />
-                {item.label}
-              </NavLink>
-            ))}
-          </div>
-        </nav>
-
-        {/* Protocol Progress */}
-        <div style={{ padding: '16px 20px 24px' }}>
-          <div style={{
-            padding: '16px 18px',
-            background: '#0F1511',
-            borderRadius: '16px',
-          }}>
-            <p style={{ fontSize: '10px', color: 'rgba(255,255,255,0.45)', textTransform: 'uppercase', letterSpacing: '2px', fontWeight: 600 }}>
-              Protocolo 120 Dias
-            </p>
-            <div style={{ marginTop: '12px', height: '6px', background: 'rgba(255,255,255,0.1)', borderRadius: '3px', overflow: 'hidden' }}>
-              <div style={{ width: '45%', height: '100%', background: '#E7FE55', borderRadius: '3px', transition: 'width 0.5s' }} />
-            </div>
-            <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.35)', marginTop: '8px' }}>
-              Dia 54 de 120
-            </p>
-          </div>
+        {/* Separator */}
+        <div className={`my-3 ${expanded ? 'mx-2' : 'mx-3'}`}>
+          <div className="h-px bg-border" />
+          {expanded && (
+            <p className="text-[9px] font-bold text-text4 uppercase tracking-[2px] mt-2.5 ml-2">CRM</p>
+          )}
         </div>
-      </aside>
-    </>
+
+        {/* CRM Section */}
+        <div className="flex flex-col gap-0.5">
+          {crmItems.map((item) => (
+            <SidebarNavItem key={item.to} {...item} expanded={expanded} />
+          ))}
+        </div>
+      </nav>
+
+      {/* Bottom */}
+      <div className={`${expanded ? 'px-3' : 'px-2'} pb-3 pt-2 border-t border-border`}>
+        <div className="flex flex-col gap-0.5">
+          {bottomItems.map((item) => (
+            <SidebarNavItem key={item.to} {...item} expanded={expanded} />
+          ))}
+        </div>
+
+        {/* Protocol indicator */}
+        <div className={`mt-3 rounded-xl bg-dark border border-border overflow-hidden ${expanded ? 'p-3' : 'p-2 text-center'}`}>
+          {expanded ? (
+            <>
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[9px] text-text4 uppercase tracking-[1.5px] font-semibold">Protocolo 120</span>
+                <span className="text-[11px] text-lime font-bold">45%</span>
+              </div>
+              <div className="h-1 bg-[rgba(255,255,255,0.08)] rounded-full overflow-hidden">
+                <div className="w-[45%] h-full bg-lime rounded-full shadow-[0_0_6px_rgba(212,225,87,0.3)]" />
+              </div>
+            </>
+          ) : (
+            <span className="text-[11px] font-bold text-lime">54</span>
+          )}
+        </div>
+      </div>
+    </aside>
   );
 }

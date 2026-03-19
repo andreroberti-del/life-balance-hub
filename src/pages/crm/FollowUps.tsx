@@ -64,10 +64,10 @@ const initialFollowUps: FollowUp[] = [
 ];
 
 const cardStyle: React.CSSProperties = {
-  background: '#fff',
+  background: '#2d3a4e',
   borderRadius: '16px',
   padding: '24px',
-  boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
+  border: '1px solid rgba(255,255,255,0.08)',
 };
 
 export default function FollowUps() {
@@ -115,10 +115,10 @@ export default function FollowUps() {
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '400px' }}>
         <div style={{ textAlign: 'center' }}>
           <div style={{
-            width: '40px', height: '40px', border: '3px solid #E8E8E2', borderTopColor: '#E7FE55',
+            width: '40px', height: '40px', border: '3px solid rgba(255,255,255,0.08)', borderTopColor: '#E7FE55',
             borderRadius: '50%', animation: 'spin 0.8s linear infinite', margin: '0 auto 16px',
           }} />
-          <p style={{ color: '#8A9A90', fontSize: '14px' }}>Carregando follow-ups...</p>
+          <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px' }}>Carregando follow-ups...</p>
           <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
         </div>
       </div>
@@ -145,7 +145,7 @@ export default function FollowUps() {
             </div>
             <div style={{ flex: 1 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-                <p style={{ fontSize: '15px', fontWeight: 700, color: '#1A1F1C', margin: 0 }}>{followUp.contactName}</p>
+                <p style={{ fontSize: '15px', fontWeight: 700, color: 'rgba(255,255,255,0.9)', margin: 0 }}>{followUp.contactName}</p>
                 <span style={{
                   fontSize: '10px', fontWeight: 600, color: config.color,
                   background: config.bg, padding: '2px 8px', borderRadius: '6px',
@@ -153,9 +153,9 @@ export default function FollowUps() {
                   {config.label}
                 </span>
               </div>
-              <p style={{ fontSize: '12px', color: '#8A9A90', margin: '0 0 8px' }}>{followUp.contactPhone}</p>
-              <p style={{ fontSize: '13px', color: '#4A5A50', margin: 0, lineHeight: 1.5 }}>{followUp.suggestedMessage}</p>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '8px', fontSize: '11px', color: isOverdue ? '#EF4444' : '#8A9A90' }}>
+              <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', margin: '0 0 8px' }}>{followUp.contactPhone}</p>
+              <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.7)', margin: 0, lineHeight: 1.5 }}>{followUp.suggestedMessage}</p>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '8px', fontSize: '11px', color: isOverdue ? '#EF4444' : 'rgba(255,255,255,0.5)' }}>
                 <Clock style={{ width: '11px', height: '11px' }} />
                 {isOverdue ? (
                   <span style={{ fontWeight: 600 }}>
@@ -185,11 +185,11 @@ export default function FollowUps() {
               title="Adiar"
               style={{
                 width: '40px', height: '40px', borderRadius: '12px',
-                background: '#F5F5F0', border: 'none', cursor: 'pointer',
+                background: '#1a2332', border: 'none', cursor: 'pointer',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
               }}
             >
-              <Clock style={{ width: '16px', height: '16px', color: '#8A9A90' }} />
+              <Clock style={{ width: '16px', height: '16px', color: 'rgba(255,255,255,0.5)' }} />
             </button>
             {(followUp.type === 'call' || followUp.type === 'whatsapp') && (
               <a
@@ -225,8 +225,8 @@ export default function FollowUps() {
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
         <div>
-          <h2 style={{ fontSize: '24px', fontWeight: 700, color: '#1A1F1C', margin: 0 }}>Follow-ups</h2>
-          <p style={{ color: '#8A9A90', fontSize: '14px', marginTop: '4px' }}>Acompanhe e nao perca nenhum contato</p>
+          <h2 style={{ fontSize: '24px', fontWeight: 700, color: 'rgba(255,255,255,0.9)', margin: 0 }}>Follow-ups</h2>
+          <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px', marginTop: '4px' }}>Acompanhe e nao perca nenhum contato</p>
         </div>
         <button
           onClick={() => setShowAddForm(true)}
@@ -251,8 +251,8 @@ export default function FollowUps() {
           { label: 'Concluidos', value: followUps.filter(f => f.status === 'completed').length, color: '#22C55E', bg: '#F0FDF4' },
         ].map(stat => (
           <div key={stat.label} style={{ ...cardStyle, padding: '16px 20px', textAlign: 'center' }}>
-            <p style={{ fontSize: '28px', fontWeight: 800, color: '#1A1F1C', margin: 0 }}>{stat.value}</p>
-            <p style={{ fontSize: '12px', color: '#8A9A90', marginTop: '4px' }}>{stat.label}</p>
+            <p style={{ fontSize: '28px', fontWeight: 800, color: 'rgba(255,255,255,0.9)', margin: 0 }}>{stat.value}</p>
+            <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', marginTop: '4px' }}>{stat.label}</p>
           </div>
         ))}
       </div>
@@ -269,9 +269,9 @@ export default function FollowUps() {
             style={{
               padding: '8px 16px', borderRadius: '10px', fontSize: '13px', fontWeight: 600,
               border: 'none', cursor: 'pointer',
-              background: filter === f.key ? '#E7FE55' : '#fff',
-              color: filter === f.key ? '#0F1511' : '#8A9A90',
-              boxShadow: filter === f.key ? '0 2px 8px rgba(231,254,85,0.3)' : '0 1px 3px rgba(0,0,0,0.04)',
+              background: filter === f.key ? '#E7FE55' : '#2d3a4e',
+              color: filter === f.key ? '#0F1511' : 'rgba(255,255,255,0.5)',
+              border: filter === f.key ? 'none' : '1px solid rgba(255,255,255,0.08)',
             }}
           >
             {f.label}
@@ -287,22 +287,22 @@ export default function FollowUps() {
         }} onClick={() => setShowAddForm(false)}>
           <div style={{ ...cardStyle, width: '100%', maxWidth: '440px', margin: '16px' }} onClick={e => e.stopPropagation()}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px' }}>
-              <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#1A1F1C', margin: 0 }}>Novo Follow-up</h3>
-              <button onClick={() => setShowAddForm(false)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#8A9A90', padding: '4px' }}>
+              <h3 style={{ fontSize: '18px', fontWeight: 700, color: 'rgba(255,255,255,0.9)', margin: 0 }}>Novo Follow-up</h3>
+              <button onClick={() => setShowAddForm(false)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'rgba(255,255,255,0.5)', padding: '4px' }}>
                 <X style={{ width: '18px', height: '18px' }} />
               </button>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-              <input value={newFollowUp.contactName} onChange={e => setNewFollowUp(p => ({ ...p, contactName: e.target.value }))} placeholder="Nome do contato" style={{ width: '100%', padding: '12px 16px', borderRadius: '12px', border: '1px solid #E8E8E2', fontSize: '14px', outline: 'none', background: '#F5F5F0', boxSizing: 'border-box' }} />
-              <input value={newFollowUp.contactPhone} onChange={e => setNewFollowUp(p => ({ ...p, contactPhone: e.target.value }))} placeholder="Telefone" style={{ width: '100%', padding: '12px 16px', borderRadius: '12px', border: '1px solid #E8E8E2', fontSize: '14px', outline: 'none', background: '#F5F5F0', boxSizing: 'border-box' }} />
+              <input value={newFollowUp.contactName} onChange={e => setNewFollowUp(p => ({ ...p, contactName: e.target.value }))} placeholder="Nome do contato" style={{ width: '100%', padding: '12px 16px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.08)', fontSize: '14px', outline: 'none', background: '#1a2332', boxSizing: 'border-box' }} />
+              <input value={newFollowUp.contactPhone} onChange={e => setNewFollowUp(p => ({ ...p, contactPhone: e.target.value }))} placeholder="Telefone" style={{ width: '100%', padding: '12px 16px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.08)', fontSize: '14px', outline: 'none', background: '#1a2332', boxSizing: 'border-box' }} />
               <div style={{ display: 'flex', gap: '12px' }}>
-                <select value={newFollowUp.type} onChange={e => setNewFollowUp(p => ({ ...p, type: e.target.value as FollowUpType }))} style={{ flex: 1, padding: '12px 16px', borderRadius: '12px', border: '1px solid #E8E8E2', fontSize: '14px', outline: 'none', background: '#F5F5F0' }}>
+                <select value={newFollowUp.type} onChange={e => setNewFollowUp(p => ({ ...p, type: e.target.value as FollowUpType }))} style={{ flex: 1, padding: '12px 16px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.08)', fontSize: '14px', outline: 'none', background: '#1a2332' }}>
                   {Object.entries(typeConfig).map(([k, v]) => <option key={k} value={k}>{v.label}</option>)}
                 </select>
-                <input type="time" value={newFollowUp.time} onChange={e => setNewFollowUp(p => ({ ...p, time: e.target.value }))} style={{ width: '120px', padding: '12px 16px', borderRadius: '12px', border: '1px solid #E8E8E2', fontSize: '14px', outline: 'none', background: '#F5F5F0' }} />
+                <input type="time" value={newFollowUp.time} onChange={e => setNewFollowUp(p => ({ ...p, time: e.target.value }))} style={{ width: '120px', padding: '12px 16px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.08)', fontSize: '14px', outline: 'none', background: '#1a2332' }} />
               </div>
-              <input type="date" value={newFollowUp.date} onChange={e => setNewFollowUp(p => ({ ...p, date: e.target.value }))} style={{ width: '100%', padding: '12px 16px', borderRadius: '12px', border: '1px solid #E8E8E2', fontSize: '14px', outline: 'none', background: '#F5F5F0', boxSizing: 'border-box' }} />
-              <textarea value={newFollowUp.suggestedMessage} onChange={e => setNewFollowUp(p => ({ ...p, suggestedMessage: e.target.value }))} placeholder="Mensagem sugerida (opcional)" rows={3} style={{ width: '100%', padding: '12px 16px', borderRadius: '12px', border: '1px solid #E8E8E2', fontSize: '14px', outline: 'none', background: '#F5F5F0', resize: 'vertical', boxSizing: 'border-box', fontFamily: 'inherit' }} />
+              <input type="date" value={newFollowUp.date} onChange={e => setNewFollowUp(p => ({ ...p, date: e.target.value }))} style={{ width: '100%', padding: '12px 16px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.08)', fontSize: '14px', outline: 'none', background: '#1a2332', boxSizing: 'border-box' }} />
+              <textarea value={newFollowUp.suggestedMessage} onChange={e => setNewFollowUp(p => ({ ...p, suggestedMessage: e.target.value }))} placeholder="Mensagem sugerida (opcional)" rows={3} style={{ width: '100%', padding: '12px 16px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.08)', fontSize: '14px', outline: 'none', background: '#1a2332', resize: 'vertical', boxSizing: 'border-box', fontFamily: 'inherit' }} />
               <button onClick={addFollowUp} style={{ width: '100%', padding: '14px', borderRadius: '14px', background: '#E7FE55', color: '#0F1511', border: 'none', fontSize: '14px', fontWeight: 700, cursor: 'pointer', boxShadow: '0 2px 8px rgba(231,254,85,0.3)', marginTop: '4px' }}>
                 Adicionar Follow-up
               </button>
@@ -336,14 +336,14 @@ export default function FollowUps() {
           display: 'flex', alignItems: 'center', gap: '8px', background: 'none', border: 'none',
           cursor: 'pointer', padding: '0 0 12px', width: '100%',
         }}>
-          <Bell style={{ width: '16px', height: '16px', color: '#1A1F1C' }} />
-          <span style={{ fontSize: '14px', fontWeight: 700, color: '#1A1F1C' }}>Hoje ({todayItems.length})</span>
-          {expandedSections.today ? <ChevronUp style={{ width: '14px', height: '14px', color: '#8A9A90' }} /> : <ChevronDown style={{ width: '14px', height: '14px', color: '#8A9A90' }} />}
+          <Bell style={{ width: '16px', height: '16px', color: 'rgba(255,255,255,0.9)' }} />
+          <span style={{ fontSize: '14px', fontWeight: 700, color: 'rgba(255,255,255,0.9)' }}>Hoje ({todayItems.length})</span>
+          {expandedSections.today ? <ChevronUp style={{ width: '14px', height: '14px', color: 'rgba(255,255,255,0.5)' }} /> : <ChevronDown style={{ width: '14px', height: '14px', color: 'rgba(255,255,255,0.5)' }} />}
         </button>
         {expandedSections.today && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             {todayItems.length > 0 ? todayItems.map(f => renderFollowUpCard(f)) : (
-              <div style={{ ...cardStyle, padding: '32px', textAlign: 'center', color: '#8A9A90', fontSize: '14px' }}>
+              <div style={{ ...cardStyle, padding: '32px', textAlign: 'center', color: 'rgba(255,255,255,0.5)', fontSize: '14px' }}>
                 Nenhum follow-up para hoje
               </div>
             )}
@@ -364,7 +364,7 @@ export default function FollowUps() {
         {expandedSections.upcoming && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             {upcoming.length > 0 ? upcoming.map(f => renderFollowUpCard(f)) : (
-              <div style={{ ...cardStyle, padding: '32px', textAlign: 'center', color: '#8A9A90', fontSize: '14px' }}>
+              <div style={{ ...cardStyle, padding: '32px', textAlign: 'center', color: 'rgba(255,255,255,0.5)', fontSize: '14px' }}>
                 Nenhum follow-up agendado
               </div>
             )}

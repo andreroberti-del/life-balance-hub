@@ -74,10 +74,10 @@ const initialLeads: Lead[] = [
 ];
 
 const cardStyle: React.CSSProperties = {
-  background: '#fff',
+  background: '#2d3a4e',
   borderRadius: '16px',
   padding: '24px',
-  boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
+  border: '1px solid rgba(255,255,255,0.08)',
 };
 
 export default function Pipeline() {
@@ -132,10 +132,10 @@ export default function Pipeline() {
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '400px' }}>
         <div style={{ textAlign: 'center' }}>
           <div style={{
-            width: '40px', height: '40px', border: '3px solid #E8E8E2', borderTopColor: '#E7FE55',
+            width: '40px', height: '40px', border: '3px solid rgba(255,255,255,0.08)', borderTopColor: '#E7FE55',
             borderRadius: '50%', animation: 'spin 0.8s linear infinite', margin: '0 auto 16px',
           }} />
-          <p style={{ color: '#8A9A90', fontSize: '14px' }}>Carregando pipeline...</p>
+          <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px' }}>Carregando pipeline...</p>
           <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
         </div>
       </div>
@@ -147,8 +147,8 @@ export default function Pipeline() {
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
         <div>
-          <h2 style={{ fontSize: '24px', fontWeight: 700, color: '#1A1F1C', margin: 0 }}>Pipeline de Leads</h2>
-          <p style={{ color: '#8A9A90', fontSize: '14px', marginTop: '4px' }}>Gerencie seus leads do inicio ao fechamento</p>
+          <h2 style={{ fontSize: '24px', fontWeight: 700, color: 'rgba(255,255,255,0.9)', margin: 0 }}>Pipeline de Leads</h2>
+          <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px', marginTop: '4px' }}>Gerencie seus leads do inicio ao fechamento</p>
         </div>
         <button
           onClick={() => setShowAddForm(true)}
@@ -181,8 +181,8 @@ export default function Pipeline() {
                 <stat.icon style={{ width: '18px', height: '18px', color: stat.iconColor }} />
               </div>
               <div>
-                <p style={{ fontSize: '24px', fontWeight: 800, color: '#1A1F1C', lineHeight: 1, margin: 0 }}>{stat.value}</p>
-                <p style={{ fontSize: '12px', color: '#8A9A90', marginTop: '2px' }}>{stat.label}</p>
+                <p style={{ fontSize: '24px', fontWeight: 800, color: 'rgba(255,255,255,0.9)', lineHeight: 1, margin: 0 }}>{stat.value}</p>
+                <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', marginTop: '2px' }}>{stat.label}</p>
               </div>
             </div>
           </div>
@@ -197,47 +197,47 @@ export default function Pipeline() {
         }} onClick={() => setShowAddForm(false)}>
           <div style={{ ...cardStyle, width: '100%', maxWidth: '440px', margin: '16px' }} onClick={e => e.stopPropagation()}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px' }}>
-              <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#1A1F1C', margin: 0 }}>Novo Lead</h3>
-              <button onClick={() => setShowAddForm(false)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#8A9A90', padding: '4px' }}>
+              <h3 style={{ fontSize: '18px', fontWeight: 700, color: 'rgba(255,255,255,0.9)', margin: 0 }}>Novo Lead</h3>
+              <button onClick={() => setShowAddForm(false)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'rgba(255,255,255,0.5)', padding: '4px' }}>
                 <X style={{ width: '18px', height: '18px' }} />
               </button>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div>
-                <label style={{ fontSize: '13px', fontWeight: 600, color: '#4A5A50', display: 'block', marginBottom: '6px' }}>Nome</label>
+                <label style={{ fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.7)', display: 'block', marginBottom: '6px' }}>Nome</label>
                 <input
                   value={newLead.name}
                   onChange={e => setNewLead(prev => ({ ...prev, name: e.target.value }))}
                   placeholder="Nome do lead"
                   style={{
                     width: '100%', padding: '12px 16px', borderRadius: '12px',
-                    border: '1px solid #E8E8E2', fontSize: '14px', outline: 'none',
-                    background: '#F5F5F0', boxSizing: 'border-box',
+                    border: '1px solid rgba(255,255,255,0.08)', fontSize: '14px', outline: 'none',
+                    background: '#1a2332', boxSizing: 'border-box',
                   }}
                 />
               </div>
               <div>
-                <label style={{ fontSize: '13px', fontWeight: 600, color: '#4A5A50', display: 'block', marginBottom: '6px' }}>Telefone</label>
+                <label style={{ fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.7)', display: 'block', marginBottom: '6px' }}>Telefone</label>
                 <input
                   value={newLead.phone}
                   onChange={e => setNewLead(prev => ({ ...prev, phone: e.target.value }))}
                   placeholder="(00) 00000-0000"
                   style={{
                     width: '100%', padding: '12px 16px', borderRadius: '12px',
-                    border: '1px solid #E8E8E2', fontSize: '14px', outline: 'none',
-                    background: '#F5F5F0', boxSizing: 'border-box',
+                    border: '1px solid rgba(255,255,255,0.08)', fontSize: '14px', outline: 'none',
+                    background: '#1a2332', boxSizing: 'border-box',
                   }}
                 />
               </div>
               <div>
-                <label style={{ fontSize: '13px', fontWeight: 600, color: '#4A5A50', display: 'block', marginBottom: '6px' }}>Fonte</label>
+                <label style={{ fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.7)', display: 'block', marginBottom: '6px' }}>Fonte</label>
                 <select
                   value={newLead.source}
                   onChange={e => setNewLead(prev => ({ ...prev, source: e.target.value as Lead['source'] }))}
                   style={{
                     width: '100%', padding: '12px 16px', borderRadius: '12px',
-                    border: '1px solid #E8E8E2', fontSize: '14px', outline: 'none',
-                    background: '#F5F5F0', boxSizing: 'border-box',
+                    border: '1px solid rgba(255,255,255,0.08)', fontSize: '14px', outline: 'none',
+                    background: '#1a2332', boxSizing: 'border-box',
                   }}
                 >
                   <option value="instagram">Instagram</option>
@@ -281,13 +281,13 @@ export default function Pipeline() {
                       width: '8px', height: '8px', borderRadius: '50%',
                       background: stage.color,
                     }} />
-                    <span style={{ fontSize: '13px', fontWeight: 700, color: '#1A1F1C', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                    <span style={{ fontSize: '13px', fontWeight: 700, color: 'rgba(255,255,255,0.9)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                       {stage.label}
                     </span>
                   </div>
                   <span style={{
-                    fontSize: '12px', fontWeight: 700, color: '#8A9A90',
-                    background: '#F5F5F0', borderRadius: '8px', padding: '2px 10px',
+                    fontSize: '12px', fontWeight: 700, color: 'rgba(255,255,255,0.5)',
+                    background: '#1a2332', borderRadius: '8px', padding: '2px 10px',
                   }}>
                     {stageLeads.length}
                   </span>
@@ -296,22 +296,22 @@ export default function Pipeline() {
                 {/* Column Body */}
                 <div style={{
                   display: 'flex', flexDirection: 'column', gap: '10px',
-                  background: '#F5F5F0', borderRadius: '16px', padding: '12px',
+                  background: '#1a2332', borderRadius: '16px', padding: '12px',
                   minHeight: '300px',
                 }}>
                   {stageLeads.map((lead) => {
                     const SourceIcon = sourceIcons[lead.source] || Globe;
                     return (
                       <div key={lead.id} style={{
-                        background: '#fff', borderRadius: '14px', padding: '16px',
+                        background: '#2d3a4e', borderRadius: '14px', padding: '16px',
                         boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
                         transition: 'box-shadow 0.2s',
                         cursor: 'default',
                       }}>
                         <div style={{ display: 'flex', alignItems: 'start', justifyContent: 'space-between', marginBottom: '10px' }}>
                           <div>
-                            <p style={{ fontSize: '14px', fontWeight: 700, color: '#1A1F1C', margin: 0 }}>{lead.name}</p>
-                            <p style={{ fontSize: '12px', color: '#8A9A90', marginTop: '2px' }}>{lead.phone}</p>
+                            <p style={{ fontSize: '14px', fontWeight: 700, color: 'rgba(255,255,255,0.9)', margin: 0 }}>{lead.name}</p>
+                            <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', marginTop: '2px' }}>{lead.phone}</p>
                           </div>
                           <div style={{
                             display: 'flex', alignItems: 'center', gap: '4px',
@@ -324,7 +324,7 @@ export default function Pipeline() {
                           </div>
                         </div>
 
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '11px', color: '#8A9A90', marginBottom: '12px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '11px', color: 'rgba(255,255,255,0.5)', marginBottom: '12px' }}>
                           <span style={{ display: 'flex', alignItems: 'center', gap: '3px' }}>
                             <Clock style={{ width: '10px', height: '10px' }} />
                             {lead.daysInStage}d no estagio
@@ -345,8 +345,8 @@ export default function Pipeline() {
                               style={{
                                 flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center',
                                 gap: '4px', padding: '8px', borderRadius: '10px',
-                                border: '1px solid #E8E8E2', background: '#fff',
-                                fontSize: '11px', color: '#8A9A90', cursor: 'pointer',
+                                border: '1px solid rgba(255,255,255,0.08)', background: '#1a2332',
+                                fontSize: '11px', color: 'rgba(255,255,255,0.5)', cursor: 'pointer',
                                 fontWeight: 500,
                               }}
                             >
@@ -379,7 +379,7 @@ export default function Pipeline() {
                   {stageLeads.length === 0 && (
                     <div style={{
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      padding: '40px 16px', color: '#C0C8C3', fontSize: '13px',
+                      padding: '40px 16px', color: 'rgba(255,255,255,0.3)', fontSize: '13px',
                     }}>
                       Nenhum lead
                     </div>

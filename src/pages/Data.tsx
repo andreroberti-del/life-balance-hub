@@ -98,12 +98,12 @@ export default function DataPage() {
     imc >= 30 ? 'Obesidade' : imc >= 25 ? 'Sobrepeso' : imc >= 18.5 ? 'Normal' : 'Abaixo';
 
   const tooltipStyle = {
-    backgroundColor: '#fff',
-    border: '1px solid #E8E8E2',
+    backgroundColor: '#2d3a4e',
+    border: '1px solid rgba(255,255,255,0.1)',
     borderRadius: '12px',
-    color: '#1A1F1C',
+    color: 'rgba(255,255,255,0.9)',
     fontSize: '13px',
-    boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+    boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
   };
 
   const renderChart = () => {
@@ -120,11 +120,11 @@ export default function DataPage() {
                   <stop offset="95%" stopColor="#E7FE55" stopOpacity={0} />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="#E8E8E2" />
-              <XAxis dataKey="date" stroke="#8A9A90" fontSize={11} tickLine={false} axisLine={false} interval={interval} />
-              <YAxis stroke="#8A9A90" fontSize={11} tickLine={false} axisLine={false} domain={['auto', 'auto']} width={45} />
-              <Tooltip contentStyle={tooltipStyle} labelStyle={{ color: '#8A9A90' }} />
-              <Area type="monotone" dataKey="weight" stroke="#C6D63E" strokeWidth={2.5} fill="url(#weightGrad)" dot={false} activeDot={{ r: 5, fill: '#E7FE55', stroke: '#1A1F1C', strokeWidth: 2 }} />
+              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
+              <XAxis dataKey="date" stroke="rgba(255,255,255,0.5)" fontSize={11} tickLine={false} axisLine={false} interval={interval} />
+              <YAxis stroke="rgba(255,255,255,0.5)" fontSize={11} tickLine={false} axisLine={false} domain={['auto', 'auto']} width={45} />
+              <Tooltip contentStyle={tooltipStyle} labelStyle={{ color: 'rgba(255,255,255,0.5)' }} />
+              <Area type="monotone" dataKey="weight" stroke="#C6D63E" strokeWidth={2.5} fill="url(#weightGrad)" dot={false} activeDot={{ r: 5, fill: '#E7FE55', stroke: '#1a2332', strokeWidth: 2 }} />
             </AreaChart>
           </ResponsiveContainer>
         );
@@ -132,10 +132,10 @@ export default function DataPage() {
         return (
           <ResponsiveContainer width="100%" height={350}>
             <BarChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#E8E8E2" />
-              <XAxis dataKey="date" stroke="#8A9A90" fontSize={11} tickLine={false} axisLine={false} interval={interval} />
-              <YAxis stroke="#8A9A90" fontSize={11} tickLine={false} axisLine={false} domain={[0, 5]} width={30} />
-              <Tooltip contentStyle={tooltipStyle} labelStyle={{ color: '#8A9A90' }} />
+              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
+              <XAxis dataKey="date" stroke="rgba(255,255,255,0.5)" fontSize={11} tickLine={false} axisLine={false} interval={interval} />
+              <YAxis stroke="rgba(255,255,255,0.5)" fontSize={11} tickLine={false} axisLine={false} domain={[0, 5]} width={30} />
+              <Tooltip contentStyle={tooltipStyle} labelStyle={{ color: 'rgba(255,255,255,0.5)' }} />
               <Bar dataKey="sleep" fill="#C6D63E" radius={[4, 4, 0, 0]} barSize={chartData.length > 60 ? 4 : 12} />
             </BarChart>
           </ResponsiveContainer>
@@ -144,10 +144,10 @@ export default function DataPage() {
         return (
           <ResponsiveContainer width="100%" height={350}>
             <BarChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#E8E8E2" />
-              <XAxis dataKey="date" stroke="#8A9A90" fontSize={11} tickLine={false} axisLine={false} interval={interval} />
-              <YAxis stroke="#8A9A90" fontSize={11} tickLine={false} axisLine={false} domain={[0, 4]} width={30} />
-              <Tooltip contentStyle={tooltipStyle} labelStyle={{ color: '#8A9A90' }} />
+              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
+              <XAxis dataKey="date" stroke="rgba(255,255,255,0.5)" fontSize={11} tickLine={false} axisLine={false} interval={interval} />
+              <YAxis stroke="rgba(255,255,255,0.5)" fontSize={11} tickLine={false} axisLine={false} domain={[0, 4]} width={30} />
+              <Tooltip contentStyle={tooltipStyle} labelStyle={{ color: 'rgba(255,255,255,0.5)' }} />
               <Bar dataKey="water" fill="#42a5f5" radius={[4, 4, 0, 0]} barSize={chartData.length > 60 ? 4 : 12} />
             </BarChart>
           </ResponsiveContainer>
@@ -156,10 +156,10 @@ export default function DataPage() {
         return (
           <ResponsiveContainer width="100%" height={350}>
             <LineChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#E8E8E2" />
-              <XAxis dataKey="date" stroke="#8A9A90" fontSize={11} tickLine={false} axisLine={false} interval={interval} />
-              <YAxis stroke="#8A9A90" fontSize={11} tickLine={false} axisLine={false} domain={['auto', 'auto']} width={45} />
-              <Tooltip contentStyle={tooltipStyle} labelStyle={{ color: '#8A9A90' }} />
+              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
+              <XAxis dataKey="date" stroke="rgba(255,255,255,0.5)" fontSize={11} tickLine={false} axisLine={false} interval={interval} />
+              <YAxis stroke="rgba(255,255,255,0.5)" fontSize={11} tickLine={false} axisLine={false} domain={['auto', 'auto']} width={45} />
+              <Tooltip contentStyle={tooltipStyle} labelStyle={{ color: 'rgba(255,255,255,0.5)' }} />
               <Line type="monotone" dataKey="waist" stroke="#fb923c" strokeWidth={2.5} dot={false} activeDot={{ r: 5, fill: '#fb923c' }} />
             </LineChart>
           </ResponsiveContainer>
@@ -176,7 +176,7 @@ export default function DataPage() {
           <h2 className="text-2xl font-bold text-text">Dados & Analiticos</h2>
           <p className="text-text2 mt-1">Acompanhe sua evolucao</p>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm text-text2 hover:bg-gray-50 transition-colors w-fit shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+        <button className="flex items-center gap-2 px-4 py-2.5 bg-dark3 border border-border rounded-xl text-sm text-text2 hover:bg-dark3 transition-colors w-fit">
           <Download className="w-4 h-4" />
           Exportar Dados
         </button>
@@ -184,7 +184,7 @@ export default function DataPage() {
 
       {/* Tabs & Date Range */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div className="flex gap-1 bg-white rounded-xl p-1 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+        <div className="flex gap-1 bg-card rounded-xl p-1 border border-border">
           {tabs.map((tab) => (
             <button
               key={tab.id}
@@ -201,7 +201,7 @@ export default function DataPage() {
           ))}
         </div>
 
-        <div className="flex gap-1 bg-white rounded-xl p-1 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+        <div className="flex gap-1 bg-card rounded-xl p-1 border border-border">
           {dateRanges.map((range) => (
             <button
               key={range.id}
@@ -220,13 +220,13 @@ export default function DataPage() {
       </div>
 
       {/* Chart */}
-      <div className="bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+      <div className="bg-card rounded-2xl p-6 border border-border">
         {renderChart()}
       </div>
 
       {/* Risk Indicators */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+        <div className="bg-card rounded-2xl p-6 border border-border">
           <div className="flex items-center gap-2 mb-3">
             <Scale className="w-4 h-4 text-text3" />
             <span className="text-sm text-text3">IMC</span>
@@ -235,7 +235,7 @@ export default function DataPage() {
           <p className={`text-sm mt-1 ${imc >= 25 ? 'text-orange-500' : 'text-green-600'}`}>
             {imcCategory}
           </p>
-          <div className="mt-3 h-2 bg-bg2 rounded-full overflow-hidden">
+          <div className="mt-3 h-2 bg-dark3 rounded-full overflow-hidden">
             <div
               className={`h-full rounded-full ${
                 imc >= 30 ? 'bg-red-500' : imc >= 25 ? 'bg-orange-400' : 'bg-green-500'
@@ -245,7 +245,7 @@ export default function DataPage() {
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+        <div className="bg-card rounded-2xl p-6 border border-border">
           <div className="flex items-center gap-2 mb-3">
             {cvRisk !== 'Normal' && <AlertTriangle className="w-4 h-4 text-orange-500" />}
             <span className="text-sm text-text3">Risco Cardiovascular</span>
@@ -254,7 +254,7 @@ export default function DataPage() {
           <p className="text-sm text-text3 mt-1">
             Cintura: {latestWaist.toFixed(1)} cm
           </p>
-          <div className="mt-3 h-2 bg-bg2 rounded-full overflow-hidden">
+          <div className="mt-3 h-2 bg-dark3 rounded-full overflow-hidden">
             <div
               className={`h-full rounded-full ${
                 cvRisk === 'Elevado' ? 'bg-red-500' : cvRisk === 'Moderado' ? 'bg-orange-400' : 'bg-green-500'
@@ -266,14 +266,14 @@ export default function DataPage() {
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+        <div className="bg-card rounded-2xl p-6 border border-border">
           <div className="flex items-center gap-2 mb-3">
             <Ruler className="w-4 h-4 text-text3" />
             <span className="text-sm text-text3">Idade Metabolica</span>
           </div>
           <p className="text-3xl font-black text-text">38</p>
           <p className="text-sm text-text3 mt-1">anos (estimado)</p>
-          <div className="mt-3 h-2 bg-bg2 rounded-full overflow-hidden">
+          <div className="mt-3 h-2 bg-dark3 rounded-full overflow-hidden">
             <div className="h-full bg-lime-darker rounded-full" style={{ width: '45%' }} />
           </div>
         </div>

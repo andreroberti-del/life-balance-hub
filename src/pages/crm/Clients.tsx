@@ -162,10 +162,10 @@ const initialClients: Client[] = [
 ];
 
 const cardStyle: React.CSSProperties = {
-  background: '#fff',
+  background: '#2d3a4e',
   borderRadius: '16px',
   padding: '24px',
-  boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
+  border: '1px solid rgba(255,255,255,0.08)',
 };
 
 export default function Clients() {
@@ -197,10 +197,10 @@ export default function Clients() {
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '400px' }}>
         <div style={{ textAlign: 'center' }}>
           <div style={{
-            width: '40px', height: '40px', border: '3px solid #E8E8E2', borderTopColor: '#E7FE55',
+            width: '40px', height: '40px', border: '3px solid rgba(255,255,255,0.08)', borderTopColor: '#E7FE55',
             borderRadius: '50%', animation: 'spin 0.8s linear infinite', margin: '0 auto 16px',
           }} />
-          <p style={{ color: '#8A9A90', fontSize: '14px' }}>Carregando clientes...</p>
+          <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px' }}>Carregando clientes...</p>
           <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
         </div>
       </div>
@@ -211,8 +211,8 @@ export default function Clients() {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
       {/* Header */}
       <div>
-        <h2 style={{ fontSize: '24px', fontWeight: 700, color: '#1A1F1C', margin: 0 }}>Clientes</h2>
-        <p style={{ color: '#8A9A90', fontSize: '14px', marginTop: '4px' }}>Gerencie sua carteira de clientes ativos</p>
+        <h2 style={{ fontSize: '24px', fontWeight: 700, color: 'rgba(255,255,255,0.9)', margin: 0 }}>Clientes</h2>
+        <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px', marginTop: '4px' }}>Gerencie sua carteira de clientes ativos</p>
       </div>
 
       {/* Stats */}
@@ -229,8 +229,8 @@ export default function Clients() {
                 <stat.icon style={{ width: '18px', height: '18px', color: stat.iconColor }} />
               </div>
               <div>
-                <p style={{ fontSize: '22px', fontWeight: 800, color: '#1A1F1C', lineHeight: 1, margin: 0 }}>{stat.value}</p>
-                <p style={{ fontSize: '12px', color: '#8A9A90', marginTop: '2px' }}>{stat.label}</p>
+                <p style={{ fontSize: '22px', fontWeight: 800, color: 'rgba(255,255,255,0.9)', lineHeight: 1, margin: 0 }}>{stat.value}</p>
+                <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', marginTop: '2px' }}>{stat.label}</p>
               </div>
             </div>
           </div>
@@ -240,20 +240,20 @@ export default function Clients() {
       {/* Search & Filter */}
       <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center' }}>
         <div style={{ position: 'relative', flex: 1, minWidth: '240px' }}>
-          <Search style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', width: '16px', height: '16px', color: '#8A9A90' }} />
+          <Search style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', width: '16px', height: '16px', color: 'rgba(255,255,255,0.5)' }} />
           <input
             value={search}
             onChange={e => setSearch(e.target.value)}
             placeholder="Buscar por nome..."
             style={{
               width: '100%', padding: '12px 16px 12px 42px', borderRadius: '14px',
-              border: '1px solid #E8E8E2', fontSize: '14px', outline: 'none',
-              background: '#fff', boxSizing: 'border-box',
+              border: '1px solid rgba(255,255,255,0.08)', fontSize: '14px', outline: 'none',
+              background: '#2d3a4e', boxSizing: 'border-box',
             }}
           />
         </div>
         <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-          <Filter style={{ width: '14px', height: '14px', color: '#8A9A90' }} />
+          <Filter style={{ width: '14px', height: '14px', color: 'rgba(255,255,255,0.5)' }} />
           {[
             { key: 'all' as const, label: 'Todos' },
             { key: 'active' as const, label: 'Ativos' },
@@ -266,9 +266,9 @@ export default function Clients() {
               style={{
                 padding: '8px 16px', borderRadius: '10px', fontSize: '13px', fontWeight: 600,
                 border: 'none', cursor: 'pointer',
-                background: statusFilter === f.key ? '#E7FE55' : '#fff',
-                color: statusFilter === f.key ? '#0F1511' : '#8A9A90',
-                boxShadow: statusFilter === f.key ? '0 2px 8px rgba(231,254,85,0.3)' : '0 1px 3px rgba(0,0,0,0.04)',
+                background: statusFilter === f.key ? '#E7FE55' : '#2d3a4e',
+                color: statusFilter === f.key ? '#0F1511' : 'rgba(255,255,255,0.5)',
+                border: statusFilter === f.key ? 'none' : '1px solid rgba(255,255,255,0.08)',
               }}
             >
               {f.label}
@@ -306,8 +306,8 @@ export default function Clients() {
                 <div style={{ flex: 1, display: 'grid', gridTemplateColumns: 'minmax(140px, 1.5fr) minmax(120px, 1fr) repeat(4, minmax(80px, 1fr))', gap: '12px', alignItems: 'center' }}>
                   {/* Name + Products */}
                   <div>
-                    <p style={{ fontSize: '15px', fontWeight: 700, color: '#1A1F1C', margin: 0 }}>{client.name}</p>
-                    <p style={{ fontSize: '11px', color: '#8A9A90', margin: '2px 0 0' }}>{client.products.join(', ')}</p>
+                    <p style={{ fontSize: '15px', fontWeight: 700, color: 'rgba(255,255,255,0.9)', margin: 0 }}>{client.name}</p>
+                    <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.5)', margin: '2px 0 0' }}>{client.products.join(', ')}</p>
                   </div>
 
                   {/* Status */}
@@ -332,53 +332,53 @@ export default function Clients() {
 
                   {/* Protocol Day */}
                   <div className="hidden md:block">
-                    <p style={{ fontSize: '16px', fontWeight: 800, color: '#1A1F1C', margin: 0 }}>{client.protocolDay > 0 ? `Dia ${client.protocolDay}` : '-'}</p>
-                    <p style={{ fontSize: '10px', color: '#8A9A90', margin: '1px 0 0' }}>Protocolo</p>
+                    <p style={{ fontSize: '16px', fontWeight: 800, color: 'rgba(255,255,255,0.9)', margin: 0 }}>{client.protocolDay > 0 ? `Dia ${client.protocolDay}` : '-'}</p>
+                    <p style={{ fontSize: '10px', color: 'rgba(255,255,255,0.5)', margin: '1px 0 0' }}>Protocolo</p>
                   </div>
 
                   {/* Next Reorder */}
                   <div className="hidden lg:block">
-                    <p style={{ fontSize: '13px', fontWeight: 600, color: client.alerts.includes('reorder') ? '#F59E0B' : '#1A1F1C', margin: 0 }}>
+                    <p style={{ fontSize: '13px', fontWeight: 600, color: client.alerts.includes('reorder') ? '#F59E0B' : 'rgba(255,255,255,0.9)', margin: 0 }}>
                       {client.nextReorder !== '-' ? new Date(client.nextReorder).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }) : '-'}
                     </p>
-                    <p style={{ fontSize: '10px', color: '#8A9A90', margin: '1px 0 0' }}>Recompra</p>
+                    <p style={{ fontSize: '10px', color: 'rgba(255,255,255,0.5)', margin: '1px 0 0' }}>Recompra</p>
                   </div>
 
                   {/* Next Re-test */}
                   <div className="hidden lg:block">
-                    <p style={{ fontSize: '13px', fontWeight: 600, color: client.alerts.includes('retest') ? '#84CC16' : '#1A1F1C', margin: 0 }}>
+                    <p style={{ fontSize: '13px', fontWeight: 600, color: client.alerts.includes('retest') ? '#84CC16' : 'rgba(255,255,255,0.9)', margin: 0 }}>
                       {client.nextRetest !== '-' ? new Date(client.nextRetest).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }) : '-'}
                     </p>
-                    <p style={{ fontSize: '10px', color: '#8A9A90', margin: '1px 0 0' }}>Re-teste</p>
+                    <p style={{ fontSize: '10px', color: 'rgba(255,255,255,0.5)', margin: '1px 0 0' }}>Re-teste</p>
                   </div>
 
                   {/* LTV */}
                   <div className="hidden md:block">
-                    <p style={{ fontSize: '16px', fontWeight: 800, color: '#1A1F1C', margin: 0 }}>R$ {client.ltv.toLocaleString('pt-BR')}</p>
-                    <p style={{ fontSize: '10px', color: '#8A9A90', margin: '1px 0 0' }}>LTV</p>
+                    <p style={{ fontSize: '16px', fontWeight: 800, color: 'rgba(255,255,255,0.9)', margin: 0 }}>R$ {client.ltv.toLocaleString('pt-BR')}</p>
+                    <p style={{ fontSize: '10px', color: 'rgba(255,255,255,0.5)', margin: '1px 0 0' }}>LTV</p>
                   </div>
                 </div>
 
-                {isExpanded ? <ChevronUp style={{ width: '16px', height: '16px', color: '#8A9A90', flexShrink: 0 }} /> : <ChevronDown style={{ width: '16px', height: '16px', color: '#8A9A90', flexShrink: 0 }} />}
+                {isExpanded ? <ChevronUp style={{ width: '16px', height: '16px', color: 'rgba(255,255,255,0.5)', flexShrink: 0 }} /> : <ChevronDown style={{ width: '16px', height: '16px', color: 'rgba(255,255,255,0.5)', flexShrink: 0 }} />}
               </button>
 
               {/* Expanded Details */}
               {isExpanded && (
-                <div style={{ padding: '0 24px 24px', borderTop: '1px solid #F0F0EC' }}>
+                <div style={{ padding: '0 24px 24px', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px', paddingTop: '20px' }}>
                     {/* Client Info */}
                     <div>
-                      <h4 style={{ fontSize: '13px', fontWeight: 700, color: '#8A9A90', textTransform: 'uppercase', letterSpacing: '1px', margin: '0 0 12px' }}>Detalhes</h4>
+                      <h4 style={{ fontSize: '13px', fontWeight: 700, color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '1px', margin: '0 0 12px' }}>Detalhes</h4>
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px' }}>
-                          <Calendar style={{ width: '14px', height: '14px', color: '#8A9A90' }} />
-                          <span style={{ color: '#8A9A90' }}>Cliente desde:</span>
-                          <span style={{ color: '#1A1F1C', fontWeight: 600 }}>{new Date(client.joinedAt).toLocaleDateString('pt-BR')}</span>
+                          <Calendar style={{ width: '14px', height: '14px', color: 'rgba(255,255,255,0.5)' }} />
+                          <span style={{ color: 'rgba(255,255,255,0.5)' }}>Cliente desde:</span>
+                          <span style={{ color: 'rgba(255,255,255,0.9)', fontWeight: 600 }}>{new Date(client.joinedAt).toLocaleDateString('pt-BR')}</span>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px' }}>
-                          <Package style={{ width: '14px', height: '14px', color: '#8A9A90' }} />
-                          <span style={{ color: '#8A9A90' }}>Produtos:</span>
-                          <span style={{ color: '#1A1F1C', fontWeight: 600 }}>{client.products.join(', ')}</span>
+                          <Package style={{ width: '14px', height: '14px', color: 'rgba(255,255,255,0.5)' }} />
+                          <span style={{ color: 'rgba(255,255,255,0.5)' }}>Produtos:</span>
+                          <span style={{ color: 'rgba(255,255,255,0.9)', fontWeight: 600 }}>{client.products.join(', ')}</span>
                         </div>
                         {client.alerts.length > 0 && (
                           <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginTop: '4px' }}>
@@ -397,16 +397,16 @@ export default function Clients() {
 
                     {/* BalanceTest Results */}
                     <div>
-                      <h4 style={{ fontSize: '13px', fontWeight: 700, color: '#8A9A90', textTransform: 'uppercase', letterSpacing: '1px', margin: '0 0 12px' }}>Resultados BalanceTest</h4>
+                      <h4 style={{ fontSize: '13px', fontWeight: 700, color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '1px', margin: '0 0 12px' }}>Resultados BalanceTest</h4>
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                         {client.testResults.map((test, i) => (
                           <div key={i} style={{
                             display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                            padding: '10px 14px', background: '#F5F5F0', borderRadius: '12px',
+                            padding: '10px 14px', background: '#1a2332', borderRadius: '12px',
                           }}>
                             <div>
-                              <p style={{ fontSize: '13px', fontWeight: 600, color: '#1A1F1C', margin: 0 }}>{test.type}</p>
-                              <p style={{ fontSize: '11px', color: '#8A9A90', margin: '1px 0 0' }}>{new Date(test.date).toLocaleDateString('pt-BR')}</p>
+                              <p style={{ fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.9)', margin: 0 }}>{test.type}</p>
+                              <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.5)', margin: '1px 0 0' }}>{new Date(test.date).toLocaleDateString('pt-BR')}</p>
                             </div>
                             <div style={{ textAlign: 'right' }}>
                               <p style={{
@@ -428,7 +428,7 @@ export default function Clients() {
 
                     {/* Activity History */}
                     <div>
-                      <h4 style={{ fontSize: '13px', fontWeight: 700, color: '#8A9A90', textTransform: 'uppercase', letterSpacing: '1px', margin: '0 0 12px' }}>Atividade Recente</h4>
+                      <h4 style={{ fontSize: '13px', fontWeight: 700, color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '1px', margin: '0 0 12px' }}>Atividade Recente</h4>
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                         {client.activities.map((activity, i) => (
                           <div key={i} style={{ display: 'flex', alignItems: 'start', gap: '10px' }}>
@@ -438,8 +438,8 @@ export default function Clients() {
                               flexShrink: 0,
                             }} />
                             <div>
-                              <p style={{ fontSize: '13px', color: '#1A1F1C', margin: 0 }}>{activity.text}</p>
-                              <p style={{ fontSize: '11px', color: '#8A9A90', margin: '1px 0 0' }}>{new Date(activity.date).toLocaleDateString('pt-BR')}</p>
+                              <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.9)', margin: 0 }}>{activity.text}</p>
+                              <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.5)', margin: '1px 0 0' }}>{new Date(activity.date).toLocaleDateString('pt-BR')}</p>
                             </div>
                           </div>
                         ))}
@@ -454,8 +454,8 @@ export default function Clients() {
 
         {filtered.length === 0 && (
           <div style={{ ...cardStyle, padding: '48px', textAlign: 'center' }}>
-            <Activity style={{ width: '32px', height: '32px', color: '#C0C8C3', margin: '0 auto 12px' }} />
-            <p style={{ color: '#8A9A90', fontSize: '14px', margin: 0 }}>Nenhum cliente encontrado</p>
+            <Activity style={{ width: '32px', height: '32px', color: 'rgba(255,255,255,0.3)', margin: '0 auto 12px' }} />
+            <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px', margin: 0 }}>Nenhum cliente encontrado</p>
           </div>
         )}
       </div>

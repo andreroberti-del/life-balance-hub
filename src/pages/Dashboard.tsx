@@ -17,13 +17,13 @@ import {
   Users,
   TrendingUp,
   TrendingDown,
-  Calendar,
   CheckCircle2,
   Flame,
+  Calendar,
+  Droplets,
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import LoadingSpinner from '../components/LoadingSpinner';
-import MetricCard from '../components/MetricCard';
 import { getCheckIns, getUserStreak, getCommunityMetrics } from '../lib/api';
 import type { CheckIn, CommunityMetrics, UserStreak } from '../types';
 
@@ -53,14 +53,14 @@ const demoStreak: UserStreak = {
 };
 
 const recentActivity = [
-  { text: 'Check-in diario registrado', time: '2h atras', icon: CheckCircle2, color: 'bg-green-50 text-green-600' },
-  { text: 'Produto escaneado: Omega Pure', time: '5h atras', icon: Activity, color: 'bg-blue-50 text-blue-600' },
-  { text: 'Streak de 12 dias alcancado!', time: '1d atras', icon: Flame, color: 'bg-amber-50 text-amber-600' },
-  { text: 'Novo membro na comunidade', time: '2d atras', icon: Users, color: 'bg-purple-50 text-purple-600' },
+  { text: 'Check-in diário registrado', time: '2h atrás', icon: CheckCircle2, color: 'bg-green-bg text-green' },
+  { text: 'Produto escaneado: Omega Pure', time: '5h atrás', icon: Activity, color: 'bg-blue-bg text-blue' },
+  { text: 'Streak de 12 dias alcançado!', time: '1d atrás', icon: Flame, color: 'bg-amber-bg text-amber' },
+  { text: 'Novo membro na comunidade', time: '2d atrás', icon: Users, color: 'bg-purple-bg text-purple' },
 ];
 
 export default function DashboardHome() {
-  const { profile, user } = useAuth();
+  const { user } = useAuth();
   const [checkins, setCheckins] = useState<Partial<CheckIn>[]>([]);
   const [streak, setStreak] = useState<UserStreak>(demoStreak);
   const [community, setCommunity] = useState<CommunityMetrics>(demoCommunity);
@@ -103,168 +103,187 @@ export default function DashboardHome() {
     weight: Number((c.weight ?? 0).toFixed(1)),
   }));
 
-  const greeting = () => {
-    const hour = new Date().getHours();
-    if (hour < 12) return 'Bom dia';
-    if (hour < 18) return 'Boa tarde';
-    return 'Boa noite';
-  };
-
   return (
-    <div className="space-y-6">
-      {/* Welcome Section */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <div>
-          <h2 className="text-2xl font-bold text-text">
-            {greeting()}, {profile?.name?.split(' ')[0] || 'Usuario'}
-          </h2>
-          <p className="text-text2 mt-1">
-            Dia <span className="text-text font-bold">54</span> do Protocolo 120 — Continue assim!
-          </p>
-        </div>
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2.5 bg-white rounded-2xl px-4 py-3 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
-            <div className="w-8 h-8 bg-amber-50 rounded-lg flex items-center justify-center">
-              <Flame className="w-4 h-4 text-amber-500" />
+    <div className="space-y-5 max-w-[1600px]">
+
+      {/* ROW 1: Quick Stats — 6 compact cards in a row */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+        {/* Peso */}
+        <div className="bg-card rounded-2xl p-4 border border-border">
+          <div className="flex items-center gap-2 mb-2">
+            <div className="w-8 h-8 bg-blue-bg rounded-xl flex items-center justify-center">
+              <Scale className="w-4 h-4 text-blue" strokeWidth={1.8} />
             </div>
-            <div>
-              <p className="text-xl font-black text-text leading-none">{streak.current_streak}</p>
-              <p className="text-[10px] text-text3 uppercase tracking-wider">dias seguidos</p>
-            </div>
+            <span className="text-[10px] text-text4 uppercase tracking-[1px] font-semibold">Peso</span>
           </div>
-          <div className="flex items-center gap-2.5 bg-white rounded-2xl px-4 py-3 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
-            <div className="w-8 h-8 bg-lime/20 rounded-lg flex items-center justify-center">
-              <Calendar className="w-4 h-4 text-lime-darker" />
+          <p className="text-2xl font-black text-text">{latestWeight.toFixed(1)}<span className="text-sm font-medium text-text4 ml-1">kg</span></p>
+          <div className="flex items-center gap-1 mt-1">
+            <TrendingDown className="w-3 h-3 text-green" />
+            <span className="text-[11px] text-green font-semibold">2.3%</span>
+          </div>
+        </div>
+
+        {/* Cintura */}
+        <div className="bg-card rounded-2xl p-4 border border-border">
+          <div className="flex items-center gap-2 mb-2">
+            <div className="w-8 h-8 bg-purple-bg rounded-xl flex items-center justify-center">
+              <Ruler className="w-4 h-4 text-purple" strokeWidth={1.8} />
             </div>
-            <div>
-              <p className="text-xl font-black text-text leading-none">{streak.total_checkins}</p>
-              <p className="text-[10px] text-text3 uppercase tracking-wider">check-ins</p>
+            <span className="text-[10px] text-text4 uppercase tracking-[1px] font-semibold">Cintura</span>
+          </div>
+          <p className="text-2xl font-black text-text">{latestWaist.toFixed(1)}<span className="text-sm font-medium text-text4 ml-1">cm</span></p>
+          <div className="flex items-center gap-1 mt-1">
+            <TrendingDown className="w-3 h-3 text-green" />
+            <span className="text-[11px] text-green font-semibold">1.8%</span>
+          </div>
+        </div>
+
+        {/* Sono */}
+        <div className="bg-card rounded-2xl p-4 border border-border">
+          <div className="flex items-center gap-2 mb-2">
+            <div className="w-8 h-8 bg-blue-bg rounded-xl flex items-center justify-center">
+              <Moon className="w-4 h-4 text-blue" strokeWidth={1.8} />
             </div>
+            <span className="text-[10px] text-text4 uppercase tracking-[1px] font-semibold">Sono</span>
+          </div>
+          <p className="text-2xl font-black text-text">{latestSleep}<span className="text-sm font-medium text-text4 ml-1">/5</span></p>
+          <div className="flex items-center gap-1 mt-1">
+            <TrendingUp className="w-3 h-3 text-green" />
+            <span className="text-[11px] text-green font-semibold">5%</span>
+          </div>
+        </div>
+
+        {/* Ratio Omega */}
+        <div className="bg-card rounded-2xl p-4 border border-border">
+          <div className="flex items-center gap-2 mb-2">
+            <div className="w-8 h-8 bg-lime-bg rounded-xl flex items-center justify-center">
+              <Heart className="w-4 h-4 text-lime" strokeWidth={1.8} />
+            </div>
+            <span className="text-[10px] text-text4 uppercase tracking-[1px] font-semibold">Ômega</span>
+          </div>
+          <p className="text-2xl font-black text-text">{omegaRatio}<span className="text-sm font-medium text-text4 ml-1">:1</span></p>
+          <div className="flex items-center gap-1 mt-1">
+            <TrendingDown className="w-3 h-3 text-green" />
+            <span className="text-[11px] text-green font-semibold">18%</span>
+          </div>
+        </div>
+
+        {/* Streak */}
+        <div className="bg-card rounded-2xl p-4 border border-border">
+          <div className="flex items-center gap-2 mb-2">
+            <div className="w-8 h-8 bg-amber-bg rounded-xl flex items-center justify-center">
+              <Flame className="w-4 h-4 text-amber" strokeWidth={1.8} />
+            </div>
+            <span className="text-[10px] text-text4 uppercase tracking-[1px] font-semibold">Streak</span>
+          </div>
+          <p className="text-2xl font-black text-text">{streak.current_streak}<span className="text-sm font-medium text-text4 ml-1">dias</span></p>
+          <div className="flex items-center gap-1 mt-1">
+            <Calendar className="w-3 h-3 text-text4" />
+            <span className="text-[11px] text-text4">{streak.total_checkins} total</span>
+          </div>
+        </div>
+
+        {/* Water (bonus metric) */}
+        <div className="bg-card rounded-2xl p-4 border border-border">
+          <div className="flex items-center gap-2 mb-2">
+            <div className="w-8 h-8 bg-blue-bg rounded-xl flex items-center justify-center">
+              <Droplets className="w-4 h-4 text-blue" strokeWidth={1.8} />
+            </div>
+            <span className="text-[10px] text-text4 uppercase tracking-[1px] font-semibold">Água</span>
+          </div>
+          <p className="text-2xl font-black text-text">2.5<span className="text-sm font-medium text-text4 ml-1">L</span></p>
+          <div className="flex items-center gap-1 mt-1">
+            <TrendingUp className="w-3 h-3 text-green" />
+            <span className="text-[11px] text-green font-semibold">8%</span>
           </div>
         </div>
       </div>
 
-      {/* Metric Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
-        <MetricCard
-          title="Peso"
-          value={latestWeight.toFixed(1)}
-          unit="kg"
-          trend={-2.3}
-          icon={Scale}
-          iconBg="bg-blue-50 text-blue-500"
-        />
-        <MetricCard
-          title="Cintura"
-          value={latestWaist.toFixed(1)}
-          unit="cm"
-          trend={-1.8}
-          icon={Ruler}
-          iconBg="bg-purple-50 text-purple-500"
-        />
-        <MetricCard
-          title="Sono"
-          value={latestSleep}
-          unit="/5"
-          trend={5}
-          icon={Moon}
-          iconBg="bg-indigo-50 text-indigo-500"
-        />
-        <MetricCard
-          title="Ratio Omega"
-          value={omegaRatio}
-          unit=":1"
-          trend={-18}
-          icon={Heart}
-          iconBg="bg-lime/15 text-lime-darker"
-        />
-      </div>
-
-      {/* Main Grid */}
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-        {/* Weight Chart */}
-        <div className="xl:col-span-2 bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
-          <div className="flex items-center justify-between mb-6">
+      {/* ROW 2: Chart + Community side by side */}
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-5">
+        {/* Weight Chart — takes 3 of 5 columns */}
+        <div className="lg:col-span-3 bg-card rounded-2xl p-6 border border-border">
+          <div className="flex items-center justify-between mb-5">
             <div>
-              <h3 className="text-lg font-bold text-text">Evolucao do Peso</h3>
-              <p className="text-sm text-text3">Ultimos 30 dias</p>
+              <h3 className="text-base font-bold text-text">Evolução do Peso</h3>
+              <p className="text-xs text-text4 mt-0.5">Últimos 30 dias</p>
             </div>
-            <div className="flex items-center gap-1.5 bg-green-50 text-green-600 text-sm font-semibold px-3 py-1.5 rounded-full">
-              <TrendingDown className="w-3.5 h-3.5" />
+            <div className="flex items-center gap-1.5 bg-green-bg text-green text-xs font-semibold px-3 py-1.5 rounded-xl">
+              <TrendingDown className="w-3 h-3" />
               -2.3 kg
             </div>
           </div>
 
-          <div className="h-72">
+          <div className="h-56">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={weightData}>
                 <defs>
                   <linearGradient id="weightGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#E7FE55" stopOpacity={0.3} />
-                    <stop offset="100%" stopColor="#E7FE55" stopOpacity={0} />
+                    <stop offset="0%" stopColor="#d4e157" stopOpacity={0.25} />
+                    <stop offset="100%" stopColor="#d4e157" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#E8E8E2" />
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
                 <XAxis
                   dataKey="date"
-                  stroke="#8A9A90"
-                  fontSize={11}
+                  stroke="rgba(255,255,255,0.25)"
+                  fontSize={10}
                   tickLine={false}
                   axisLine={false}
-                  interval={Math.floor(weightData.length / 6)}
+                  interval={Math.floor(weightData.length / 5)}
                 />
                 <YAxis
-                  stroke="#8A9A90"
-                  fontSize={11}
+                  stroke="rgba(255,255,255,0.25)"
+                  fontSize={10}
                   tickLine={false}
                   axisLine={false}
                   domain={['auto', 'auto']}
-                  width={40}
+                  width={35}
                 />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#fff',
-                    border: '1px solid #E8E8E2',
-                    borderRadius: '12px',
-                    color: '#1A1F1C',
-                    fontSize: '13px',
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+                    backgroundColor: '#2d3a4e',
+                    border: '1px solid rgba(255,255,255,0.1)',
+                    borderRadius: '10px',
+                    color: 'rgba(255,255,255,0.9)',
+                    fontSize: '12px',
+                    boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
                   }}
-                  labelStyle={{ color: '#8A9A90' }}
+                  labelStyle={{ color: 'rgba(255,255,255,0.5)' }}
                 />
                 <Area
                   type="monotone"
                   dataKey="weight"
-                  stroke="#C6D63E"
-                  strokeWidth={2.5}
+                  stroke="#d4e157"
+                  strokeWidth={2}
                   fill="url(#weightGradient)"
                   dot={false}
-                  activeDot={{ r: 5, fill: '#E7FE55', stroke: '#1A1F1C', strokeWidth: 2 }}
+                  activeDot={{ r: 4, fill: '#d4e157', stroke: '#1a2332', strokeWidth: 2 }}
                 />
               </AreaChart>
             </ResponsiveContainer>
           </div>
         </div>
 
-        {/* Right Column */}
-        <div className="space-y-5">
-          {/* Community - Dark Card */}
-          <div className="bg-dark rounded-2xl p-5">
-            <h3 className="text-sm font-semibold text-white/60 uppercase tracking-wider mb-4">Comunidade</h3>
+        {/* Right Column — takes 2 of 5 columns */}
+        <div className="lg:col-span-2 flex flex-col gap-5">
+          {/* Community Card */}
+          <div className="bg-card rounded-2xl p-5 border border-border topo-pattern flex-1">
+            <h3 className="text-[11px] font-semibold text-text4 uppercase tracking-[1.5px] mb-4">Comunidade</h3>
             <div className="space-y-3.5">
               {[
-                { label: 'Membros', value: community.total_members, icon: Users, color: 'bg-blue-500/20 text-blue-400' },
-                { label: 'Kg perdidos', value: community.total_kg_lost, icon: Scale, color: 'bg-green-500/20 text-green-400' },
-                { label: 'Melhoria ratio', value: `${community.avg_ratio_improvement}%`, icon: TrendingUp, color: 'bg-lime/20 text-lime' },
+                { label: 'Membros', value: community.total_members, icon: Users, color: 'bg-blue-bg text-blue' },
+                { label: 'Kg perdidos', value: community.total_kg_lost, icon: Scale, color: 'bg-green-bg text-green' },
+                { label: 'Melhoria ratio', value: `${community.avg_ratio_improvement}%`, icon: TrendingUp, color: 'bg-lime-bg text-lime' },
               ].map((item) => (
                 <div key={item.label} className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className={`w-8 h-8 ${item.color} rounded-lg flex items-center justify-center`}>
-                      <item.icon className="w-4 h-4" />
+                  <div className="flex items-center gap-2.5">
+                    <div className={`w-7 h-7 ${item.color} rounded-lg flex items-center justify-center`}>
+                      <item.icon className="w-3.5 h-3.5" />
                     </div>
-                    <span className="text-sm text-white/50">{item.label}</span>
+                    <span className="text-sm text-text3">{item.label}</span>
                   </div>
-                  <span className="text-lg font-bold text-white">
+                  <span className="text-base font-bold text-text">
                     {typeof item.value === 'number' ? item.value.toLocaleString('pt-BR') : item.value}
                   </span>
                 </div>
@@ -273,17 +292,17 @@ export default function DashboardHome() {
           </div>
 
           {/* Recent Activity */}
-          <div className="bg-white rounded-2xl p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
-            <h3 className="text-sm font-semibold text-text2 uppercase tracking-wider mb-4">Atividade Recente</h3>
+          <div className="bg-card rounded-2xl p-5 border border-border flex-1">
+            <h3 className="text-[11px] font-semibold text-text4 uppercase tracking-[1.5px] mb-4">Atividade Recente</h3>
             <div className="space-y-3">
               {recentActivity.map((item, i) => (
-                <div key={i} className="flex items-start gap-3">
-                  <div className={`w-8 h-8 ${item.color} rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5`}>
-                    <item.icon className="w-4 h-4" />
+                <div key={i} className="flex items-start gap-2.5">
+                  <div className={`w-7 h-7 ${item.color} rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5`}>
+                    <item.icon className="w-3.5 h-3.5" />
                   </div>
                   <div className="min-w-0">
                     <p className="text-sm text-text leading-tight">{item.text}</p>
-                    <p className="text-[11px] text-text3 mt-0.5">{item.time}</p>
+                    <p className="text-[10px] text-text4 mt-0.5">{item.time}</p>
                   </div>
                 </div>
               ))}

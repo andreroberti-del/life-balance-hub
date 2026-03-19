@@ -108,7 +108,7 @@ export default function OmegaDatabasePage() {
       <div className="flex items-center gap-1">
         {label}
         <ArrowUpDown
-          className={`w-3 h-3 ${sortKey === field ? 'text-lime-darker' : 'text-text-light'}`}
+          className={`w-3 h-3 ${sortKey === field ? 'text-lime-darker' : 'text-text4'}`}
         />
       </div>
     </th>
@@ -123,7 +123,7 @@ export default function OmegaDatabasePage() {
             Compare marcas de omega-3 e resultados reais
           </p>
         </div>
-        <div className="flex gap-1 bg-white rounded-xl p-1 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+        <div className="flex gap-1 bg-card rounded-xl p-1 border border-border">
           <button
             onClick={() => setView('table')}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
@@ -151,24 +151,24 @@ export default function OmegaDatabasePage() {
           placeholder="Buscar marca ou fabricante..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full bg-white border border-gray-200 rounded-xl pl-10 pr-4 py-2.5 text-sm text-text placeholder-text-light outline-none focus:border-lime-darker/50 focus:ring-1 focus:ring-lime-darker/20 transition-colors shadow-[0_1px_2px_rgba(0,0,0,0.04)]"
+          className="w-full bg-dark3 border border-border rounded-xl pl-10 pr-4 py-2.5 text-sm text-text placeholder:text-text4 outline-none focus:border-lime/50 focus:ring-1 focus:ring-lime/20 transition-colors"
         />
       </div>
 
       {view === 'chart' ? (
-        <div className="bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+        <div className="bg-card rounded-2xl p-6 border border-border">
           <h3 className="text-lg font-semibold text-text mb-4">
             Ratio Omega 6:3 — Antes vs Depois
           </h3>
           <div className="h-96">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={chartData} layout="vertical" margin={{ left: 20 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#E8E8E2" />
-                <XAxis type="number" stroke="#8A9A90" fontSize={11} tickLine={false} axisLine={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
+                <XAxis type="number" stroke="rgba(255,255,255,0.5)" fontSize={11} tickLine={false} axisLine={false} />
                 <YAxis
                   dataKey="name"
                   type="category"
-                  stroke="#8A9A90"
+                  stroke="rgba(255,255,255,0.5)"
                   fontSize={11}
                   tickLine={false}
                   axisLine={false}
@@ -176,15 +176,15 @@ export default function OmegaDatabasePage() {
                 />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#fff',
-                    border: '1px solid #E8E8E2',
+                    backgroundColor: '#2d3a4e',
+                    border: '1px solid rgba(255,255,255,0.1)',
                     borderRadius: '12px',
-                    color: '#1A1F1C',
+                    color: 'rgba(255,255,255,0.9)',
                     fontSize: '13px',
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+                    boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
                   }}
                 />
-                <Legend wrapperStyle={{ color: '#4A5A50', fontSize: '12px' }} />
+                <Legend wrapperStyle={{ color: 'rgba(255,255,255,0.7)', fontSize: '12px' }} />
                 <Bar dataKey="Antes" fill="#ef4444" radius={[0, 4, 4, 0]} barSize={14} />
                 <Bar dataKey="Depois" fill="#C6D63E" radius={[0, 4, 4, 0]} barSize={14} />
               </BarChart>
@@ -192,11 +192,11 @@ export default function OmegaDatabasePage() {
           </div>
         </div>
       ) : (
-        <div className="bg-white rounded-2xl shadow-[0_1px_3px_rgba(0,0,0,0.04)] overflow-hidden">
+        <div className="bg-card rounded-2xl border border-border overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="text-text3 text-xs uppercase tracking-wider border-b border-gray-100">
+                <tr className="text-text4 text-xs uppercase tracking-wider border-b border-border">
                   <SortHeader label="Marca" field="name" />
                   <th className="text-left px-6 py-3 font-medium hidden lg:table-cell">Fabricante</th>
                   <SortHeader label="Omega-3" field="omega3_mg" />
@@ -213,10 +213,10 @@ export default function OmegaDatabasePage() {
                   return (
                     <tr
                       key={brand.id}
-                      className={`border-t border-gray-50 transition-colors ${
+                      className={`border-t border-border transition-colors ${
                         isUserBrand
                           ? 'bg-lime/5 hover:bg-lime/10'
-                          : 'hover:bg-bg/50'
+                          : 'hover:bg-[rgba(255,255,255,0.03)]'
                       }`}
                     >
                       <td className="px-6 py-4">
@@ -270,25 +270,25 @@ export default function OmegaDatabasePage() {
 
       {/* Summary Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)] text-center">
+        <div className="bg-card rounded-2xl p-6 border border-border text-center">
           <div className="w-10 h-10 bg-lime/15 rounded-xl flex items-center justify-center mx-auto mb-2">
             <Database className="w-5 h-5 text-lime-darker" />
           </div>
           <p className="text-3xl font-black text-text">{brands.length}</p>
           <p className="text-sm text-text3">Marcas catalogadas</p>
         </div>
-        <div className="bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)] text-center">
-          <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center mx-auto mb-2">
-            <Users className="w-5 h-5 text-blue-500" />
+        <div className="bg-card rounded-2xl p-6 border border-border text-center">
+          <div className="w-10 h-10 bg-blue-500/15 rounded-xl flex items-center justify-center mx-auto mb-2">
+            <Users className="w-5 h-5 text-blue-400" />
           </div>
           <p className="text-3xl font-black text-text">
             {brands.reduce((sum, b) => sum + b.users_count, 0).toLocaleString('pt-BR')}
           </p>
           <p className="text-sm text-text3">Usuarios ativos</p>
         </div>
-        <div className="bg-white rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)] text-center">
-          <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center mx-auto mb-2">
-            <TrendingUp className="w-5 h-5 text-green-600" />
+        <div className="bg-card rounded-2xl p-6 border border-border text-center">
+          <div className="w-10 h-10 bg-green-500/15 rounded-xl flex items-center justify-center mx-auto mb-2">
+            <TrendingUp className="w-5 h-5 text-green-400" />
           </div>
           <p className="text-3xl font-black text-text">
             {Math.round(brands.reduce((sum, b) => sum + b.avg_improvement, 0) / brands.length)}%
