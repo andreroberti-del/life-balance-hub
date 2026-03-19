@@ -67,8 +67,8 @@ function SidebarNavItem({ to, icon: Icon, label, short, expanded, end }: {
             : 'flex-col justify-center w-full py-2'
         } ${
           isActive
-            ? 'bg-lime text-dark shadow-[0_4px_12px_rgba(212,225,87,0.25)]'
-            : 'text-[rgba(255,255,255,0.35)] hover:text-[rgba(255,255,255,0.7)] hover:bg-[rgba(255,255,255,0.06)]'
+            ? 'bg-accent text-white shadow-[0_4px_12px_hsla(252,60%,62%,0.3)]'
+            : 'text-text3 hover:text-text hover:bg-dark3'
         }`
       }
     >
@@ -85,15 +85,15 @@ function SidebarNavItem({ to, icon: Icon, label, short, expanded, end }: {
 export default function Sidebar({ expanded, onToggle }: SidebarProps) {
   return (
     <aside
-      className={`hidden lg:flex h-screen bg-dark2 border-r border-border flex-col transition-all duration-300 ease-in-out ${
+      className={`hidden lg:flex h-screen bg-card border-r border-border flex-col transition-all duration-300 ease-in-out ${
         expanded ? 'w-[220px] min-w-[220px]' : 'w-[72px] min-w-[72px]'
       }`}
     >
       {/* Logo + Toggle */}
       <div className={`flex items-center pt-5 pb-4 ${expanded ? 'px-5 justify-between' : 'px-0 justify-center flex-col gap-3'}`}>
         <div className={`flex items-center ${expanded ? 'gap-3' : 'justify-center'}`}>
-          <div className="w-10 h-10 bg-lime rounded-xl flex items-center justify-center shadow-[0_4px_12px_rgba(212,225,87,0.25)] flex-shrink-0">
-            <Leaf className="w-5 h-5 text-dark" strokeWidth={2.2} />
+          <div className="w-10 h-10 bg-accent rounded-xl flex items-center justify-center shadow-[0_4px_12px_hsla(252,60%,62%,0.3)] flex-shrink-0">
+            <Leaf className="w-5 h-5 text-white" strokeWidth={2.2} />
           </div>
           {expanded && (
             <div className="overflow-hidden">
@@ -104,9 +104,7 @@ export default function Sidebar({ expanded, onToggle }: SidebarProps) {
         </div>
         <button
           onClick={onToggle}
-          className={`w-7 h-7 rounded-lg bg-dark3 border border-border flex items-center justify-center text-text4 hover:text-text3 hover:bg-dark4 transition-colors flex-shrink-0 ${
-            expanded ? '' : ''
-          }`}
+          className="w-7 h-7 rounded-lg bg-dark3 border border-border flex items-center justify-center text-text4 hover:text-text3 hover:bg-dark4 transition-colors flex-shrink-0"
         >
           {expanded ? <ChevronsLeft className="w-3.5 h-3.5" /> : <ChevronsRight className="w-3.5 h-3.5" />}
         </button>
@@ -114,14 +112,12 @@ export default function Sidebar({ expanded, onToggle }: SidebarProps) {
 
       {/* Navigation */}
       <nav className={`flex-1 overflow-y-auto ${expanded ? 'px-3' : 'px-2'}`}>
-        {/* Wellness Section */}
         <div className="flex flex-col gap-0.5">
           {wellnessItems.map((item) => (
             <SidebarNavItem key={item.to} {...item} expanded={expanded} end={item.to === '/'} />
           ))}
         </div>
 
-        {/* Separator */}
         <div className={`my-3 ${expanded ? 'mx-2' : 'mx-3'}`}>
           <div className="h-px bg-border" />
           {expanded && (
@@ -129,7 +125,6 @@ export default function Sidebar({ expanded, onToggle }: SidebarProps) {
           )}
         </div>
 
-        {/* CRM Section */}
         <div className="flex flex-col gap-0.5">
           {crmItems.map((item) => (
             <SidebarNavItem key={item.to} {...item} expanded={expanded} />
@@ -145,20 +140,19 @@ export default function Sidebar({ expanded, onToggle }: SidebarProps) {
           ))}
         </div>
 
-        {/* Protocol indicator */}
-        <div className={`mt-3 rounded-xl bg-dark border border-border overflow-hidden ${expanded ? 'p-3' : 'p-2 text-center'}`}>
+        <div className={`mt-3 rounded-xl bg-accent-bg border border-border overflow-hidden ${expanded ? 'p-3' : 'p-2 text-center'}`}>
           {expanded ? (
             <>
               <div className="flex items-center justify-between mb-2">
                 <span className="text-[9px] text-text4 uppercase tracking-[1.5px] font-semibold">Protocolo 120</span>
-                <span className="text-[11px] text-lime font-bold">45%</span>
+                <span className="text-[11px] text-accent font-bold">45%</span>
               </div>
-              <div className="h-1 bg-[rgba(255,255,255,0.08)] rounded-full overflow-hidden">
-                <div className="w-[45%] h-full bg-lime rounded-full shadow-[0_0_6px_rgba(212,225,87,0.3)]" />
+              <div className="h-1 bg-border rounded-full overflow-hidden">
+                <div className="w-[45%] h-full bg-accent rounded-full shadow-[0_0_6px_hsla(252,60%,62%,0.4)]" />
               </div>
             </>
           ) : (
-            <span className="text-[11px] font-bold text-lime">54</span>
+            <span className="text-[11px] font-bold text-accent">54</span>
           )}
         </div>
       </div>
