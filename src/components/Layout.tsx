@@ -9,18 +9,13 @@ export default function Layout() {
   const [sidebarExpanded, setSidebarExpanded] = useState(false);
 
   return (
-    <div className="flex h-screen overflow-hidden bg-dark">
-      {/* Desktop: Collapsible sidebar */}
+    <div className="flex h-screen overflow-hidden bg-bg">
       <Sidebar expanded={sidebarExpanded} onToggle={() => setSidebarExpanded(!sidebarExpanded)} />
-
-      {/* Mobile: Full sidebar overlay */}
       <MobileSidebar open={mobileOpen} onClose={() => setMobileOpen(false)} />
 
-      {/* Main Content */}
       <div className="flex flex-col flex-1 overflow-hidden">
         <TopBar onMenuClick={() => setMobileOpen(true)} />
-
-        <main className="flex-1 overflow-y-auto bg-dark px-5 lg:px-7 pb-8">
+        <main className="flex-1 overflow-y-auto bg-bg px-5 lg:px-7 pb-8">
           <Outlet />
         </main>
       </div>
