@@ -6,7 +6,7 @@ import MobileSidebar from './MobileSidebar';
 
 export default function Layout() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [sidebarExpanded, setSidebarExpanded] = useState(false);
+  const [sidebarExpanded, setSidebarExpanded] = useState(true);
 
   return (
     <div className="flex h-screen overflow-hidden bg-bg">

@@ -7,33 +7,44 @@ import {
 
 interface MobileSidebarProps { open: boolean; onClose: () => void; }
 
-const wellnessItems = [
-  { to: '/', icon: LayoutDashboard, label: 'Dashboard' },
-  { to: '/checkin', icon: ClipboardCheck, label: 'Check-in' },
-  { to: '/data', icon: BarChart3, label: 'Dados' },
-  { to: '/scanner', icon: ScanLine, label: 'Scanner' },
-  { to: '/omega', icon: Database, label: 'Omega' },
-  { to: '/community', icon: Users, label: 'Comunidade' },
-  { to: '/protocol', icon: Target, label: 'Protocolo 120' },
+const sections = [
+  {
+    items: [
+      { to: '/', icon: LayoutDashboard, label: 'Dashboard' },
+      { to: '/checkin', icon: ClipboardCheck, label: 'Check-in' },
+      { to: '/data', icon: BarChart3, label: 'Dados' },
+      { to: '/scanner', icon: ScanLine, label: 'Scanner' },
+      { to: '/omega', icon: Database, label: 'Omega' },
+      { to: '/community', icon: Users, label: 'Comunidade' },
+      { to: '/protocol', icon: Target, label: 'Protocolo 120' },
+    ],
+  },
+  {
+    label: 'CRM',
+    items: [
+      { to: '/crm/pipeline', icon: Kanban, label: 'Pipeline' },
+      { to: '/crm/followups', icon: Bell, label: 'Follow-ups' },
+      { to: '/crm/clients', icon: UserCheck, label: 'Clientes' },
+      { to: '/crm/tests', icon: TestTube2, label: 'Testes' },
+      { to: '/crm/performance', icon: BarChart2, label: 'Performance' },
+    ],
+  },
 ];
-const crmItems = [
-  { to: '/crm/pipeline', icon: Kanban, label: 'Pipeline' },
-  { to: '/crm/followups', icon: Bell, label: 'Follow-ups' },
-  { to: '/crm/clients', icon: UserCheck, label: 'Clientes' },
-  { to: '/crm/tests', icon: TestTube2, label: 'Testes' },
-  { to: '/crm/performance', icon: BarChart2, label: 'Performance' },
-];
+
 const bottomItems = [
   { to: '/profile', icon: UserCircle, label: 'Perfil' },
   { to: '/settings', icon: Settings, label: 'Configurações' },
 ];
 
-function NavItem({ to, icon: Icon, label, onClick, end }: { to: string; icon: LucideIcon; label: string; onClick: () => void; end?: boolean; }) {
+function NavItem({ to, icon: Icon, label, onClick, end }: {
+  to: string; icon: LucideIcon; label: string; onClick: () => void; end?: boolean;
+}) {
   return (
     <NavLink to={to} end={end} onClick={onClick}
       className={({ isActive }) =>
-        `flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-medium transition-all ${
-          isActive ? 'bg-accent text-white font-semibold shadow-[0_4px_16px_hsla(252,60%,62%,0.3)]'
+        `flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+          isActive
+            ? 'bg-surface-purple text-white shadow-md'
             : 'text-text3 hover:bg-dark3 hover:text-text'
         }`
       }
@@ -49,40 +60,57 @@ export default function MobileSidebar({ open, onClose }: MobileSidebarProps) {
   return (
     <>
       <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40 lg:hidden" onClick={onClose} />
-      <aside className="fixed top-0 left-0 w-[280px] h-screen bg-card border-r border-border flex flex-col z-50 lg:hidden">
-        <div className="px-5 pt-6 pb-5 flex items-center justify-between">
+      <aside className="fixed top-0 left-0 w-72 h-screen bg-card border-r border-border flex flex-col z-50 lg:hidden animate-in slide-in-from-left duration-200">
+        {/* Header */}
+        <div className="flex items-center justify-between h-16 px-4 border-b border-border">
           <div className="flex items-center gap-3">
-            <div className="w-11 h-11 bg-accent rounded-2xl flex items-center justify-center shadow-[0_4px_16px_hsla(252,60%,62%,0.3)]">
-              <Leaf className="w-5 h-5 text-white" strokeWidth={2} />
+            <div className="w-9 h-9 bg-surface-purple rounded-xl flex items-center justify-center shadow-md">
+              <Leaf className="w-[18px] h-[18px] text-white" strokeWidth={2} />
             </div>
-            <div>
-              <h1 className="text-base font-bold text-text">Life Balance</h1>
-              <p className="text-[10px] text-text4 tracking-[2px] uppercase">Wellness Hub</p>
-            </div>
+            <span className="text-sm font-bold text-text">Life Balance</span>
           </div>
-          <button onClick={onClose} className="p-2 rounded-xl hover:bg-dark3 text-text4"><X className="w-5 h-5" /></button>
+          <button onClick={onClose} className="p-2 rounded-xl hover:bg-dark3 text-text4">
+            <X className="w-5 h-5" />
+          </button>
         </div>
-        <nav className="flex-1 px-3 overflow-y-auto">
-          <div className="flex flex-col gap-1">
-            {wellnessItems.map((item) => <NavItem key={item.to} {...item} onClick={onClose} end={item.to === '/'} />)}
-          </div>
-          <div className="mx-3 my-3"><div className="h-px bg-border" /><p className="text-[10px] font-bold text-text4 uppercase tracking-[2px] mt-3">CRM</p></div>
-          <div className="flex flex-col gap-1">
-            {crmItems.map((item) => <NavItem key={item.to} {...item} onClick={onClose} />)}
-          </div>
-          <div className="mx-3 my-3"><div className="h-px bg-border" /></div>
-          <div className="flex flex-col gap-1">
-            {bottomItems.map((item) => <NavItem key={item.to} {...item} onClick={onClose} />)}
-          </div>
-        </nav>
-        <div className="p-4">
-          <div className="p-4 bg-accent-bg rounded-2xl border border-border">
-            <div className="flex items-center justify-between mb-2">
-              <p className="text-[10px] text-text4 uppercase tracking-[2px] font-semibold">Protocolo 120</p>
-              <span className="text-accent text-xs font-bold">45%</span>
+
+        {/* Nav */}
+        <nav className="flex-1 px-3 py-3 overflow-y-auto">
+          {sections.map((section, idx) => (
+            <div key={idx}>
+              {idx > 0 && (
+                <div className="my-3 mx-1">
+                  <div className="h-px bg-border" />
+                </div>
+              )}
+              {section.label && (
+                <p className="text-[10px] font-semibold text-text4 uppercase tracking-widest mb-2 px-4">
+                  {section.label}
+                </p>
+              )}
+              <div className="flex flex-col gap-1">
+                {section.items.map((item) => (
+                  <NavItem key={item.to} {...item} onClick={onClose} end={item.to === '/'} />
+                ))}
+              </div>
             </div>
-            <div className="h-1.5 bg-border rounded-full overflow-hidden">
-              <div className="w-[45%] h-full bg-accent rounded-full shadow-[0_0_8px_hsla(252,60%,62%,0.4)]" />
+          ))}
+        </nav>
+
+        {/* Bottom */}
+        <div className="border-t border-border px-3 py-3">
+          <div className="flex flex-col gap-1">
+            {bottomItems.map((item) => (
+              <NavItem key={item.to} {...item} onClick={onClose} />
+            ))}
+          </div>
+          <div className="mt-3 p-3 bg-accent-bg rounded-xl border border-border">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-[10px] text-text4 uppercase tracking-widest font-semibold">Protocolo 120</span>
+              <span className="text-xs text-accent font-bold">45%</span>
+            </div>
+            <div className="h-1.5 bg-dark3 rounded-full overflow-hidden">
+              <div className="w-[45%] h-full bg-accent rounded-full" />
             </div>
           </div>
         </div>
