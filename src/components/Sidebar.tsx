@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard,
   ClipboardCheck,
@@ -15,8 +15,8 @@ import {
   UserCheck,
   TestTube2,
   BarChart2,
-  ChevronsLeft,
-  ChevronsRight,
+  PanelLeftClose,
+  PanelLeft,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -25,34 +25,50 @@ interface SidebarProps {
   onToggle: () => void;
 }
 
-const wellnessItems = [
-  { to: '/', icon: LayoutDashboard, label: 'Dashboard', short: 'Home' },
-  { to: '/checkin', icon: ClipboardCheck, label: 'Check-in', short: 'Check' },
-  { to: '/data', icon: BarChart3, label: 'Dados', short: 'Data' },
-  { to: '/scanner', icon: ScanLine, label: 'Scanner', short: 'Scan' },
-  { to: '/omega', icon: Database, label: 'Omega Database', short: 'Omega' },
-  { to: '/community', icon: Users, label: 'Comunidade', short: 'Social' },
-  { to: '/protocol', icon: Target, label: 'Protocolo 120', short: 'Proto' },
-];
+interface NavSection {
+  label?: string;
+  items: { to: string; icon: LucideIcon; label: string }[];
+}
 
-const crmItems = [
-  { to: '/crm/pipeline', icon: Kanban, label: 'Pipeline', short: 'Pipe' },
-  { to: '/crm/followups', icon: Bell, label: 'Follow-ups', short: 'Follow' },
-  { to: '/crm/clients', icon: UserCheck, label: 'Clientes', short: 'Client' },
-  { to: '/crm/tests', icon: TestTube2, label: 'Testes', short: 'Tests' },
-  { to: '/crm/performance', icon: BarChart2, label: 'Performance', short: 'Perf' },
+const sections: NavSection[] = [
+  {
+    items: [
+      { to: '/', icon: LayoutDashboard, label: 'Dashboard' },
+      { to: '/checkin', icon: ClipboardCheck, label: 'Check-in' },
+      { to: '/data', icon: BarChart3, label: 'Dados' },
+      { to: '/scanner', icon: ScanLine, label: 'Scanner' },
+      { to: '/omega', icon: Database, label: 'Omega Database' },
+      { to: '/community', icon: Users, label: 'Comunidade' },
+      { to: '/protocol', icon: Target, label: 'Protocolo 120' },
+    ],
+  },
+  {
+    label: 'CRM',
+    items: [
+      { to: '/crm/pipeline', icon: Kanban, label: 'Pipeline' },
+      { to: '/crm/followups', icon: Bell, label: 'Follow-ups' },
+      { to: '/crm/clients', icon: UserCheck, label: 'Clientes' },
+      { to: '/crm/tests', icon: TestTube2, label: 'Testes' },
+      { to: '/crm/performance', icon: BarChart2, label: 'Performance' },
+    ],
+  },
 ];
 
 const bottomItems = [
-  { to: '/profile', icon: UserCircle, label: 'Perfil', short: 'Perfil' },
-  { to: '/settings', icon: Settings, label: 'Configurações', short: 'Config' },
+  { to: '/profile', icon: UserCircle, label: 'Perfil' },
+  { to: '/settings', icon: Settings, label: 'Configurações' },
 ];
 
-function SidebarNavItem({ to, icon: Icon, label, short, expanded, end }: {
+function SidebarLink({
+  to,
+  icon: Icon,
+  label,
+  expanded,
+  end,
+}: {
   to: string;
   icon: LucideIcon;
   label: string;
-  short: string;
   expanded: boolean;
   end?: boolean;
 }) {
@@ -60,23 +76,20 @@ function SidebarNavItem({ to, icon: Icon, label, short, expanded, end }: {
     <NavLink
       to={to}
       end={end}
+      title={!expanded ? label : undefined}
       className={({ isActive }) =>
-        `group relative flex items-center rounded-2xl transition-all duration-200 ${
-          expanded
-            ? 'gap-3 px-4 py-2.5'
-            : 'flex-col justify-center w-full py-2'
+        `group flex items-center gap-3 rounded-xl transition-all duration-200 ${
+          expanded ? 'px-3 py-2.5' : 'justify-center p-2.5'
         } ${
           isActive
-            ? 'bg-accent text-white shadow-[0_4px_12px_hsla(252,60%,62%,0.3)]'
-            : 'text-text3 hover:text-text hover:bg-dark3'
+            ? 'bg-surface-purple text-white shadow-md'
+            : 'text-text3 hover:bg-dark3 hover:text-text'
         }`
       }
     >
-      <Icon className={expanded ? 'w-[18px] h-[18px]' : 'w-[20px] h-[20px]'} strokeWidth={1.8} />
-      {expanded ? (
-        <span className="text-[13px] font-medium whitespace-nowrap">{label}</span>
-      ) : (
-        <span className="text-[9px] font-medium mt-0.5 leading-tight">{short}</span>
+      <Icon className="w-5 h-5 flex-shrink-0" strokeWidth={1.8} />
+      {expanded && (
+        <span className="text-sm font-medium truncate">{label}</span>
       )}
     </NavLink>
   );
@@ -85,76 +98,93 @@ function SidebarNavItem({ to, icon: Icon, label, short, expanded, end }: {
 export default function Sidebar({ expanded, onToggle }: SidebarProps) {
   return (
     <aside
-      className={`hidden lg:flex h-screen bg-card border-r border-border flex-col transition-all duration-300 ease-in-out ${
-        expanded ? 'w-[220px] min-w-[220px]' : 'w-[72px] min-w-[72px]'
+      className={`hidden lg:flex h-screen flex-col bg-card border-r border-border transition-all duration-300 ease-in-out ${
+        expanded ? 'w-60' : 'w-[68px]'
       }`}
     >
-      {/* Logo + Toggle */}
-      <div className={`flex items-center pt-5 pb-4 ${expanded ? 'px-5 justify-between' : 'px-0 justify-center flex-col gap-3'}`}>
-        <div className={`flex items-center ${expanded ? 'gap-3' : 'justify-center'}`}>
-          <div className="w-10 h-10 bg-accent rounded-xl flex items-center justify-center shadow-[0_4px_12px_hsla(252,60%,62%,0.3)] flex-shrink-0">
-            <Leaf className="w-5 h-5 text-white" strokeWidth={2.2} />
+      {/* Header */}
+      <div className={`flex items-center h-16 border-b border-border ${expanded ? 'px-4 justify-between' : 'justify-center'}`}>
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 bg-surface-purple rounded-xl flex items-center justify-center shadow-md flex-shrink-0">
+            <Leaf className="w-[18px] h-[18px] text-white" strokeWidth={2} />
           </div>
           {expanded && (
-            <div className="overflow-hidden">
-              <h1 className="text-sm font-bold text-text leading-tight whitespace-nowrap">Life Balance</h1>
-              <p className="text-[9px] text-text4 tracking-[1.5px] uppercase">Hub</p>
-            </div>
+            <span className="text-sm font-bold text-text whitespace-nowrap">
+              Life Balance
+            </span>
           )}
         </div>
-        <button
-          onClick={onToggle}
-          className="w-7 h-7 rounded-lg bg-dark3 border border-border flex items-center justify-center text-text4 hover:text-text3 hover:bg-dark4 transition-colors flex-shrink-0"
-        >
-          {expanded ? <ChevronsLeft className="w-3.5 h-3.5" /> : <ChevronsRight className="w-3.5 h-3.5" />}
-        </button>
+        {expanded && (
+          <button
+            onClick={onToggle}
+            className="p-1.5 rounded-lg text-text4 hover:text-text3 hover:bg-dark3 transition-colors"
+          >
+            <PanelLeftClose className="w-4 h-4" />
+          </button>
+        )}
       </div>
 
-      {/* Navigation */}
-      <nav className={`flex-1 overflow-y-auto ${expanded ? 'px-3' : 'px-2'}`}>
-        <div className="flex flex-col gap-0.5">
-          {wellnessItems.map((item) => (
-            <SidebarNavItem key={item.to} {...item} expanded={expanded} end={item.to === '/'} />
-          ))}
+      {/* Collapsed toggle */}
+      {!expanded && (
+        <div className="flex justify-center pt-3 pb-1">
+          <button
+            onClick={onToggle}
+            className="p-1.5 rounded-lg text-text4 hover:text-text3 hover:bg-dark3 transition-colors"
+          >
+            <PanelLeft className="w-4 h-4" />
+          </button>
         </div>
+      )}
 
-        <div className={`my-3 ${expanded ? 'mx-2' : 'mx-3'}`}>
-          <div className="h-px bg-border" />
-          {expanded && (
-            <p className="text-[9px] font-bold text-text4 uppercase tracking-[2px] mt-2.5 ml-2">CRM</p>
-          )}
-        </div>
-
-        <div className="flex flex-col gap-0.5">
-          {crmItems.map((item) => (
-            <SidebarNavItem key={item.to} {...item} expanded={expanded} />
-          ))}
-        </div>
+      {/* Nav sections */}
+      <nav className={`flex-1 overflow-y-auto py-3 ${expanded ? 'px-3' : 'px-2'}`}>
+        {sections.map((section, idx) => (
+          <div key={idx}>
+            {idx > 0 && (
+              <div className={`my-3 ${expanded ? 'mx-1' : 'mx-1'}`}>
+                <div className="h-px bg-border" />
+              </div>
+            )}
+            {section.label && expanded && (
+              <p className="text-[10px] font-semibold text-text4 uppercase tracking-widest mb-2 px-3">
+                {section.label}
+              </p>
+            )}
+            <div className="flex flex-col gap-1">
+              {section.items.map((item) => (
+                <SidebarLink
+                  key={item.to}
+                  {...item}
+                  expanded={expanded}
+                  end={item.to === '/'}
+                />
+              ))}
+            </div>
+          </div>
+        ))}
       </nav>
 
       {/* Bottom */}
-      <div className={`${expanded ? 'px-3' : 'px-2'} pb-3 pt-2 border-t border-border`}>
-        <div className="flex flex-col gap-0.5">
+      <div className={`border-t border-border py-3 ${expanded ? 'px-3' : 'px-2'}`}>
+        <div className="flex flex-col gap-1">
           {bottomItems.map((item) => (
-            <SidebarNavItem key={item.to} {...item} expanded={expanded} />
+            <SidebarLink key={item.to} {...item} expanded={expanded} />
           ))}
         </div>
 
-        <div className={`mt-3 rounded-xl bg-accent-bg border border-border overflow-hidden ${expanded ? 'p-3' : 'p-2 text-center'}`}>
-          {expanded ? (
-            <>
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-[9px] text-text4 uppercase tracking-[1.5px] font-semibold">Protocolo 120</span>
-                <span className="text-[11px] text-accent font-bold">45%</span>
-              </div>
-              <div className="h-1 bg-border rounded-full overflow-hidden">
-                <div className="w-[45%] h-full bg-accent rounded-full shadow-[0_0_6px_hsla(252,60%,62%,0.4)]" />
-              </div>
-            </>
-          ) : (
-            <span className="text-[11px] font-bold text-accent">54</span>
-          )}
-        </div>
+        {expanded && (
+          <div className="mt-3 p-3 rounded-xl bg-accent-bg border border-border">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-[10px] text-text4 uppercase tracking-widest font-semibold">
+                Protocolo 120
+              </span>
+              <span className="text-xs text-accent font-bold">45%</span>
+            </div>
+            <div className="h-1.5 bg-dark3 rounded-full overflow-hidden">
+              <div className="w-[45%] h-full bg-accent rounded-full" />
+            </div>
+          </div>
+        )}
       </div>
     </aside>
   );
