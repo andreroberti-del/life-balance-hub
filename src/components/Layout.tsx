@@ -13,10 +13,12 @@ export default function Layout() {
       <Sidebar expanded={sidebarExpanded} onToggle={() => setSidebarExpanded(!sidebarExpanded)} />
       <MobileSidebar open={mobileOpen} onClose={() => setMobileOpen(false)} />
 
-      <div className="flex flex-col flex-1 overflow-hidden">
+      <div className="flex flex-col flex-1 min-w-0 overflow-hidden">
         <TopBar onMenuClick={() => setMobileOpen(true)} />
-        <main className="flex-1 overflow-y-auto p-6 lg:p-8">
-          <Outlet />
+        <main className="flex-1 overflow-y-auto">
+          <div className="max-w-[1360px] mx-auto px-6 py-8 lg:px-10 lg:py-10">
+            <Outlet />
+          </div>
         </main>
       </div>
     </div>

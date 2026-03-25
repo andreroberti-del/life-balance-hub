@@ -1,71 +1,50 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 @theme {
-  /* === CLEAN MINIMALIST THEME === */
-
-  /* Base Palette — Warm neutrals */
-  --color-dark: hsl(0 0% 96%);
-  --color-dark2: hsl(0 0% 98%);
-  --color-dark3: hsl(0 0% 93%);
-  --color-dark4: hsl(0 0% 89%);
-
-  /* Slate / Muted */
-  --color-slate: hsl(220 8% 56%);
-  --color-slate-light: hsl(220 6% 68%);
-
-  /* Primary Accent — Teal/Green */
-  --color-lime: hsl(160 84% 39%);
-  --color-lime2: hsl(160 70% 45%);
-  --color-lime-dark: hsl(160 80% 30%);
-  --color-lime-bg: hsla(160, 84%, 39%, 0.1);
-  --color-lime-bg2: hsla(160, 84%, 39%, 0.05);
-
-  /* Accent — Dark charcoal */
-  --color-accent: hsl(220 14% 20%);
-  --color-accent-light: hsl(220 10% 35%);
-  --color-accent-bg: hsla(220, 14%, 20%, 0.06);
-  --color-accent-dark: hsl(220 14% 14%);
-
-  /* Text Colors */
-  --color-text: hsl(220 14% 12%);
-  --color-text2: hsl(220 10% 28%);
-  --color-text3: hsl(220 8% 46%);
-  --color-text4: hsl(220 6% 62%);
-  --color-text-muted: hsl(220 4% 76%);
+  /* === REFINED CLEAN SYSTEM === */
 
   /* Backgrounds */
-  --color-bg: hsl(220 14% 96%);
-  --color-bg2: hsl(0 0% 100%);
+  --color-bg: hsl(210 20% 98%);
+  --color-bg2: hsl(210 25% 96%);
   --color-card: hsl(0 0% 100%);
   --color-card-elevated: hsl(0 0% 100%);
 
-  /* Surface for hero/sidebar */
-  --color-surface-purple: hsl(220 14% 14%);
-  --color-surface-purple-light: hsl(220 10% 22%);
-  --color-surface-purple-dark: hsl(220 14% 10%);
+  /* Accent — Slate blue */
+  --color-accent: hsl(222 47% 31%);
+  --color-accent-light: hsl(222 35% 45%);
+  --color-accent-bg: hsla(222, 47%, 31%, 0.07);
+  --color-accent-dark: hsl(222 50% 22%);
 
-  /* Status Colors */
-  --color-green: hsl(152 56% 42%);
-  --color-green-bg: hsla(152, 56%, 42%, 0.1);
-  --color-red: hsl(0 72% 56%);
-  --color-red-bg: hsla(0, 72%, 56%, 0.08);
-  --color-orange: hsl(28 90% 55%);
-  --color-orange-bg: hsla(28, 90%, 55%, 0.1);
-  --color-blue: hsl(210 80% 55%);
-  --color-blue-bg: hsla(210, 80%, 55%, 0.1);
-  --color-purple: hsl(260 50% 55%);
-  --color-purple-bg: hsla(260, 50%, 55%, 0.1);
-  --color-amber: hsl(42 95% 52%);
-  --color-amber-bg: hsla(42, 95%, 52%, 0.1);
+  /* Text */
+  --color-text: hsl(220 20% 14%);
+  --color-text2: hsl(220 14% 30%);
+  --color-text3: hsl(220 10% 50%);
+  --color-text4: hsl(220 8% 65%);
+  --color-text-muted: hsl(220 6% 78%);
+
+  /* Status */
+  --color-green: hsl(152 56% 39%);
+  --color-green-bg: hsla(152, 56%, 39%, 0.08);
+  --color-red: hsl(4 72% 56%);
+  --color-red-bg: hsla(4, 72%, 56%, 0.07);
+  --color-orange: hsl(28 85% 55%);
+  --color-orange-bg: hsla(28, 85%, 55%, 0.08);
+  --color-blue: hsl(213 80% 55%);
+  --color-blue-bg: hsla(213, 80%, 55%, 0.08);
+  --color-purple: hsl(258 50% 55%);
+  --color-purple-bg: hsla(258, 50%, 55%, 0.08);
+  --color-amber: hsl(42 92% 52%);
+  --color-amber-bg: hsla(42, 92%, 52%, 0.08);
 
   /* Borders */
-  --color-border: hsl(220 10% 91%);
-  --color-border-light: hsl(220 8% 94%);
+  --color-border: hsl(220 14% 90%);
+  --color-border-light: hsl(220 10% 94%);
 
   /* Shadows */
-  --shadow-card: 0 1px 3px hsla(220, 14%, 20%, 0.04);
-  --shadow-card-hover: 0 4px 16px hsla(220, 14%, 20%, 0.08);
-  --shadow-lime: 0 2px 8px hsla(160, 84%, 39%, 0.2);
+  --shadow-card: 0 1px 2px hsla(220, 20%, 20%, 0.04), 0 1px 4px hsla(220, 20%, 20%, 0.02);
+  --shadow-card-hover: 0 4px 12px hsla(220, 20%, 20%, 0.06);
+  --shadow-lg: 0 8px 24px hsla(220, 20%, 20%, 0.08);
 }
 
 * {
@@ -75,11 +54,14 @@
 }
 
 body {
-  font-family: 'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;
-  background-color: hsl(220 14% 96%);
-  color: hsl(220 14% 12%);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 14px;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
 }
 
 #root {
@@ -88,80 +70,32 @@ body {
 
 /* Scrollbar */
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: hsl(220 8% 84%);
+  background: hsl(220 10% 85%);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(220 8% 72%);
-}
-
-/* Range slider */
-input[type="range"] {
-  -webkit-appearance: none;
-  appearance: none;
-  height: 4px;
-  background: hsl(220 10% 91%);
-  border-radius: 2px;
-  outline: none;
-}
-input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: hsl(220 14% 20%);
-  cursor: pointer;
-  box-shadow: 0 1px 4px hsla(220, 14%, 20%, 0.2);
+  background: hsl(220 10% 72%);
 }
 
 /* Selection */
 ::selection {
-  background: hsla(160, 84%, 39%, 0.15);
-  color: hsl(220 14% 10%);
+  background: hsla(222, 47%, 31%, 0.12);
+  color: hsl(222 50% 22%);
 }
 
 /* Focus ring */
 *:focus-visible {
-  outline: 2px solid hsla(220, 14%, 20%, 0.3);
+  outline: 2px solid hsla(222, 47%, 31%, 0.4);
   outline-offset: 2px;
 }
 
 /* Smooth transitions */
 a, button {
   transition: all 0.15s ease;
-}
-
-/* Toggle switch */
-.toggle-switch {
-  position: relative;
-  width: 44px;
-  height: 24px;
-  background: hsl(220 10% 91%);
-  border-radius: 12px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.toggle-switch.active {
-  background: hsl(220 14% 20%);
-}
-.toggle-switch::after {
-  content: '';
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 20px;
-  height: 20px;
-  background: #fff;
-  border-radius: 50%;
-  transition: transform 0.2s;
-}
-.toggle-switch.active::after {
-  transform: translateX(20px);
 }
