@@ -1,31 +1,14 @@
 import { useEffect, useState } from 'react';
 import {
-  AreaChart,
-  Area,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  BarChart,
-  Bar,
+  AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
+  BarChart, Bar,
 } from 'recharts';
-import {
-  Scale,
-  Moon,
-  Ruler,
-  Users,
-  TrendingUp,
-  TrendingDown,
-  Droplets,
-  Plus,
-} from 'lucide-react';
+import { Scale, Moon, Ruler, Users, TrendingUp, TrendingDown, Droplets, Plus } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { getCheckIns, getUserStreak, getCommunityMetrics } from '../lib/api';
 import type { CheckIn, CommunityMetrics, UserStreak } from '../types';
 
-/* ── Demo data ── */
 const demoCheckins: Partial<CheckIn>[] = Array.from({ length: 30 }, (_, i) => ({
   date: new Date(Date.now() - (29 - i) * 86400000).toISOString().split('T')[0],
   weight: 82 - i * 0.15 + Math.random() * 0.5,
@@ -45,13 +28,6 @@ const recentCheckins = [
   { type: 'Sono', date: '17-03-2026', value: '4/5', notes: '7h30 dormidas', icon: Moon, color: 'bg-blue-bg text-blue' },
   { type: 'Cintura', date: '16-03-2026', value: '87.5 cm', notes: 'Medição manhã', icon: Ruler, color: 'bg-purple-bg text-purple' },
   { type: 'Água', date: '15-03-2026', value: '2.8 L', notes: 'Meta atingida', icon: Droplets, color: 'bg-green-bg text-green' },
-];
-
-const weeklySchedule = [
-  { day: 'Seg', date: '17', items: [{ label: 'Omega 3', time: '08:00', color: 'bg-accent' }] },
-  { day: 'Ter', date: '18', items: [{ label: 'Check-in', time: '07:30', color: 'bg-lime' }, { label: 'Exercício', time: '18:00', color: 'bg-blue' }] },
-  { day: 'Qua', date: '19', items: [{ label: 'Omega 3', time: '08:00', color: 'bg-accent' }] },
-  { day: 'Qui', date: '20', items: [{ label: 'Reteste', time: '10:00', color: 'bg-orange' }] },
 ];
 
 const calorieData = [
@@ -94,37 +70,34 @@ export default function DashboardHome() {
   }));
 
   return (
-    <div className="space-y-5 max-w-[1600px]">
+    <div className="space-y-6 max-w-[1400px]">
 
-      {/* ROW 1: Hero stats bar */}
-      <div className="bg-surface-purple rounded-3xl p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      {/* Hero stats */}
+      <div className="bg-accent rounded-2xl p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <p className="text-white/60 text-sm">Total de check-ins</p>
-          <p className="text-white text-3xl font-black">{streak.total_checkins} <span className="text-base font-medium text-white/50">check-ins</span></p>
+          <p className="text-white/50 text-xs font-medium">Total de check-ins</p>
+          <p className="text-white text-2xl font-bold mt-1">{streak.total_checkins} <span className="text-sm font-normal text-white/40">check-ins</span></p>
         </div>
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-6">
           <div className="text-center">
-            <p className="text-white/60 text-xs">Ratio Ômega</p>
-            <p className="text-white text-2xl font-bold">{omegaRatio}:1</p>
+            <p className="text-white/50 text-[10px] font-medium">Ratio Ômega</p>
+            <p className="text-white text-lg font-semibold">{omegaRatio}:1</p>
           </div>
           <div className="text-center">
-            <p className="text-white/60 text-xs">Streak</p>
-            <p className="text-white text-2xl font-bold">{streak.current_streak} dias</p>
+            <p className="text-white/50 text-[10px] font-medium">Streak</p>
+            <p className="text-white text-lg font-semibold">{streak.current_streak} dias</p>
           </div>
-          <button className="flex items-center gap-2 bg-white/15 hover:bg-white/25 text-white rounded-2xl px-5 py-3 text-sm font-semibold transition-all">
+          <button className="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white rounded-lg px-4 py-2.5 text-sm font-medium transition-all">
             <Plus className="w-4 h-4" /> Check-in
           </button>
         </div>
       </div>
 
-      {/* ROW 2: Three chart cards */}
+      {/* Metrics + Charts */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-        {/* Quick Stats Donut-style */}
-        <div className="bg-card rounded-3xl p-6 border border-border shadow-card">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-bold text-text">Métricas Rápidas</h3>
-            <span className="text-[10px] text-text4">Hoje</span>
-          </div>
+        {/* Quick Stats */}
+        <div className="bg-card rounded-2xl p-5 border border-border">
+          <h3 className="text-xs font-semibold text-text3 uppercase tracking-wide mb-4">Métricas Rápidas</h3>
           <div className="grid grid-cols-2 gap-3">
             {[
               { label: 'Peso', value: latestWeight.toFixed(1), unit: 'kg', icon: Scale, trend: '-2.3%', color: 'text-accent', bg: 'bg-accent-bg' },
@@ -132,28 +105,28 @@ export default function DashboardHome() {
               { label: 'Sono', value: latestSleep, unit: '/5', icon: Moon, trend: '+5%', color: 'text-blue', bg: 'bg-blue-bg' },
               { label: 'Água', value: '2.5', unit: 'L', icon: Droplets, trend: '+8%', color: 'text-green', bg: 'bg-green-bg' },
             ].map((m) => (
-              <div key={m.label} className="rounded-2xl bg-bg p-3.5 border border-border-light">
+              <div key={m.label} className="rounded-xl bg-bg p-3">
                 <div className="flex items-center gap-2 mb-2">
-                  <div className={`w-7 h-7 ${m.bg} rounded-lg flex items-center justify-center`}>
-                    <m.icon className={`w-3.5 h-3.5 ${m.color}`} strokeWidth={1.8} />
+                  <div className={`w-6 h-6 ${m.bg} rounded-md flex items-center justify-center`}>
+                    <m.icon className={`w-3 h-3 ${m.color}`} strokeWidth={2} />
                   </div>
-                  <span className="text-[10px] text-text4 uppercase tracking-wide font-semibold">{m.label}</span>
+                  <span className="text-[10px] text-text4 uppercase tracking-wide font-medium">{m.label}</span>
                 </div>
-                <p className="text-lg font-black text-text">{m.value}<span className="text-xs font-medium text-text4 ml-0.5">{m.unit}</span></p>
-                <span className="text-[10px] text-green font-semibold">{m.trend}</span>
+                <p className="text-base font-bold text-text">{m.value}<span className="text-xs font-normal text-text4 ml-0.5">{m.unit}</span></p>
+                <span className="text-[10px] text-green font-medium">{m.trend}</span>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Weight Chart — Area */}
-        <div className="bg-card rounded-3xl p-6 border border-border shadow-card">
+        {/* Weight Chart */}
+        <div className="bg-card rounded-2xl p-5 border border-border">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-sm font-bold text-text">Evolução do Peso</h3>
-              <p className="text-[11px] text-text4 mt-0.5">Últimos 30 dias</p>
+              <h3 className="text-xs font-semibold text-text3 uppercase tracking-wide">Evolução do Peso</h3>
+              <p className="text-[10px] text-text4 mt-0.5">Últimos 30 dias</p>
             </div>
-            <div className="flex items-center gap-1.5 bg-green-bg text-green text-[11px] font-semibold px-2.5 py-1 rounded-xl">
+            <div className="flex items-center gap-1 bg-green-bg text-green text-[10px] font-medium px-2 py-1 rounded-md">
               <TrendingDown className="w-3 h-3" /> -2.3 kg
             </div>
           </div>
@@ -162,131 +135,98 @@ export default function DashboardHome() {
               <AreaChart data={weightData}>
                 <defs>
                   <linearGradient id="wg" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="hsl(252,60%,62%)" stopOpacity={0.2} />
-                    <stop offset="100%" stopColor="hsl(252,60%,62%)" stopOpacity={0} />
+                    <stop offset="0%" stopColor="hsl(220,14%,20%)" stopOpacity={0.1} />
+                    <stop offset="100%" stopColor="hsl(220,14%,20%)" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="hsl(240,15%,90%)" />
-                <XAxis dataKey="date" stroke="hsl(240,12%,72%)" fontSize={9} tickLine={false} axisLine={false} interval={Math.floor(weightData.length / 5)} />
-                <YAxis stroke="hsl(240,12%,72%)" fontSize={9} tickLine={false} axisLine={false} domain={['auto', 'auto']} width={30} />
-                <Tooltip
-                  contentStyle={{ backgroundColor: '#fff', border: '1px solid hsl(240,15%,88%)', borderRadius: '12px', color: 'hsl(240,20%,20%)', fontSize: '12px', boxShadow: '0 4px 16px hsla(252,40%,40%,0.1)' }}
-                />
-                <Area type="monotone" dataKey="weight" stroke="hsl(252,60%,62%)" strokeWidth={2.5} fill="url(#wg)" dot={false} activeDot={{ r: 4, fill: 'hsl(252,60%,62%)', stroke: '#fff', strokeWidth: 2 }} />
+                <CartesianGrid strokeDasharray="3 3" stroke="hsl(220,10%,93%)" />
+                <XAxis dataKey="date" stroke="hsl(220,6%,68%)" fontSize={9} tickLine={false} axisLine={false} interval={Math.floor(weightData.length / 5)} />
+                <YAxis stroke="hsl(220,6%,68%)" fontSize={9} tickLine={false} axisLine={false} domain={['auto', 'auto']} width={30} />
+                <Tooltip contentStyle={{ backgroundColor: '#fff', border: '1px solid hsl(220,10%,91%)', borderRadius: '8px', color: 'hsl(220,14%,12%)', fontSize: '12px' }} />
+                <Area type="monotone" dataKey="weight" stroke="hsl(220,14%,20%)" strokeWidth={2} fill="url(#wg)" dot={false} activeDot={{ r: 3, fill: 'hsl(220,14%,20%)', stroke: '#fff', strokeWidth: 2 }} />
               </AreaChart>
             </ResponsiveContainer>
           </div>
         </div>
 
-        {/* Bar chart — Score overview */}
-        <div className="bg-card rounded-3xl p-6 border border-border shadow-card">
+        {/* Bar chart */}
+        <div className="bg-card rounded-2xl p-5 border border-border">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-bold text-text">Progresso por Área</h3>
-            <span className="text-[10px] text-accent font-semibold">scores</span>
+            <h3 className="text-xs font-semibold text-text3 uppercase tracking-wide">Progresso por Área</h3>
+            <span className="text-[10px] text-text4 font-medium">scores</span>
           </div>
           <div className="h-48">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={calorieData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="hsl(240,15%,90%)" />
-                <XAxis dataKey="name" stroke="hsl(240,12%,72%)" fontSize={10} tickLine={false} axisLine={false} />
-                <YAxis stroke="hsl(240,12%,72%)" fontSize={9} tickLine={false} axisLine={false} />
-                <Tooltip contentStyle={{ backgroundColor: '#fff', border: '1px solid hsl(240,15%,88%)', borderRadius: '12px', fontSize: '12px' }} />
-                <Bar dataKey="value" fill="hsl(252,60%,62%)" radius={[8, 8, 0, 0]} barSize={32} />
+                <CartesianGrid strokeDasharray="3 3" stroke="hsl(220,10%,93%)" />
+                <XAxis dataKey="name" stroke="hsl(220,6%,68%)" fontSize={10} tickLine={false} axisLine={false} />
+                <YAxis stroke="hsl(220,6%,68%)" fontSize={9} tickLine={false} axisLine={false} />
+                <Tooltip contentStyle={{ backgroundColor: '#fff', border: '1px solid hsl(220,10%,91%)', borderRadius: '8px', fontSize: '12px' }} />
+                <Bar dataKey="value" fill="hsl(220,14%,20%)" radius={[6, 6, 0, 0]} barSize={28} />
               </BarChart>
             </ResponsiveContainer>
           </div>
         </div>
       </div>
 
-      {/* ROW 3: Table + Schedule */}
+      {/* Table + Community */}
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-5">
-        {/* Recent Check-ins Table */}
-        <div className="lg:col-span-3 bg-card rounded-3xl p-6 border border-border shadow-card">
-          <div className="flex items-center justify-between mb-5">
-            <h3 className="text-sm font-bold text-text">Check-ins Recentes</h3>
-            <a href="/checkin" className="text-[11px] text-accent font-semibold hover:underline">Ver Todos</a>
+        {/* Recent Check-ins */}
+        <div className="lg:col-span-3 bg-card rounded-2xl p-5 border border-border">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-xs font-semibold text-text3 uppercase tracking-wide">Check-ins Recentes</h3>
+            <a href="/checkin" className="text-[11px] text-accent font-medium hover:underline">Ver Todos</a>
           </div>
-          <div className="overflow-x-auto">
-            <table className="w-full text-left">
-              <thead>
-                <tr className="border-b border-border">
-                  <th className="text-[10px] text-text4 uppercase tracking-wider font-semibold pb-3">Tipo</th>
-                  <th className="text-[10px] text-text4 uppercase tracking-wider font-semibold pb-3">Data</th>
-                  <th className="text-[10px] text-text4 uppercase tracking-wider font-semibold pb-3">Valor</th>
-                  <th className="text-[10px] text-text4 uppercase tracking-wider font-semibold pb-3">Notas</th>
-                </tr>
-              </thead>
-              <tbody>
-                {recentCheckins.map((item, i) => (
-                  <tr key={i} className="border-b border-border-light last:border-0">
-                    <td className="py-3.5">
-                      <div className="flex items-center gap-2.5">
-                        <div className={`w-8 h-8 ${item.color} rounded-xl flex items-center justify-center`}>
-                          <item.icon className="w-4 h-4" />
-                        </div>
-                        <span className="text-sm font-semibold text-text">{item.type}</span>
+          <table className="w-full text-left">
+            <thead>
+              <tr className="border-b border-border">
+                <th className="text-[10px] text-text4 uppercase tracking-wider font-medium pb-3">Tipo</th>
+                <th className="text-[10px] text-text4 uppercase tracking-wider font-medium pb-3">Data</th>
+                <th className="text-[10px] text-text4 uppercase tracking-wider font-medium pb-3">Valor</th>
+                <th className="text-[10px] text-text4 uppercase tracking-wider font-medium pb-3">Notas</th>
+              </tr>
+            </thead>
+            <tbody>
+              {recentCheckins.map((item, i) => (
+                <tr key={i} className="border-b border-border-light last:border-0">
+                  <td className="py-3">
+                    <div className="flex items-center gap-2">
+                      <div className={`w-7 h-7 ${item.color} rounded-lg flex items-center justify-center`}>
+                        <item.icon className="w-3.5 h-3.5" />
                       </div>
-                    </td>
-                    <td className="py-3.5 text-sm text-text3">{item.date}</td>
-                    <td className="py-3.5 text-sm font-semibold text-text">{item.value}</td>
-                    <td className="py-3.5 text-sm text-text4">{item.notes}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                      <span className="text-sm font-medium text-text">{item.type}</span>
+                    </div>
+                  </td>
+                  <td className="py-3 text-sm text-text3">{item.date}</td>
+                  <td className="py-3 text-sm font-medium text-text">{item.value}</td>
+                  <td className="py-3 text-sm text-text4">{item.notes}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
 
-        {/* Schedule + Community */}
-        <div className="lg:col-span-2 flex flex-col gap-5">
-          {/* Schedule */}
-          <div className="bg-card rounded-3xl p-5 border border-border shadow-card flex-1">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-bold text-text">Agenda</h3>
-              <span className="text-[10px] text-text4">Março</span>
-            </div>
-            <div className="space-y-3">
-              {weeklySchedule.map((day) => (
-                <div key={day.day} className="flex items-start gap-3">
-                  <div className="text-center w-10 flex-shrink-0">
-                    <p className="text-[10px] text-text4 font-medium">{day.day}</p>
-                    <p className="text-base font-bold text-text">{day.date}</p>
+        {/* Community */}
+        <div className="lg:col-span-2 bg-card rounded-2xl p-5 border border-border">
+          <h3 className="text-[10px] font-semibold text-text4 uppercase tracking-wider mb-4">Comunidade</h3>
+          <div className="space-y-4">
+            {[
+              { label: 'Membros', value: community.total_members, icon: Users, color: 'bg-accent-bg text-accent' },
+              { label: 'Kg perdidos', value: community.total_kg_lost, icon: Scale, color: 'bg-green-bg text-green' },
+              { label: 'Melhoria ratio', value: `${community.avg_ratio_improvement}%`, icon: TrendingUp, color: 'bg-blue-bg text-blue' },
+            ].map((item) => (
+              <div key={item.label} className="flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
+                  <div className={`w-7 h-7 ${item.color} rounded-lg flex items-center justify-center`}>
+                    <item.icon className="w-3.5 h-3.5" />
                   </div>
-                  <div className="flex-1 space-y-1.5">
-                    {day.items.map((item, j) => (
-                      <div key={j} className={`${item.color} rounded-xl px-3 py-2 flex items-center justify-between`}>
-                        <span className="text-xs font-semibold text-white">{item.label}</span>
-                        <span className="text-[10px] text-white/70">{item.time}</span>
-                      </div>
-                    ))}
-                  </div>
+                  <span className="text-sm text-text3">{item.label}</span>
                 </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Community mini */}
-          <div className="bg-card rounded-3xl p-5 border border-border shadow-card topo-pattern">
-            <h3 className="text-[11px] font-semibold text-text4 uppercase tracking-[1.5px] mb-3">Comunidade</h3>
-            <div className="space-y-3">
-              {[
-                { label: 'Membros', value: community.total_members, icon: Users, color: 'bg-accent-bg text-accent' },
-                { label: 'Kg perdidos', value: community.total_kg_lost, icon: Scale, color: 'bg-green-bg text-green' },
-                { label: 'Melhoria ratio', value: `${community.avg_ratio_improvement}%`, icon: TrendingUp, color: 'bg-blue-bg text-blue' },
-              ].map((item) => (
-                <div key={item.label} className="flex items-center justify-between">
-                  <div className="flex items-center gap-2.5">
-                    <div className={`w-7 h-7 ${item.color} rounded-lg flex items-center justify-center`}>
-                      <item.icon className="w-3.5 h-3.5" />
-                    </div>
-                    <span className="text-sm text-text3">{item.label}</span>
-                  </div>
-                  <span className="text-sm font-bold text-text">
-                    {typeof item.value === 'number' ? item.value.toLocaleString('pt-BR') : item.value}
-                  </span>
-                </div>
-              ))}
-            </div>
+                <span className="text-sm font-semibold text-text">
+                  {typeof item.value === 'number' ? item.value.toLocaleString('pt-BR') : item.value}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       </div>

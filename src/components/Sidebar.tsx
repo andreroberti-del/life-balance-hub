@@ -1,22 +1,8 @@
 import { NavLink } from 'react-router-dom';
 import {
-  LayoutDashboard,
-  ClipboardCheck,
-  BarChart3,
-  ScanLine,
-  Database,
-  Users,
-  Target,
-  UserCircle,
-  Settings,
-  Leaf,
-  Kanban,
-  Bell,
-  UserCheck,
-  TestTube2,
-  BarChart2,
-  PanelLeftClose,
-  PanelLeft,
+  LayoutDashboard, ClipboardCheck, BarChart3, ScanLine, Database, Users, Target,
+  UserCircle, Settings, Leaf, Kanban, Bell, UserCheck, TestTube2, BarChart2,
+  PanelLeftClose, PanelLeft,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -61,17 +47,9 @@ const bottomItems = [
 ];
 
 function SidebarLink({
-  to,
-  icon: Icon,
-  label,
-  expanded,
-  end,
+  to, icon: Icon, label, expanded, end,
 }: {
-  to: string;
-  icon: LucideIcon;
-  label: string;
-  expanded: boolean;
-  end?: boolean;
+  to: string; icon: LucideIcon; label: string; expanded: boolean; end?: boolean;
 }) {
   return (
     <NavLink
@@ -79,18 +57,18 @@ function SidebarLink({
       end={end}
       title={!expanded ? label : undefined}
       className={({ isActive }) =>
-        `group relative flex items-center gap-3.5 rounded-xl transition-all duration-200 ${
-          expanded ? 'px-4 py-3' : 'justify-center p-3'
+        `group flex items-center gap-3 rounded-lg transition-all duration-150 ${
+          expanded ? 'px-3 py-2.5' : 'justify-center p-2.5'
         } ${
           isActive
-            ? 'bg-surface-purple text-white shadow-[0_2px_12px_hsla(252,40%,55%,0.3)]'
-            : 'text-text3 hover:bg-dark3 hover:text-text'
+            ? 'bg-accent text-white'
+            : 'text-text3 hover:bg-bg hover:text-text'
         }`
       }
     >
-      <Icon className="w-[20px] h-[20px] flex-shrink-0" strokeWidth={1.7} />
+      <Icon className="w-[18px] h-[18px] flex-shrink-0" strokeWidth={1.8} />
       {expanded && (
-        <span className="text-[15px] font-medium tracking-[-0.01em]">{label}</span>
+        <span className="text-[14px] font-medium">{label}</span>
       )}
     </NavLink>
   );
@@ -99,66 +77,50 @@ function SidebarLink({
 export default function Sidebar({ expanded, onToggle }: SidebarProps) {
   return (
     <aside
-      className={`hidden lg:flex h-screen flex-col bg-card border-r border-border transition-all duration-300 ease-in-out ${
-        expanded ? 'w-64' : 'w-[72px]'
+      className={`hidden lg:flex h-screen flex-col bg-card border-r border-border transition-all duration-300 ${
+        expanded ? 'w-60' : 'w-16'
       }`}
     >
       {/* Header */}
-      <div className={`flex items-center h-[72px] border-b border-border ${expanded ? 'px-5 justify-between' : 'justify-center'}`}>
-        <div className="flex items-center gap-3.5">
-          <div className="w-10 h-10 bg-surface-purple rounded-xl flex items-center justify-center shadow-[0_2px_12px_hsla(252,40%,55%,0.25)] flex-shrink-0">
-            <Leaf className="w-5 h-5 text-white" strokeWidth={2} />
+      <div className={`flex items-center h-16 border-b border-border ${expanded ? 'px-4 justify-between' : 'justify-center'}`}>
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center flex-shrink-0">
+            <Leaf className="w-4 h-4 text-white" strokeWidth={2} />
           </div>
           {expanded && (
-            <span className="text-base font-bold text-text whitespace-nowrap tracking-[-0.02em]">
+            <span className="text-sm font-semibold text-text tracking-[-0.01em]">
               Life Balance
             </span>
           )}
         </div>
         {expanded && (
-          <button
-            onClick={onToggle}
-            className="p-2 rounded-lg text-text4 hover:text-text3 hover:bg-dark3 transition-colors"
-          >
-            <PanelLeftClose className="w-[18px] h-[18px]" />
+          <button onClick={onToggle} className="p-1.5 rounded-md text-text4 hover:text-text3 hover:bg-bg transition-colors">
+            <PanelLeftClose className="w-4 h-4" />
           </button>
         )}
       </div>
 
-      {/* Collapsed toggle */}
       {!expanded && (
-        <div className="flex justify-center pt-4 pb-2">
-          <button
-            onClick={onToggle}
-            className="p-2 rounded-lg text-text4 hover:text-text3 hover:bg-dark3 transition-colors"
-          >
-            <PanelLeft className="w-[18px] h-[18px]" />
+        <div className="flex justify-center pt-3 pb-1">
+          <button onClick={onToggle} className="p-1.5 rounded-md text-text4 hover:text-text3 hover:bg-bg transition-colors">
+            <PanelLeft className="w-4 h-4" />
           </button>
         </div>
       )}
 
-      {/* Nav sections */}
-      <nav className={`flex-1 overflow-y-auto py-5 ${expanded ? 'px-4' : 'px-2.5'}`}>
+      {/* Nav */}
+      <nav className={`flex-1 overflow-y-auto py-4 ${expanded ? 'px-3' : 'px-2'}`}>
         {sections.map((section, idx) => (
           <div key={idx} className={idx > 0 ? 'mt-6' : ''}>
-            {idx > 0 && (
-              <div className={`mb-5 ${expanded ? 'mx-2' : 'mx-1'}`}>
-                <div className="h-px bg-border" />
-              </div>
-            )}
+            {idx > 0 && <div className={`mb-4 ${expanded ? 'mx-1' : 'mx-0.5'}`}><div className="h-px bg-border" /></div>}
             {section.label && expanded && (
-              <p className="text-[11px] font-semibold text-text4 uppercase tracking-[0.1em] mb-3 px-4">
+              <p className="text-[10px] font-semibold text-text4 uppercase tracking-[0.08em] mb-2 px-3">
                 {section.label}
               </p>
             )}
-            <div className="flex flex-col gap-1.5">
+            <div className="flex flex-col gap-0.5">
               {section.items.map((item) => (
-                <SidebarLink
-                  key={item.to}
-                  {...item}
-                  expanded={expanded}
-                  end={item.to === '/'}
-                />
+                <SidebarLink key={item.to} {...item} expanded={expanded} end={item.to === '/'} />
               ))}
             </div>
           </div>
@@ -166,26 +128,12 @@ export default function Sidebar({ expanded, onToggle }: SidebarProps) {
       </nav>
 
       {/* Bottom */}
-      <div className={`border-t border-border py-4 ${expanded ? 'px-4' : 'px-2.5'}`}>
-        <div className="flex flex-col gap-1.5">
+      <div className={`border-t border-border py-3 ${expanded ? 'px-3' : 'px-2'}`}>
+        <div className="flex flex-col gap-0.5">
           {bottomItems.map((item) => (
             <SidebarLink key={item.to} {...item} expanded={expanded} />
           ))}
         </div>
-
-        {expanded && (
-          <div className="mt-4 p-4 rounded-xl bg-accent-bg border border-border">
-            <div className="flex items-center justify-between mb-2.5">
-              <span className="text-[11px] text-text4 uppercase tracking-[0.08em] font-semibold">
-                Protocolo 120
-              </span>
-              <span className="text-sm text-accent font-bold">45%</span>
-            </div>
-            <div className="h-2 bg-dark3 rounded-full overflow-hidden">
-              <div className="w-[45%] h-full bg-accent rounded-full transition-all duration-500" />
-            </div>
-          </div>
-        )}
       </div>
     </aside>
   );
