@@ -1,6 +1,5 @@
 import { Menu, Search, Bell } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
-import { useState } from 'react';
 
 interface TopBarProps {
   onMenuClick: () => void;
@@ -8,7 +7,6 @@ interface TopBarProps {
 
 export default function TopBar({ onMenuClick }: TopBarProps) {
   const { profile } = useAuth();
-  const [period, setPeriod] = useState<'daily' | 'weekly' | 'monthly'>('daily');
 
   const initials = profile?.name
     ? profile.name.split(' ').map((n: string) => n[0]).join('').slice(0, 2).toUpperCase()
@@ -22,59 +20,36 @@ export default function TopBar({ onMenuClick }: TopBarProps) {
   };
 
   return (
-    <header className="flex items-center justify-between px-6 lg:px-8 h-16 border-b border-border bg-card flex-shrink-0">
+    <header className="h-[64px] border-b border-border bg-card flex items-center justify-between px-6 lg:px-10 flex-shrink-0">
       {/* Left */}
       <div className="flex items-center gap-4">
-        <button onClick={onMenuClick} className="lg:hidden p-2 rounded-lg text-text3 hover:bg-bg">
+        <button
+          onClick={onMenuClick}
+          className="lg:hidden p-2 rounded-lg text-text3 hover:bg-bg2 transition-colors"
+        >
           <Menu className="w-5 h-5" />
         </button>
-        <div>
-          <h1 className="text-base font-semibold text-text">
-            {greeting()}, {profile?.name?.split(' ')[0] || 'Usuário'}
-          </h1>
-        </div>
-      </div>
-
-      {/* Center: Period */}
-      <div className="hidden md:flex items-center bg-bg rounded-lg p-0.5">
-        {(['daily', 'weekly', 'monthly'] as const).map((p) => (
-          <button
-            key={p}
-            onClick={() => setPeriod(p)}
-            className={`px-4 py-1.5 rounded-md text-xs font-medium transition-all ${
-              period === p
-                ? 'bg-accent text-white'
-                : 'text-text3 hover:text-text'
-            }`}
-          >
-            {p === 'daily' ? 'Diário' : p === 'weekly' ? 'Semanal' : 'Mensal'}
-          </button>
-        ))}
+        <h1 className="text-[15px] font-semibold text-text tracking-[-0.02em]">
+          {greeting()}, {profile?.name?.split(' ')[0] || 'Usuário'}
+        </h1>
       </div>
 
       {/* Right */}
       <div className="flex items-center gap-2">
-        <div className="hidden lg:flex items-center bg-bg rounded-lg px-3 py-2 w-52">
-          <Search className="w-4 h-4 text-text4 mr-2 flex-shrink-0" />
+        <div className="hidden sm:flex items-center bg-bg2 rounded-xl px-4 py-2 gap-2.5 w-[220px]">
+          <Search className="w-4 h-4 text-text4" strokeWidth={1.6} />
           <input
             type="text"
             placeholder="Buscar..."
-            className="bg-transparent text-sm text-text outline-none w-full placeholder:text-text4"
+            className="bg-transparent text-[13px] text-text3 placeholder:text-text-muted outline-none w-full"
           />
         </div>
-
-        <button className="w-9 h-9 rounded-lg bg-bg flex items-center justify-center text-text3 hover:text-text transition-colors relative">
-          <Bell className="w-4 h-4" />
-          <span className="absolute top-2 right-2 w-1.5 h-1.5 bg-red rounded-full" />
+        <button className="relative p-2.5 rounded-xl text-text4 hover:bg-bg2 hover:text-text3 transition-colors">
+          <Bell className="w-[18px] h-[18px]" strokeWidth={1.6} />
+          <span className="absolute top-2 right-2 w-2 h-2 bg-red rounded-full" />
         </button>
-
-        <div className="flex items-center gap-2 ml-1">
-          <div className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center text-white text-xs font-semibold">
-            {initials}
-          </div>
-          <div className="hidden sm:block">
-            <p className="text-sm font-medium text-text leading-tight">{profile?.name || 'Usuário'}</p>
-          </div>
+        <div className="w-9 h-9 rounded-xl bg-accent text-white flex items-center justify-center text-[13px] font-semibold ml-1">
+          {initials}
         </div>
       </div>
     </header>
