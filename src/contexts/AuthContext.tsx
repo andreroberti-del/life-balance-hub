@@ -15,7 +15,19 @@ interface AuthContextType {
   isDemoMode: boolean;
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const FALLBACK_AUTH_CONTEXT: AuthContextType = {
+  user: null,
+  session: null,
+  profile: null,
+  loading: false,
+  signUp: async () => ({ error: new Error('Auth provider is not available') }),
+  signIn: async () => ({ error: new Error('Auth provider is not available') }),
+  signOut: async () => undefined,
+  refreshProfile: async () => undefined,
+  isDemoMode: false,
+};
+
+const AuthContext = createContext<AuthContextType>(FALLBACK_AUTH_CONTEXT);
 
 // Demo profile for when Supabase is not configured
 const DEMO_PROFILE: Profile = {
@@ -129,8 +141,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
 export function useAuth() {
   const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth must be used within AuthProvider');
+  if (import.meta.env.DEV && context === FALLBACK_AUTH_CONTEXT) {
+    console.error('useAuth is running without AuthProvider. Check the app root providers.');
   }
   return context;
 }
