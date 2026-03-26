@@ -1,12 +1,22 @@
 import { User, Mail, Calendar, Bell, Lock, Palette, Globe, Target, Droplet, Moon, TrendingUp, Users, Crown, Edit } from "lucide-react";
+import { useState } from "react";
 import { useLanguage } from "../contexts/LanguageContext";
 import { useAuth } from "../contexts/AuthContext";
 import { GarminConnectCard } from "./garmin/GarminConnectCard";
+import { EditProfileModal } from "./EditProfileModal";
 
 export function Profile() {
   const { t } = useLanguage();
   const { profile } = useAuth();
-  const profileData = { name: profile?.display_name || t.user.name, email: profile?.email || "daniel.melo@email.com", age: 38, joinDate: "March 2026", badge: t.user.title };
+  const [editOpen, setEditOpen] = useState(false);
+  const profileData = {
+    name: profile?.display_name || t.user.name,
+    email: profile?.email || "",
+    age: profile?.age || null,
+    joinDate: profile?.created_at ? new Date(profile.created_at).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : "March 2026",
+    badge: t.user.title,
+    avatarUrl: profile?.avatar_url,
+  };
   const healthMetrics = [
     { label: t.dashboard.omegaRatio, value: "4.2:1", icon: TrendingUp },
     { label: t.profile.weight, value: "88.5 kg", icon: Target },
@@ -48,7 +58,11 @@ export function Profile() {
           <div className="lg:col-span-2 space-y-6">
             <div className="bg-white rounded-3xl p-6 border border-gray-200/50 shadow-sm">
               <div className="flex flex-col md:flex-row gap-6">
-                <div className="w-32 h-32 md:w-40 md:h-40 rounded-3xl bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center text-7xl flex-shrink-0">👤</div>
+                <div className="w-32 h-32 md:w-40 md:h-40 rounded-3xl bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center text-7xl flex-shrink-0 overflow-hidden">
+                  {profileData.avatarUrl ? (
+                    <img src={profileData.avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
+                  ) : '👤'}
+                </div>
                 <div className="flex-1">
                   <div className="bg-black rounded-2xl p-6 text-white mb-4">
                     <h2 className="text-3xl font-bold mb-2">{profileData.name}</h2>
@@ -56,7 +70,7 @@ export function Profile() {
                     <div className="flex items-center gap-2 text-sm text-gray-400"><Mail className="w-4 h-4" /><span>{profileData.email}</span></div>
                     <div className="flex items-center gap-3 text-xs text-gray-400 mt-3"><Calendar className="w-4 h-4" /><span>Member since {profileData.joinDate}</span></div>
                   </div>
-                  <button className="w-full bg-[#D4FF00] text-black px-6 py-3.5 rounded-2xl font-bold hover:bg-[#B8E000] transition-all flex items-center justify-center gap-2"><Edit className="w-5 h-5" />Edit Profile</button>
+                  <button onClick={() => setEditOpen(true)} className="w-full bg-[#D4FF00] text-black px-6 py-3.5 rounded-2xl font-bold hover:bg-[#B8E000] transition-all flex items-center justify-center gap-2"><Edit className="w-5 h-5" />Edit Profile</button>
                 </div>
               </div>
             </div>
@@ -131,6 +145,7 @@ export function Profile() {
           </div>
         </div>
       </div>
+      {editOpen && <EditProfileModal onClose={() => setEditOpen(false)} />}
     </div>
   );
 }
