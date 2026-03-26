@@ -1,6 +1,6 @@
 import { Globe } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
-import { Language } from '../translations';
+import type { Language } from '../translations';
 import { useState } from 'react';
 
 const languages = [
