@@ -1,97 +1,39 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { AuthProvider } from './contexts/AuthContext';
+import { LanguageProvider } from './contexts/LanguageContext';
 import { Layout } from './components/Layout';
-import LoadingSpinner from './components/LoadingSpinner';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
+import { LoginPage } from './components/auth/LoginPage';
+import { SignUpPage } from './components/auth/SignUpPage';
+import { AuthGuard } from './components/auth/AuthGuard';
+import { OnboardingFlow } from './components/onboarding/OnboardingFlow';
 import { Dashboard } from './pages/Dashboard';
-import CheckIn from './pages/CheckIn';
-import Data from './pages/Data';
 import { Scanner } from './pages/Scanner';
-import OmegaDatabase from './pages/OmegaDatabase';
 import { Community } from './pages/Community';
-import Protocol from './pages/Protocol';
+import { Progress } from './pages/Progress';
 import { Profile } from './pages/Profile';
-import Settings from './pages/Settings';
-import DistributorUpgrade from './pages/DistributorUpgrade';
-import Pipeline from './pages/crm/Pipeline';
-import FollowUps from './pages/crm/FollowUps';
-import Clients from './pages/crm/Clients';
-import TestTracking from './pages/crm/TestTracking';
-import Performance from './pages/crm/Performance';
 
-function ProtectedRoute({ children }: { children: React.ReactNode }) {
-  const { user, loading } = useAuth();
-
-  if (loading) return <LoadingSpinner fullPage />;
-  if (!user) return <Navigate to="/login" />;
-
-  return <>{children}</>;
-}
-
-function DistributorRoute({ children }: { children: React.ReactNode }) {
-  const { user, loading } = useAuth();
-
-  if (loading) return <LoadingSpinner fullPage />;
-  if (!user) return <Navigate to="/login" />;
-  // TODO: check distributor status from profile or roles
-
-  return <>{children}</>;
-}
-
-function AuthRoute({ children }: { children: React.ReactNode }) {
-  const { user, loading } = useAuth();
-
-  if (loading) return <LoadingSpinner fullPage />;
-  if (user) return <Navigate to="/" />;
-
-  return <>{children}</>;
+function Protected({ children }: { children: React.ReactNode }) {
+  return <AuthGuard>{children}</AuthGuard>;
 }
 
 function AppRoutes() {
   return (
     <Routes>
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/signup" element={<SignUpPage />} />
       <Route
-        path="/login"
-        element={
-          <AuthRoute>
-            <Login />
-          </AuthRoute>
-        }
+        path="/onboarding"
+        element={<Protected><OnboardingFlow /></Protected>}
       />
       <Route
-        path="/signup"
-        element={
-          <AuthRoute>
-            <Signup />
-          </AuthRoute>
-        }
-      />
-
-      <Route
-        element={
-          <ProtectedRoute>
-            <Layout />
-          </ProtectedRoute>
-        }
+        element={<Protected><Layout /></Protected>}
       >
         <Route path="/" element={<Dashboard />} />
-        <Route path="/checkin" element={<CheckIn />} />
-        <Route path="/data" element={<Data />} />
         <Route path="/scanner" element={<Scanner />} />
-        <Route path="/omega" element={<OmegaDatabase />} />
         <Route path="/community" element={<Community />} />
-        <Route path="/protocol" element={<Protocol />} />
+        <Route path="/progress" element={<Progress />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/settings" element={<Settings />} />
-        <Route path="/distributor-upgrade" element={<DistributorUpgrade />} />
-        <Route path="/crm/pipeline" element={<DistributorRoute><Pipeline /></DistributorRoute>} />
-        <Route path="/crm/followups" element={<DistributorRoute><FollowUps /></DistributorRoute>} />
-        <Route path="/crm/clients" element={<DistributorRoute><Clients /></DistributorRoute>} />
-        <Route path="/crm/tests" element={<DistributorRoute><TestTracking /></DistributorRoute>} />
-        <Route path="/crm/performance" element={<DistributorRoute><Performance /></DistributorRoute>} />
       </Route>
-
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );
@@ -101,7 +43,9 @@ export default function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <AppRoutes />
+        <LanguageProvider>
+          <AppRoutes />
+        </LanguageProvider>
       </AuthProvider>
     </BrowserRouter>
   );
