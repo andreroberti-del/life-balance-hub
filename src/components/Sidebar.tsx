@@ -75,6 +75,7 @@ function SidebarLink({
 }
 
 export default function Sidebar({ expanded, onToggle }: SidebarProps) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const _auth = useAuth();
   const isDistributor = false;
   const navigate = useNavigate();

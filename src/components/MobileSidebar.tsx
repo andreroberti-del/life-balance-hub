@@ -57,6 +57,7 @@ function MobileLink({ to, icon: Icon, label, onClose, end }: {
 }
 
 export default function MobileSidebar({ open, onClose }: MobileSidebarProps) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const _auth = useAuth();
   const isDistributor = false;
   const navigate = useNavigate();
