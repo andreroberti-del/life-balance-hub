@@ -36,7 +36,7 @@ const demoBrands: OmegaBrand[] = [
 type SortKey = 'name' | 'omega3_mg' | 'price' | 'users_count' | 'avg_improvement';
 
 export default function OmegaDatabasePage() {
-  const { profile, user } = useAuth();
+  const { user } = useAuth();
   const [loading, setLoading] = useState(true);
   const [brands, setBrands] = useState<OmegaBrand[]>([]);
   const [searchTerm, setSearchTerm] = useState('');

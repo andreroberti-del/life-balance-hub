@@ -75,7 +75,7 @@ function SidebarLink({
 }
 
 export default function Sidebar({ expanded, onToggle }: SidebarProps) {
-  const { profile } = useAuth();
+  const _auth = useAuth();
   const isDistributor = false;
   const navigate = useNavigate();
 
