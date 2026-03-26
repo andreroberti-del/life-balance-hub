@@ -5,7 +5,7 @@ import {
   PanelLeftClose, PanelLeft, Lock, ArrowRight,
   type LucideIcon,
 } from 'lucide-react';
-import { useAuth } from '../contexts/AuthContext';
+
 
 interface SidebarProps {
   expanded: boolean;
@@ -75,8 +75,6 @@ function SidebarLink({
 }
 
 export default function Sidebar({ expanded, onToggle }: SidebarProps) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const _auth = useAuth();
   const isDistributor = false;
   const navigate = useNavigate();
 
