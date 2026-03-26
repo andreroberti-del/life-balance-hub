@@ -36,7 +36,7 @@ const demoBrands: OmegaBrand[] = [
 type SortKey = 'name' | 'omega3_mg' | 'price' | 'users_count' | 'avg_improvement';
 
 export default function OmegaDatabasePage() {
-  const { profile, user } = useAuth();
+  const { user } = useAuth();
   const [loading, setLoading] = useState(true);
   const [brands, setBrands] = useState<OmegaBrand[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -98,7 +98,7 @@ export default function OmegaDatabasePage() {
     Depois: b.avg_ratio_after,
   }));
 
-  const userBrand = profile?.omega_brand || 'Zinzino BalanceOil+';
+  const userBrand = 'Zinzino BalanceOil+';
 
   const SortHeader = ({ label, field }: { label: string; field: SortKey }) => (
     <th

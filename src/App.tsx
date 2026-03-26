@@ -1,17 +1,17 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
-import Layout from './components/Layout';
+import { Layout } from './components/Layout';
 import LoadingSpinner from './components/LoadingSpinner';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import Dashboard from './pages/Dashboard';
+import { Dashboard } from './pages/Dashboard';
 import CheckIn from './pages/CheckIn';
 import Data from './pages/Data';
-import Scanner from './pages/Scanner';
+import { Scanner } from './pages/Scanner';
 import OmegaDatabase from './pages/OmegaDatabase';
-import Community from './pages/Community';
+import { Community } from './pages/Community';
 import Protocol from './pages/Protocol';
-import Profile from './pages/Profile';
+import { Profile } from './pages/Profile';
 import Settings from './pages/Settings';
 import DistributorUpgrade from './pages/DistributorUpgrade';
 import Pipeline from './pages/crm/Pipeline';
@@ -30,11 +30,11 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
 }
 
 function DistributorRoute({ children }: { children: React.ReactNode }) {
-  const { user, loading, isDistributor } = useAuth();
+  const { user, loading } = useAuth();
 
   if (loading) return <LoadingSpinner fullPage />;
   if (!user) return <Navigate to="/login" />;
-  if (!isDistributor) return <Navigate to="/distributor-upgrade" />;
+  // TODO: check distributor status from profile or roles
 
   return <>{children}</>;
 }

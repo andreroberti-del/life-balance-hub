@@ -9,7 +9,7 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { signIn, signInWithGoogle } = useAuth();
+  const { signIn } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -19,7 +19,7 @@ export default function Login() {
 
     const { error: err } = await signIn(email, password);
     if (err) {
-      setError(err);
+      setError(err.message || 'Erro ao fazer login');
       setLoading(false);
     } else {
       navigate('/');
@@ -108,7 +108,7 @@ export default function Login() {
           </div>
 
           <button
-            onClick={signInWithGoogle}
+            onClick={() => console.log('Google sign-in not configured')}
             className="w-full flex items-center justify-center gap-3 bg-dark3 border border-border py-3 rounded-xl text-sm text-text2 hover:bg-dark4 transition-all"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24">

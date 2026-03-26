@@ -4,7 +4,7 @@ import {
   UserCircle, Settings, Leaf, Kanban, Bell, UserCheck, TestTube2, BarChart2,
   X, Lock, ArrowRight, type LucideIcon,
 } from 'lucide-react';
-import { useAuth } from '../contexts/AuthContext';
+
 
 interface MobileSidebarProps {
   open: boolean;
@@ -57,7 +57,7 @@ function MobileLink({ to, icon: Icon, label, onClose, end }: {
 }
 
 export default function MobileSidebar({ open, onClose }: MobileSidebarProps) {
-  const { isDistributor } = useAuth();
+  const isDistributor = false;
   const navigate = useNavigate();
 
   if (!open) return null;

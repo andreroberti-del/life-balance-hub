@@ -1,5 +1,5 @@
-import { TrendingDown, Droplet, Flame, Moon, Target, Award, Sparkles, ChevronRight, Activity, Heart, Clock, Zap } from "lucide-react";
-import { AreaChart, Area, BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip, CartesianGrid } from "recharts";
+import { TrendingDown, Droplet, Flame, Moon, Target, Award, Sparkles, ChevronRight, Activity } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip, CartesianGrid } from "recharts";
 import { useLanguage } from "../contexts/LanguageContext";
 import { useAuth } from "../contexts/AuthContext";
 import { GarminDashboardWidget } from "../components/garmin/GarminDashboardWidget";

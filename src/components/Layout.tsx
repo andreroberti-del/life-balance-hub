@@ -1,5 +1,5 @@
 import { Outlet, NavLink, useNavigate } from "react-router-dom";
-import { Activity, Scan, Users, TrendingUp, User, LayoutDashboard, Bell, Menu, X, LogOut } from "lucide-react";
+import { Scan, Users, TrendingUp, User, LayoutDashboard, Bell, Menu, X, LogOut } from "lucide-react";
 import { useState } from "react";
 import { useLanguage } from "../contexts/LanguageContext";
 import { useAuth } from "../contexts/AuthContext";
