@@ -8,8 +8,8 @@ interface TopBarProps {
 export default function TopBar({ onMenuClick }: TopBarProps) {
   const { profile } = useAuth();
 
-  const initials = profile?.name
-    ? profile.name.split(' ').map((n: string) => n[0]).join('').slice(0, 2).toUpperCase()
+  const initials = profile?.display_name
+    ? profile.display_name.split(' ').map((n: string) => n[0]).join('').slice(0, 2).toUpperCase()
     : 'U';
 
   const greeting = () => {
@@ -30,7 +30,7 @@ export default function TopBar({ onMenuClick }: TopBarProps) {
           <Menu className="w-5 h-5" />
         </button>
         <h1 className="text-[15px] font-semibold text-text tracking-[-0.02em]">
-          {greeting()}, {profile?.name?.split(' ')[0] || 'Usuário'}
+          {greeting()}, {profile?.display_name?.split(' ')[0] || 'Usuário'}
         </h1>
       </div>
 

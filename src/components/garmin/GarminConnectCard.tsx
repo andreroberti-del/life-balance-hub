@@ -1,4 +1,4 @@
-import { Watch, Link2, Unlink, RefreshCw, CheckCircle } from 'lucide-react';
+import { Watch, Link2, Unlink, CheckCircle } from 'lucide-react';
 import { useState } from 'react';
 import { useGarmin } from '../../hooks/useGarmin';
 import { useLanguage } from '../../contexts/LanguageContext';

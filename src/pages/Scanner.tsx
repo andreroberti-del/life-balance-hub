@@ -1,4 +1,4 @@
-import { Scan, AlertCircle, CheckCircle, XCircle, Info, Camera } from "lucide-react";
+import { AlertCircle, CheckCircle, XCircle, Camera } from "lucide-react";
 import { useState } from "react";
 import { useLanguage } from "../contexts/LanguageContext";
 

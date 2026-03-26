@@ -11,7 +11,7 @@ export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { signUp, signInWithGoogle } = useAuth();
+  const { signUp } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -31,7 +31,7 @@ export default function Signup() {
     setLoading(true);
     const { error: err } = await signUp(email, password, name);
     if (err) {
-      setError(err);
+      setError(err.message || 'Erro ao criar conta');
       setLoading(false);
     } else {
       navigate('/');

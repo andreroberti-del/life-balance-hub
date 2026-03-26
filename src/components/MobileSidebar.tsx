@@ -57,7 +57,8 @@ function MobileLink({ to, icon: Icon, label, onClose, end }: {
 }
 
 export default function MobileSidebar({ open, onClose }: MobileSidebarProps) {
-  const { isDistributor } = useAuth();
+  const { profile } = useAuth();
+  const isDistributor = false;
   const navigate = useNavigate();
 
   if (!open) return null;

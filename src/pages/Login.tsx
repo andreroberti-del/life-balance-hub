@@ -9,7 +9,7 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { signIn, signInWithGoogle } = useAuth();
+  const { signIn } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -19,7 +19,7 @@ export default function Login() {
 
     const { error: err } = await signIn(email, password);
     if (err) {
-      setError(err);
+      setError(err.message || 'Erro ao fazer login');
       setLoading(false);
     } else {
       navigate('/');
