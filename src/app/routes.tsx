@@ -5,6 +5,7 @@ import { Scanner } from "./components/Scanner";
 import { Community } from "./components/Community";
 import { Progress } from "./components/Progress";
 import { Profile } from "./components/Profile";
+import { CheckIn } from "./components/CheckIn";
 import { LoginPage } from "./components/auth/LoginPage";
 import { SignUpPage } from "./components/auth/SignUpPage";
 import { AuthGuard } from "./components/auth/AuthGuard";
@@ -35,6 +36,7 @@ export const router = createBrowserRouter([
       { path: "scanner", Component: Scanner },
       { path: "community", Component: Community },
       { path: "progress", Component: Progress },
+      { path: "checkin", Component: CheckIn },
       { path: "profile", Component: Profile },
     ],
   },

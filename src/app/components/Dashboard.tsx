@@ -1,5 +1,6 @@
-import { TrendingDown, Droplet, Flame, Moon, Target, Award, Sparkles, ChevronRight, Activity, Heart, Clock, Zap } from "lucide-react";
+import { TrendingDown, Droplet, Flame, Moon, Target, Award, Sparkles, ChevronRight, Activity, Heart, Clock, Zap, ClipboardCheck } from "lucide-react";
 import { AreaChart, Area, BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip, CartesianGrid } from "recharts";
+import { useNavigate } from "react-router-dom";
 import { useLanguage } from "../contexts/LanguageContext";
 import { useAuth } from "../contexts/AuthContext";
 import { GarminDashboardWidget } from "./garmin/GarminDashboardWidget";
@@ -29,6 +30,7 @@ const zenoMessages = [
 export function Dashboard() {
   const { t } = useLanguage();
   const { profile } = useAuth();
+  const navigate = useNavigate();
   const displayName = profile?.display_name || profile?.email?.split('@')[0] || '';
 
   const dailyGoals = [
@@ -236,6 +238,21 @@ export function Dashboard() {
                 </div>
               </div>
             </div>
+
+            {/* Daily Check-in CTA */}
+            <button
+              onClick={() => navigate('/checkin')}
+              className="w-full bg-[#D4FF00] rounded-2xl p-5 flex items-center gap-4 hover:brightness-95 transition-all text-left"
+            >
+              <div className="w-12 h-12 bg-[#1a1a1a] rounded-xl flex items-center justify-center flex-shrink-0">
+                <ClipboardCheck className="w-6 h-6 text-[#D4FF00]" />
+              </div>
+              <div className="flex-1">
+                <h3 className="text-sm font-bold text-[#1a1a1a]">Daily Check-in</h3>
+                <p className="text-xs text-[#1a1a1a]/60">Log your health metrics for today</p>
+              </div>
+              <ChevronRight className="w-5 h-5 text-[#1a1a1a]/40" />
+            </button>
 
             {/* Daily Goals / Checkbox */}
             <div className="bg-white rounded-2xl p-5 border border-gray-100">
