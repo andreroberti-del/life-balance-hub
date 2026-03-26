@@ -475,6 +475,425 @@ export type Database = {
           },
         ]
       }
+      garmin_activities: {
+        Row: {
+          active_calories: number | null
+          activity_name: string | null
+          activity_type: string
+          avg_heart_rate: number | null
+          avg_speed: number | null
+          distance_meters: number | null
+          duration_seconds: number | null
+          elevation_gain: number | null
+          garmin_activity_id: string
+          id: string
+          max_heart_rate: number | null
+          raw_json: Json | null
+          started_at: string
+          synced_at: string | null
+          user_id: string
+        }
+        Insert: {
+          active_calories?: number | null
+          activity_name?: string | null
+          activity_type: string
+          avg_heart_rate?: number | null
+          avg_speed?: number | null
+          distance_meters?: number | null
+          duration_seconds?: number | null
+          elevation_gain?: number | null
+          garmin_activity_id: string
+          id?: string
+          max_heart_rate?: number | null
+          raw_json?: Json | null
+          started_at: string
+          synced_at?: string | null
+          user_id: string
+        }
+        Update: {
+          active_calories?: number | null
+          activity_name?: string | null
+          activity_type?: string
+          avg_heart_rate?: number | null
+          avg_speed?: number | null
+          distance_meters?: number | null
+          duration_seconds?: number | null
+          elevation_gain?: number | null
+          garmin_activity_id?: string
+          id?: string
+          max_heart_rate?: number | null
+          raw_json?: Json | null
+          started_at?: string
+          synced_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "garmin_activities_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      garmin_body_compositions: {
+        Row: {
+          bmi: number | null
+          body_fat_pct: number | null
+          body_water_pct: number | null
+          bone_mass_grams: number | null
+          id: string
+          measured_at: string
+          muscle_mass_grams: number | null
+          raw_json: Json | null
+          synced_at: string | null
+          user_id: string
+          weight_grams: number | null
+        }
+        Insert: {
+          bmi?: number | null
+          body_fat_pct?: number | null
+          body_water_pct?: number | null
+          bone_mass_grams?: number | null
+          id?: string
+          measured_at: string
+          muscle_mass_grams?: number | null
+          raw_json?: Json | null
+          synced_at?: string | null
+          user_id: string
+          weight_grams?: number | null
+        }
+        Update: {
+          bmi?: number | null
+          body_fat_pct?: number | null
+          body_water_pct?: number | null
+          bone_mass_grams?: number | null
+          id?: string
+          measured_at?: string
+          muscle_mass_grams?: number | null
+          raw_json?: Json | null
+          synced_at?: string | null
+          user_id?: string
+          weight_grams?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "garmin_body_compositions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      garmin_connections: {
+        Row: {
+          access_token: string
+          access_token_secret: string
+          connected_at: string | null
+          created_at: string | null
+          disconnected_at: string | null
+          garmin_user_id: string | null
+          id: string
+          is_active: boolean | null
+          last_sync_at: string | null
+          scopes: string[] | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          access_token: string
+          access_token_secret: string
+          connected_at?: string | null
+          created_at?: string | null
+          disconnected_at?: string | null
+          garmin_user_id?: string | null
+          id?: string
+          is_active?: boolean | null
+          last_sync_at?: string | null
+          scopes?: string[] | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          access_token?: string
+          access_token_secret?: string
+          connected_at?: string | null
+          created_at?: string | null
+          disconnected_at?: string | null
+          garmin_user_id?: string | null
+          id?: string
+          is_active?: boolean | null
+          last_sync_at?: string | null
+          scopes?: string[] | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "garmin_connections_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      garmin_daily_summaries: {
+        Row: {
+          active_calories: number | null
+          avg_stress_level: number | null
+          distance_meters: number | null
+          floors_climbed: number | null
+          id: string
+          intensity_minutes: number | null
+          max_heart_rate: number | null
+          moderate_intensity_minutes: number | null
+          raw_json: Json | null
+          resting_heart_rate: number | null
+          steps: number | null
+          summary_date: string
+          synced_at: string | null
+          total_calories: number | null
+          user_id: string
+          vigorous_intensity_minutes: number | null
+        }
+        Insert: {
+          active_calories?: number | null
+          avg_stress_level?: number | null
+          distance_meters?: number | null
+          floors_climbed?: number | null
+          id?: string
+          intensity_minutes?: number | null
+          max_heart_rate?: number | null
+          moderate_intensity_minutes?: number | null
+          raw_json?: Json | null
+          resting_heart_rate?: number | null
+          steps?: number | null
+          summary_date: string
+          synced_at?: string | null
+          total_calories?: number | null
+          user_id: string
+          vigorous_intensity_minutes?: number | null
+        }
+        Update: {
+          active_calories?: number | null
+          avg_stress_level?: number | null
+          distance_meters?: number | null
+          floors_climbed?: number | null
+          id?: string
+          intensity_minutes?: number | null
+          max_heart_rate?: number | null
+          moderate_intensity_minutes?: number | null
+          raw_json?: Json | null
+          resting_heart_rate?: number | null
+          steps?: number | null
+          summary_date?: string
+          synced_at?: string | null
+          total_calories?: number | null
+          user_id?: string
+          vigorous_intensity_minutes?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "garmin_daily_summaries_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      garmin_oauth_states: {
+        Row: {
+          created_at: string | null
+          expires_at: string | null
+          oauth_token: string
+          oauth_token_secret: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          expires_at?: string | null
+          oauth_token: string
+          oauth_token_secret: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          expires_at?: string | null
+          oauth_token?: string
+          oauth_token_secret?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "garmin_oauth_states_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      garmin_sleep_summaries: {
+        Row: {
+          avg_heart_rate: number | null
+          avg_respiration: number | null
+          avg_spo2: number | null
+          awake_seconds: number | null
+          deep_sleep_seconds: number | null
+          hrv_status: string | null
+          hrv_value: number | null
+          id: string
+          light_sleep_seconds: number | null
+          raw_json: Json | null
+          rem_sleep_seconds: number | null
+          sleep_date: string
+          sleep_end: string | null
+          sleep_score: number | null
+          sleep_start: string | null
+          synced_at: string | null
+          total_sleep_seconds: number | null
+          user_id: string
+        }
+        Insert: {
+          avg_heart_rate?: number | null
+          avg_respiration?: number | null
+          avg_spo2?: number | null
+          awake_seconds?: number | null
+          deep_sleep_seconds?: number | null
+          hrv_status?: string | null
+          hrv_value?: number | null
+          id?: string
+          light_sleep_seconds?: number | null
+          raw_json?: Json | null
+          rem_sleep_seconds?: number | null
+          sleep_date: string
+          sleep_end?: string | null
+          sleep_score?: number | null
+          sleep_start?: string | null
+          synced_at?: string | null
+          total_sleep_seconds?: number | null
+          user_id: string
+        }
+        Update: {
+          avg_heart_rate?: number | null
+          avg_respiration?: number | null
+          avg_spo2?: number | null
+          awake_seconds?: number | null
+          deep_sleep_seconds?: number | null
+          hrv_status?: string | null
+          hrv_value?: number | null
+          id?: string
+          light_sleep_seconds?: number | null
+          raw_json?: Json | null
+          rem_sleep_seconds?: number | null
+          sleep_date?: string
+          sleep_end?: string | null
+          sleep_score?: number | null
+          sleep_start?: string | null
+          synced_at?: string | null
+          total_sleep_seconds?: number | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "garmin_sleep_summaries_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      garmin_stress_summaries: {
+        Row: {
+          activity_duration_seconds: number | null
+          avg_stress: number | null
+          high_stress_duration_seconds: number | null
+          id: string
+          low_stress_duration_seconds: number | null
+          max_stress: number | null
+          medium_stress_duration_seconds: number | null
+          raw_json: Json | null
+          rest_duration_seconds: number | null
+          stress_date: string
+          stress_duration_seconds: number | null
+          synced_at: string | null
+          user_id: string
+        }
+        Insert: {
+          activity_duration_seconds?: number | null
+          avg_stress?: number | null
+          high_stress_duration_seconds?: number | null
+          id?: string
+          low_stress_duration_seconds?: number | null
+          max_stress?: number | null
+          medium_stress_duration_seconds?: number | null
+          raw_json?: Json | null
+          rest_duration_seconds?: number | null
+          stress_date: string
+          stress_duration_seconds?: number | null
+          synced_at?: string | null
+          user_id: string
+        }
+        Update: {
+          activity_duration_seconds?: number | null
+          avg_stress?: number | null
+          high_stress_duration_seconds?: number | null
+          id?: string
+          low_stress_duration_seconds?: number | null
+          max_stress?: number | null
+          medium_stress_duration_seconds?: number | null
+          raw_json?: Json | null
+          rest_duration_seconds?: number | null
+          stress_date?: string
+          stress_duration_seconds?: number | null
+          synced_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "garmin_stress_summaries_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      garmin_webhook_log: {
+        Row: {
+          error_message: string | null
+          event_type: string
+          id: string
+          payload: Json
+          processed_at: string | null
+          processing_status: string | null
+          received_at: string | null
+        }
+        Insert: {
+          error_message?: string | null
+          event_type: string
+          id?: string
+          payload: Json
+          processed_at?: string | null
+          processing_status?: string | null
+          received_at?: string | null
+        }
+        Update: {
+          error_message?: string | null
+          event_type?: string
+          id?: string
+          payload?: Json
+          processed_at?: string | null
+          processing_status?: string | null
+          received_at?: string | null
+        }
+        Relationships: []
+      }
       omega_brands: {
         Row: {
           created_at: string | null
@@ -525,46 +944,64 @@ export type Database = {
       }
       profiles: {
         Row: {
+          activity_level: string | null
+          age: number | null
           avatar_url: string | null
           birth_date: string | null
           created_at: string | null
+          display_name: string
+          email: string | null
           gender: string | null
-          height: number | null
+          health_goals: string[] | null
+          height_cm: number | null
           id: string
-          language: string | null
-          name: string
+          onboarding_completed: boolean | null
+          preferred_language: string | null
           protocol_start_date: string | null
+          timezone: string | null
           updated_at: string | null
-          waist: number | null
-          weight: number | null
+          waist_cm: number | null
+          weight_kg: number | null
         }
         Insert: {
+          activity_level?: string | null
+          age?: number | null
           avatar_url?: string | null
           birth_date?: string | null
           created_at?: string | null
+          display_name?: string
+          email?: string | null
           gender?: string | null
-          height?: number | null
+          health_goals?: string[] | null
+          height_cm?: number | null
           id: string
-          language?: string | null
-          name?: string
+          onboarding_completed?: boolean | null
+          preferred_language?: string | null
           protocol_start_date?: string | null
+          timezone?: string | null
           updated_at?: string | null
-          waist?: number | null
-          weight?: number | null
+          waist_cm?: number | null
+          weight_kg?: number | null
         }
         Update: {
+          activity_level?: string | null
+          age?: number | null
           avatar_url?: string | null
           birth_date?: string | null
           created_at?: string | null
+          display_name?: string
+          email?: string | null
           gender?: string | null
-          height?: number | null
+          health_goals?: string[] | null
+          height_cm?: number | null
           id?: string
-          language?: string | null
-          name?: string
+          onboarding_completed?: boolean | null
+          preferred_language?: string | null
           protocol_start_date?: string | null
+          timezone?: string | null
           updated_at?: string | null
-          waist?: number | null
-          weight?: number | null
+          waist_cm?: number | null
+          weight_kg?: number | null
         }
         Relationships: []
       }
