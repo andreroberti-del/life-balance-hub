@@ -10,6 +10,7 @@ export interface Profile {
   omega_brand: string | null;
   language: string;
   avatar_url: string | null;
+  role: 'user' | 'distributor';
   created_at: string;
 }
 

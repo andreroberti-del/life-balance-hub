@@ -1,38 +1,32 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard, ClipboardCheck, BarChart3, ScanLine, Database, Users, Target,
   UserCircle, Settings, Leaf, Kanban, Bell, UserCheck, TestTube2, BarChart2,
-  X, type LucideIcon,
+  X, Lock, ArrowRight, type LucideIcon,
 } from 'lucide-react';
+import { useAuth } from '../contexts/AuthContext';
 
 interface MobileSidebarProps {
   open: boolean;
   onClose: () => void;
 }
 
-const sections = [
-  {
-    label: 'Principal',
-    items: [
-      { to: '/', icon: LayoutDashboard, label: 'Dashboard' },
-      { to: '/checkin', icon: ClipboardCheck, label: 'Check-in' },
-      { to: '/data', icon: BarChart3, label: 'Dados' },
-      { to: '/scanner', icon: ScanLine, label: 'Scanner' },
-      { to: '/omega', icon: Database, label: 'Omega Database' },
-      { to: '/community', icon: Users, label: 'Comunidade' },
-      { to: '/protocol', icon: Target, label: 'Protocolo 120' },
-    ],
-  },
-  {
-    label: 'CRM',
-    items: [
-      { to: '/crm/pipeline', icon: Kanban, label: 'Pipeline' },
-      { to: '/crm/followups', icon: Bell, label: 'Follow-ups' },
-      { to: '/crm/clients', icon: UserCheck, label: 'Clientes' },
-      { to: '/crm/tests', icon: TestTube2, label: 'Testes' },
-      { to: '/crm/performance', icon: BarChart2, label: 'Performance' },
-    ],
-  },
+const mainItems = [
+  { to: '/', icon: LayoutDashboard, label: 'Dashboard' },
+  { to: '/checkin', icon: ClipboardCheck, label: 'Check-in' },
+  { to: '/data', icon: BarChart3, label: 'Dados' },
+  { to: '/scanner', icon: ScanLine, label: 'Scanner' },
+  { to: '/omega', icon: Database, label: 'Omega Database' },
+  { to: '/community', icon: Users, label: 'Comunidade' },
+  { to: '/protocol', icon: Target, label: 'Protocolo 120' },
+];
+
+const crmItems = [
+  { to: '/crm/pipeline', icon: Kanban, label: 'Pipeline' },
+  { to: '/crm/followups', icon: Bell, label: 'Follow-ups' },
+  { to: '/crm/clients', icon: UserCheck, label: 'Clientes' },
+  { to: '/crm/tests', icon: TestTube2, label: 'Testes' },
+  { to: '/crm/performance', icon: BarChart2, label: 'Performance' },
 ];
 
 const bottomItems = [
@@ -63,6 +57,9 @@ function MobileLink({ to, icon: Icon, label, onClose, end }: {
 }
 
 export default function MobileSidebar({ open, onClose }: MobileSidebarProps) {
+  const { isDistributor } = useAuth();
+  const navigate = useNavigate();
+
   if (!open) return null;
 
   return (
@@ -82,19 +79,42 @@ export default function MobileSidebar({ open, onClose }: MobileSidebarProps) {
         </div>
 
         <nav className="flex-1 overflow-y-auto py-5 px-4">
-          {sections.map((section, idx) => (
-            <div key={idx} className={idx > 0 ? 'mt-8' : ''}>
-              {idx > 0 && <div className="mb-5 mx-2"><div className="h-px bg-border" /></div>}
-              <p className="text-[10px] font-semibold text-text4 uppercase tracking-[0.1em] mb-3 px-4">
-                {section.label}
-              </p>
+          {/* Main */}
+          <p className="text-[10px] font-semibold text-text4 uppercase tracking-[0.1em] mb-3 px-4">
+            Principal
+          </p>
+          <div className="flex flex-col gap-1">
+            {mainItems.map((item) => (
+              <MobileLink key={item.to} {...item} onClose={onClose} end={item.to === '/'} />
+            ))}
+          </div>
+
+          {/* CRM */}
+          <div className="mt-8">
+            <div className="mb-5 mx-2"><div className="h-px bg-border" /></div>
+            <p className="text-[10px] font-semibold text-text4 uppercase tracking-[0.1em] mb-3 px-4">
+              CRM
+            </p>
+            {isDistributor ? (
               <div className="flex flex-col gap-1">
-                {section.items.map((item) => (
-                  <MobileLink key={item.to} {...item} onClose={onClose} end={item.to === '/'} />
+                {crmItems.map((item) => (
+                  <MobileLink key={item.to} {...item} onClose={onClose} />
                 ))}
               </div>
-            </div>
-          ))}
+            ) : (
+              <button
+                onClick={() => { onClose(); navigate('/distributor-upgrade'); }}
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-dashed border-border text-text4 hover:border-accent/40 hover:text-accent hover:bg-accent/5 transition-all"
+              >
+                <Lock className="w-[18px] h-[18px]" strokeWidth={1.6} />
+                <div className="flex-1 text-left">
+                  <p className="text-[13px] font-medium leading-tight">CRM Distribuidor</p>
+                  <p className="text-[11px] text-text4 mt-0.5">Ativar acesso</p>
+                </div>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            )}
+          </div>
         </nav>
 
         <div className="border-t border-border py-4 px-4">

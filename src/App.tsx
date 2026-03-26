@@ -13,6 +13,7 @@ import Community from './pages/Community';
 import Protocol from './pages/Protocol';
 import Profile from './pages/Profile';
 import Settings from './pages/Settings';
+import DistributorUpgrade from './pages/DistributorUpgrade';
 import Pipeline from './pages/crm/Pipeline';
 import FollowUps from './pages/crm/FollowUps';
 import Clients from './pages/crm/Clients';
@@ -20,12 +21,21 @@ import TestTracking from './pages/crm/TestTracking';
 import Performance from './pages/crm/Performance';
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
-  const { loading } = useAuth();
+  const { user, loading } = useAuth();
 
   if (loading) return <LoadingSpinner fullPage />;
+  if (!user) return <Navigate to="/login" />;
 
-  // For demo purposes, allow access even without auth
-  // In production, uncomment: const { user } = useAuth(); if (!user) return <Navigate to="/login" />;
+  return <>{children}</>;
+}
+
+function DistributorRoute({ children }: { children: React.ReactNode }) {
+  const { user, loading, isDistributor } = useAuth();
+
+  if (loading) return <LoadingSpinner fullPage />;
+  if (!user) return <Navigate to="/login" />;
+  if (!isDistributor) return <Navigate to="/distributor-upgrade" />;
+
   return <>{children}</>;
 }
 
@@ -74,11 +84,12 @@ function AppRoutes() {
         <Route path="/protocol" element={<Protocol />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/settings" element={<Settings />} />
-        <Route path="/crm/pipeline" element={<Pipeline />} />
-        <Route path="/crm/followups" element={<FollowUps />} />
-        <Route path="/crm/clients" element={<Clients />} />
-        <Route path="/crm/tests" element={<TestTracking />} />
-        <Route path="/crm/performance" element={<Performance />} />
+        <Route path="/distributor-upgrade" element={<DistributorUpgrade />} />
+        <Route path="/crm/pipeline" element={<DistributorRoute><Pipeline /></DistributorRoute>} />
+        <Route path="/crm/followups" element={<DistributorRoute><FollowUps /></DistributorRoute>} />
+        <Route path="/crm/clients" element={<DistributorRoute><Clients /></DistributorRoute>} />
+        <Route path="/crm/tests" element={<DistributorRoute><TestTracking /></DistributorRoute>} />
+        <Route path="/crm/performance" element={<DistributorRoute><Performance /></DistributorRoute>} />
       </Route>
 
       <Route path="*" element={<Navigate to="/" />} />

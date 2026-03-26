@@ -1,10 +1,11 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard, ClipboardCheck, BarChart3, ScanLine, Database, Users, Target,
   UserCircle, Settings, Leaf, Kanban, Bell, UserCheck, TestTube2, BarChart2,
-  PanelLeftClose, PanelLeft,
+  PanelLeftClose, PanelLeft, Lock, ArrowRight,
   type LucideIcon,
 } from 'lucide-react';
+import { useAuth } from '../contexts/AuthContext';
 
 interface SidebarProps {
   expanded: boolean;
@@ -16,30 +17,29 @@ interface NavSection {
   items: { to: string; icon: LucideIcon; label: string }[];
 }
 
-const sections: NavSection[] = [
-  {
-    label: 'Principal',
-    items: [
-      { to: '/', icon: LayoutDashboard, label: 'Dashboard' },
-      { to: '/checkin', icon: ClipboardCheck, label: 'Check-in' },
-      { to: '/data', icon: BarChart3, label: 'Dados' },
-      { to: '/scanner', icon: ScanLine, label: 'Scanner' },
-      { to: '/omega', icon: Database, label: 'Omega Database' },
-      { to: '/community', icon: Users, label: 'Comunidade' },
-      { to: '/protocol', icon: Target, label: 'Protocolo 120' },
-    ],
-  },
-  {
-    label: 'CRM',
-    items: [
-      { to: '/crm/pipeline', icon: Kanban, label: 'Pipeline' },
-      { to: '/crm/followups', icon: Bell, label: 'Follow-ups' },
-      { to: '/crm/clients', icon: UserCheck, label: 'Clientes' },
-      { to: '/crm/tests', icon: TestTube2, label: 'Testes' },
-      { to: '/crm/performance', icon: BarChart2, label: 'Performance' },
-    ],
-  },
-];
+const mainSection: NavSection = {
+  label: 'Principal',
+  items: [
+    { to: '/', icon: LayoutDashboard, label: 'Dashboard' },
+    { to: '/checkin', icon: ClipboardCheck, label: 'Check-in' },
+    { to: '/data', icon: BarChart3, label: 'Dados' },
+    { to: '/scanner', icon: ScanLine, label: 'Scanner' },
+    { to: '/omega', icon: Database, label: 'Omega Database' },
+    { to: '/community', icon: Users, label: 'Comunidade' },
+    { to: '/protocol', icon: Target, label: 'Protocolo 120' },
+  ],
+};
+
+const crmSection: NavSection = {
+  label: 'CRM',
+  items: [
+    { to: '/crm/pipeline', icon: Kanban, label: 'Pipeline' },
+    { to: '/crm/followups', icon: Bell, label: 'Follow-ups' },
+    { to: '/crm/clients', icon: UserCheck, label: 'Clientes' },
+    { to: '/crm/tests', icon: TestTube2, label: 'Testes' },
+    { to: '/crm/performance', icon: BarChart2, label: 'Performance' },
+  ],
+};
 
 const bottomItems = [
   { to: '/profile', icon: UserCircle, label: 'Perfil' },
@@ -75,6 +75,9 @@ function SidebarLink({
 }
 
 export default function Sidebar({ expanded, onToggle }: SidebarProps) {
+  const { isDistributor } = useAuth();
+  const navigate = useNavigate();
+
   return (
     <aside
       className={`hidden lg:flex h-screen flex-col bg-card border-r border-border transition-all duration-300 ${
@@ -110,21 +113,55 @@ export default function Sidebar({ expanded, onToggle }: SidebarProps) {
 
       {/* Nav */}
       <nav className={`flex-1 overflow-y-auto py-5 ${expanded ? 'px-4' : 'px-2'}`}>
-        {sections.map((section, idx) => (
-          <div key={idx} className={idx > 0 ? 'mt-8' : ''}>
-            {idx > 0 && <div className={`mb-5 ${expanded ? 'mx-2' : 'mx-1'}`}><div className="h-px bg-border" /></div>}
-            {section.label && expanded && (
-              <p className="text-[10px] font-semibold text-text4 uppercase tracking-[0.1em] mb-3 px-4">
-                {section.label}
-              </p>
-            )}
-            <div className="flex flex-col gap-1">
-              {section.items.map((item) => (
-                <SidebarLink key={item.to} {...item} expanded={expanded} end={item.to === '/'} />
-              ))}
-            </div>
+        {/* Main section */}
+        <div>
+          {mainSection.label && expanded && (
+            <p className="text-[10px] font-semibold text-text4 uppercase tracking-[0.1em] mb-3 px-4">
+              {mainSection.label}
+            </p>
+          )}
+          <div className="flex flex-col gap-1">
+            {mainSection.items.map((item) => (
+              <SidebarLink key={item.to} {...item} expanded={expanded} end={item.to === '/'} />
+            ))}
           </div>
-        ))}
+        </div>
+
+        {/* CRM section */}
+        <div className="mt-8">
+          <div className={`mb-5 ${expanded ? 'mx-2' : 'mx-1'}`}><div className="h-px bg-border" /></div>
+          {isDistributor ? (
+            <>
+              {expanded && (
+                <p className="text-[10px] font-semibold text-text4 uppercase tracking-[0.1em] mb-3 px-4">
+                  {crmSection.label}
+                </p>
+              )}
+              <div className="flex flex-col gap-1">
+                {crmSection.items.map((item) => (
+                  <SidebarLink key={item.to} {...item} expanded={expanded} />
+                ))}
+              </div>
+            </>
+          ) : (
+            <button
+              onClick={() => navigate('/distributor-upgrade')}
+              title={!expanded ? 'CRM Distribuidor' : undefined}
+              className={`w-full flex items-center gap-3 rounded-xl border border-dashed border-border text-text4 hover:border-accent/40 hover:text-accent hover:bg-accent/5 transition-all duration-200 ${
+                expanded ? 'px-4 py-3' : 'justify-center p-3'
+              }`}
+            >
+              <Lock className="w-[18px] h-[18px] flex-shrink-0" strokeWidth={1.6} />
+              {expanded && (
+                <div className="flex-1 text-left">
+                  <p className="text-[12.5px] font-medium leading-tight">CRM Distribuidor</p>
+                  <p className="text-[10.5px] text-text4 mt-0.5">Ativar acesso</p>
+                </div>
+              )}
+              {expanded && <ArrowRight className="w-3.5 h-3.5 flex-shrink-0" />}
+            </button>
+          )}
+        </div>
       </nav>
 
       {/* Bottom */}
