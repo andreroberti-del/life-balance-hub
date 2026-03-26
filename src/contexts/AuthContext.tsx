@@ -1,29 +1,42 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  type ReactNode,
-} from 'react';
-import type { User, Session } from '@supabase/supabase-js';
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { Session, User } from '@supabase/supabase-js';
 import { supabase } from '../lib/supabase';
-import type { Profile } from '../types';
-import { getProfile } from '../lib/api';
+import type { Profile } from '../types/database';
 
 interface AuthContextType {
   user: User | null;
   session: Session | null;
   profile: Profile | null;
   loading: boolean;
-  isDistributor: boolean;
-  signIn: (email: string, password: string) => Promise<{ error: string | null }>;
-  signUp: (email: string, password: string, name: string) => Promise<{ error: string | null }>;
-  signInWithGoogle: () => Promise<void>;
+  signUp: (email: string, password: string, displayName: string) => Promise<{ error: Error | null }>;
+  signIn: (email: string, password: string) => Promise<{ error: Error | null }>;
   signOut: () => Promise<void>;
   refreshProfile: () => Promise<void>;
+  isDemoMode: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+// Demo profile for when Supabase is not configured
+const DEMO_PROFILE: Profile = {
+  id: 'demo-user',
+  display_name: 'Daniel Melo',
+  email: 'daniel.melo@email.com',
+  avatar_url: null,
+  age: 38,
+  gender: 'male',
+  height_cm: 178,
+  weight_kg: 88.5,
+  waist_cm: 96,
+  activity_level: 'active',
+  health_goals: ['reduce_inflammation', 'lose_weight', 'better_sleep'],
+  preferred_language: 'en',
+  onboarding_completed: true,
+  protocol_start_date: '2026-02-07',
+  timezone: 'America/New_York',
+  created_at: '2026-02-07T00:00:00Z',
+  updated_at: '2026-03-25T00:00:00Z',
+};
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
@@ -31,82 +44,84 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const isDistributor = profile?.role === 'distributor';
-
-  const refreshProfile = async () => {
-    if (user) {
-      const p = await getProfile(user.id);
-      setProfile(p);
-    }
-  };
+  const isDemoMode = !import.meta.env.VITE_SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL === 'https://placeholder.supabase.co';
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session: s } }) => {
-      setSession(s);
-      setUser(s?.user ?? null);
+    if (isDemoMode) {
+      setProfile(DEMO_PROFILE);
       setLoading(false);
-    });
+      return;
+    }
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (_event, s) => {
-        setSession(s);
-        setUser(s?.user ?? null);
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setUser(session?.user ?? null);
+      if (session?.user) {
+        fetchProfile(session.user.id);
+      } else {
         setLoading(false);
       }
-    );
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+      setUser(session?.user ?? null);
+      if (session?.user) {
+        fetchProfile(session.user.id);
+      } else {
+        setProfile(null);
+        setLoading(false);
+      }
+    });
 
     return () => subscription.unsubscribe();
-  }, []);
+  }, [isDemoMode]);
 
-  useEffect(() => {
-    if (user) {
-      refreshProfile();
+  async function fetchProfile(userId: string) {
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', userId)
+      .single();
+
+    if (error) {
+      console.error('Error fetching profile:', error);
     } else {
-      setProfile(null);
+      setProfile(data as Profile);
     }
-  }, [user]);
+    setLoading(false);
+  }
 
-  const signIn = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-    return { error: error?.message ?? null };
-  };
+  async function refreshProfile() {
+    if (isDemoMode || !user) return;
+    await fetchProfile(user.id);
+  }
 
-  const signUp = async (email: string, password: string, name: string) => {
+  async function signUp(email: string, password: string, displayName: string) {
     const { error } = await supabase.auth.signUp({
       email,
       password,
-      options: { data: { name } },
+      options: {
+        data: { display_name: displayName },
+      },
     });
-    return { error: error?.message ?? null };
-  };
+    return { error: error as Error | null };
+  }
 
-  const signInWithGoogle = async () => {
-    await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: { redirectTo: window.location.origin },
-    });
-  };
+  async function signIn(email: string, password: string) {
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    return { error: error as Error | null };
+  }
 
-  const signOut = async () => {
+  async function signOut() {
     await supabase.auth.signOut();
+    setUser(null);
+    setSession(null);
     setProfile(null);
-  };
+  }
 
   return (
-    <AuthContext.Provider
-      value={{
-        user,
-        session,
-        profile,
-        loading,
-        isDistributor,
-        signIn,
-        signUp,
-        signInWithGoogle,
-        signOut,
-        refreshProfile,
-      }}
-    >
+    <AuthContext.Provider value={{ user, session, profile, loading, signUp, signIn, signOut, refreshProfile, isDemoMode }}>
       {children}
     </AuthContext.Provider>
   );
@@ -114,8 +129,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
 export function useAuth() {
   const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
+  if (!context) {
+    throw new Error('useAuth must be used within AuthProvider');
   }
   return context;
 }

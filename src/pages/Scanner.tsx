@@ -1,246 +1,114 @@
-import { useEffect, useState } from 'react';
-import {
-  ScanLine,
-  Filter,
-  ChevronDown,
-  ChevronUp,
-  AlertTriangle,
-  CheckCircle2,
-  AlertCircle,
-  XCircle,
-  Search,
-} from 'lucide-react';
-import { useAuth } from '../contexts/AuthContext';
-import LoadingSpinner from '../components/LoadingSpinner';
-import EmptyState from '../components/EmptyState';
-import { getScanHistory } from '../lib/api';
-import type { ScanResult } from '../types';
+import { Scan, AlertCircle, CheckCircle, XCircle, Info, Camera } from "lucide-react";
+import { useState } from "react";
+import { useLanguage } from "../contexts/LanguageContext";
 
-const demoScans: ScanResult[] = [
-  { id: '1', user_id: '', product_name: 'Omega Pure 3 TG', score: 92, verdict: 'excellent', ingredients: ['Oleo de peixe concentrado', 'Vitamina E', 'Gelatina'], personal_impact: 'Excelente fonte de EPA/DHA. Compativel com seu protocolo.', scanned_at: new Date(Date.now() - 86400000).toISOString() },
-  { id: '2', user_id: '', product_name: 'Azeite Extra Virgem Gallo', score: 78, verdict: 'good', ingredients: ['Azeite de oliva extra virgem'], personal_impact: 'Bom aporte de gorduras saudaveis. Rico em polifenois.', scanned_at: new Date(Date.now() - 2 * 86400000).toISOString() },
-  { id: '3', user_id: '', product_name: 'Margarina Qualy', score: 35, verdict: 'avoid', ingredients: ['Oleos vegetais', 'Agua', 'Sal', 'Emulsificantes', 'Conservantes', 'Corantes'], personal_impact: 'Alto teor de gordura trans. Prejudicial ao ratio omega 6:3.', scanned_at: new Date(Date.now() - 3 * 86400000).toISOString() },
-  { id: '4', user_id: '', product_name: 'Salmao Fresco', score: 88, verdict: 'excellent', ingredients: ['Salmao atlantico'], personal_impact: 'Otima fonte natural de omega-3. Recomendado 2-3x por semana.', scanned_at: new Date(Date.now() - 4 * 86400000).toISOString() },
-  { id: '5', user_id: '', product_name: 'Oleo de Girassol Liza', score: 22, verdict: 'avoid', ingredients: ['Oleo de girassol refinado', 'Antioxidante TBHQ'], personal_impact: 'Muito alto em omega-6. Piora significativamente o ratio.', scanned_at: new Date(Date.now() - 5 * 86400000).toISOString() },
-  { id: '6', user_id: '', product_name: 'Castanha do Para', score: 65, verdict: 'moderate', ingredients: ['Castanha do para'], personal_impact: 'Rica em selenio mas moderada em omega-6. Consumir com moderacao.', scanned_at: new Date(Date.now() - 6 * 86400000).toISOString() },
-  { id: '7', user_id: '', product_name: 'Sardinha em Lata Coqueiro', score: 82, verdict: 'good', ingredients: ['Sardinha', 'Oleo de soja', 'Sal'], personal_impact: 'Boa fonte de omega-3. Preferir versao em agua ou azeite.', scanned_at: new Date(Date.now() - 7 * 86400000).toISOString() },
+const scanHistory = [
+  { id: 1, name: "Extra Virgin Olive Oil", brand: "Gallo", score: 92, verdict: "GOOD", date: "2 hours ago", flags: [], goodIngredients: ["Extra virgin olive oil", "Natural antioxidants"] },
+  { id: 2, name: "Ruffles Original Chips", brand: "Lay's", score: 18, verdict: "BAD", date: "5 hours ago", flags: ["Soybean oil", "High sodium", "Refined carbs"], badIngredients: ["Soybean oil", "Sunflower oil", "Corn oil"] },
+  { id: 3, name: "Wild Caught Salmon", brand: "Fresh Market", score: 95, verdict: "GOOD", date: "Yesterday", flags: [], goodIngredients: ["Omega-3 rich", "Wild caught", "No additives"] },
+  { id: 4, name: "Granola Bar", brand: "Nature Valley", score: 32, verdict: "BAD", date: "Yesterday", flags: ["High fructose corn syrup", "Processed sugars", "Canola oil"], badIngredients: ["HFCS", "Canola oil", "Sugar"] },
 ];
 
-const verdictConfig = {
-  excellent: { label: 'Excelente', color: 'bg-green-500/15 text-green-400', icon: CheckCircle2 },
-  good: { label: 'Bom', color: 'bg-blue-500/15 text-blue-400', icon: CheckCircle2 },
-  moderate: { label: 'Moderado', color: 'bg-amber-500/15 text-amber-400', icon: AlertCircle },
-  avoid: { label: 'Evitar', color: 'bg-red-500/15 text-red-400', icon: XCircle },
-};
-
-const filterOptions = [
-  { id: 'all', label: 'Todos' },
-  { id: 'excellent', label: 'Excelente' },
-  { id: 'good', label: 'Bom' },
-  { id: 'moderate', label: 'Moderado' },
-  { id: 'avoid', label: 'Evitar' },
+const ingredientGuide = [
+  { name: "Soybean Oil", type: "BAD", impact: "High Omega-6, inflammatory" },
+  { name: "High Fructose Corn Syrup", type: "BAD", impact: "Metabolic disruption" },
+  { name: "Canola Oil", type: "BAD", impact: "Processed, high Omega-6" },
+  { name: "Palm Oil", type: "BAD", impact: "Saturated fat, inflammatory" },
+  { name: "Extra Virgin Olive Oil", type: "GOOD", impact: "Anti-inflammatory, healthy fats" },
+  { name: "Turmeric", type: "GOOD", impact: "Powerful anti-inflammatory" },
+  { name: "Wild Salmon", type: "GOOD", impact: "High Omega-3, reduces inflammation" },
+  { name: "Avocado", type: "GOOD", impact: "Healthy fats, anti-inflammatory" },
 ];
 
-export default function ScannerPage() {
-  const { user } = useAuth();
-  const [loading, setLoading] = useState(true);
-  const [scans, setScans] = useState<ScanResult[]>([]);
-  const [filter, setFilter] = useState('all');
-  const [expandedId, setExpandedId] = useState<string | null>(null);
-  const [searchTerm, setSearchTerm] = useState('');
-
-  useEffect(() => {
-    async function loadData() {
-      if (!user) {
-        setScans(demoScans);
-        setLoading(false);
-        return;
-      }
-      try {
-        const data = await getScanHistory(user.id);
-        setScans(data.length > 0 ? data : demoScans);
-      } catch {
-        setScans(demoScans);
-      } finally {
-        setLoading(false);
-      }
-    }
-    loadData();
-  }, [user]);
-
-  if (loading) return <LoadingSpinner />;
-
-  const filteredScans = scans.filter((s) => {
-    const matchesFilter = filter === 'all' || s.verdict === filter;
-    const matchesSearch =
-      !searchTerm || s.product_name.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchesFilter && matchesSearch;
-  });
-
-  const getScoreColor = (score: number) => {
-    if (score >= 80) return 'text-green-600';
-    if (score >= 60) return 'text-blue-600';
-    if (score >= 40) return 'text-amber-600';
-    return 'text-red-600';
-  };
-
-  const getScoreBg = (score: number) => {
-    if (score >= 80) return 'bg-green-500';
-    if (score >= 60) return 'bg-blue-500';
-    if (score >= 40) return 'bg-amber-500';
-    return 'bg-red-500';
-  };
+export function Scanner() {
+  const [selectedScan, setSelectedScan] = useState<number | null>(null);
+  const { t } = useLanguage();
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold text-text">Scanner de Produtos</h2>
-        <p className="text-text2 mt-1">Historico de produtos escaneados</p>
-      </div>
-
-      {/* Filters */}
-      <div className="flex flex-col sm:flex-row gap-4">
-        <div className="relative flex-1 max-w-md">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text3" />
-          <input
-            type="text"
-            placeholder="Buscar produto..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full bg-dark3 border border-border rounded-xl pl-10 pr-4 py-2.5 text-sm text-text placeholder:text-text4 outline-none focus:border-lime/50 focus:ring-1 focus:ring-lime/20 transition-colors"
-          />
+    <div className="min-h-screen p-6 md:p-8 bg-[#FAFAFA]">
+      <div className="max-w-[1600px] mx-auto">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+          <div>
+            <h1 className="text-4xl md:text-5xl font-bold text-black mb-2">{t.scanner.title}</h1>
+            <p className="text-sm text-gray-500">{t.scanner.subtitle}</p>
+          </div>
+          <button className="flex items-center gap-3 bg-black text-white px-8 py-4 rounded-2xl font-bold hover:bg-gray-900 transition-all shadow-lg">
+            <Camera className="w-5 h-5" />{t.scanner.scanProduct}
+          </button>
         </div>
 
-        <div className="flex gap-1 bg-card rounded-xl p-1 border border-border">
-          <Filter className="w-4 h-4 text-text3 self-center ml-2" />
-          {filterOptions.map((opt) => (
-            <button
-              key={opt.id}
-              onClick={() => setFilter(opt.id)}
-              className={`px-3 py-2 rounded-lg text-xs font-medium transition-colors ${
-                filter === opt.id
-                  ? 'bg-lime text-dark'
-                  : 'text-text3 hover:text-text2'
-              }`}
-            >
-              {opt.label}
-            </button>
-          ))}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+          <div className="bg-white rounded-2xl p-5 border border-gray-200/50"><p className="text-sm text-gray-500 mb-2">{t.scanner.totalScans}</p><p className="text-4xl font-bold text-black">47</p></div>
+          <div className="bg-white rounded-2xl p-5 border border-gray-200/50"><p className="text-sm text-gray-500 mb-2">{t.scanner.goodChoices}</p><div className="flex items-baseline gap-2"><p className="text-4xl font-bold text-black">31</p><span className="text-sm text-[#D4FF00] font-bold">66%</span></div></div>
+          <div className="bg-white rounded-2xl p-5 border border-gray-200/50"><p className="text-sm text-gray-500 mb-2">{t.scanner.avoided}</p><p className="text-4xl font-bold text-black">16</p></div>
+          <div className="bg-[#D4FF00] rounded-2xl p-5"><p className="text-sm text-black/70 mb-2 font-semibold">{t.scanner.successRate}</p><p className="text-4xl font-bold text-black">66%</p></div>
         </div>
-      </div>
 
-      {/* Scan Results */}
-      {filteredScans.length === 0 ? (
-        <EmptyState
-          icon={ScanLine}
-          title="Nenhum produto encontrado"
-          description="Escaneie produtos usando o app mobile para ver o historico aqui"
-        />
-      ) : (
-        <div className="bg-card rounded-2xl border border-border overflow-hidden">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="text-text4 text-xs uppercase tracking-wider border-b border-border">
-                <th className="text-left px-6 py-3 font-medium">Produto</th>
-                <th className="text-left px-6 py-3 font-medium">Score</th>
-                <th className="text-left px-6 py-3 font-medium">Veredito</th>
-                <th className="text-left px-6 py-3 font-medium hidden md:table-cell">Data</th>
-                <th className="text-left px-6 py-3 font-medium"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredScans.map((scan) => {
-                const verdict = verdictConfig[scan.verdict];
-                const VerdictIcon = verdict.icon;
-                return (
-                  <tr
-                    key={scan.id}
-                    className="border-t border-border hover:bg-[rgba(255,255,255,0.03)] transition-colors cursor-pointer"
-                    onClick={() =>
-                      setExpandedId(expandedId === scan.id ? null : scan.id)
-                    }
-                  >
-                    <td className="px-6 py-4">
-                      <span className="text-text font-medium">{scan.product_name}</span>
-                    </td>
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-2">
-                        <div className="w-10 h-10 rounded-xl bg-dark3 flex items-center justify-center">
-                          <span className={`text-lg font-bold ${getScoreColor(scan.score)}`}>
-                            {scan.score}
-                          </span>
-                        </div>
-                        <div className="w-16 h-1.5 bg-dark32 rounded-full overflow-hidden hidden sm:block">
-                          <div
-                            className={`h-full rounded-full ${getScoreBg(scan.score)}`}
-                            style={{ width: `${scan.score}%` }}
-                          />
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-2 space-y-6">
+            <div className="bg-white rounded-3xl p-6 border border-gray-200/50 shadow-sm">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-xl font-bold text-black">{t.scanner.scanHistory}</h3>
+                <div className="flex gap-2">
+                  <button className="px-4 py-2 bg-black text-white rounded-xl text-xs font-bold">{t.scanner.all}</button>
+                  <button className="px-4 py-2 text-gray-500 text-xs font-semibold hover:bg-gray-100 rounded-xl">{t.scanner.good}</button>
+                  <button className="px-4 py-2 text-gray-500 text-xs font-semibold hover:bg-gray-100 rounded-xl">{t.scanner.bad}</button>
+                </div>
+              </div>
+              <div className="space-y-3">
+                {scanHistory.map((scan) => (
+                  <div key={scan.id} onClick={() => setSelectedScan(selectedScan === scan.id ? null : scan.id)} className="p-5 rounded-2xl border-2 border-gray-100 hover:border-black/20 transition-all cursor-pointer">
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="flex items-center gap-4 flex-1">
+                        <div className={`w-16 h-16 rounded-2xl flex items-center justify-center text-2xl font-bold ${scan.verdict === 'GOOD' ? 'bg-[#D4FF00] text-black' : 'bg-black text-white'}`}>{scan.score}</div>
+                        <div className="flex-1">
+                          <div className={`inline-block px-3 py-1 rounded-lg text-xs font-bold mb-2 ${scan.verdict === 'GOOD' ? 'bg-[#D4FF00]/20 text-black' : 'bg-black/10 text-black'}`}>{scan.verdict}</div>
+                          <h4 className="font-bold text-black text-lg mb-1">{scan.name}</h4>
+                          <div className="flex items-center gap-3"><p className="text-sm text-gray-500">{scan.brand}</p><span className="text-xs text-gray-400">• {scan.date}</span></div>
                         </div>
                       </div>
-                    </td>
-                    <td className="px-6 py-4">
-                      <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium ${verdict.color}`}>
-                        <VerdictIcon className="w-3.5 h-3.5" />
-                        {verdict.label}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 text-text3 hidden md:table-cell">
-                      {new Date(scan.scanned_at).toLocaleDateString('pt-BR')}
-                    </td>
-                    <td className="px-6 py-4 text-text3">
-                      {expandedId === scan.id ? (
-                        <ChevronUp className="w-4 h-4" />
-                      ) : (
-                        <ChevronDown className="w-4 h-4" />
-                      )}
-                    </td>
-                  </tr>
-                );
-              })}
-              {filteredScans.map((scan) =>
-                expandedId === scan.id ? (
-                  <tr key={`${scan.id}-detail`} className="border-t border-border">
-                    <td colSpan={5} className="px-6 py-5 bg-dark3/50">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                          <h4 className="text-xs text-text3 uppercase tracking-wider mb-2">
-                            Ingredientes
-                          </h4>
-                          <div className="flex flex-wrap gap-1.5">
-                            {scan.ingredients.map((ing, i) => (
-                              <span
-                                key={i}
-                                className="px-2.5 py-1 bg-dark3 border border-border rounded-lg text-xs text-text2"
-                              >
-                                {ing}
-                              </span>
-                            ))}
+                      {scan.verdict === 'GOOD' ? <CheckCircle className="w-6 h-6 text-[#D4FF00]" /> : <XCircle className="w-6 h-6 text-black" />}
+                    </div>
+                    {selectedScan === scan.id && (
+                      <div className="mt-4 pt-4 border-t border-gray-100">
+                        {scan.flags.length > 0 && (
+                          <div className="mb-4">
+                            <p className="text-xs font-bold text-black mb-2 flex items-center gap-2"><AlertCircle className="w-4 h-4" />{t.scanner.inflammatoryFlags}</p>
+                            <div className="flex flex-wrap gap-2">{scan.flags.map((flag, i) => (<span key={i} className="px-3 py-1.5 bg-black/5 text-black rounded-xl text-xs font-semibold">{flag}</span>))}</div>
                           </div>
-                        </div>
-                        <div>
-                          <h4 className="text-xs text-text3 uppercase tracking-wider mb-2">
-                            Impacto Pessoal
-                          </h4>
-                          <div className="flex items-start gap-2 p-3 bg-dark3 border border-border rounded-xl">
-                            {scan.verdict === 'avoid' ? (
-                              <AlertTriangle className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
-                            ) : (
-                              <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
-                            )}
-                            <p className="text-sm text-text2">
-                              {scan.personal_impact || 'Sem analise disponivel'}
-                            </p>
-                          </div>
-                        </div>
+                        )}
+                        {scan.badIngredients && <div className="mb-4"><p className="text-xs font-bold text-black mb-2">{t.scanner.badIngredients}:</p>{scan.badIngredients.map((ing, i) => (<p key={i} className="text-sm text-gray-700 flex items-center gap-2"><XCircle className="w-4 h-4 text-black" />{ing}</p>))}</div>}
+                        {scan.goodIngredients && <div><p className="text-xs font-bold text-black mb-2">{t.scanner.goodIngredients}:</p>{scan.goodIngredients.map((ing, i) => (<p key={i} className="text-sm text-gray-700 flex items-center gap-2"><CheckCircle className="w-4 h-4 text-[#D4FF00]" />{ing}</p>))}</div>}
                       </div>
-                    </td>
-                  </tr>
-                ) : null
-              )}
-            </tbody>
-          </table>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-6">
+            <div className="bg-white rounded-3xl p-6 border border-gray-200/50 shadow-sm">
+              <h3 className="text-xl font-bold text-black mb-6">{t.scanner.ingredientGuide}</h3>
+              <div className="mb-6">
+                <h4 className="text-sm font-bold text-black mb-3 flex items-center gap-2"><XCircle className="w-4 h-4" />{t.scanner.avoidThese}</h4>
+                <div className="space-y-3">{ingredientGuide.filter(i => i.type === 'BAD').map((ing, idx) => (<div key={idx} className="p-4 bg-black/5 rounded-xl"><p className="text-sm font-bold text-black mb-1">{ing.name}</p><p className="text-xs text-gray-600">{ing.impact}</p></div>))}</div>
+              </div>
+              <div>
+                <h4 className="text-sm font-bold text-black mb-3 flex items-center gap-2"><CheckCircle className="w-4 h-4" />{t.scanner.chooseThese}</h4>
+                <div className="space-y-3">{ingredientGuide.filter(i => i.type === 'GOOD').map((ing, idx) => (<div key={idx} className="p-4 bg-[#D4FF00]/10 rounded-xl border border-[#D4FF00]/20"><p className="text-sm font-bold text-black mb-1">{ing.name}</p><p className="text-xs text-gray-700">{ing.impact}</p></div>))}</div>
+              </div>
+            </div>
+            <div className="bg-[#D4FF00] rounded-3xl p-6 shadow-lg">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 bg-black rounded-xl flex items-center justify-center"><span className="text-xl">🤖</span></div>
+                <h4 className="text-lg font-bold text-black">{t.scanner.zenoInsight}</h4>
+              </div>
+              <p className="text-sm text-black/80 leading-relaxed">{t.scanner.zenoInsightText}</p>
+            </div>
+          </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }
