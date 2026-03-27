@@ -1,5 +1,5 @@
 import { Outlet, NavLink, useNavigate } from "react-router-dom";
-import { Activity, Scan, Users, TrendingUp, User, LayoutDashboard, Bell, Menu, X, LogOut } from "lucide-react";
+import { Activity, Scan, Users, TrendingUp, User, LayoutDashboard, Bell, Menu, X, LogOut, Dumbbell, ClipboardCheck } from "lucide-react";
 import { useState } from "react";
 import { useLanguage } from "../contexts/LanguageContext";
 import { useAuth } from "../contexts/AuthContext";
@@ -21,6 +21,8 @@ export function Layout() {
     { to: "/scanner", icon: Scan, label: t.nav.scanner },
     { to: "/community", icon: Users, label: t.nav.community },
     { to: "/progress", icon: TrendingUp, label: t.nav.protocol120 },
+    { to: "/workout", icon: Dumbbell, label: (t as any).nav?.workout || "Workout" },
+    { to: "/daily-tracker", icon: ClipboardCheck, label: (t as any).nav?.dailyTracker || "Daily Tracker" },
     { to: "/profile", icon: User, label: t.nav.profile },
   ];
 

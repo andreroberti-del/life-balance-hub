@@ -10,6 +10,8 @@ import { LoginPage } from "./components/auth/LoginPage";
 import { SignUpPage } from "./components/auth/SignUpPage";
 import { AuthGuard } from "./components/auth/AuthGuard";
 import { OnboardingFlow } from "./components/onboarding/OnboardingFlow";
+import { WorkoutPlanner } from "./components/WorkoutPlanner";
+import { DailyTrackerPage } from "./components/DailyTrackerPage";
 
 function Protected({ children }: { children: React.ReactNode }) {
   return <AuthGuard>{children}</AuthGuard>;
@@ -38,6 +40,8 @@ export const router = createBrowserRouter([
       { path: "progress", Component: Progress },
       { path: "checkin", Component: CheckIn },
       { path: "profile", Component: Profile },
+      { path: "workout", Component: WorkoutPlanner },
+      { path: "daily-tracker", Component: DailyTrackerPage },
     ],
   },
 ]);
