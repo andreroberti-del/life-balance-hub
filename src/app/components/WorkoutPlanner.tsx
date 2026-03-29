@@ -96,10 +96,6 @@ export function WorkoutPlanner() {
     targetHasBioimpedance: false,
   });
 
-  // Safe access to translation keys with fallbacks
-  const tWorkout = (t as any)?.workout || {};
-  const tCommon = (t as any)?.common || {};
-
   const handleObjectiveClick = (objId: string) => {
     setWizardData({ ...wizardData, objective: objId });
     setShowWizard(true);
@@ -138,8 +134,8 @@ export function WorkoutPlanner() {
     <div className="p-6 md:p-8 max-w-7xl mx-auto">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-4xl font-bold text-[#1a1a1a] mb-2">{tWorkout.title || 'Workout Planner'}</h1>
-        <p className="text-gray-500">{tWorkout.subtitle || 'Plan your workouts with AI'}</p>
+        <h1 className="text-4xl font-bold text-[#1a1a1a] mb-2">{t.workout.title}</h1>
+        <p className="text-gray-500">{t.workout.subtitle}</p>
       </div>
 
       {/* Stats Overview */}
@@ -151,7 +147,7 @@ export function WorkoutPlanner() {
             </div>
           </div>
           <div className="text-3xl font-bold text-[#1a1a1a] mb-1">8</div>
-          <div className="text-xs text-gray-500">{tWorkout.workoutsCompleted || 'Workouts Completed'}</div>
+          <div className="text-xs text-gray-500">{t.workout.workoutsCompleted}</div>
         </div>
 
         <div className="bg-white rounded-3xl p-6 border border-gray-100">
@@ -161,7 +157,7 @@ export function WorkoutPlanner() {
             </div>
           </div>
           <div className="text-3xl font-bold text-[#1a1a1a] mb-1">2.8k</div>
-          <div className="text-xs text-gray-500">{tWorkout.caloriesBurned || 'Calories Burned'}</div>
+          <div className="text-xs text-gray-500">{t.workout.caloriesBurned}</div>
         </div>
 
         <div className="bg-white rounded-3xl p-6 border border-gray-100">
@@ -171,7 +167,7 @@ export function WorkoutPlanner() {
             </div>
           </div>
           <div className="text-3xl font-bold text-[#1a1a1a] mb-1">62</div>
-          <div className="text-xs text-gray-500">{tWorkout.minutesPerWorkout || 'Min/Workout'}</div>
+          <div className="text-xs text-gray-500">{t.workout.minutesPerWorkout}</div>
         </div>
 
         <div className="bg-white rounded-3xl p-6 border border-gray-100">
@@ -181,7 +177,7 @@ export function WorkoutPlanner() {
             </div>
           </div>
           <div className="text-3xl font-bold text-[#1a1a1a] mb-1">3</div>
-          <div className="text-xs text-gray-500">{tWorkout.activeGoals || 'Active Goals'}</div>
+          <div className="text-xs text-gray-500">{t.workout.activeGoals}</div>
         </div>
       </div>
 
@@ -192,8 +188,8 @@ export function WorkoutPlanner() {
             {'\u{1F3AF}'}
           </div>
           <div>
-            <h2 className="text-2xl font-bold mb-1">{tWorkout.selectObjective || 'Select Your Objective'}</h2>
-            <p className="text-gray-400 text-sm">{tWorkout.selectObjectiveDesc || 'Choose your fitness goal to get started'}</p>
+            <h2 className="text-2xl font-bold mb-1">{t.workout.selectObjective}</h2>
+            <p className="text-gray-400 text-sm">{t.workout.selectObjectiveDesc}</p>
           </div>
         </div>
 
@@ -218,7 +214,7 @@ export function WorkoutPlanner() {
       {/* Active Goals */}
       <div className="bg-white rounded-3xl p-6 border border-gray-100 mb-8">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-bold text-[#1a1a1a]">{tWorkout.yourGoals || 'Your Goals'}</h2>
+          <h2 className="text-xl font-bold text-[#1a1a1a]">{t.workout.yourGoals}</h2>
         </div>
 
         <div className="grid md:grid-cols-2 gap-4">
@@ -256,7 +252,7 @@ export function WorkoutPlanner() {
             {/* Header */}
             <div className="p-6 border-b border-gray-100">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-2xl font-bold text-[#1a1a1a]">{tWorkout.wizardTitle || 'Workout Wizard'}</h2>
+                <h2 className="text-2xl font-bold text-[#1a1a1a]">{t.workout.wizardTitle}</h2>
                 <button onClick={closeWizard} className="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-gray-100 transition-all">
                   <X className="w-5 h-5 text-gray-400" />
                 </button>
@@ -274,9 +270,9 @@ export function WorkoutPlanner() {
                 ))}
               </div>
               <div className="flex items-center justify-between mt-2">
-                <span className="text-xs text-gray-400">{tWorkout.objective || 'Objective'}</span>
-                <span className="text-xs text-gray-400">{tWorkout.current || 'Current'}</span>
-                <span className="text-xs text-gray-400">{tWorkout.target || 'Target'}</span>
+                <span className="text-xs text-gray-400">{t.workout.objective}</span>
+                <span className="text-xs text-gray-400">{t.workout.current}</span>
+                <span className="text-xs text-gray-400">{t.workout.target}</span>
               </div>
             </div>
 
@@ -287,9 +283,9 @@ export function WorkoutPlanner() {
               {wizardStep === 1 && (
                 <div className="space-y-6">
                   <div className="text-center mb-8">
-                    <div className="text-6xl mb-4">{selectedObj?.emoji || '\u{1F3AF}'}</div>
+                    <div className="text-6xl mb-4">{selectedObj?.emoji}</div>
                     <h3 className="text-2xl font-bold text-[#1a1a1a] mb-2">{getObjectiveLabel(wizardData.objective)}</h3>
-                    <p className="text-gray-500">{tWorkout.wizardStep1Desc || 'Choose your primary fitness objective'}</p>
+                    <p className="text-gray-500">{t.workout.wizardStep1Desc}</p>
                   </div>
 
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -320,8 +316,8 @@ export function WorkoutPlanner() {
               {wizardStep === 2 && (
                 <div className="space-y-8">
                   <div className="text-center mb-6">
-                    <h3 className="text-2xl font-bold text-[#1a1a1a] mb-2">{tWorkout.wizardStep2Title || 'Current State'}</h3>
-                    <p className="text-gray-500">{tWorkout.wizardStep2Desc || 'Tell us about your current body composition'}</p>
+                    <h3 className="text-2xl font-bold text-[#1a1a1a] mb-2">{t.workout.wizardStep2Title}</h3>
+                    <p className="text-gray-500">{t.workout.wizardStep2Desc}</p>
                   </div>
 
                   {/* Bioimpedance Toggle */}
@@ -332,8 +328,8 @@ export function WorkoutPlanner() {
                           <Activity className="w-6 h-6 text-blue-600" />
                         </div>
                         <div>
-                          <p className="text-sm font-bold text-[#1a1a1a]">{tWorkout.haveBioimpedance || 'Have Bioimpedance?'}</p>
-                          <p className="text-xs text-gray-500">{tWorkout.bioimpedanceDesc || 'Include advanced body composition data'}</p>
+                          <p className="text-sm font-bold text-[#1a1a1a]">{t.workout.haveBioimpedance}</p>
+                          <p className="text-xs text-gray-500">{t.workout.bioimpedanceDesc}</p>
                         </div>
                       </div>
                       <button
@@ -354,7 +350,7 @@ export function WorkoutPlanner() {
                   {/* Current Weight */}
                   <div>
                     <div className="flex items-center justify-between mb-3">
-                      <label className="text-sm font-semibold text-[#1a1a1a]">{tWorkout.currentWeight || 'Current Weight'}</label>
+                      <label className="text-sm font-semibold text-[#1a1a1a]">{t.workout.currentWeight}</label>
                       <div className="flex items-center gap-2">
                         <span className="text-3xl font-bold text-[#1a1a1a]">{wizardData.currentWeight}</span>
                         <span className="text-sm text-gray-500">kg</span>
@@ -380,7 +376,7 @@ export function WorkoutPlanner() {
                   {/* Current Body Fat */}
                   <div>
                     <div className="flex items-center justify-between mb-3">
-                      <label className="text-sm font-semibold text-[#1a1a1a]">{tWorkout.currentBodyFat || 'Current Body Fat'}</label>
+                      <label className="text-sm font-semibold text-[#1a1a1a]">{t.workout.currentBodyFat}</label>
                       <div className="flex items-center gap-2">
                         <span className="text-3xl font-bold text-[#1a1a1a]">{wizardData.currentBodyFat}</span>
                         <span className="text-sm text-gray-500">%</span>
@@ -408,13 +404,13 @@ export function WorkoutPlanner() {
                     <div className="space-y-6 p-6 bg-blue-50/50 rounded-2xl border border-blue-100">
                       <div className="flex items-center gap-2 mb-4">
                         <Activity className="w-5 h-5 text-blue-600" />
-                        <p className="text-sm font-bold text-blue-900">{tWorkout.bioimpedanceData || 'Bioimpedance Data'}</p>
+                        <p className="text-sm font-bold text-blue-900">{t.workout.bioimpedanceData}</p>
                       </div>
 
                       {/* Muscle Mass */}
                       <div>
                         <div className="flex items-center justify-between mb-3">
-                          <label className="text-sm font-semibold text-[#1a1a1a]">{tWorkout.muscleMass || 'Muscle Mass'}</label>
+                          <label className="text-sm font-semibold text-[#1a1a1a]">{t.workout.muscleMass}</label>
                           <div className="flex items-center gap-2">
                             <span className="text-2xl font-bold text-purple-600">{wizardData.currentMuscleMass}</span>
                             <span className="text-sm text-gray-500">kg</span>
@@ -436,7 +432,7 @@ export function WorkoutPlanner() {
                       {/* Visceral Fat */}
                       <div>
                         <div className="flex items-center justify-between mb-3">
-                          <label className="text-sm font-semibold text-[#1a1a1a]">{tWorkout.visceralFat || 'Visceral Fat'}</label>
+                          <label className="text-sm font-semibold text-[#1a1a1a]">{t.workout.visceralFat}</label>
                           <div className="flex items-center gap-2">
                             <span className="text-2xl font-bold text-orange-600">{wizardData.currentVisceralFat}</span>
                             <span className="text-sm text-gray-500">n\u00EDvel</span>
@@ -458,7 +454,7 @@ export function WorkoutPlanner() {
                       {/* Body Water */}
                       <div>
                         <div className="flex items-center justify-between mb-3">
-                          <label className="text-sm font-semibold text-[#1a1a1a]">{tWorkout.bodyWater || 'Body Water'}</label>
+                          <label className="text-sm font-semibold text-[#1a1a1a]">{t.workout.bodyWater}</label>
                           <div className="flex items-center gap-2">
                             <span className="text-2xl font-bold text-blue-600">{wizardData.currentWater}</span>
                             <span className="text-sm text-gray-500">%</span>
@@ -485,14 +481,14 @@ export function WorkoutPlanner() {
               {wizardStep === 3 && (
                 <div className="space-y-8">
                   <div className="text-center mb-6">
-                    <h3 className="text-2xl font-bold text-[#1a1a1a] mb-2">{tWorkout.wizardStep3Title || 'Target & Preferences'}</h3>
-                    <p className="text-gray-500">{tWorkout.wizardStep3Desc || 'Set your goals and workout preferences'}</p>
+                    <h3 className="text-2xl font-bold text-[#1a1a1a] mb-2">{t.workout.wizardStep3Title}</h3>
+                    <p className="text-gray-500">{t.workout.wizardStep3Desc}</p>
                   </div>
 
                   {/* Target Weight */}
                   <div>
                     <div className="flex items-center justify-between mb-3">
-                      <label className="text-sm font-semibold text-[#1a1a1a]">{tWorkout.targetWeight || 'Target Weight'}</label>
+                      <label className="text-sm font-semibold text-[#1a1a1a]">{t.workout.targetWeight}</label>
                       <div className="flex items-center gap-2">
                         <span className="text-3xl font-bold text-[#D4FF00]">{wizardData.targetWeight}</span>
                         <span className="text-sm text-gray-500">kg</span>
@@ -514,7 +510,7 @@ export function WorkoutPlanner() {
                   {/* Target Body Fat */}
                   <div>
                     <div className="flex items-center justify-between mb-3">
-                      <label className="text-sm font-semibold text-[#1a1a1a]">{tWorkout.targetBodyFat || 'Target Body Fat'}</label>
+                      <label className="text-sm font-semibold text-[#1a1a1a]">{t.workout.targetBodyFat}</label>
                       <div className="flex items-center gap-2">
                         <span className="text-3xl font-bold text-[#D4FF00]">{wizardData.targetBodyFat}</span>
                         <span className="text-sm text-gray-500">%</span>
@@ -536,10 +532,10 @@ export function WorkoutPlanner() {
                   {/* Deadline */}
                   <div>
                     <div className="flex items-center justify-between mb-3">
-                      <label className="text-sm font-semibold text-[#1a1a1a]">{tWorkout.deadline || 'Deadline'}</label>
+                      <label className="text-sm font-semibold text-[#1a1a1a]">{t.workout.deadline}</label>
                       <div className="flex items-center gap-2">
                         <span className="text-3xl font-bold text-[#1a1a1a]">{wizardData.deadline}</span>
-                        <span className="text-sm text-gray-500">{tCommon.days || 'days'}</span>
+                        <span className="text-sm text-gray-500">{t.common.days}</span>
                       </div>
                     </div>
                     <input
@@ -555,18 +551,18 @@ export function WorkoutPlanner() {
                       }}
                     />
                     <div className="flex justify-between text-xs text-gray-400 mt-1">
-                      <span>1 {tCommon.month || 'month'}</span>
-                      <span>12 {tCommon.month || 'month'}s</span>
+                      <span>1 {t.common.month}</span>
+                      <span>12 {t.common.month}s</span>
                     </div>
                   </div>
 
                   {/* Workouts per Week */}
                   <div>
                     <div className="flex items-center justify-between mb-3">
-                      <label className="text-sm font-semibold text-[#1a1a1a]">{tWorkout.workoutsPerWeek || 'Workouts/Week'}</label>
+                      <label className="text-sm font-semibold text-[#1a1a1a]">{t.workout.workoutsPerWeek}</label>
                       <div className="flex items-center gap-2">
                         <span className="text-3xl font-bold text-[#1a1a1a]">{wizardData.workoutsPerWeek}</span>
-                        <span className="text-sm text-gray-500">x/{tCommon.week || 'week'}</span>
+                        <span className="text-sm text-gray-500">x/{t.common.week}</span>
                       </div>
                     </div>
                     <input
@@ -584,7 +580,7 @@ export function WorkoutPlanner() {
 
                   {/* Experience Level */}
                   <div>
-                    <label className="text-sm font-semibold text-[#1a1a1a] mb-3 block">{tWorkout.experience || 'Experience'}</label>
+                    <label className="text-sm font-semibold text-[#1a1a1a] mb-3 block">{t.workout.experience}</label>
                     <div className="grid grid-cols-3 gap-3">
                       {['beginner', 'intermediate', 'advanced'].map((level) => (
                         <button
@@ -604,7 +600,7 @@ export function WorkoutPlanner() {
 
                   {/* Equipment */}
                   <div>
-                    <label className="text-sm font-semibold text-[#1a1a1a] mb-3 block">{tWorkout.equipment || 'Equipment'}</label>
+                    <label className="text-sm font-semibold text-[#1a1a1a] mb-3 block">{t.workout.equipment}</label>
                     <div className="grid grid-cols-2 gap-3">
                       <button
                         onClick={() => setWizardData({ ...wizardData, equipment: 'gym' })}
@@ -615,7 +611,7 @@ export function WorkoutPlanner() {
                         }`}
                       >
                         <Building2 className="w-8 h-8 mx-auto mb-2 text-[#1a1a1a]" />
-                        <p className="text-sm font-bold text-[#1a1a1a]">{tWorkout.gym || 'Gym'}</p>
+                        <p className="text-sm font-bold text-[#1a1a1a]">{t.workout.gym}</p>
                       </button>
                       <button
                         onClick={() => setWizardData({ ...wizardData, equipment: 'home' })}
@@ -626,7 +622,7 @@ export function WorkoutPlanner() {
                         }`}
                       >
                         <Home className="w-8 h-8 mx-auto mb-2 text-[#1a1a1a]" />
-                        <p className="text-sm font-bold text-[#1a1a1a]">{tWorkout.home || 'Home'}</p>
+                        <p className="text-sm font-bold text-[#1a1a1a]">{t.workout.home}</p>
                       </button>
                     </div>
                   </div>
@@ -642,7 +638,7 @@ export function WorkoutPlanner() {
                     onClick={() => setWizardStep(wizardStep - 1)}
                     className="px-6 py-3 bg-gray-100 text-[#1a1a1a] rounded-xl font-semibold hover:bg-gray-200 transition-all"
                   >
-                    {tWorkout.previous || 'Previous'}
+                    {t.workout.previous}
                   </button>
                 )}
 
@@ -651,7 +647,7 @@ export function WorkoutPlanner() {
                     onClick={nextStep}
                     className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-[#1a1a1a] text-white rounded-xl font-semibold hover:bg-[#2a2a2a] transition-all"
                   >
-                    <span>{tWorkout.next || 'Next'}</span>
+                    <span>{t.workout.next}</span>
                     <ArrowRight className="w-5 h-5" />
                   </button>
                 ) : (
@@ -660,7 +656,7 @@ export function WorkoutPlanner() {
                     className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-[#D4FF00] to-[#a8cc00] text-[#1a1a1a] rounded-xl font-bold hover:opacity-90 transition-all"
                   >
                     <Zap className="w-5 h-5" />
-                    <span>{tWorkout.generatePlan || 'Generate Plan'}</span>
+                    <span>{t.workout.generatePlan}</span>
                   </button>
                 )}
               </div>
