@@ -31,15 +31,15 @@ export function LanguageSelector() {
                 key={lang.code}
                 onClick={() => { setLanguage(lang.code); setIsOpen(false); }}
                 className={`w-full flex items-center gap-3 px-4 py-2.5 text-left hover:bg-gray-50 transition-all ${
-                  language === lang.code ? 'bg-[#D4FF00]/10' : ''
+                  language === lang.code ? 'bg-violet-500/10' : ''
                 }`}
               >
                 <span className="text-xl">{lang.flag}</span>
-                <span className={`text-sm font-medium ${language === lang.code ? 'text-[#1a1a1a] font-bold' : 'text-gray-600'}`}>
+                <span className={`text-sm font-medium ${language === lang.code ? 'text-violet-950 font-bold' : 'text-gray-600'}`}>
                   {lang.label}
                 </span>
                 {language === lang.code && (
-                  <div className="ml-auto w-2 h-2 rounded-full bg-[#D4FF00]" />
+                  <div className="ml-auto w-2 h-2 rounded-full bg-violet-500" />
                 )}
               </button>
             ))}

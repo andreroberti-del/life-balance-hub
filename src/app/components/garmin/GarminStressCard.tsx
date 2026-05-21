@@ -34,12 +34,12 @@ export function GarminStressCard() {
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <Brain className="w-5 h-5 text-purple-500" />
-          <h3 className="font-bold text-[#1a1a1a]">{t.garmin.stressLevel}</h3>
+          <h3 className="font-bold text-violet-950">{t.garmin.stressLevel}</h3>
         </div>
         <span className="text-sm font-bold text-purple-600">{avg}/100</span>
       </div>
 
-      <p className="text-2xl font-bold text-[#1a1a1a] mb-1">{getStressLabel(avg)}</p>
+      <p className="text-2xl font-bold text-violet-950 mb-1">{getStressLabel(avg)}</p>
       <p className="text-xs text-gray-400 mb-4">
         {t.garmin.stress} {t.garmin.medium.toLowerCase()}: {avg}
       </p>

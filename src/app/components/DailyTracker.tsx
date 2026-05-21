@@ -69,7 +69,7 @@ export function DailyTracker({ currentStreak = 23, onStreakUpdate }: DailyTracke
       unit_en: 'taken',
       unit_pt: 'tomado',
       unit_es: 'tomado',
-      color: '#D4FF00',
+      color: '#6366F1',
       xpReward: 20,
       reminder: '08:00',
     },
@@ -167,7 +167,7 @@ export function DailyTracker({ currentStreak = 23, onStreakUpdate }: DailyTracke
       <div className="bg-gradient-to-br from-[#1A1A1A] to-[#242424] rounded-3xl p-6 border border-white/10 relative overflow-hidden">
         {/* Background Glow Effect */}
         {isPerfectDay && (
-          <div className="absolute top-0 right-0 w-64 h-64 bg-[#D4FF00]/20 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute top-0 right-0 w-64 h-64 bg-violet-500/20 rounded-full blur-3xl animate-pulse" />
         )}
 
         <div className="relative z-10">
@@ -191,7 +191,7 @@ export function DailyTracker({ currentStreak = 23, onStreakUpdate }: DailyTracke
             <div className="flex items-center gap-3 bg-[#2A2A2A] rounded-2xl px-4 py-3">
               <div className="text-2xl animate-pulse">{'\u{1F525}'}</div>
               <div>
-                <div className="text-2xl font-bold text-[#D4FF00]">{currentStreak}</div>
+                <div className="text-2xl font-bold text-violet-500">{currentStreak}</div>
                 <div className="text-xs text-gray-400">
                   {language === 'pt' ? 'dias' : language === 'es' ? 'd\u00EDas' : 'days'}
                 </div>
@@ -217,7 +217,7 @@ export function DailyTracker({ currentStreak = 23, onStreakUpdate }: DailyTracke
                   cy="64"
                   r="56"
                   fill="none"
-                  stroke="#D4FF00"
+                  stroke="#6366F1"
                   strokeWidth="12"
                   strokeDasharray={`${2 * Math.PI * 56}`}
                   strokeDashoffset={`${2 * Math.PI * 56 * (1 - completionPercentage / 100)}`}
@@ -226,7 +226,7 @@ export function DailyTracker({ currentStreak = 23, onStreakUpdate }: DailyTracke
                 />
               </svg>
               <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <div className="text-3xl font-bold text-[#D4FF00]">{Math.round(completionPercentage)}%</div>
+                <div className="text-3xl font-bold text-violet-500">{Math.round(completionPercentage)}%</div>
                 <div className="text-xs text-gray-400">{language === 'pt' ? 'completo' : language === 'es' ? 'completo' : 'complete'}</div>
               </div>
             </div>
@@ -243,7 +243,7 @@ export function DailyTracker({ currentStreak = 23, onStreakUpdate }: DailyTracke
               </div>
               <div className="bg-[#2A2A2A] rounded-xl p-4">
                 <div className="text-xs text-gray-400 mb-1">XP {language === 'pt' ? 'Ganho' : language === 'es' ? 'Ganado' : 'Earned'}</div>
-                <div className="text-2xl font-bold text-[#D4FF00]">
+                <div className="text-2xl font-bold text-violet-500">
                   {totalXP}<span className="text-sm text-gray-400">/{potentialXP}</span>
                 </div>
               </div>
@@ -252,11 +252,11 @@ export function DailyTracker({ currentStreak = 23, onStreakUpdate }: DailyTracke
 
           {/* Perfect Day Banner */}
           {isPerfectDay && (
-            <div className="bg-gradient-to-r from-[#D4FF00]/20 to-transparent rounded-xl p-4 border-l-4 border-[#D4FF00]">
+            <div className="bg-gradient-to-r from-violet-500/20 to-transparent rounded-xl p-4 border-l-4 border-violet-500">
               <div className="flex items-center gap-3">
-                <Award className="w-6 h-6 text-[#D4FF00]" />
+                <Award className="w-6 h-6 text-violet-500" />
                 <div>
-                  <div className="text-sm font-bold text-[#D4FF00]">
+                  <div className="text-sm font-bold text-violet-500">
                     {language === 'pt' ? '\u{1F389} Dia Perfeito!' : language === 'es' ? '\u{1F389} \u00A1D\u00EDa Perfecto!' : '\u{1F389} Perfect Day!'}
                   </div>
                   <div className="text-xs text-gray-400">
@@ -297,7 +297,7 @@ export function DailyTracker({ currentStreak = 23, onStreakUpdate }: DailyTracke
               <div
                 key={task.id}
                 className={`bg-[#2A2A2A] rounded-2xl p-5 border-2 transition-all ${
-                  isComplete ? 'border-[#D4FF00] bg-[#D4FF00]/5' : 'border-transparent hover:border-white/10'
+                  isComplete ? 'border-violet-500 bg-violet-500/5' : 'border-transparent hover:border-white/10'
                 }`}
               >
                 <div className="flex items-center justify-between mb-3">
@@ -321,7 +321,7 @@ export function DailyTracker({ currentStreak = 23, onStreakUpdate }: DailyTracke
 
                   {/* XP Badge */}
                   <div className={`px-3 py-1 rounded-full text-xs font-bold ${
-                    isComplete ? 'bg-[#D4FF00] text-[#1A1A1A]' : 'bg-[#333333] text-gray-500'
+                    isComplete ? 'bg-violet-500 text-white' : 'bg-violet-100 text-violet-700'
                   }`}>
                     +{task.xpReward} XP
                   </div>
@@ -333,7 +333,7 @@ export function DailyTracker({ currentStreak = 23, onStreakUpdate }: DailyTracke
                     onClick={() => toggleBooleanTask(task.id)}
                     className={`w-full py-3 rounded-xl font-semibold transition-all ${
                       isComplete
-                        ? 'bg-[#D4FF00] text-[#1A1A1A] hover:bg-[#E5FF33]'
+                        ? 'bg-violet-500 text-white hover:bg-violet-600'
                         : 'bg-[#333333] text-gray-300 hover:bg-[#3A3A3A]'
                     }`}
                   >
@@ -376,7 +376,7 @@ export function DailyTracker({ currentStreak = 23, onStreakUpdate }: DailyTracke
 
                       <button
                         onClick={() => updateTaskValue(task.id, 1)}
-                        className="w-10 h-10 flex items-center justify-center rounded-xl bg-[#D4FF00] hover:bg-[#E5FF33] text-[#1A1A1A] transition-colors"
+                        className="w-10 h-10 flex items-center justify-center rounded-xl bg-violet-500 hover:bg-violet-600 text-white transition-colors"
                       >
                         <Plus className="w-5 h-5" />
                       </button>
@@ -430,7 +430,7 @@ export function DailyTracker({ currentStreak = 23, onStreakUpdate }: DailyTracke
                 <div
                   className={`aspect-square rounded-xl flex items-center justify-center text-lg font-bold transition-all ${
                     isToday
-                      ? 'bg-[#D4FF00] text-[#1A1A1A] ring-4 ring-[#D4FF00]/30'
+                      ? 'bg-violet-500 text-white ring-4 ring-violet-300'
                       : isPerfect && index < 6
                       ? 'bg-[#4ADE80] text-white'
                       : index < 6
@@ -448,7 +448,7 @@ export function DailyTracker({ currentStreak = 23, onStreakUpdate }: DailyTracke
         {/* Weekly Stats */}
         <div className="grid grid-cols-3 gap-4 mt-6 pt-6 border-t border-white/5">
           <div className="text-center">
-            <div className="text-2xl font-bold text-[#D4FF00]">5</div>
+            <div className="text-2xl font-bold text-violet-500">5</div>
             <div className="text-xs text-gray-400">
               {language === 'pt' ? 'Dias Perfeitos' : language === 'es' ? 'D\u00EDas Perfectos' : 'Perfect Days'}
             </div>

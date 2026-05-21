@@ -1,72 +1,120 @@
 @theme inline {
-  --color-background: oklch(1 0 0);
-  --color-foreground: oklch(0.145 0 0);
-  --color-card: oklch(1 0 0);
-  --color-card-foreground: oklch(0.145 0 0);
-  --color-popover: oklch(1 0 0);
-  --color-popover-foreground: oklch(0.145 0 0);
-  --color-primary: oklch(0.205 0 0);
-  --color-primary-foreground: oklch(0.985 0 0);
-  --color-secondary: oklch(0.97 0 0);
-  --color-secondary-foreground: oklch(0.205 0 0);
-  --color-muted: oklch(0.97 0 0);
-  --color-muted-foreground: oklch(0.556 0 0);
-  --color-accent: oklch(0.97 0 0);
-  --color-accent-foreground: oklch(0.205 0 0);
-  --color-destructive: oklch(0.577 0.245 27.325);
-  --color-destructive-foreground: oklch(0.577 0.245 27.325);
-  --color-border: oklch(0.922 0 0);
-  --color-input: oklch(0.922 0 0);
-  --color-ring: oklch(0.708 0 0);
-  --color-chart-1: oklch(0.646 0.222 41.116);
-  --color-chart-2: oklch(0.6 0.118 184.704);
-  --color-chart-3: oklch(0.398 0.07 227.392);
-  --color-chart-4: oklch(0.828 0.189 84.429);
-  --color-chart-5: oklch(0.769 0.188 70.08);
-  --color-sidebar: oklch(0.985 0 0);
-  --color-sidebar-foreground: oklch(0.145 0 0);
-  --color-sidebar-primary: oklch(0.205 0 0);
-  --color-sidebar-primary-foreground: oklch(0.985 0 0);
-  --color-sidebar-accent: oklch(0.97 0 0);
-  --color-sidebar-accent-foreground: oklch(0.205 0 0);
-  --color-sidebar-border: oklch(0.922 0 0);
-  --color-sidebar-ring: oklch(0.708 0 0);
-  --radius: 0.625rem;
+  /* M7 Life Balance — Paleta Mind7 oficial (2026-05-20)
+     Hex codes do manual de marca Mind7 fornecido pelo Roberti.
+     Filosofia: cores claras, sensação de cuidado, sem roxo-escuro estranho. */
+
+  /* Surfaces (light + clean) */
+  --color-background: #F0F2FF;        /* lilás bem claro, base do app */
+  --color-foreground: #161B50;        /* Mind7 navy (escuro oficial, só pra texto) */
+  --color-card: #FFFFFF;              /* branco puro pra cards */
+  --color-card-foreground: #161B50;
+  --color-popover: #FFFFFF;
+  --color-popover-foreground: #161B50;
+
+  /* Primary (Mind7 blue oficial) */
+  --color-primary: #668DFF;
+  --color-primary-foreground: #FFFFFF;
+
+  /* Secondary surfaces */
+  --color-secondary: #DCE3FF;
+  --color-secondary-foreground: #2431AD;
+  --color-muted: #F0F2FF;
+  --color-muted-foreground: #6B7280;
+  --color-accent: #B8C9FF;
+  --color-accent-foreground: #2431AD;
+
+  /* Status */
+  --color-destructive: #FF004E;       /* Mind7 magenta vibrante */
+  --color-destructive-foreground: #FFFFFF;
+
+  /* Borders + inputs */
+  --color-border: #DCE3FF;
+  --color-input: #DCE3FF;
+  --color-ring: #668DFF;
+
+  /* Charts (gradiente Mind7) */
+  --color-chart-1: #668DFF;
+  --color-chart-2: #3646F4;
+  --color-chart-3: #2A37D7;
+  --color-chart-4: #10B981;
+  --color-chart-5: #F59E0B;
+
+  /* Sidebar */
+  --color-sidebar: #FFFFFF;
+  --color-sidebar-foreground: #161B50;
+  --color-sidebar-primary: #668DFF;
+  --color-sidebar-primary-foreground: #FFFFFF;
+  --color-sidebar-accent: #F0F2FF;
+  --color-sidebar-accent-foreground: #2431AD;
+  --color-sidebar-border: #DCE3FF;
+  --color-sidebar-ring: #668DFF;
+
+  /* Escala violet alinhada à paleta Mind7 oficial */
+  --color-violet-50: #F0F2FF;         /* bg principal claro */
+  --color-violet-100: #DCE3FF;
+  --color-violet-200: #B8C9FF;
+  --color-violet-300: #94AEFF;
+  --color-violet-400: #7B9BFF;
+  --color-violet-500: #668DFF;        /* PRIMARY Mind7 */
+  --color-violet-600: #3646F4;
+  --color-violet-700: #2A37D7;
+  --color-violet-800: #2431AD;
+  --color-violet-900: #2532BB;
+  --color-violet-950: #161B50;        /* Navy escuro Mind7 (último tom dark) */
+
+  /* Magenta Mind7 (acento de marca) */
+  --color-magenta-50: #FFE5EE;
+  --color-magenta-100: #FFB8D1;
+  --color-magenta-200: #FF7AA8;
+  --color-magenta-300: #FF3D7F;
+  --color-magenta-400: #FF1A66;
+  --color-magenta-500: #FF004E;       /* Primary magenta Mind7 */
+  --color-magenta-600: #D60042;
+  --color-magenta-700: #B30040;
+  --color-magenta-800: #98013D;
+  --color-magenta-900: #57001C;
+  --color-magenta-950: #3D0217;
+
+  /* Status semânticas */
+  --color-success: #10B981;
+  --color-warn: #F59E0B;
+  --color-danger: #FF004E;
+
+  /* Geometria */
+  --radius: 1rem;
   --sidebar-width: 16rem;
   --sidebar-width-icon: 3rem;
+
+  /* Tipografia */
+  --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 .dark {
-  --color-background: oklch(0.145 0 0);
-  --color-foreground: oklch(0.985 0 0);
-  --color-card: oklch(0.145 0 0);
-  --color-card-foreground: oklch(0.985 0 0);
-  --color-popover: oklch(0.145 0 0);
-  --color-popover-foreground: oklch(0.985 0 0);
-  --color-primary: oklch(0.985 0 0);
-  --color-primary-foreground: oklch(0.205 0 0);
-  --color-secondary: oklch(0.269 0 0);
-  --color-secondary-foreground: oklch(0.985 0 0);
-  --color-muted: oklch(0.269 0 0);
-  --color-muted-foreground: oklch(0.708 0 0);
-  --color-accent: oklch(0.269 0 0);
-  --color-accent-foreground: oklch(0.985 0 0);
-  --color-destructive: oklch(0.396 0.141 25.723);
-  --color-destructive-foreground: oklch(0.637 0.237 25.331);
-  --color-border: oklch(0.269 0 0);
-  --color-input: oklch(0.269 0 0);
-  --color-ring: oklch(0.439 0 0);
-  --color-chart-1: oklch(0.488 0.243 264.376);
-  --color-chart-2: oklch(0.696 0.17 162.48);
-  --color-chart-3: oklch(0.769 0.188 70.08);
-  --color-chart-4: oklch(0.627 0.265 303.9);
-  --color-chart-5: oklch(0.645 0.246 16.439);
-  --color-sidebar: oklch(0.205 0 0);
-  --color-sidebar-foreground: oklch(0.985 0 0);
-  --color-sidebar-primary: oklch(0.488 0.243 264.376);
-  --color-sidebar-primary-foreground: oklch(0.985 0 0);
-  --color-sidebar-accent: oklch(0.269 0 0);
-  --color-sidebar-accent-foreground: oklch(0.985 0 0);
-  --color-sidebar-border: oklch(0.269 0 0);
-  --color-sidebar-ring: oklch(0.439 0 0);
+  --color-background: #161B50;
+  --color-foreground: #F0F2FF;
+  --color-card: #2431AD;
+  --color-card-foreground: #F0F2FF;
+  --color-popover: #2431AD;
+  --color-popover-foreground: #F0F2FF;
+  --color-primary: #668DFF;
+  --color-primary-foreground: #161B50;
+  --color-secondary: #2A37D7;
+  --color-secondary-foreground: #F0F2FF;
+  --color-muted: #2431AD;
+  --color-muted-foreground: #B8C9FF;
+  --color-accent: #3646F4;
+  --color-accent-foreground: #F0F2FF;
+  --color-destructive: #FF004E;
+  --color-destructive-foreground: #FFFFFF;
+  --color-border: #3646F4;
+  --color-input: #3646F4;
+  --color-ring: #668DFF;
+  --color-sidebar: #161B50;
+  --color-sidebar-foreground: #F0F2FF;
+  --color-sidebar-primary: #668DFF;
+  --color-sidebar-primary-foreground: #161B50;
+  --color-sidebar-accent: #2431AD;
+  --color-sidebar-accent-foreground: #F0F2FF;
+  --color-sidebar-border: #3646F4;
+  --color-sidebar-ring: #668DFF;
 }

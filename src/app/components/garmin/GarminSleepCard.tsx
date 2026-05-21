@@ -27,7 +27,7 @@ export function GarminSleepCard() {
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <Moon className="w-5 h-5 text-indigo-500" />
-          <h3 className="font-bold text-[#1a1a1a]">{t.garmin.sleep}</h3>
+          <h3 className="font-bold text-violet-950">{t.garmin.sleep}</h3>
         </div>
         {sleepSummary.sleep_score && (
           <span className="text-sm font-bold text-indigo-600">
@@ -36,7 +36,7 @@ export function GarminSleepCard() {
         )}
       </div>
 
-      <p className="text-2xl font-bold text-[#1a1a1a] mb-4">{formatDuration(total)}</p>
+      <p className="text-2xl font-bold text-violet-950 mb-4">{formatDuration(total)}</p>
 
       {/* Sleep stages bar */}
       <div className="flex rounded-full overflow-hidden h-3 mb-4">
@@ -58,7 +58,7 @@ export function GarminSleepCard() {
           <div key={label} className="flex items-center gap-2">
             <div className={`w-2.5 h-2.5 rounded-full ${color}`} />
             <span className="text-xs text-gray-500">{label}</span>
-            <span className="text-xs font-medium text-[#1a1a1a] ml-auto">{formatDuration(value)}</span>
+            <span className="text-xs font-medium text-violet-950 ml-auto">{formatDuration(value)}</span>
           </div>
         ))}
       </div>

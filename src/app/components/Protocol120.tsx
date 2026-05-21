@@ -55,7 +55,7 @@ const PROTOCOL_PHASES: ProtocolPhase[] = [
     name_pt: 'Transforma\u00E7\u00E3o',
     name_es: 'Transformaci\u00F3n',
     days: [91, 120],
-    color: '#D4FF00',
+    color: '#6366F1',
     description_en: 'Visible results & new you',
     description_pt: 'Resultados vis\u00EDveis e novo voc\u00EA',
     description_es: 'Resultados visibles y nuevo t\u00FA',
@@ -178,10 +178,10 @@ export function Protocol120({ currentDay, startDate, dailyTasks = [], onTaskTogg
               <div className="text-gray-400">{tProtocol.started || 'Started'}</div>
               <div className="text-white font-medium">{startDate.toLocaleDateString()}</div>
             </div>
-            <div className="w-24 h-px bg-gradient-to-r from-transparent via-[#D4FF00] to-transparent" />
+            <div className="w-24 h-px bg-gradient-to-r from-transparent via-[#6366F1] to-transparent" />
             <div className="text-center">
               <div className="text-gray-400">{tProtocol.projected || 'Projected'}</div>
-              <div className="text-[#D4FF00] font-medium">{endDate.toLocaleDateString()}</div>
+              <div className="text-violet-500 font-medium">{endDate.toLocaleDateString()}</div>
             </div>
           </div>
         </div>
@@ -213,7 +213,7 @@ export function Protocol120({ currentDay, startDate, dailyTasks = [], onTaskTogg
                       isCompleted
                         ? 'bg-gradient-to-br from-[#4ADE80] to-[#22C55E] shadow-[0_0_20px_rgba(74,222,128,0.4)]'
                         : isCurrent
-                        ? 'bg-gradient-to-br from-[#D4FF00] to-[#A0E000] shadow-[0_0_20px_rgba(212,255,0,0.4)] animate-pulse'
+                        ? 'bg-gradient-to-br from-violet-500 to-[#A0E000] shadow-[0_0_20px_rgba(212,255,0,0.4)] animate-pulse'
                         : 'bg-[#2A2A2A]'
                     }`}
                   >
@@ -230,7 +230,7 @@ export function Protocol120({ currentDay, startDate, dailyTasks = [], onTaskTogg
                   <div className="mt-3 text-center">
                     <div
                       className={`text-sm font-bold ${
-                        isCurrent ? 'text-[#D4FF00]' : isCompleted ? 'text-[#4ADE80]' : 'text-gray-500'
+                        isCurrent ? 'text-violet-500' : isCompleted ? 'text-[#4ADE80]' : 'text-gray-500'
                       }`}
                     >
                       {phase[`name_${language}` as keyof ProtocolPhase]}
@@ -255,7 +255,7 @@ export function Protocol120({ currentDay, startDate, dailyTasks = [], onTaskTogg
               {completedTasks} / {totalTasks}
             </span>
             {isPerfectDay && (
-              <div className="px-3 py-1 bg-[#D4FF00]/20 border border-[#D4FF00] rounded-full text-xs text-[#D4FF00] font-bold flex items-center gap-1">
+              <div className="px-3 py-1 bg-violet-500/20 border border-violet-500 rounded-full text-xs text-violet-500 font-bold flex items-center gap-1">
                 <Award className="w-3 h-3" />
                 {tProtocol.perfectDay || 'Perfect Day'}
               </div>
@@ -266,7 +266,7 @@ export function Protocol120({ currentDay, startDate, dailyTasks = [], onTaskTogg
         {/* Progress Bar */}
         <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden mb-6">
           <div
-            className="h-full bg-gradient-to-r from-[#D4FF00] to-[#A0E000] transition-all duration-300"
+            className="h-full bg-gradient-to-r from-violet-500 to-[#A0E000] transition-all duration-300"
             style={{ width: `${totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0}%` }}
           />
         </div>
@@ -279,7 +279,7 @@ export function Protocol120({ currentDay, startDate, dailyTasks = [], onTaskTogg
               onClick={() => onTaskToggle?.(task.id)}
               className={`w-full flex items-center gap-4 p-4 rounded-xl transition-all ${
                 task.completed
-                  ? 'bg-[#D4FF00]/10 border-2 border-[#D4FF00]'
+                  ? 'bg-violet-500/10 border-2 border-violet-500'
                   : 'bg-[#2A2A2A] border-2 border-transparent hover:border-white/10'
               }`}
             >
@@ -287,7 +287,7 @@ export function Protocol120({ currentDay, startDate, dailyTasks = [], onTaskTogg
               <div
                 className={`w-6 h-6 rounded-lg flex items-center justify-center transition-all ${
                   task.completed
-                    ? 'bg-[#D4FF00] text-[#1A1A1A]'
+                    ? 'bg-violet-500 text-white'
                     : 'border-2 border-gray-600'
                 }`}
               >
@@ -307,11 +307,11 @@ export function Protocol120({ currentDay, startDate, dailyTasks = [], onTaskTogg
 
         {/* Completion Message */}
         {isPerfectDay && (
-          <div className="mt-6 p-4 bg-gradient-to-r from-[#D4FF00]/20 to-transparent rounded-xl border-l-4 border-[#D4FF00]">
+          <div className="mt-6 p-4 bg-gradient-to-r from-violet-500/20 to-transparent rounded-xl border-l-4 border-violet-500">
             <div className="flex items-center gap-3">
               <div className="text-3xl">{'\u{1F389}'}</div>
               <div>
-                <div className="text-sm font-bold text-[#D4FF00]">{tProtocol.perfectDayComplete || 'Perfect Day Complete!'}</div>
+                <div className="text-sm font-bold text-violet-500">{tProtocol.perfectDayComplete || 'Perfect Day Complete!'}</div>
                 <div className="text-xs text-gray-400">{tProtocol.keepItUp || 'Keep it up!'}</div>
               </div>
             </div>
@@ -333,7 +333,7 @@ export function Protocol120({ currentDay, startDate, dailyTasks = [], onTaskTogg
                 key={i}
                 className={`aspect-square rounded-lg flex flex-col items-center justify-center text-xs ${
                   isToday
-                    ? 'bg-[#D4FF00] text-[#1A1A1A] font-bold'
+                    ? 'bg-violet-500 text-white font-bold'
                     : isPast && dayNumber > 0
                     ? 'bg-[#4ADE80]/20 text-[#4ADE80]'
                     : 'bg-[#2A2A2A] text-gray-600'
@@ -384,7 +384,7 @@ function ProtocolMilestones({ currentDay }: { currentDay: number }) {
                 isCompleted
                   ? 'bg-[#4ADE80]/10 border-2 border-[#4ADE80]'
                   : isCurrent
-                  ? 'bg-[#D4FF00]/10 border-2 border-[#D4FF00] animate-pulse'
+                  ? 'bg-violet-500/10 border-2 border-violet-500 animate-pulse'
                   : 'bg-[#2A2A2A] border-2 border-transparent'
               }`}
             >
@@ -394,7 +394,7 @@ function ProtocolMilestones({ currentDay }: { currentDay: number }) {
                   isCompleted
                     ? 'bg-[#4ADE80]'
                     : isCurrent
-                    ? 'bg-[#D4FF00]'
+                    ? 'bg-violet-500'
                     : 'bg-[#2A2A2A]'
                 }`}
               >
@@ -403,7 +403,7 @@ function ProtocolMilestones({ currentDay }: { currentDay: number }) {
 
               {/* Info */}
               <div className="flex-1">
-                <div className={`font-bold ${isCompleted ? 'text-[#4ADE80]' : isCurrent ? 'text-[#D4FF00]' : 'text-gray-400'}`}>
+                <div className={`font-bold ${isCompleted ? 'text-[#4ADE80]' : isCurrent ? 'text-violet-500' : 'text-gray-400'}`}>
                   {tProtocol.day || 'Day'} {milestone.day}
                 </div>
                 <div className="text-sm text-gray-400">{milestone.label}</div>

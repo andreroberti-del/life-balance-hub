@@ -134,7 +134,7 @@ export function WorkoutPlanner() {
     <div className="p-6 md:p-8 max-w-7xl mx-auto">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-4xl font-bold text-[#1a1a1a] mb-2">{t.workout.title}</h1>
+        <h1 className="text-4xl font-bold text-violet-950 mb-2">{t.workout.title}</h1>
         <p className="text-gray-500">{t.workout.subtitle}</p>
       </div>
 
@@ -142,11 +142,11 @@ export function WorkoutPlanner() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         <div className="bg-white rounded-3xl p-6 border border-gray-100">
           <div className="flex items-center justify-between mb-3">
-            <div className="w-10 h-10 bg-[#D4FF00] rounded-xl flex items-center justify-center">
-              <Dumbbell className="w-5 h-5 text-[#1a1a1a]" />
+            <div className="w-10 h-10 bg-violet-500 rounded-xl flex items-center justify-center">
+              <Dumbbell className="w-5 h-5 text-violet-950" />
             </div>
           </div>
-          <div className="text-3xl font-bold text-[#1a1a1a] mb-1">8</div>
+          <div className="text-3xl font-bold text-violet-950 mb-1">8</div>
           <div className="text-xs text-gray-500">{t.workout.workoutsCompleted}</div>
         </div>
 
@@ -156,7 +156,7 @@ export function WorkoutPlanner() {
               <Flame className="w-5 h-5 text-orange-500" />
             </div>
           </div>
-          <div className="text-3xl font-bold text-[#1a1a1a] mb-1">2.8k</div>
+          <div className="text-3xl font-bold text-violet-950 mb-1">2.8k</div>
           <div className="text-xs text-gray-500">{t.workout.caloriesBurned}</div>
         </div>
 
@@ -166,7 +166,7 @@ export function WorkoutPlanner() {
               <Clock className="w-5 h-5 text-blue-500" />
             </div>
           </div>
-          <div className="text-3xl font-bold text-[#1a1a1a] mb-1">62</div>
+          <div className="text-3xl font-bold text-violet-950 mb-1">62</div>
           <div className="text-xs text-gray-500">{t.workout.minutesPerWorkout}</div>
         </div>
 
@@ -176,7 +176,7 @@ export function WorkoutPlanner() {
               <Target className="w-5 h-5 text-purple-500" />
             </div>
           </div>
-          <div className="text-3xl font-bold text-[#1a1a1a] mb-1">3</div>
+          <div className="text-3xl font-bold text-violet-950 mb-1">3</div>
           <div className="text-xs text-gray-500">{t.workout.activeGoals}</div>
         </div>
       </div>
@@ -184,7 +184,7 @@ export function WorkoutPlanner() {
       {/* Main CTA */}
       <div className="bg-gradient-to-br from-[#1a1a1a] to-[#2a2a2a] rounded-3xl p-8 mb-8 text-white">
         <div className="flex items-center gap-4 mb-6">
-          <div className="w-16 h-16 bg-[#D4FF00] rounded-2xl flex items-center justify-center text-3xl">
+          <div className="w-16 h-16 bg-violet-500 rounded-2xl flex items-center justify-center text-3xl">
             {'\u{1F3AF}'}
           </div>
           <div>
@@ -201,7 +201,7 @@ export function WorkoutPlanner() {
               <button
                 key={obj.id}
                 onClick={() => handleObjectiveClick(obj.id)}
-                className="group relative bg-white/5 hover:bg-white/10 backdrop-blur rounded-2xl p-6 border border-white/10 transition-all hover:scale-105 hover:border-[#D4FF00]"
+                className="group relative bg-white/5 hover:bg-white/10 backdrop-blur rounded-2xl p-6 border border-white/10 transition-all hover:scale-105 hover:border-violet-500"
               >
                 <div className="text-4xl mb-3">{obj.emoji}</div>
                 <p className="text-sm font-bold text-white">{label}</p>
@@ -214,26 +214,26 @@ export function WorkoutPlanner() {
       {/* Active Goals */}
       <div className="bg-white rounded-3xl p-6 border border-gray-100 mb-8">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-bold text-[#1a1a1a]">{t.workout.yourGoals}</h2>
+          <h2 className="text-xl font-bold text-violet-950">{t.workout.yourGoals}</h2>
         </div>
 
         <div className="grid md:grid-cols-2 gap-4">
           {mockGoals.map((goal) => (
             <div key={goal.id} className="p-6 bg-gradient-to-br from-gray-50 to-white rounded-2xl border border-gray-100">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-sm font-bold text-[#1a1a1a]">{goal.target}</h3>
-                <span className="text-2xl font-bold text-[#D4FF00]">{goal.progress}%</span>
+                <h3 className="text-sm font-bold text-violet-950">{goal.target}</h3>
+                <span className="text-2xl font-bold text-violet-500">{goal.progress}%</span>
               </div>
 
               <div className="flex items-center justify-between text-xs text-gray-500 mb-3">
                 <span>{goal.current} kg</span>
                 <ChevronRight className="w-4 h-4" />
-                <span className="font-bold text-[#1a1a1a]">{goal.target_value} kg</span>
+                <span className="font-bold text-violet-950">{goal.target_value} kg</span>
               </div>
 
               <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
                 <div
-                  className="h-full bg-gradient-to-r from-[#D4FF00] to-[#a8cc00] transition-all duration-500"
+                  className="h-full bg-gradient-to-r from-violet-500 to-violet-700 transition-all duration-500"
                   style={{ width: `${goal.progress}%` }}
                 />
               </div>
@@ -252,7 +252,7 @@ export function WorkoutPlanner() {
             {/* Header */}
             <div className="p-6 border-b border-gray-100">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-2xl font-bold text-[#1a1a1a]">{t.workout.wizardTitle}</h2>
+                <h2 className="text-2xl font-bold text-violet-950">{t.workout.wizardTitle}</h2>
                 <button onClick={closeWizard} className="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-gray-100 transition-all">
                   <X className="w-5 h-5 text-gray-400" />
                 </button>
@@ -264,7 +264,7 @@ export function WorkoutPlanner() {
                   <div
                     key={step}
                     className={`h-2 rounded-full flex-1 transition-all ${
-                      step <= wizardStep ? 'bg-[#D4FF00]' : 'bg-gray-200'
+                      step <= wizardStep ? 'bg-violet-500' : 'bg-gray-200'
                     }`}
                   />
                 ))}
@@ -284,7 +284,7 @@ export function WorkoutPlanner() {
                 <div className="space-y-6">
                   <div className="text-center mb-8">
                     <div className="text-6xl mb-4">{selectedObj?.emoji}</div>
-                    <h3 className="text-2xl font-bold text-[#1a1a1a] mb-2">{getObjectiveLabel(wizardData.objective)}</h3>
+                    <h3 className="text-2xl font-bold text-violet-950 mb-2">{getObjectiveLabel(wizardData.objective)}</h3>
                     <p className="text-gray-500">{t.workout.wizardStep1Desc}</p>
                   </div>
 
@@ -299,12 +299,12 @@ export function WorkoutPlanner() {
                           onClick={() => setWizardData({ ...wizardData, objective: obj.id })}
                           className={`p-6 rounded-2xl border-2 transition-all hover:scale-105 ${
                             isSelected
-                              ? 'border-[#D4FF00] bg-[#D4FF00]/10'
+                              ? 'border-violet-500 bg-violet-500/10'
                               : 'border-gray-200 hover:border-gray-300'
                           }`}
                         >
                           <div className="text-4xl mb-3">{obj.emoji}</div>
-                          <p className="text-xs font-bold text-[#1a1a1a]">{label}</p>
+                          <p className="text-xs font-bold text-violet-950">{label}</p>
                         </button>
                       );
                     })}
@@ -316,7 +316,7 @@ export function WorkoutPlanner() {
               {wizardStep === 2 && (
                 <div className="space-y-8">
                   <div className="text-center mb-6">
-                    <h3 className="text-2xl font-bold text-[#1a1a1a] mb-2">{t.workout.wizardStep2Title}</h3>
+                    <h3 className="text-2xl font-bold text-violet-950 mb-2">{t.workout.wizardStep2Title}</h3>
                     <p className="text-gray-500">{t.workout.wizardStep2Desc}</p>
                   </div>
 
@@ -328,14 +328,14 @@ export function WorkoutPlanner() {
                           <Activity className="w-6 h-6 text-blue-600" />
                         </div>
                         <div>
-                          <p className="text-sm font-bold text-[#1a1a1a]">{t.workout.haveBioimpedance}</p>
+                          <p className="text-sm font-bold text-violet-950">{t.workout.haveBioimpedance}</p>
                           <p className="text-xs text-gray-500">{t.workout.bioimpedanceDesc}</p>
                         </div>
                       </div>
                       <button
                         onClick={() => setWizardData({ ...wizardData, hasBioimpedance: !wizardData.hasBioimpedance })}
                         className={`relative w-16 h-8 rounded-full transition-all ${
-                          wizardData.hasBioimpedance ? 'bg-[#D4FF00]' : 'bg-gray-300'
+                          wizardData.hasBioimpedance ? 'bg-violet-500' : 'bg-gray-300'
                         }`}
                       >
                         <div
@@ -350,9 +350,9 @@ export function WorkoutPlanner() {
                   {/* Current Weight */}
                   <div>
                     <div className="flex items-center justify-between mb-3">
-                      <label className="text-sm font-semibold text-[#1a1a1a]">{t.workout.currentWeight}</label>
+                      <label className="text-sm font-semibold text-violet-950">{t.workout.currentWeight}</label>
                       <div className="flex items-center gap-2">
-                        <span className="text-3xl font-bold text-[#1a1a1a]">{wizardData.currentWeight}</span>
+                        <span className="text-3xl font-bold text-violet-950">{wizardData.currentWeight}</span>
                         <span className="text-sm text-gray-500">kg</span>
                       </div>
                     </div>
@@ -364,7 +364,7 @@ export function WorkoutPlanner() {
                       onChange={(e) => setWizardData({ ...wizardData, currentWeight: Number(e.target.value) })}
                       className="w-full h-3 bg-gray-200 rounded-full appearance-none cursor-pointer slider"
                       style={{
-                        background: `linear-gradient(to right, #D4FF00 0%, #D4FF00 ${((wizardData.currentWeight - 40) / 110) * 100}%, #e5e7eb ${((wizardData.currentWeight - 40) / 110) * 100}%, #e5e7eb 100%)`
+                        background: `linear-gradient(to right, #6366F1 0%, #6366F1 ${((wizardData.currentWeight - 40) / 110) * 100}%, #e5e7eb ${((wizardData.currentWeight - 40) / 110) * 100}%, #e5e7eb 100%)`
                       }}
                     />
                     <div className="flex justify-between text-xs text-gray-400 mt-1">
@@ -376,9 +376,9 @@ export function WorkoutPlanner() {
                   {/* Current Body Fat */}
                   <div>
                     <div className="flex items-center justify-between mb-3">
-                      <label className="text-sm font-semibold text-[#1a1a1a]">{t.workout.currentBodyFat}</label>
+                      <label className="text-sm font-semibold text-violet-950">{t.workout.currentBodyFat}</label>
                       <div className="flex items-center gap-2">
-                        <span className="text-3xl font-bold text-[#1a1a1a]">{wizardData.currentBodyFat}</span>
+                        <span className="text-3xl font-bold text-violet-950">{wizardData.currentBodyFat}</span>
                         <span className="text-sm text-gray-500">%</span>
                       </div>
                     </div>
@@ -390,7 +390,7 @@ export function WorkoutPlanner() {
                       onChange={(e) => setWizardData({ ...wizardData, currentBodyFat: Number(e.target.value) })}
                       className="w-full h-3 bg-gray-200 rounded-full appearance-none cursor-pointer slider"
                       style={{
-                        background: `linear-gradient(to right, #D4FF00 0%, #D4FF00 ${((wizardData.currentBodyFat - 5) / 45) * 100}%, #e5e7eb ${((wizardData.currentBodyFat - 5) / 45) * 100}%, #e5e7eb 100%)`
+                        background: `linear-gradient(to right, #6366F1 0%, #6366F1 ${((wizardData.currentBodyFat - 5) / 45) * 100}%, #e5e7eb ${((wizardData.currentBodyFat - 5) / 45) * 100}%, #e5e7eb 100%)`
                       }}
                     />
                     <div className="flex justify-between text-xs text-gray-400 mt-1">
@@ -410,7 +410,7 @@ export function WorkoutPlanner() {
                       {/* Muscle Mass */}
                       <div>
                         <div className="flex items-center justify-between mb-3">
-                          <label className="text-sm font-semibold text-[#1a1a1a]">{t.workout.muscleMass}</label>
+                          <label className="text-sm font-semibold text-violet-950">{t.workout.muscleMass}</label>
                           <div className="flex items-center gap-2">
                             <span className="text-2xl font-bold text-purple-600">{wizardData.currentMuscleMass}</span>
                             <span className="text-sm text-gray-500">kg</span>
@@ -432,7 +432,7 @@ export function WorkoutPlanner() {
                       {/* Visceral Fat */}
                       <div>
                         <div className="flex items-center justify-between mb-3">
-                          <label className="text-sm font-semibold text-[#1a1a1a]">{t.workout.visceralFat}</label>
+                          <label className="text-sm font-semibold text-violet-950">{t.workout.visceralFat}</label>
                           <div className="flex items-center gap-2">
                             <span className="text-2xl font-bold text-orange-600">{wizardData.currentVisceralFat}</span>
                             <span className="text-sm text-gray-500">n\u00EDvel</span>
@@ -454,7 +454,7 @@ export function WorkoutPlanner() {
                       {/* Body Water */}
                       <div>
                         <div className="flex items-center justify-between mb-3">
-                          <label className="text-sm font-semibold text-[#1a1a1a]">{t.workout.bodyWater}</label>
+                          <label className="text-sm font-semibold text-violet-950">{t.workout.bodyWater}</label>
                           <div className="flex items-center gap-2">
                             <span className="text-2xl font-bold text-blue-600">{wizardData.currentWater}</span>
                             <span className="text-sm text-gray-500">%</span>
@@ -481,16 +481,16 @@ export function WorkoutPlanner() {
               {wizardStep === 3 && (
                 <div className="space-y-8">
                   <div className="text-center mb-6">
-                    <h3 className="text-2xl font-bold text-[#1a1a1a] mb-2">{t.workout.wizardStep3Title}</h3>
+                    <h3 className="text-2xl font-bold text-violet-950 mb-2">{t.workout.wizardStep3Title}</h3>
                     <p className="text-gray-500">{t.workout.wizardStep3Desc}</p>
                   </div>
 
                   {/* Target Weight */}
                   <div>
                     <div className="flex items-center justify-between mb-3">
-                      <label className="text-sm font-semibold text-[#1a1a1a]">{t.workout.targetWeight}</label>
+                      <label className="text-sm font-semibold text-violet-950">{t.workout.targetWeight}</label>
                       <div className="flex items-center gap-2">
-                        <span className="text-3xl font-bold text-[#D4FF00]">{wizardData.targetWeight}</span>
+                        <span className="text-3xl font-bold text-violet-500">{wizardData.targetWeight}</span>
                         <span className="text-sm text-gray-500">kg</span>
                       </div>
                     </div>
@@ -502,7 +502,7 @@ export function WorkoutPlanner() {
                       onChange={(e) => setWizardData({ ...wizardData, targetWeight: Number(e.target.value) })}
                       className="w-full h-3 bg-gray-200 rounded-full appearance-none cursor-pointer slider"
                       style={{
-                        background: `linear-gradient(to right, #D4FF00 0%, #D4FF00 ${((wizardData.targetWeight - 40) / 110) * 100}%, #e5e7eb ${((wizardData.targetWeight - 40) / 110) * 100}%, #e5e7eb 100%)`
+                        background: `linear-gradient(to right, #6366F1 0%, #6366F1 ${((wizardData.targetWeight - 40) / 110) * 100}%, #e5e7eb ${((wizardData.targetWeight - 40) / 110) * 100}%, #e5e7eb 100%)`
                       }}
                     />
                   </div>
@@ -510,9 +510,9 @@ export function WorkoutPlanner() {
                   {/* Target Body Fat */}
                   <div>
                     <div className="flex items-center justify-between mb-3">
-                      <label className="text-sm font-semibold text-[#1a1a1a]">{t.workout.targetBodyFat}</label>
+                      <label className="text-sm font-semibold text-violet-950">{t.workout.targetBodyFat}</label>
                       <div className="flex items-center gap-2">
-                        <span className="text-3xl font-bold text-[#D4FF00]">{wizardData.targetBodyFat}</span>
+                        <span className="text-3xl font-bold text-violet-500">{wizardData.targetBodyFat}</span>
                         <span className="text-sm text-gray-500">%</span>
                       </div>
                     </div>
@@ -524,7 +524,7 @@ export function WorkoutPlanner() {
                       onChange={(e) => setWizardData({ ...wizardData, targetBodyFat: Number(e.target.value) })}
                       className="w-full h-3 bg-gray-200 rounded-full appearance-none cursor-pointer slider"
                       style={{
-                        background: `linear-gradient(to right, #D4FF00 0%, #D4FF00 ${((wizardData.targetBodyFat - 5) / 45) * 100}%, #e5e7eb ${((wizardData.targetBodyFat - 5) / 45) * 100}%, #e5e7eb 100%)`
+                        background: `linear-gradient(to right, #6366F1 0%, #6366F1 ${((wizardData.targetBodyFat - 5) / 45) * 100}%, #e5e7eb ${((wizardData.targetBodyFat - 5) / 45) * 100}%, #e5e7eb 100%)`
                       }}
                     />
                   </div>
@@ -532,9 +532,9 @@ export function WorkoutPlanner() {
                   {/* Deadline */}
                   <div>
                     <div className="flex items-center justify-between mb-3">
-                      <label className="text-sm font-semibold text-[#1a1a1a]">{t.workout.deadline}</label>
+                      <label className="text-sm font-semibold text-violet-950">{t.workout.deadline}</label>
                       <div className="flex items-center gap-2">
-                        <span className="text-3xl font-bold text-[#1a1a1a]">{wizardData.deadline}</span>
+                        <span className="text-3xl font-bold text-violet-950">{wizardData.deadline}</span>
                         <span className="text-sm text-gray-500">{t.common.days}</span>
                       </div>
                     </div>
@@ -547,7 +547,7 @@ export function WorkoutPlanner() {
                       onChange={(e) => setWizardData({ ...wizardData, deadline: Number(e.target.value) })}
                       className="w-full h-3 bg-gray-200 rounded-full appearance-none cursor-pointer slider"
                       style={{
-                        background: `linear-gradient(to right, #D4FF00 0%, #D4FF00 ${((wizardData.deadline - 30) / 335) * 100}%, #e5e7eb ${((wizardData.deadline - 30) / 335) * 100}%, #e5e7eb 100%)`
+                        background: `linear-gradient(to right, #6366F1 0%, #6366F1 ${((wizardData.deadline - 30) / 335) * 100}%, #e5e7eb ${((wizardData.deadline - 30) / 335) * 100}%, #e5e7eb 100%)`
                       }}
                     />
                     <div className="flex justify-between text-xs text-gray-400 mt-1">
@@ -559,9 +559,9 @@ export function WorkoutPlanner() {
                   {/* Workouts per Week */}
                   <div>
                     <div className="flex items-center justify-between mb-3">
-                      <label className="text-sm font-semibold text-[#1a1a1a]">{t.workout.workoutsPerWeek}</label>
+                      <label className="text-sm font-semibold text-violet-950">{t.workout.workoutsPerWeek}</label>
                       <div className="flex items-center gap-2">
-                        <span className="text-3xl font-bold text-[#1a1a1a]">{wizardData.workoutsPerWeek}</span>
+                        <span className="text-3xl font-bold text-violet-950">{wizardData.workoutsPerWeek}</span>
                         <span className="text-sm text-gray-500">x/{t.common.week}</span>
                       </div>
                     </div>
@@ -573,14 +573,14 @@ export function WorkoutPlanner() {
                       onChange={(e) => setWizardData({ ...wizardData, workoutsPerWeek: Number(e.target.value) })}
                       className="w-full h-3 bg-gray-200 rounded-full appearance-none cursor-pointer slider"
                       style={{
-                        background: `linear-gradient(to right, #D4FF00 0%, #D4FF00 ${((wizardData.workoutsPerWeek - 2) / 5) * 100}%, #e5e7eb ${((wizardData.workoutsPerWeek - 2) / 5) * 100}%, #e5e7eb 100%)`
+                        background: `linear-gradient(to right, #6366F1 0%, #6366F1 ${((wizardData.workoutsPerWeek - 2) / 5) * 100}%, #e5e7eb ${((wizardData.workoutsPerWeek - 2) / 5) * 100}%, #e5e7eb 100%)`
                       }}
                     />
                   </div>
 
                   {/* Experience Level */}
                   <div>
-                    <label className="text-sm font-semibold text-[#1a1a1a] mb-3 block">{t.workout.experience}</label>
+                    <label className="text-sm font-semibold text-violet-950 mb-3 block">{t.workout.experience}</label>
                     <div className="grid grid-cols-3 gap-3">
                       {['beginner', 'intermediate', 'advanced'].map((level) => (
                         <button
@@ -588,11 +588,11 @@ export function WorkoutPlanner() {
                           onClick={() => setWizardData({ ...wizardData, experience: level })}
                           className={`p-4 rounded-xl border-2 transition-all ${
                             wizardData.experience === level
-                              ? 'border-[#D4FF00] bg-[#D4FF00]/10'
+                              ? 'border-violet-500 bg-violet-500/10'
                               : 'border-gray-200 hover:border-gray-300'
                           }`}
                         >
-                          <p className="text-sm font-bold text-[#1a1a1a]">{tWorkout[level as 'beginner' | 'intermediate' | 'advanced'] || level}</p>
+                          <p className="text-sm font-bold text-violet-950">{t.workout[level as 'beginner' | 'intermediate' | 'advanced'] || level}</p>
                         </button>
                       ))}
                     </div>
@@ -600,29 +600,29 @@ export function WorkoutPlanner() {
 
                   {/* Equipment */}
                   <div>
-                    <label className="text-sm font-semibold text-[#1a1a1a] mb-3 block">{t.workout.equipment}</label>
+                    <label className="text-sm font-semibold text-violet-950 mb-3 block">{t.workout.equipment}</label>
                     <div className="grid grid-cols-2 gap-3">
                       <button
                         onClick={() => setWizardData({ ...wizardData, equipment: 'gym' })}
                         className={`p-6 rounded-xl border-2 transition-all ${
                           wizardData.equipment === 'gym'
-                            ? 'border-[#D4FF00] bg-[#D4FF00]/10'
+                            ? 'border-violet-500 bg-violet-500/10'
                             : 'border-gray-200 hover:border-gray-300'
                         }`}
                       >
-                        <Building2 className="w-8 h-8 mx-auto mb-2 text-[#1a1a1a]" />
-                        <p className="text-sm font-bold text-[#1a1a1a]">{t.workout.gym}</p>
+                        <Building2 className="w-8 h-8 mx-auto mb-2 text-violet-950" />
+                        <p className="text-sm font-bold text-violet-950">{t.workout.gym}</p>
                       </button>
                       <button
                         onClick={() => setWizardData({ ...wizardData, equipment: 'home' })}
                         className={`p-6 rounded-xl border-2 transition-all ${
                           wizardData.equipment === 'home'
-                            ? 'border-[#D4FF00] bg-[#D4FF00]/10'
+                            ? 'border-violet-500 bg-violet-500/10'
                             : 'border-gray-200 hover:border-gray-300'
                         }`}
                       >
-                        <Home className="w-8 h-8 mx-auto mb-2 text-[#1a1a1a]" />
-                        <p className="text-sm font-bold text-[#1a1a1a]">{t.workout.home}</p>
+                        <Home className="w-8 h-8 mx-auto mb-2 text-violet-950" />
+                        <p className="text-sm font-bold text-violet-950">{t.workout.home}</p>
                       </button>
                     </div>
                   </div>
@@ -636,7 +636,7 @@ export function WorkoutPlanner() {
                 {wizardStep > 1 && (
                   <button
                     onClick={() => setWizardStep(wizardStep - 1)}
-                    className="px-6 py-3 bg-gray-100 text-[#1a1a1a] rounded-xl font-semibold hover:bg-gray-200 transition-all"
+                    className="px-6 py-3 bg-gray-100 text-violet-950 rounded-xl font-semibold hover:bg-gray-200 transition-all"
                   >
                     {t.workout.previous}
                   </button>
@@ -645,7 +645,7 @@ export function WorkoutPlanner() {
                 {wizardStep < 3 ? (
                   <button
                     onClick={nextStep}
-                    className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-[#1a1a1a] text-white rounded-xl font-semibold hover:bg-[#2a2a2a] transition-all"
+                    className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-violet-500 text-white rounded-xl font-semibold hover:bg-violet-700 transition-all"
                   >
                     <span>{t.workout.next}</span>
                     <ArrowRight className="w-5 h-5" />
@@ -653,7 +653,7 @@ export function WorkoutPlanner() {
                 ) : (
                   <button
                     onClick={generatePlan}
-                    className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-[#D4FF00] to-[#a8cc00] text-[#1a1a1a] rounded-xl font-bold hover:opacity-90 transition-all"
+                    className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-violet-500 to-violet-700 text-violet-950 rounded-xl font-bold hover:opacity-90 transition-all"
                   >
                     <Zap className="w-5 h-5" />
                     <span>{t.workout.generatePlan}</span>

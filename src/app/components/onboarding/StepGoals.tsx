@@ -26,7 +26,7 @@ export function StepGoals({ data, onChange }: StepGoalsProps) {
   return (
     <div className="space-y-4">
       <div>
-        <h2 className="text-lg font-bold text-[#1a1a1a] mb-1">Your wellness goals</h2>
+        <h2 className="text-lg font-bold text-violet-950 mb-1">Your wellness goals</h2>
         <p className="text-sm text-gray-500 mb-4">Select all that apply to your journey.</p>
       </div>
 
@@ -40,7 +40,7 @@ export function StepGoals({ data, onChange }: StepGoalsProps) {
               onClick={() => toggleGoal(goal.id)}
               className={`px-4 py-3 rounded-xl text-sm font-medium text-center transition-all active:scale-[0.97] ${
                 isSelected
-                  ? 'bg-[#D4FF00] text-black border border-[#D4FF00]'
+                  ? 'bg-violet-500 text-white border border-violet-500'
                   : 'bg-gray-100 text-gray-600 border border-transparent hover:bg-gray-150'
               }`}
             >

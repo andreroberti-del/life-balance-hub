@@ -253,9 +253,9 @@ export const LEVELS: UserLevel[] = [
   },
   {
     level: 5,
-    name_en: 'Life Balance Master',
-    name_pt: 'Mestre do Life Balance',
-    name_es: 'Maestro del Life Balance',
+    name_en: 'M7 Life Balance Master',
+    name_pt: 'Mestre do M7 Life Balance',
+    name_es: 'Maestro del M7 Life Balance',
     minXP: 30000,
     maxXP: 999999,
   },

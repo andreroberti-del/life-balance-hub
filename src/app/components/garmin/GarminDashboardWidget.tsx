@@ -13,7 +13,7 @@ export function GarminDashboardWidget() {
       <div className="bg-white rounded-3xl p-6 border border-gray-200/50 shadow-sm">
         <div className="flex items-center gap-2 mb-4">
           <Watch className="w-5 h-5 text-[#007749]" />
-          <h3 className="font-bold text-[#1a1a1a]">{t.garmin.garminData}</h3>
+          <h3 className="font-bold text-violet-950">{t.garmin.garminData}</h3>
         </div>
         <p className="text-sm text-gray-400 text-center py-4">{t.garmin.noData}</p>
       </div>
@@ -54,7 +54,7 @@ export function GarminDashboardWidget() {
     <div className="bg-white rounded-3xl p-6 border border-gray-200/50 shadow-sm">
       <div className="flex items-center gap-2 mb-5">
         <Watch className="w-5 h-5 text-[#007749]" />
-        <h3 className="font-bold text-[#1a1a1a]">{t.garmin.garminData}</h3>
+        <h3 className="font-bold text-violet-950">{t.garmin.garminData}</h3>
         <span className="ml-auto text-[10px] font-medium bg-green-100 text-green-700 px-2 py-0.5 rounded-full">LIVE</span>
       </div>
       <div className="grid grid-cols-2 gap-4">
@@ -65,7 +65,7 @@ export function GarminDashboardWidget() {
             </div>
             <div>
               <p className="text-xs text-gray-500">{label}</p>
-              <p className="text-sm font-bold text-[#1a1a1a]">
+              <p className="text-sm font-bold text-violet-950">
                 {value}
                 {sub && <span className="text-xs font-normal text-gray-400 ml-0.5">{sub}</span>}
               </p>

@@ -13,7 +13,7 @@ export function GarminActivityFeed() {
     <div className="bg-white rounded-3xl p-6 border border-gray-200/50 shadow-sm">
       <div className="flex items-center gap-2 mb-4">
         <Activity className="w-5 h-5 text-[#007749]" />
-        <h3 className="font-bold text-[#1a1a1a]">{t.garmin.activities}</h3>
+        <h3 className="font-bold text-violet-950">{t.garmin.activities}</h3>
       </div>
 
       <div className="space-y-3">
@@ -24,7 +24,7 @@ export function GarminActivityFeed() {
           >
             <span className="text-xl">{getActivityIcon(activity.activity_type)}</span>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold text-[#1a1a1a] truncate">
+              <p className="text-sm font-semibold text-violet-950 truncate">
                 {activity.activity_name || activity.activity_type}
               </p>
               <p className="text-xs text-gray-500">
@@ -33,7 +33,7 @@ export function GarminActivityFeed() {
             </div>
             <div className="text-right">
               {activity.duration_seconds && (
-                <p className="text-sm font-bold text-[#1a1a1a]">
+                <p className="text-sm font-bold text-violet-950">
                   {formatDuration(activity.duration_seconds)}
                 </p>
               )}

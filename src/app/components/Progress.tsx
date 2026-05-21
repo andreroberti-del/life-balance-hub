@@ -43,14 +43,14 @@ export function Progress() {
   ];
 
   return (
-    <div className="min-h-screen p-6 md:p-8 bg-[#FAFAFA]">
+    <div className="min-h-screen p-6 md:p-8 bg-violet-50">
       <div className="max-w-[1600px] mx-auto">
         <div className="mb-8"><h1 className="text-4xl md:text-5xl font-bold text-black mb-2">{t.progress.title}</h1><p className="text-sm text-gray-500">{t.progress.subtitle}</p></div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
-          <div className="bg-[#D4FF00] rounded-3xl p-6 shadow-lg"><div className="flex items-center gap-3 mb-3"><div className="w-12 h-12 bg-black rounded-2xl flex items-center justify-center"><TrendingUp className="w-6 h-6 text-white" /></div><div><p className="text-sm font-bold text-black/70 uppercase">{t.progress.omegaImprovement}</p><p className="text-4xl font-bold text-black">72%</p></div></div><p className="text-xs text-black/60">{t.progress.from} 15:1 {t.progress.to} 4.2:1</p></div>
-          <div className="bg-black rounded-3xl p-6 text-white shadow-lg"><div className="flex items-center gap-3 mb-3"><div className="w-12 h-12 bg-[#D4FF00] rounded-2xl flex items-center justify-center"><Target className="w-6 h-6 text-black" /></div><div><p className="text-sm font-bold text-white/70 uppercase">{t.progress.weightLost}</p><p className="text-4xl font-bold">2.7 kg</p></div></div><p className="text-xs text-white/60">{t.progress.goal}: 6.0 kg {t.progress.remaining}</p></div>
-          <div className="bg-white rounded-3xl p-6 border border-gray-200/50 shadow-sm"><div className="flex items-center gap-3 mb-3"><div className="w-12 h-12 bg-black rounded-2xl flex items-center justify-center"><Award className="w-6 h-6 text-white" /></div><div><p className="text-sm font-bold text-gray-500 uppercase">{t.progress.currentStreak}</p><p className="text-4xl font-bold text-black">21 {t.common.days}</p></div></div><p className="text-xs text-gray-500">{t.progress.personalBest}</p></div>
+          <div className="bg-violet-500 rounded-3xl p-6 shadow-lg"><div className="flex items-center gap-3 mb-3"><div className="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center"><TrendingUp className="w-6 h-6 text-white" /></div><div><p className="text-sm font-bold text-white/80 uppercase">{t.progress.omegaImprovement}</p><p className="text-4xl font-bold text-white">72%</p></div></div><p className="text-xs text-white/70">{t.progress.from} 15:1 {t.progress.to} 4.2:1</p></div>
+          <div className="bg-violet-500 rounded-3xl p-6 text-white shadow-lg"><div className="flex items-center gap-3 mb-3"><div className="w-12 h-12 bg-violet-500 rounded-2xl flex items-center justify-center"><Target className="w-6 h-6 text-white" /></div><div><p className="text-sm font-bold text-white/70 uppercase">{t.progress.weightLost}</p><p className="text-4xl font-bold">2.7 kg</p></div></div><p className="text-xs text-white/60">{t.progress.goal}: 6.0 kg {t.progress.remaining}</p></div>
+          <div className="bg-white rounded-3xl p-6 border border-gray-200/50 shadow-sm"><div className="flex items-center gap-3 mb-3"><div className="w-12 h-12 bg-violet-500 rounded-2xl flex items-center justify-center"><Award className="w-6 h-6 text-white" /></div><div><p className="text-sm font-bold text-gray-500 uppercase">{t.progress.currentStreak}</p><p className="text-4xl font-bold text-black">21 {t.common.days}</p></div></div><p className="text-xs text-gray-500">{t.progress.personalBest}</p></div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -59,18 +59,18 @@ export function Progress() {
               <h3 className="text-xl font-bold text-black mb-6">Protocol Timeline</h3>
               <div className="relative">
                 <div className="absolute left-6 top-0 bottom-0 w-1 bg-gray-100 rounded-full"></div>
-                <div className="absolute left-6 top-0 w-1 bg-black rounded-full" style={{ height: '57%' }}></div>
+                <div className="absolute left-6 top-0 w-1 bg-violet-500 rounded-full" style={{ height: '57%' }}></div>
                 <div className="space-y-6">
                   {milestones.map((m, i) => (
                     <div key={i} className="relative pl-16">
-                      <div className={`absolute left-0 w-12 h-12 rounded-2xl flex items-center justify-center ${m.completed ? m.current ? 'bg-[#D4FF00] text-black shadow-lg shadow-[#D4FF00]/20' : 'bg-black text-white' : 'bg-gray-100 text-gray-400'}`}>
+                      <div className={`absolute left-0 w-12 h-12 rounded-2xl flex items-center justify-center ${m.completed ? m.current ? 'bg-violet-500 text-white shadow-lg shadow-violet-300/40' : 'bg-violet-500 text-white' : 'bg-gray-100 text-gray-400'}`}>
                         {m.completed ? <CheckCircle className="w-6 h-6" /> : <Lock className="w-6 h-6" />}
                       </div>
-                      <div className={`p-4 rounded-2xl ${m.current ? 'bg-[#D4FF00]/10 border-2 border-[#D4FF00]' : m.completed ? 'bg-gray-50 border border-gray-200' : 'bg-white border border-gray-200'}`}>
+                      <div className={`p-4 rounded-2xl ${m.current ? 'bg-violet-500/10 border-2 border-violet-500' : m.completed ? 'bg-gray-50 border border-gray-200' : 'bg-white border border-gray-200'}`}>
                         <div className="flex items-center justify-between mb-1"><h4 className="font-bold text-black">{m.title}</h4><span className="text-xs font-bold text-gray-500">Day {m.day}</span></div>
                         <p className="text-xs text-gray-500">{m.date}</p>
                         {m.description && <p className="text-sm text-gray-600 mt-2">{m.description}</p>}
-                        {m.current && <div className="mt-3 pt-3 border-t border-[#D4FF00]/30"><p className="text-sm font-bold text-black">You are here! 🎯</p></div>}
+                        {m.current && <div className="mt-3 pt-3 border-t border-violet-500/30"><p className="text-sm font-bold text-violet-950">You are here! 🎯</p></div>}
                       </div>
                     </div>
                   ))}
@@ -82,13 +82,13 @@ export function Progress() {
               <div className="bg-white rounded-3xl p-6 border border-gray-200/50 shadow-sm">
                 <h3 className="text-lg font-bold text-black mb-5">Omega Ratio Evolution</h3>
                 <ResponsiveContainer width="100%" height={220}>
-                  <AreaChart data={omegaEvolution}><CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" vertical={false} /><XAxis dataKey="day" stroke="#9CA3AF" tick={{ fill: '#9ca3af', fontSize: 12 }} /><YAxis stroke="#9CA3AF" tick={{ fill: '#9ca3af', fontSize: 12 }} /><Tooltip contentStyle={{ backgroundColor: 'white', border: '1px solid #e5e7eb', borderRadius: '12px' }} /><Area type="monotone" dataKey="ratio" stroke="#1a1a1a" fill="url(#omegaGrad2)" strokeWidth={3} /><defs><linearGradient id="omegaGrad2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#1a1a1a" stopOpacity={0.2}/><stop offset="100%" stopColor="#1a1a1a" stopOpacity={0}/></linearGradient></defs></AreaChart>
+                  <AreaChart data={omegaEvolution}><CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" vertical={false} /><XAxis dataKey="day" stroke="#9CA3AF" tick={{ fill: '#9ca3af', fontSize: 12 }} /><YAxis stroke="#9CA3AF" tick={{ fill: '#9ca3af', fontSize: 12 }} /><Tooltip contentStyle={{ backgroundColor: 'white', border: '1px solid #e5e7eb', borderRadius: '12px' }} /><Area type="monotone" dataKey="ratio" stroke="#668DFF" fill="url(#omegaGrad2)" strokeWidth={3} /><defs><linearGradient id="omegaGrad2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#668DFF" stopOpacity={0.2}/><stop offset="100%" stopColor="#668DFF" stopOpacity={0}/></linearGradient></defs></AreaChart>
                 </ResponsiveContainer>
               </div>
               <div className="bg-white rounded-3xl p-6 border border-gray-200/50 shadow-sm">
                 <h3 className="text-lg font-bold text-black mb-5">Weight Evolution</h3>
                 <ResponsiveContainer width="100%" height={220}>
-                  <LineChart data={weightEvolution}><CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" vertical={false} /><XAxis dataKey="day" stroke="#9CA3AF" tick={{ fill: '#9ca3af', fontSize: 12 }} /><YAxis stroke="#9CA3AF" tick={{ fill: '#9ca3af', fontSize: 12 }} domain={[80, 95]} /><Tooltip contentStyle={{ backgroundColor: 'white', border: '1px solid #e5e7eb', borderRadius: '12px' }} /><Line type="monotone" dataKey="weight" stroke="#1a1a1a" strokeWidth={3} dot={{ fill: '#1a1a1a', r: 5 }} /></LineChart>
+                  <LineChart data={weightEvolution}><CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" vertical={false} /><XAxis dataKey="day" stroke="#9CA3AF" tick={{ fill: '#9ca3af', fontSize: 12 }} /><YAxis stroke="#9CA3AF" tick={{ fill: '#9ca3af', fontSize: 12 }} domain={[80, 95]} /><Tooltip contentStyle={{ backgroundColor: 'white', border: '1px solid #e5e7eb', borderRadius: '12px' }} /><Line type="monotone" dataKey="weight" stroke="#668DFF" strokeWidth={3} dot={{ fill: '#1a1a1a', r: 5 }} /></LineChart>
                 </ResponsiveContainer>
               </div>
             </div>
@@ -101,7 +101,7 @@ export function Progress() {
                     <div className="flex items-center justify-between mb-3"><h4 className="font-bold text-black">{goal.title}</h4><div className="flex items-center gap-2 text-xs text-gray-500 font-semibold"><Calendar className="w-4 h-4" /><span>{goal.deadline}</span></div></div>
                     <div className="flex items-end gap-3 mb-3"><span className="text-4xl font-bold text-black">{goal.current}</span><span className="text-gray-500 mb-1 font-semibold">/ {goal.target}</span></div>
                     <div className="flex justify-between text-sm mb-2"><span className="text-gray-600 font-semibold">Progress</span><span className="font-bold text-black">{goal.progress}%</span></div>
-                    <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden"><div className="h-3 rounded-full bg-black" style={{ width: `${goal.progress}%` }} /></div>
+                    <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden"><div className="h-3 rounded-full bg-violet-500" style={{ width: `${goal.progress}%` }} /></div>
                   </div>
                 ))}
               </div>
@@ -113,7 +113,7 @@ export function Progress() {
               <h3 className="text-xl font-bold text-black mb-5">Achievements</h3>
               <div className="space-y-3">
                 {achievements.map((a) => (
-                  <div key={a.id} className={`p-4 rounded-2xl border-2 transition-all ${a.completed ? 'bg-[#D4FF00]/10 border-[#D4FF00]' : 'bg-gray-50 border-gray-200'}`}>
+                  <div key={a.id} className={`p-4 rounded-2xl border-2 transition-all ${a.completed ? 'bg-violet-500/10 border-violet-500' : 'bg-gray-50 border-gray-200'}`}>
                     <div className="flex items-start gap-3">
                       <div className={`text-3xl ${a.completed ? '' : 'grayscale opacity-40'}`}>{a.icon}</div>
                       <div className="flex-1">
@@ -122,7 +122,7 @@ export function Progress() {
                         {a.completed ? (
                           <div className="flex items-center justify-between"><span className="text-xs text-gray-500 font-semibold">{a.date}</span><span className="text-xs font-bold text-black">+{a.points} pts</span></div>
                         ) : (
-                          <div><div className="w-full bg-gray-200 rounded-full h-1.5 mb-1 overflow-hidden"><div className="bg-black h-1.5 rounded-full" style={{ width: `${a.progress}%` }} /></div><div className="flex items-center justify-between"><span className="text-xs text-gray-500 font-semibold">{a.progress}%</span><span className="text-xs font-bold text-gray-400">+{a.points} pts</span></div></div>
+                          <div><div className="w-full bg-gray-200 rounded-full h-1.5 mb-1 overflow-hidden"><div className="bg-violet-500 h-1.5 rounded-full" style={{ width: `${a.progress}%` }} /></div><div className="flex items-center justify-between"><span className="text-xs text-gray-500 font-semibold">{a.progress}%</span><span className="text-xs font-bold text-gray-400">+{a.points} pts</span></div></div>
                         )}
                       </div>
                     </div>
@@ -130,7 +130,7 @@ export function Progress() {
                 ))}
               </div>
             </div>
-            <div className="bg-[#D4FF00] rounded-3xl p-6 shadow-lg"><h3 className="text-lg font-bold text-black mb-5">Total Points</h3><div className="text-center"><p className="text-6xl font-bold text-black mb-2">1,600</p><p className="text-sm text-black/60">Keep going to unlock more!</p></div></div>
+            <div className="bg-violet-500 rounded-3xl p-6 shadow-lg"><h3 className="text-lg font-bold text-white mb-5">Total Points</h3><div className="text-center"><p className="text-6xl font-bold text-white mb-2">1,600</p><p className="text-sm text-white/80">Keep going to unlock more!</p></div></div>
           </div>
         </div>
       </div>

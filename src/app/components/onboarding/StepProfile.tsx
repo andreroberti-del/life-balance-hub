@@ -7,7 +7,7 @@ export function StepProfile({ data, onChange }: StepProfileProps) {
   return (
     <div className="space-y-4">
       <div>
-        <h2 className="text-lg font-bold text-[#1a1a1a] mb-1">Tell us about yourself</h2>
+        <h2 className="text-lg font-bold text-violet-950 mb-1">Tell us about yourself</h2>
         <p className="text-sm text-gray-500 mb-4">This helps personalize your wellness journey.</p>
       </div>
 
@@ -21,7 +21,7 @@ export function StepProfile({ data, onChange }: StepProfileProps) {
           value={data.display_name}
           onChange={(e) => onChange('display_name', e.target.value)}
           placeholder="Your name"
-          className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-[#1a1a1a] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#D4FF00] focus:border-transparent transition-all"
+          className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-violet-950 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all"
         />
       </div>
 
@@ -37,7 +37,7 @@ export function StepProfile({ data, onChange }: StepProfileProps) {
           placeholder="e.g. 35"
           min={1}
           max={120}
-          className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-[#1a1a1a] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#D4FF00] focus:border-transparent transition-all"
+          className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-violet-950 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all"
         />
       </div>
 
@@ -49,7 +49,7 @@ export function StepProfile({ data, onChange }: StepProfileProps) {
           id="gender"
           value={data.gender}
           onChange={(e) => onChange('gender', e.target.value)}
-          className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-[#D4FF00] focus:border-transparent transition-all"
+          className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-violet-950 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all"
         >
           <option value="">Select gender</option>
           <option value="male">Male</option>
@@ -70,7 +70,7 @@ export function StepProfile({ data, onChange }: StepProfileProps) {
           placeholder="e.g. 178"
           min={50}
           max={250}
-          className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-[#1a1a1a] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#D4FF00] focus:border-transparent transition-all"
+          className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-violet-950 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all"
         />
       </div>
     </div>

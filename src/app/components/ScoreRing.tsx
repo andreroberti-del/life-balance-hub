@@ -77,7 +77,7 @@ export function ScoreRing({
   const getColor = () => {
     if (color !== 'auto') {
       const colorMap = {
-        neon: '#D4FF00',
+        neon: '#6366F1',
         success: '#4ADE80',
         warning: '#FBBF24',
         danger: '#F87171',
@@ -87,7 +87,7 @@ export function ScoreRing({
 
     // Auto color based on percentage
     if (percentage >= 75) return '#4ADE80'; // Green
-    if (percentage >= 50) return '#D4FF00'; // Neon (Good)
+    if (percentage >= 50) return '#6366F1'; // Neon (Good)
     if (percentage >= 25) return '#FBBF24'; // Yellow (Moderate)
     return '#F87171'; // Red (Poor)
   };

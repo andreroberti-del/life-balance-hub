@@ -13,7 +13,7 @@ export function StepSupplement({ data, onChange }: StepSupplementProps) {
   return (
     <div className="space-y-4">
       <div>
-        <h2 className="text-lg font-bold text-[#1a1a1a] mb-1">Omega supplement</h2>
+        <h2 className="text-lg font-bold text-violet-950 mb-1">Omega supplement</h2>
         <p className="text-sm text-gray-500 mb-4">Tell us about your current omega supplement.</p>
       </div>
 
@@ -23,7 +23,7 @@ export function StepSupplement({ data, onChange }: StepSupplementProps) {
           type="checkbox"
           checked={data.skip_supplement}
           onChange={(e) => onChange('skip_supplement', e.target.checked)}
-          className="w-5 h-5 rounded border-gray-300 text-[#D4FF00] focus:ring-[#D4FF00] accent-[#D4FF00]"
+          className="w-5 h-5 rounded border-gray-300 text-violet-500 focus:ring-violet-400 accent-[#6366F1]"
         />
         <span className="text-sm text-gray-600 font-medium">
           I don't take any omega supplement
@@ -42,7 +42,7 @@ export function StepSupplement({ data, onChange }: StepSupplementProps) {
               value={data.supplement_brand}
               onChange={(e) => onChange('supplement_brand', e.target.value)}
               placeholder="e.g. Zinzino"
-              className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-[#1a1a1a] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#D4FF00] focus:border-transparent transition-all"
+              className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-violet-950 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all"
             />
           </div>
 
@@ -55,8 +55,8 @@ export function StepSupplement({ data, onChange }: StepSupplementProps) {
               type="text"
               value={data.supplement_product}
               onChange={(e) => onChange('supplement_product', e.target.value)}
-              placeholder="e.g. BalanceOil+"
-              className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-[#1a1a1a] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#D4FF00] focus:border-transparent transition-all"
+              placeholder="e.g. your current omega product"
+              className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-violet-950 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all"
             />
           </div>
 
@@ -70,7 +70,7 @@ export function StepSupplement({ data, onChange }: StepSupplementProps) {
               value={data.supplement_dosage}
               onChange={(e) => onChange('supplement_dosage', e.target.value)}
               placeholder="e.g. 15ml"
-              className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-[#1a1a1a] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#D4FF00] focus:border-transparent transition-all"
+              className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-violet-950 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all"
             />
           </div>
 
@@ -85,7 +85,7 @@ export function StepSupplement({ data, onChange }: StepSupplementProps) {
               onChange={(e) => onChange('daily_servings', e.target.value ? Number(e.target.value) : 1)}
               min={1}
               max={10}
-              className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-[#1a1a1a] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#D4FF00] focus:border-transparent transition-all"
+              className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-violet-950 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all"
             />
           </div>
         </>

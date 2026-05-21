@@ -7,7 +7,7 @@ export function StepHealth({ data, onChange }: StepHealthProps) {
   return (
     <div className="space-y-4">
       <div>
-        <h2 className="text-lg font-bold text-[#1a1a1a] mb-1">Health metrics</h2>
+        <h2 className="text-lg font-bold text-violet-950 mb-1">Health metrics</h2>
         <p className="text-sm text-gray-500 mb-4">We use this to track your progress accurately.</p>
       </div>
 
@@ -24,7 +24,7 @@ export function StepHealth({ data, onChange }: StepHealthProps) {
           min={20}
           max={300}
           step={0.1}
-          className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-[#1a1a1a] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#D4FF00] focus:border-transparent transition-all"
+          className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-violet-950 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all"
         />
       </div>
 
@@ -40,7 +40,7 @@ export function StepHealth({ data, onChange }: StepHealthProps) {
           placeholder="e.g. 90"
           min={40}
           max={200}
-          className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-[#1a1a1a] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#D4FF00] focus:border-transparent transition-all"
+          className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-violet-950 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all"
         />
       </div>
 
@@ -52,7 +52,7 @@ export function StepHealth({ data, onChange }: StepHealthProps) {
           id="activity_level"
           value={data.activity_level}
           onChange={(e) => onChange('activity_level', e.target.value)}
-          className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-[#D4FF00] focus:border-transparent transition-all"
+          className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-violet-950 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all"
         >
           <option value="">Select activity level</option>
           <option value="sedentary">Sedentary</option>

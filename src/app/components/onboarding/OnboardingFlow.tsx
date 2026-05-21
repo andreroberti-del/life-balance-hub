@@ -122,16 +122,16 @@ export function OnboardingFlow() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA] flex items-center justify-center px-4 py-8">
+    <div className="min-h-screen bg-violet-50 flex items-center justify-center px-4 py-8">
       <div className="w-full max-w-lg">
         <div className="bg-white rounded-3xl border border-gray-200/50 p-8 shadow-sm">
           {/* Logo */}
           <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="w-10 h-10 bg-[#D4FF00] rounded-xl flex items-center justify-center">
-              <Activity className="w-5 h-5 text-black" />
+            <div className="w-12 h-12 bg-violet-500 rounded-2xl flex items-center justify-center">
+              <img src="/logo-m7-white.png" alt="M7 Life Balance" className="w-8 h-8 object-contain" />
             </div>
-            <h1 className="text-2xl font-bold text-[#1a1a1a] tracking-tight">
-              Life Balance
+            <h1 className="text-2xl font-bold text-violet-950 tracking-tight">
+              M7 Life Balance
             </h1>
           </div>
 
@@ -142,9 +142,9 @@ export function OnboardingFlow() {
                 key={index}
                 className={`w-3 h-3 rounded-full transition-all ${
                   index === currentStep
-                    ? 'bg-[#D4FF00] scale-110'
+                    ? 'bg-violet-500 scale-110'
                     : index < currentStep
-                      ? 'bg-[#1a1a1a]'
+                      ? 'bg-violet-500'
                       : 'bg-gray-200'
                 }`}
               />
@@ -158,7 +158,7 @@ export function OnboardingFlow() {
                 key={label}
                 className={`text-xs font-medium transition-colors ${
                   index === currentStep
-                    ? 'text-[#1a1a1a]'
+                    ? 'text-violet-950'
                     : 'text-gray-400'
                 }`}
               >
@@ -183,7 +183,7 @@ export function OnboardingFlow() {
             {currentStep < 3 ? (
               <button
                 onClick={handleNext}
-                className="px-6 py-3 bg-[#D4FF00] text-black font-bold rounded-xl hover:bg-[#c5f000] active:scale-[0.98] transition-all"
+                className="px-6 py-3 bg-violet-500 text-white font-bold rounded-xl hover:bg-violet-600 active:scale-[0.98] transition-all"
               >
                 Next
               </button>
@@ -191,7 +191,7 @@ export function OnboardingFlow() {
               <button
                 onClick={handleComplete}
                 disabled={saving}
-                className="px-6 py-3 bg-black text-white font-bold rounded-xl hover:bg-gray-900 active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-6 py-3 bg-violet-500 text-white font-bold rounded-xl hover:bg-gray-900 active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {saving ? 'Saving...' : 'Complete Setup'}
               </button>

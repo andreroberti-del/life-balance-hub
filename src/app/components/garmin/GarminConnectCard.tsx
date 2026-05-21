@@ -45,7 +45,7 @@ export function GarminConnectCard() {
             <Watch className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h3 className="font-bold text-[#1a1a1a]">Garmin Connect</h3>
+            <h3 className="font-bold text-violet-950">Garmin Connect</h3>
             <p className="text-xs text-gray-500">
               {isConnected ? (
                 <span className="flex items-center gap-1 text-green-600">

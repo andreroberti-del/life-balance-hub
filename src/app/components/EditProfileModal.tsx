@@ -92,7 +92,7 @@ export function EditProfileModal({ onClose }: EditProfileModalProps) {
       <div className="relative bg-white rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto shadow-2xl">
         {/* Header */}
         <div className="sticky top-0 bg-white border-b border-gray-100 p-5 flex items-center justify-between rounded-t-2xl z-10">
-          <h2 className="text-lg font-bold text-[#1a1a1a]">Edit Profile</h2>
+          <h2 className="text-lg font-bold text-violet-950">Edit Profile</h2>
           <button onClick={onClose} className="w-10 h-10 rounded-xl flex items-center justify-center hover:bg-gray-100 transition-all">
             <X className="w-5 h-5 text-gray-500" />
           </button>
@@ -126,7 +126,7 @@ export function EditProfileModal({ onClose }: EditProfileModalProps) {
             />
             <button
               onClick={() => fileInputRef.current?.click()}
-              className="mt-3 text-sm font-semibold text-[#1a1a1a] hover:text-gray-600 transition-colors"
+              className="mt-3 text-sm font-semibold text-violet-950 hover:text-gray-600 transition-colors"
             >
               Change Photo
             </button>
@@ -139,7 +139,7 @@ export function EditProfileModal({ onClose }: EditProfileModalProps) {
               type="text"
               value={displayName}
               onChange={(e) => setDisplayName(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-[#D4FF00] focus:border-transparent"
+              className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-violet-950 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent"
             />
           </div>
 
@@ -152,7 +152,7 @@ export function EditProfileModal({ onClose }: EditProfileModalProps) {
                 value={age}
                 onChange={(e) => setAge(e.target.value)}
                 placeholder="e.g. 35"
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-[#D4FF00] focus:border-transparent"
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-violet-950 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent"
               />
             </div>
             <div>
@@ -160,7 +160,7 @@ export function EditProfileModal({ onClose }: EditProfileModalProps) {
               <select
                 value={gender}
                 onChange={(e) => setGender(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-[#D4FF00] focus:border-transparent"
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-violet-950 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent"
               >
                 <option value="">Select</option>
                 <option value="male">Male</option>
@@ -179,7 +179,7 @@ export function EditProfileModal({ onClose }: EditProfileModalProps) {
                 value={heightCm}
                 onChange={(e) => setHeightCm(e.target.value)}
                 placeholder="178"
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-[#D4FF00] focus:border-transparent"
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-violet-950 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent"
               />
             </div>
             <div>
@@ -190,7 +190,7 @@ export function EditProfileModal({ onClose }: EditProfileModalProps) {
                 value={weightKg}
                 onChange={(e) => setWeightKg(e.target.value)}
                 placeholder="88.5"
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-[#D4FF00] focus:border-transparent"
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-violet-950 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent"
               />
             </div>
             <div>
@@ -200,7 +200,7 @@ export function EditProfileModal({ onClose }: EditProfileModalProps) {
                 value={waistCm}
                 onChange={(e) => setWaistCm(e.target.value)}
                 placeholder="96"
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-[#D4FF00] focus:border-transparent"
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-violet-950 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent"
               />
             </div>
           </div>
@@ -211,7 +211,7 @@ export function EditProfileModal({ onClose }: EditProfileModalProps) {
             <select
               value={activityLevel}
               onChange={(e) => setActivityLevel(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-[#D4FF00] focus:border-transparent"
+              className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-violet-950 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent"
             >
               <option value="">Select</option>
               <option value="sedentary">Sedentary</option>
@@ -226,7 +226,7 @@ export function EditProfileModal({ onClose }: EditProfileModalProps) {
           <button
             onClick={handleSave}
             disabled={saving}
-            className="w-full flex items-center justify-center gap-2 py-3.5 bg-[#D4FF00] text-[#1a1a1a] font-bold rounded-xl hover:bg-[#c4ef00] transition-all disabled:opacity-50"
+            className="w-full flex items-center justify-center gap-2 py-3.5 bg-violet-500 text-white font-bold rounded-xl hover:bg-[#c4ef00] transition-all disabled:opacity-50"
           >
             <Save className="w-5 h-5" />
             {saving ? 'Saving...' : 'Save Changes'}

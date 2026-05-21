@@ -353,10 +353,10 @@ export function WorkoutPlan() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-[#1a1a1a]">{t.workout.myWorkoutPlan}</h2>
+          <h2 className="text-2xl font-bold text-violet-950">{t.workout.myWorkoutPlan}</h2>
           <p className="text-sm text-gray-500">{t.workout.generatedByZeno}</p>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2 bg-[#D4FF00] text-[#1a1a1a] rounded-xl font-semibold hover:opacity-90 transition-all">
+        <button className="flex items-center gap-2 px-4 py-2 bg-violet-500 text-white rounded-xl font-semibold hover:opacity-90 transition-all">
           <Zap className="w-4 h-4" />
           <span>{t.workout.regeneratePlan}</span>
         </button>
@@ -374,14 +374,14 @@ export function WorkoutPlan() {
             <button
               key={workout.key}
               onClick={() => setSelectedDay(workout.data as unknown as WorkoutDay)}
-              className="group bg-white rounded-3xl p-6 border border-gray-100 hover:border-[#D4FF00] transition-all hover:scale-105 text-left"
+              className="group bg-white rounded-3xl p-6 border border-gray-100 hover:border-violet-500 transition-all hover:scale-105 text-left"
             >
               <div className="flex items-center justify-between mb-4">
                 <div className="text-4xl">{workout.data.emoji}</div>
-                <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-[#D4FF00] transition-colors" />
+                <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-violet-500 transition-colors" />
               </div>
 
-              <h3 className="text-lg font-bold text-[#1a1a1a] mb-1">{dayLabel}</h3>
+              <h3 className="text-lg font-bold text-violet-950 mb-1">{dayLabel}</h3>
               <p className="text-sm font-semibold text-gray-700 mb-3">{getDayName(workout.data as unknown as WorkoutDay)}</p>
 
               <div className="flex items-center gap-4 text-xs text-gray-500 mb-4">
@@ -399,11 +399,11 @@ export function WorkoutPlan() {
               <div className="space-y-2">
                 <div className="flex items-center justify-between text-xs">
                   <span className="text-gray-500">{t.workout.progress}</span>
-                  <span className="font-bold text-[#D4FF00]">{completedCount}/{totalCount}</span>
+                  <span className="font-bold text-violet-500">{completedCount}/{totalCount}</span>
                 </div>
                 <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-gradient-to-r from-[#D4FF00] to-[#a8cc00] transition-all duration-500"
+                    className="h-full bg-gradient-to-r from-violet-500 to-violet-700 transition-all duration-500"
                     style={{ width: `${progress}%` }}
                   />
                 </div>
@@ -423,7 +423,7 @@ export function WorkoutPlan() {
                 <div className="flex items-center gap-4">
                   <div className="text-5xl">{selectedDay.emoji}</div>
                   <div>
-                    <h2 className="text-2xl font-bold text-[#1a1a1a]">{getDayName(selectedDay)}</h2>
+                    <h2 className="text-2xl font-bold text-violet-950">{getDayName(selectedDay)}</h2>
                     <div className="flex items-center gap-4 text-sm text-gray-500 mt-1">
                       <div className="flex items-center gap-1">
                         <Dumbbell className="w-4 h-4" />
@@ -455,30 +455,30 @@ export function WorkoutPlan() {
                     <div
                       key={exercise.id}
                       className={`bg-gradient-to-br from-gray-50 to-white rounded-2xl p-6 border-2 transition-all ${
-                        isCompleted ? 'border-[#D4FF00] bg-[#D4FF00]/5' : 'border-gray-100'
+                        isCompleted ? 'border-violet-500 bg-violet-500/5' : 'border-gray-100'
                       }`}
                     >
                       <div className="flex items-start justify-between mb-4">
                         <div className="flex items-start gap-4 flex-1">
-                          <div className="w-10 h-10 bg-[#1a1a1a] text-white rounded-xl flex items-center justify-center font-bold">
+                          <div className="w-10 h-10 bg-violet-500 text-white rounded-xl flex items-center justify-center font-bold">
                             {index + 1}
                           </div>
                           <div className="flex-1">
-                            <h3 className="text-lg font-bold text-[#1a1a1a] mb-1">{getExerciseName(exercise)}</h3>
+                            <h3 className="text-lg font-bold text-violet-950 mb-1">{getExerciseName(exercise)}</h3>
                             <p className="text-sm text-gray-500 mb-3">{getMuscleGroup(exercise)}</p>
 
                             <div className="grid grid-cols-3 gap-3">
                               <div className="bg-white rounded-xl p-3 border border-gray-200">
                                 <p className="text-xs text-gray-500 mb-1">{t.workout.sets}</p>
-                                <p className="text-lg font-bold text-[#1a1a1a]">{exercise.sets}</p>
+                                <p className="text-lg font-bold text-violet-950">{exercise.sets}</p>
                               </div>
                               <div className="bg-white rounded-xl p-3 border border-gray-200">
                                 <p className="text-xs text-gray-500 mb-1">{t.workout.reps}</p>
-                                <p className="text-lg font-bold text-[#1a1a1a]">{exercise.reps}</p>
+                                <p className="text-lg font-bold text-violet-950">{exercise.reps}</p>
                               </div>
                               <div className="bg-white rounded-xl p-3 border border-gray-200">
                                 <p className="text-xs text-gray-500 mb-1">{t.workout.rest}</p>
-                                <p className="text-lg font-bold text-[#1a1a1a]">{exercise.rest}</p>
+                                <p className="text-lg font-bold text-violet-950">{exercise.rest}</p>
                               </div>
                             </div>
                           </div>
@@ -488,7 +488,7 @@ export function WorkoutPlan() {
                           <button
                             onClick={() => toggleExerciseComplete(exercise.id)}
                             className={`w-10 h-10 flex items-center justify-center rounded-xl transition-all ${
-                              isCompleted ? 'bg-[#D4FF00] text-[#1a1a1a]' : 'bg-gray-100 text-gray-400 hover:bg-gray-200'
+                              isCompleted ? 'bg-violet-500 text-white' : 'bg-gray-100 text-gray-400 hover:bg-gray-200'
                             }`}
                           >
                             <Check className="w-5 h-5" />
@@ -504,8 +504,8 @@ export function WorkoutPlan() {
 
                       {/* Quick weight suggestion */}
                       <div className="flex items-center gap-2 text-sm">
-                        <TrendingUp className="w-4 h-4 text-[#D4FF00]" />
-                        <span className="text-gray-600">{t.workout.suggestedWeight}: <strong className="text-[#1a1a1a]">{exercise.weight}</strong></span>
+                        <TrendingUp className="w-4 h-4 text-violet-500" />
+                        <span className="text-gray-600">{t.workout.suggestedWeight}: <strong className="text-violet-950">{exercise.weight}</strong></span>
                       </div>
                     </div>
                   );
@@ -515,7 +515,7 @@ export function WorkoutPlan() {
 
             {/* Footer */}
             <div className="p-6 border-t border-gray-100">
-              <button className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-gradient-to-r from-[#D4FF00] to-[#a8cc00] text-[#1a1a1a] rounded-xl font-bold hover:opacity-90 transition-all">
+              <button className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-gradient-to-r from-violet-500 to-violet-700 text-violet-950 rounded-xl font-bold hover:opacity-90 transition-all">
                 <Play className="w-5 h-5" />
                 <span>{t.workout.startWorkout}</span>
               </button>
@@ -531,7 +531,7 @@ export function WorkoutPlan() {
             {/* Header */}
             <div className="p-6 border-b border-gray-100">
               <div className="flex items-center justify-between">
-                <h2 className="text-2xl font-bold text-[#1a1a1a]">{getExerciseName(selectedExercise)}</h2>
+                <h2 className="text-2xl font-bold text-violet-950">{getExerciseName(selectedExercise)}</h2>
                 <button
                   onClick={() => setSelectedExercise(null)}
                   className="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-gray-100 transition-all"
@@ -580,11 +580,11 @@ export function WorkoutPlan() {
 
               {/* Instructions */}
               <div>
-                <h3 className="text-lg font-bold text-[#1a1a1a] mb-4">{t.workout.howToDo}</h3>
+                <h3 className="text-lg font-bold text-violet-950 mb-4">{t.workout.howToDo}</h3>
                 <ol className="space-y-3">
                   {getInstructions(selectedExercise).map((instruction, index) => (
                     <li key={index} className="flex items-start gap-3">
-                      <div className="w-6 h-6 bg-[#D4FF00] rounded-full flex items-center justify-center flex-shrink-0 text-sm font-bold text-[#1a1a1a]">
+                      <div className="w-6 h-6 bg-violet-500 rounded-full flex items-center justify-center flex-shrink-0 text-sm font-bold text-violet-950">
                         {index + 1}
                       </div>
                       <p className="text-gray-700 pt-0.5">{instruction}</p>
@@ -594,11 +594,11 @@ export function WorkoutPlan() {
               </div>
 
               {/* ZENO Tips */}
-              <div className="bg-gradient-to-r from-[#D4FF00]/20 to-[#a8cc00]/20 rounded-2xl p-6 border-2 border-[#D4FF00]">
+              <div className="bg-gradient-to-r from-violet-500/20 to-violet-700/20 rounded-2xl p-6 border-2 border-violet-500">
                 <div className="flex items-start gap-3">
-                  <Zap className="w-6 h-6 text-[#1a1a1a] flex-shrink-0" />
+                  <Zap className="w-6 h-6 text-violet-950 flex-shrink-0" />
                   <div>
-                    <h3 className="text-sm font-bold text-[#1a1a1a] mb-2">{t.workout.zenoTip}</h3>
+                    <h3 className="text-sm font-bold text-violet-950 mb-2">{t.workout.zenoTip}</h3>
                     <p className="text-sm text-gray-700">{getTips(selectedExercise)}</p>
                   </div>
                 </div>

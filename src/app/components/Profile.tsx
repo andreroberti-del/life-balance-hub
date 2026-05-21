@@ -51,7 +51,7 @@ export function Profile() {
   ];
 
   return (
-    <div className="min-h-screen p-6 md:p-8 bg-[#FAFAFA]">
+    <div className="min-h-screen p-6 md:p-8 bg-violet-50">
       <div className="max-w-[1600px] mx-auto">
         <div className="mb-8"><h1 className="text-4xl md:text-5xl font-bold text-black mb-2">{t.profile.title}</h1><p className="text-sm text-gray-500">{t.profile.subtitle}</p></div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -64,13 +64,13 @@ export function Profile() {
                   ) : '👤'}
                 </div>
                 <div className="flex-1">
-                  <div className="bg-black rounded-2xl p-6 text-white mb-4">
+                  <div className="bg-violet-500 rounded-2xl p-6 text-white mb-4">
                     <h2 className="text-3xl font-bold mb-2">{profileData.name}</h2>
-                    <div className="flex items-center gap-2 mb-3"><Crown className="w-4 h-4 text-[#D4FF00]" /><span className="text-sm font-bold text-[#D4FF00]">{profileData.badge}</span></div>
-                    <div className="flex items-center gap-2 text-sm text-gray-400"><Mail className="w-4 h-4" /><span>{profileData.email}</span></div>
-                    <div className="flex items-center gap-3 text-xs text-gray-400 mt-3"><Calendar className="w-4 h-4" /><span>Member since {profileData.joinDate}</span></div>
+                    <div className="flex items-center gap-2 mb-3"><Crown className="w-4 h-4 text-white" /><span className="text-sm font-bold text-white">{profileData.badge}</span></div>
+                    <div className="flex items-center gap-2 text-sm text-white/80"><Mail className="w-4 h-4" /><span>{profileData.email}</span></div>
+                    <div className="flex items-center gap-3 text-xs text-white/70 mt-3"><Calendar className="w-4 h-4" /><span>Member since {profileData.joinDate}</span></div>
                   </div>
-                  <button onClick={() => setEditOpen(true)} className="w-full bg-[#D4FF00] text-black px-6 py-3.5 rounded-2xl font-bold hover:bg-[#B8E000] transition-all flex items-center justify-center gap-2"><Edit className="w-5 h-5" />Edit Profile</button>
+                  <button onClick={() => setEditOpen(true)} className="w-full bg-violet-500 text-white px-6 py-3.5 rounded-2xl font-bold hover:bg-violet-600 transition-all flex items-center justify-center gap-2"><Edit className="w-5 h-5" />Edit Profile</button>
                 </div>
               </div>
             </div>
@@ -84,13 +84,13 @@ export function Profile() {
               <h3 className="text-xl font-bold text-black mb-6">Metabolic Age</h3>
               <div className="flex flex-col md:flex-row items-center gap-8">
                 <div className="relative w-40 h-40 flex-shrink-0">
-                  <svg className="w-40 h-40 transform -rotate-90"><circle cx="80" cy="80" r="70" stroke="#f3f4f6" strokeWidth="12" fill="none" /><circle cx="80" cy="80" r="70" stroke="#1a1a1a" strokeWidth="12" fill="none" strokeDasharray={`${2 * Math.PI * 70}`} strokeDashoffset={`${2 * Math.PI * 70 * 0.45}`} strokeLinecap="round" /></svg>
+                  <svg className="w-40 h-40 transform -rotate-90"><circle cx="80" cy="80" r="70" stroke="#f3f4f6" strokeWidth="12" fill="none" /><circle cx="80" cy="80" r="70" stroke="#668DFF" strokeWidth="12" fill="none" strokeDasharray={`${2 * Math.PI * 70}`} strokeDashoffset={`${2 * Math.PI * 70 * 0.45}`} strokeLinecap="round" /></svg>
                   <div className="absolute inset-0 flex flex-col items-center justify-center"><p className="text-5xl font-bold text-black">42</p><p className="text-xs text-gray-500 font-semibold">years</p></div>
                 </div>
                 <div className="flex-1 w-full space-y-4">
                   <div className="p-5 bg-gray-50 rounded-2xl border border-gray-100"><div className="flex items-center justify-between"><span className="text-sm font-bold text-gray-600">Real Age</span><span className="text-3xl font-bold text-black">{profileData.age}</span></div></div>
-                  <div className="p-5 bg-black rounded-2xl text-white"><div className="flex items-center justify-between"><span className="text-sm font-bold text-gray-400">Metabolic Age</span><span className="text-3xl font-bold">42</span></div></div>
-                  <div className="p-5 bg-[#D4FF00] rounded-2xl"><div className="flex items-center justify-between"><span className="text-sm font-bold text-black/70">Target Age</span><span className="text-3xl font-bold text-black">34</span></div></div>
+                  <div className="p-5 bg-violet-500 rounded-2xl text-white"><div className="flex items-center justify-between"><span className="text-sm font-bold text-gray-400">Metabolic Age</span><span className="text-3xl font-bold">42</span></div></div>
+                  <div className="p-5 bg-violet-500 rounded-2xl"><div className="flex items-center justify-between"><span className="text-sm font-bold text-white/80">Target Age</span><span className="text-3xl font-bold text-white">34</span></div></div>
                 </div>
               </div>
             </div>
@@ -99,7 +99,7 @@ export function Profile() {
               <div className="space-y-4">
                 {peerBenchmark.metrics.map((m, i) => (
                   <div key={i} className="p-5 rounded-2xl bg-gray-50 border border-gray-100">
-                    <div className="flex items-center justify-between mb-3"><span className="text-sm font-bold text-gray-700">{m.label}</span>{m.better && <span className="px-3 py-1.5 bg-[#D4FF00] text-black rounded-xl text-xs font-bold">Better than avg</span>}</div>
+                    <div className="flex items-center justify-between mb-3"><span className="text-sm font-bold text-gray-700">{m.label}</span>{m.better && <span className="px-3 py-1.5 bg-violet-500 text-white rounded-xl text-xs font-bold">Better than avg</span>}</div>
                     <div className="grid grid-cols-2 gap-4"><div><p className="text-xs text-gray-500 mb-2 font-semibold">You</p><p className="text-3xl font-bold text-black">{m.yourValue}{m.unit && ` ${m.unit}`}</p></div><div><p className="text-xs text-gray-500 mb-2 font-semibold">Peer Average</p><p className="text-3xl font-bold text-gray-400">{m.peerAvg}{m.unit && ` ${m.unit}`}</p></div></div>
                   </div>
                 ))}
@@ -110,11 +110,11 @@ export function Profile() {
             <GarminConnectCard />
             <div className="bg-white rounded-3xl p-6 border border-gray-200/50 shadow-sm">
               <h3 className="text-xl font-bold text-black mb-5">Omega Supplement</h3>
-              <div className="bg-[#D4FF00] rounded-2xl p-6 mb-5 shadow-md text-center"><div className="text-5xl mb-3">💊</div><p className="text-2xl font-bold text-black">BalanceOil+</p><p className="text-xs text-black/60 mt-1 font-semibold">Premium Omega-3 Complex</p></div>
+              <div className="bg-violet-500 rounded-2xl p-6 mb-5 shadow-md text-center"><div className="text-5xl mb-3">💊</div><p className="text-2xl font-bold text-white">Premium Omega-3</p><p className="text-xs text-white/70 mt-1 font-semibold">Daily inflammation audit baseline</p></div>
               <div className="space-y-3">
-                <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl border border-gray-100"><span className="text-sm text-gray-600 font-semibold">Community using</span><span className="text-sm font-bold text-black">847 users</span></div>
-                <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl border border-gray-100"><span className="text-sm text-gray-600 font-semibold">Success rate</span><span className="text-sm font-bold text-black">73%</span></div>
-                <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl border border-gray-100"><span className="text-sm text-gray-600 font-semibold">Avg improvement</span><span className="text-sm font-bold text-black">68%</span></div>
+                <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl border border-gray-100"><span className="text-sm text-gray-600 font-semibold">Community using</span><span className="text-sm font-bold text-violet-950">847 users</span></div>
+                <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl border border-gray-100"><span className="text-sm text-gray-600 font-semibold">Success rate</span><span className="text-sm font-bold text-violet-950">73%</span></div>
+                <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl border border-gray-100"><span className="text-sm text-gray-600 font-semibold">Avg improvement</span><span className="text-sm font-bold text-violet-950">68%</span></div>
               </div>
             </div>
             {settingsSections.map((section, si) => (
@@ -123,9 +123,9 @@ export function Profile() {
                 <div className="space-y-3">
                   {section.items.map((item, ii) => (
                     <div key={ii} className="flex items-center justify-between p-4 hover:bg-gray-50 rounded-xl transition-all">
-                      <div className="flex items-center gap-3"><div className="w-10 h-10 bg-black rounded-xl flex items-center justify-center"><item.icon className="w-5 h-5 text-white" /></div><div><p className="font-bold text-black text-sm">{item.label}</p><p className="text-xs text-gray-500">{item.description}</p></div></div>
+                      <div className="flex items-center gap-3"><div className="w-10 h-10 bg-violet-500 rounded-xl flex items-center justify-center"><item.icon className="w-5 h-5 text-white" /></div><div><p className="font-bold text-black text-sm">{item.label}</p><p className="text-xs text-gray-500">{item.description}</p></div></div>
                       <div>
-                        {'enabled' in item && item.enabled !== undefined && <button className={`relative w-12 h-6 rounded-full transition-colors ${item.enabled ? 'bg-[#D4FF00]' : 'bg-gray-300'}`}><div className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow-lg transition-transform ${item.enabled ? 'translate-x-7' : 'translate-x-1'}`} /></button>}
+                        {'enabled' in item && item.enabled !== undefined && <button className={`relative w-12 h-6 rounded-full transition-colors ${item.enabled ? 'bg-violet-500' : 'bg-gray-300'}`}><div className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow-lg transition-transform ${item.enabled ? 'translate-x-7' : 'translate-x-1'}`} /></button>}
                         {'value' in item && item.value && <span className="text-sm text-gray-600 font-bold">{item.value}</span>}
                         {'action' in item && item.action && <button className="text-black text-sm font-bold hover:text-gray-700 px-3 py-1.5 rounded-lg hover:bg-gray-100 transition-all">{item.action}</button>}
                       </div>
@@ -134,7 +134,7 @@ export function Profile() {
                 </div>
               </div>
             ))}
-            <div className="bg-black rounded-3xl p-6 text-white shadow-lg">
+            <div className="bg-violet-500 rounded-3xl p-6 text-white shadow-lg">
               <h3 className="text-xl font-bold mb-5">Your Impact</h3>
               <div className="space-y-4">
                 <div className="flex justify-between items-center"><span className="text-sm text-gray-400 font-semibold">Total Points</span><span className="text-3xl font-bold">1,600</span></div>

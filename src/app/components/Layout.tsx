@@ -27,15 +27,15 @@ export function Layout() {
   ];
 
   return (
-    <div className="flex h-screen bg-[#FAFAFA] overflow-hidden">
+    <div className="flex h-screen bg-violet-50 overflow-hidden">
 
       {/* Sidebar Desktop - Slim icon-only */}
       <aside className="hidden md:flex md:flex-col w-20 bg-white border-r border-gray-100">
 
         {/* Logo */}
         <div className="h-20 flex items-center justify-center border-b border-gray-100">
-          <div className="w-10 h-10 bg-[#1a1a1a] rounded-xl flex items-center justify-center">
-            <div className="w-2 h-2 rounded-full bg-[#D4FF00]"></div>
+          <div className="w-12 h-12 bg-violet-500 rounded-2xl flex items-center justify-center">
+            <img src="/logo-m7-white.png" alt="M7 Life Balance" className="w-8 h-8 object-contain" />
           </div>
         </div>
 
@@ -49,8 +49,8 @@ export function Layout() {
               className={({ isActive }) =>
                 `group relative w-12 h-12 flex items-center justify-center rounded-xl transition-all ${
                   isActive
-                    ? "bg-[#1a1a1a] text-white"
-                    : "text-gray-400 hover:bg-gray-50 hover:text-[#1a1a1a]"
+                    ? "bg-violet-500 text-white"
+                    : "text-gray-400 hover:bg-gray-50 hover:text-violet-950"
                 }`
               }
             >
@@ -58,10 +58,10 @@ export function Layout() {
                 <>
                   <item.icon className="w-5 h-5" />
                   {isActive && (
-                    <div className="absolute -left-0.5 top-1/2 -translate-y-1/2 w-1 h-6 bg-[#D4FF00] rounded-r-full"></div>
+                    <div className="absolute -left-0.5 top-1/2 -translate-y-1/2 w-1 h-6 bg-violet-500 rounded-r-full"></div>
                   )}
                   {/* Tooltip on hover */}
-                  <div className="absolute left-full ml-4 px-3 py-2 bg-[#1a1a1a] text-white text-xs font-medium rounded-lg opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity whitespace-nowrap z-50">
+                  <div className="absolute left-full ml-4 px-3 py-2 bg-violet-500 text-white text-xs font-medium rounded-lg opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity whitespace-nowrap z-50">
                     {item.label}
                   </div>
                 </>
@@ -76,9 +76,9 @@ export function Layout() {
             <LanguageSelector />
           </div>
 
-          <button className="w-12 h-12 flex items-center justify-center rounded-xl text-gray-400 hover:bg-gray-50 hover:text-[#1a1a1a] transition-all relative">
+          <button className="w-12 h-12 flex items-center justify-center rounded-xl text-gray-400 hover:bg-gray-50 hover:text-violet-950 transition-all relative">
             <Bell className="w-5 h-5" />
-            <div className="absolute top-2 right-2 w-2 h-2 bg-[#D4FF00] rounded-full"></div>
+            <div className="absolute top-2 right-2 w-2 h-2 bg-violet-500 rounded-full"></div>
           </button>
 
           {!isDemoMode && (
@@ -88,7 +88,7 @@ export function Layout() {
               title="Logout"
             >
               <LogOut className="w-5 h-5" />
-              <div className="absolute left-full ml-4 px-3 py-2 bg-[#1a1a1a] text-white text-xs font-medium rounded-lg opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity whitespace-nowrap z-50">
+              <div className="absolute left-full ml-4 px-3 py-2 bg-violet-500 text-white text-xs font-medium rounded-lg opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity whitespace-nowrap z-50">
                 Logout
               </div>
             </button>
@@ -104,11 +104,11 @@ export function Layout() {
       <div className="md:hidden fixed top-0 left-0 right-0 h-16 bg-white border-b border-gray-100 z-50">
         <div className="flex items-center justify-between h-full px-4">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-[#1a1a1a] rounded-lg flex items-center justify-center">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#D4FF00]"></div>
+            <div className="w-9 h-9 bg-violet-500 rounded-xl flex items-center justify-center">
+              <img src="/logo-m7-white.png" alt="M7 Life Balance" className="w-6 h-6 object-contain" />
             </div>
             <div>
-              <h1 className="text-sm font-bold text-[#1a1a1a]">Life Balance</h1>
+              <h1 className="text-sm font-bold text-violet-950">M7 Life Balance</h1>
               <p className="text-[10px] text-gray-400">Wellness Intelligence</p>
             </div>
           </div>
@@ -116,7 +116,7 @@ export function Layout() {
           <div className="flex items-center gap-2">
             <button className="w-10 h-10 flex items-center justify-center rounded-xl text-gray-400 hover:bg-gray-50 relative">
               <Bell className="w-5 h-5" />
-              <div className="absolute top-2 right-2 w-1.5 h-1.5 bg-[#D4FF00] rounded-full"></div>
+              <div className="absolute top-2 right-2 w-1.5 h-1.5 bg-violet-500 rounded-full"></div>
             </button>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -141,7 +141,7 @@ export function Layout() {
                 className={({ isActive }) =>
                   `flex items-center gap-4 px-4 py-3 rounded-xl transition-all ${
                     isActive
-                      ? "bg-[#1a1a1a] text-white"
+                      ? "bg-violet-500 text-white"
                       : "text-gray-600 hover:bg-gray-50"
                   }`
                 }
@@ -151,7 +151,7 @@ export function Layout() {
                     <item.icon className="w-5 h-5" />
                     <span className="text-sm font-medium">{item.label}</span>
                     {isActive && (
-                      <div className="ml-auto w-2 h-2 rounded-full bg-[#D4FF00]"></div>
+                      <div className="ml-auto w-2 h-2 rounded-full bg-violet-500"></div>
                     )}
                   </>
                 )}
@@ -166,7 +166,7 @@ export function Layout() {
                   👤
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-[#1a1a1a]">{profile?.display_name || t.user.name}</p>
+                  <p className="text-sm font-semibold text-violet-950">{profile?.display_name || t.user.name}</p>
                   <p className="text-xs text-gray-400">{t.user.title}</p>
                 </div>
               </div>

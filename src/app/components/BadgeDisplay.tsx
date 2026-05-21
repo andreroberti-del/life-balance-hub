@@ -38,7 +38,7 @@ export function BadgeCard({ badge, size = 'medium', onClick }: BadgeCardProps) {
       className={`${config.container} relative rounded-2xl flex items-center justify-center transition-all duration-300 ${
         badge.isLocked
           ? 'bg-[#2A2A2A] grayscale opacity-40 hover:opacity-60'
-          : 'bg-gradient-to-br from-[#D4FF00]/20 to-[#A0E000]/20 border-2 border-[#D4FF00] hover:scale-105 hover:shadow-[0_0_20px_rgba(212,255,0,0.3)]'
+          : 'bg-gradient-to-br from-violet-500/20 to-[#A0E000]/20 border-2 border-violet-500 hover:scale-105 hover:shadow-[0_0_20px_rgba(212,255,0,0.3)]'
       }`}
     >
       {/* Lock overlay for locked badges */}
@@ -55,7 +55,7 @@ export function BadgeCard({ badge, size = 'medium', onClick }: BadgeCardProps) {
 
       {/* Glow effect for earned badges */}
       {!badge.isLocked && (
-        <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#D4FF00]/20 to-transparent blur-xl -z-10" />
+        <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-violet-500/20 to-transparent blur-xl -z-10" />
       )}
     </button>
   );
@@ -86,7 +86,7 @@ export function BadgeGrid({ badges, onBadgeClick }: BadgeGridProps) {
           </p>
         </div>
         <div className="text-right">
-          <div className="text-3xl font-bold text-[#D4FF00]">{totalCount > 0 ? Math.round((earnedCount / totalCount) * 100) : 0}%</div>
+          <div className="text-3xl font-bold text-violet-500">{totalCount > 0 ? Math.round((earnedCount / totalCount) * 100) : 0}%</div>
           <div className="text-xs text-gray-400">{tGamification.complete || 'complete'}</div>
         </div>
       </div>
@@ -94,7 +94,7 @@ export function BadgeGrid({ badges, onBadgeClick }: BadgeGridProps) {
       {/* Progress bar */}
       <div className="w-full h-3 bg-white/10 rounded-full overflow-hidden">
         <div
-          className="h-full bg-gradient-to-r from-[#D4FF00] to-[#A0E000] transition-all duration-500"
+          className="h-full bg-gradient-to-r from-violet-500 to-[#A0E000] transition-all duration-500"
           style={{ width: `${totalCount > 0 ? (earnedCount / totalCount) * 100 : 0}%` }}
         />
       </div>
@@ -142,8 +142,8 @@ export function BadgeModal({ badge, onClose, isNewlyEarned = false }: BadgeModal
         {/* Animated background for newly earned badges */}
         {isNewlyEarned && (
           <>
-            <div className="absolute inset-0 bg-gradient-to-br from-[#D4FF00]/20 to-transparent animate-pulse" />
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-32 bg-[#D4FF00]/30 rounded-full blur-3xl animate-pulse" />
+            <div className="absolute inset-0 bg-gradient-to-br from-violet-500/20 to-transparent animate-pulse" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-32 bg-violet-500/30 rounded-full blur-3xl animate-pulse" />
           </>
         )}
 
@@ -160,7 +160,7 @@ export function BadgeModal({ badge, onClose, isNewlyEarned = false }: BadgeModal
           {/* Badge Display */}
           <div className="flex flex-col items-center mb-6">
             {isNewlyEarned && (
-              <div className="text-[#D4FF00] text-sm font-bold mb-4 animate-bounce">
+              <div className="text-violet-500 text-sm font-bold mb-4 animate-bounce">
                 {'\u{1F389}'} {tGamification.badgeEarned || 'Badge Earned!'} {'\u{1F389}'}
               </div>
             )}
@@ -186,7 +186,7 @@ export function BadgeModal({ badge, onClose, isNewlyEarned = false }: BadgeModal
             {badge.isLocked && (
               <div className="flex items-center justify-between text-sm">
                 <span className="text-gray-400">{tGamification.requirement || 'Requirement'}</span>
-                <span className="text-[#D4FF00]">{badge.requirement}</span>
+                <span className="text-violet-500">{badge.requirement}</span>
               </div>
             )}
           </div>
@@ -194,7 +194,7 @@ export function BadgeModal({ badge, onClose, isNewlyEarned = false }: BadgeModal
           {/* Action */}
           <button
             onClick={onClose}
-            className="w-full mt-6 py-3 bg-[#D4FF00] text-[#1A1A1A] font-bold rounded-full hover:bg-[#E5FF33] transition-colors"
+            className="w-full mt-6 py-3 bg-violet-500 text-white font-bold rounded-full hover:bg-violet-600 transition-colors"
           >
             {isNewlyEarned ? (tGamification.awesome || 'Awesome!') : (tCommon.close || 'Close')}
           </button>
@@ -206,7 +206,7 @@ export function BadgeModal({ badge, onClose, isNewlyEarned = false }: BadgeModal
             {[...Array(20)].map((_, i) => (
               <div
                 key={i}
-                className="absolute w-2 h-2 bg-[#D4FF00] rounded-full animate-confetti"
+                className="absolute w-2 h-2 bg-violet-500 rounded-full animate-confetti"
                 style={{
                   left: `${Math.random() * 100}%`,
                   animationDelay: `${Math.random() * 0.5}s`,

@@ -189,22 +189,22 @@ export function CheckIn() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#FAFAFA] flex items-center justify-center">
+      <div className="min-h-screen bg-violet-50 flex items-center justify-center">
         <Loader2 className="w-8 h-8 animate-spin text-gray-400" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen p-6 md:p-8 bg-[#FAFAFA]">
+    <div className="min-h-screen p-6 md:p-8 bg-violet-50">
       <div className="max-w-[1200px] mx-auto">
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-1">
-            <h1 className="text-3xl font-bold text-[#1a1a1a]">
+            <h1 className="text-3xl font-bold text-violet-950">
               Daily Check-in
             </h1>
-            <div className="w-2 h-2 rounded-full bg-[#D4FF00]"></div>
+            <div className="w-2 h-2 rounded-full bg-violet-500"></div>
           </div>
           <p className="text-sm text-gray-400">
             {isEditMode
@@ -218,8 +218,8 @@ export function CheckIn() {
           <div className="lg:col-span-2 space-y-6">
             {/* Body Measurements */}
             <div className="bg-white rounded-2xl p-6 border border-gray-100">
-              <h3 className="text-sm font-bold text-[#1a1a1a] uppercase tracking-wider mb-5 flex items-center gap-2">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#D4FF00]"></div>
+              <h3 className="text-sm font-bold text-violet-950 uppercase tracking-wider mb-5 flex items-center gap-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-violet-500"></div>
                 Body Measurements
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -235,7 +235,7 @@ export function CheckIn() {
                     onChange={(e) =>
                       setForm({ ...form, weight: e.target.value })
                     }
-                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-[#1a1a1a] font-medium focus:outline-none focus:ring-2 focus:ring-[#D4FF00] focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-violet-950 font-medium focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all"
                   />
                 </div>
                 <div>
@@ -250,7 +250,7 @@ export function CheckIn() {
                     onChange={(e) =>
                       setForm({ ...form, waist: e.target.value })
                     }
-                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-[#1a1a1a] font-medium focus:outline-none focus:ring-2 focus:ring-[#D4FF00] focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-violet-950 font-medium focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all"
                   />
                 </div>
               </div>
@@ -258,8 +258,8 @@ export function CheckIn() {
 
             {/* Sleep Quality */}
             <div className="bg-white rounded-2xl p-6 border border-gray-100">
-              <h3 className="text-sm font-bold text-[#1a1a1a] uppercase tracking-wider mb-5 flex items-center gap-2">
-                <div className="w-1.5 h-1.5 rounded-full bg-black"></div>
+              <h3 className="text-sm font-bold text-violet-950 uppercase tracking-wider mb-5 flex items-center gap-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-violet-500"></div>
                 Sleep Quality
               </h3>
               <div className="flex items-center gap-3">
@@ -271,7 +271,7 @@ export function CheckIn() {
                       onClick={() => setForm({ ...form, sleep_quality: val })}
                       className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all font-bold text-sm ${
                         form.sleep_quality >= val
-                          ? "bg-[#D4FF00] text-[#1a1a1a]"
+                          ? "bg-violet-500 text-white"
                           : "bg-gray-100 text-gray-400 hover:bg-gray-200"
                       }`}
                     >
@@ -291,13 +291,13 @@ export function CheckIn() {
 
             {/* Water Intake */}
             <div className="bg-white rounded-2xl p-6 border border-gray-100">
-              <h3 className="text-sm font-bold text-[#1a1a1a] uppercase tracking-wider mb-5 flex items-center gap-2">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#D4FF00]"></div>
+              <h3 className="text-sm font-bold text-violet-950 uppercase tracking-wider mb-5 flex items-center gap-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-violet-500"></div>
                 Water Intake
               </h3>
               <div className="flex items-center gap-3 mb-4">
                 <Droplets className="w-5 h-5 text-gray-400" />
-                <span className="text-3xl font-bold text-[#1a1a1a]">
+                <span className="text-3xl font-bold text-violet-950">
                   {form.water_liters.toFixed(1)}
                 </span>
                 <span className="text-lg text-gray-400">liters</span>
@@ -309,7 +309,7 @@ export function CheckIn() {
                     onClick={() => setForm({ ...form, water_liters: val })}
                     className={`px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${
                       form.water_liters === val
-                        ? "bg-[#1a1a1a] text-white"
+                        ? "bg-violet-500 text-white"
                         : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                     }`}
                   >
@@ -330,7 +330,7 @@ export function CheckIn() {
                       water_liters: parseFloat(e.target.value),
                     })
                   }
-                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#D4FF00]"
+                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#6366F1]"
                 />
                 <div className="flex justify-between text-xs text-gray-400 mt-1">
                   <span>0L</span>
@@ -346,7 +346,7 @@ export function CheckIn() {
                 <div className="flex items-center gap-3">
                   <Pill className="w-5 h-5 text-gray-400" />
                   <div>
-                    <h3 className="text-sm font-bold text-[#1a1a1a]">
+                    <h3 className="text-sm font-bold text-violet-950">
                       Omega Supplement
                     </h3>
                     <p className="text-xs text-gray-400">
@@ -359,7 +359,7 @@ export function CheckIn() {
                     setForm({ ...form, took_omega: !form.took_omega })
                   }
                   className={`relative w-14 h-7 rounded-full transition-colors ${
-                    form.took_omega ? "bg-[#D4FF00]" : "bg-gray-300"
+                    form.took_omega ? "bg-violet-500" : "bg-gray-300"
                   }`}
                 >
                   <div
@@ -373,8 +373,8 @@ export function CheckIn() {
 
             {/* Optional: Blood Pressure & Glucose */}
             <div className="bg-white rounded-2xl p-6 border border-gray-100">
-              <h3 className="text-sm font-bold text-[#1a1a1a] uppercase tracking-wider mb-1 flex items-center gap-2">
-                <div className="w-1.5 h-1.5 rounded-full bg-black"></div>
+              <h3 className="text-sm font-bold text-violet-950 uppercase tracking-wider mb-1 flex items-center gap-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-violet-500"></div>
                 Medical Metrics
               </h3>
               <p className="text-xs text-gray-400 mb-5">Optional</p>
@@ -391,7 +391,7 @@ export function CheckIn() {
                     onChange={(e) =>
                       setForm({ ...form, blood_pressure_sys: e.target.value })
                     }
-                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-[#1a1a1a] font-medium focus:outline-none focus:ring-2 focus:ring-[#D4FF00] focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-violet-950 font-medium focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all"
                   />
                 </div>
                 <div>
@@ -405,7 +405,7 @@ export function CheckIn() {
                     onChange={(e) =>
                       setForm({ ...form, blood_pressure_dia: e.target.value })
                     }
-                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-[#1a1a1a] font-medium focus:outline-none focus:ring-2 focus:ring-[#D4FF00] focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-violet-950 font-medium focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all"
                   />
                 </div>
                 <div>
@@ -419,7 +419,7 @@ export function CheckIn() {
                     onChange={(e) =>
                       setForm({ ...form, glucose: e.target.value })
                     }
-                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-[#1a1a1a] font-medium focus:outline-none focus:ring-2 focus:ring-[#D4FF00] focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-violet-950 font-medium focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all"
                   />
                 </div>
               </div>
@@ -427,8 +427,8 @@ export function CheckIn() {
 
             {/* Notes */}
             <div className="bg-white rounded-2xl p-6 border border-gray-100">
-              <h3 className="text-sm font-bold text-[#1a1a1a] uppercase tracking-wider mb-5 flex items-center gap-2">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#D4FF00]"></div>
+              <h3 className="text-sm font-bold text-violet-950 uppercase tracking-wider mb-5 flex items-center gap-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-violet-500"></div>
                 Notes
               </h3>
               <div className="flex items-start gap-3">
@@ -438,7 +438,7 @@ export function CheckIn() {
                   value={form.notes}
                   onChange={(e) => setForm({ ...form, notes: e.target.value })}
                   rows={3}
-                  className="flex-1 px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-[#1a1a1a] font-medium focus:outline-none focus:ring-2 focus:ring-[#D4FF00] focus:border-transparent transition-all resize-none"
+                  className="flex-1 px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-violet-950 font-medium focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all resize-none"
                 />
               </div>
             </div>
@@ -451,7 +451,7 @@ export function CheckIn() {
                 </div>
               )}
               {saved && (
-                <div className="bg-[#D4FF00]/20 border border-[#D4FF00]/40 rounded-xl px-4 py-3 text-sm text-[#1a1a1a] font-medium flex items-center gap-2">
+                <div className="bg-violet-500/20 border border-violet-500/40 rounded-xl px-4 py-3 text-sm text-violet-950 font-medium flex items-center gap-2">
                   <Check className="w-4 h-4" />
                   Check-in saved successfully!
                 </div>
@@ -459,7 +459,7 @@ export function CheckIn() {
               <button
                 onClick={handleSave}
                 disabled={saving}
-                className="w-full bg-[#1a1a1a] text-white py-4 rounded-2xl font-bold text-sm hover:bg-black transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+                className="w-full bg-violet-500 text-white py-4 rounded-2xl font-bold text-sm hover:bg-violet-700 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
               >
                 {saving ? (
                   <>
@@ -478,16 +478,16 @@ export function CheckIn() {
           {/* Right Column - History */}
           <div className="space-y-6">
             {/* Today's Summary */}
-            <div className="bg-[#D4FF00] rounded-2xl p-5">
+            <div className="bg-violet-500 rounded-2xl p-5">
               <div className="flex items-center gap-2 mb-3">
-                <div className="w-8 h-8 bg-[#1a1a1a] rounded-lg flex items-center justify-center">
-                  <Check className="w-4 h-4 text-[#D4FF00]" />
+                <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+                  <Check className="w-4 h-4 text-violet-500" />
                 </div>
-                <h3 className="text-sm font-bold text-[#1a1a1a]">
+                <h3 className="text-sm font-bold text-violet-950">
                   Today's Status
                 </h3>
               </div>
-              <p className="text-xs text-[#1a1a1a]/70 leading-relaxed">
+              <p className="text-xs text-violet-950/70 leading-relaxed">
                 {isEditMode
                   ? "You've already logged today's check-in. You can update it anytime."
                   : "You haven't logged today's check-in yet. Fill in the form to track your progress."}
@@ -501,8 +501,8 @@ export function CheckIn() {
                 className="flex items-center justify-between w-full mb-4"
               >
                 <div className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-black"></div>
-                  <h3 className="text-sm font-bold text-[#1a1a1a]">
+                  <div className="w-1.5 h-1.5 rounded-full bg-violet-500"></div>
+                  <h3 className="text-sm font-bold text-violet-950">
                     Recent Check-ins
                   </h3>
                 </div>
@@ -526,11 +526,11 @@ export function CheckIn() {
                         className="p-4 rounded-xl bg-gray-50 border border-gray-100"
                       >
                         <div className="flex items-center justify-between mb-2">
-                          <span className="text-xs font-bold text-[#1a1a1a]">
+                          <span className="text-xs font-bold text-violet-950">
                             {formatDate(entry.check_date)}
                           </span>
                           {entry.took_omega && (
-                            <span className="px-2 py-0.5 bg-[#D4FF00]/20 text-[10px] font-bold text-[#1a1a1a] rounded-md">
+                            <span className="px-2 py-0.5 bg-violet-500/20 text-[10px] font-bold text-violet-950 rounded-md">
                               OMEGA
                             </span>
                           )}
@@ -539,7 +539,7 @@ export function CheckIn() {
                           {entry.weight && (
                             <div className="flex justify-between">
                               <span className="text-gray-400">Weight</span>
-                              <span className="font-semibold text-[#1a1a1a]">
+                              <span className="font-semibold text-violet-950">
                                 {entry.weight} kg
                               </span>
                             </div>
@@ -547,7 +547,7 @@ export function CheckIn() {
                           {entry.waist && (
                             <div className="flex justify-between">
                               <span className="text-gray-400">Waist</span>
-                              <span className="font-semibold text-[#1a1a1a]">
+                              <span className="font-semibold text-violet-950">
                                 {entry.waist} cm
                               </span>
                             </div>
@@ -555,7 +555,7 @@ export function CheckIn() {
                           {entry.sleep_quality && (
                             <div className="flex justify-between">
                               <span className="text-gray-400">Sleep</span>
-                              <span className="font-semibold text-[#1a1a1a]">
+                              <span className="font-semibold text-violet-950">
                                 {entry.sleep_quality}/5
                               </span>
                             </div>
@@ -563,7 +563,7 @@ export function CheckIn() {
                           {entry.water_liters && (
                             <div className="flex justify-between">
                               <span className="text-gray-400">Water</span>
-                              <span className="font-semibold text-[#1a1a1a]">
+                              <span className="font-semibold text-violet-950">
                                 {entry.water_liters}L
                               </span>
                             </div>
@@ -571,7 +571,7 @@ export function CheckIn() {
                           {entry.blood_pressure_sys && (
                             <div className="flex justify-between">
                               <span className="text-gray-400">BP</span>
-                              <span className="font-semibold text-[#1a1a1a]">
+                              <span className="font-semibold text-violet-950">
                                 {entry.blood_pressure_sys}/
                                 {entry.blood_pressure_dia}
                               </span>
@@ -580,7 +580,7 @@ export function CheckIn() {
                           {entry.glucose && (
                             <div className="flex justify-between">
                               <span className="text-gray-400">Glucose</span>
-                              <span className="font-semibold text-[#1a1a1a]">
+                              <span className="font-semibold text-violet-950">
                                 {entry.glucose}
                               </span>
                             </div>
@@ -599,7 +599,7 @@ export function CheckIn() {
             </div>
 
             {/* Quick Tips */}
-            <div className="bg-[#1a1a1a] rounded-2xl p-5 text-white">
+            <div className="bg-violet-500 rounded-2xl p-5 text-white">
               <h3 className="text-sm font-bold mb-3">Tracking Tips</h3>
               <div className="space-y-3 text-xs text-gray-400">
                 <p>

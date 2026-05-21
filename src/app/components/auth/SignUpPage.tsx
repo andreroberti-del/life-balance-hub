@@ -53,15 +53,15 @@ export function SignUpPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA] flex items-center justify-center px-4">
+    <div className="min-h-screen bg-violet-50 flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         <div className="bg-white rounded-3xl border border-gray-200/50 p-8 shadow-sm">
           {/* Logo */}
           <div className="flex items-center justify-center gap-3 mb-8">
-            <div className="w-10 h-10 bg-[#D4FF00] rounded-xl flex items-center justify-center">
-              <Activity className="w-5 h-5 text-black" />
+            <div className="w-12 h-12 bg-violet-500 rounded-2xl flex items-center justify-center">
+              <img src="/logo-m7-white.png" alt="M7 Life Balance" className="w-8 h-8 object-contain" />
             </div>
-            <h1 className="text-2xl font-bold text-[#1a1a1a] tracking-tight">
+            <h1 className="text-2xl font-bold text-violet-950 tracking-tight">
               {t.common.lifeBalance}
             </h1>
           </div>
@@ -86,7 +86,7 @@ export function SignUpPage() {
                 onChange={(e) => setDisplayName(e.target.value)}
                 required
                 placeholder="Your name"
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-[#1a1a1a] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#D4FF00] focus:border-transparent transition-all"
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-violet-950 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all"
               />
             </div>
 
@@ -101,7 +101,7 @@ export function SignUpPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 placeholder="you@example.com"
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-[#1a1a1a] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#D4FF00] focus:border-transparent transition-all"
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-violet-950 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all"
               />
             </div>
 
@@ -116,7 +116,7 @@ export function SignUpPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 placeholder="At least 6 characters"
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-[#1a1a1a] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#D4FF00] focus:border-transparent transition-all"
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-violet-950 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all"
               />
             </div>
 
@@ -131,14 +131,14 @@ export function SignUpPage() {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
                 placeholder="Repeat your password"
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-[#1a1a1a] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#D4FF00] focus:border-transparent transition-all"
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-violet-950 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all"
               />
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 bg-[#D4FF00] text-black font-bold rounded-xl hover:bg-[#c5f000] active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-3 bg-violet-500 text-white font-bold rounded-xl hover:bg-violet-600 active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? 'Creating account...' : 'Create Account'}
             </button>
@@ -149,7 +149,7 @@ export function SignUpPage() {
             Already have an account?{' '}
             <button
               onClick={() => navigate('/login')}
-              className="text-[#1a1a1a] font-semibold hover:underline"
+              className="text-violet-950 font-semibold hover:underline"
             >
               Sign In
             </button>

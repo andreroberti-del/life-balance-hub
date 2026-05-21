@@ -1,7 +1,8 @@
 {
-  "name": "life-balance-hub",
+  "name": "m7-balance",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.1.0",
+  "description": "M7 Balance, app de bem estar do ecossistema Mind7. Migrado de life-balance-hub em 2026-04-25.",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,7 +10,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "mobile": "cd apps/mobile && npx expo start"
+    "mobile": "cd apps/mobile && npx expo start",
+    "type-check": "tsc -b --noEmit"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.99.2",

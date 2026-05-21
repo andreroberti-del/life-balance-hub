@@ -41,11 +41,11 @@ export function StreakDisplay({ currentStreak, longestStreak, isActive, size = '
     if (!isActive || currentStreak === 0) {
       return 'grayscale opacity-50';
     }
-    if (currentStreak >= 120) return 'animate-pulse drop-shadow-[0_0_10px_#D4FF00]';
+    if (currentStreak >= 120) return 'animate-pulse drop-shadow-[0_0_10px_#6366F1]';
     if (currentStreak >= 90) return 'animate-pulse drop-shadow-[0_0_8px_#4ADE80]';
     if (currentStreak >= 60) return 'drop-shadow-[0_0_6px_#FBBF24]';
     if (currentStreak >= 30) return 'drop-shadow-[0_0_4px_#60A5FA]';
-    if (currentStreak >= 7) return 'drop-shadow-[0_0_3px_#D4FF00]';
+    if (currentStreak >= 7) return 'drop-shadow-[0_0_3px_#6366F1]';
     return '';
   };
 
@@ -59,7 +59,7 @@ export function StreakDisplay({ currentStreak, longestStreak, isActive, size = '
       {/* Streak Info */}
       <div className="flex flex-col">
         <div className="flex items-baseline gap-2">
-          <span className={`${config.numberSize} font-bold ${isActive ? 'text-[#D4FF00]' : 'text-gray-400'}`}>
+          <span className={`${config.numberSize} font-bold ${isActive ? 'text-violet-500' : 'text-gray-400'}`}>
             {currentStreak}
           </span>
           <span className={`${config.labelSize} text-gray-400`}>
@@ -146,12 +146,12 @@ export function StreakCard({ currentStreak, longestStreak, isActive, graceAvaila
           <div className="space-y-2">
             <div className="flex items-center justify-between text-xs text-gray-400">
               <span>{tGamification.nextMilestone || 'Next Milestone'}</span>
-              <span className="font-medium text-[#D4FF00]">{nextMilestone} {tGamification.days || 'days'}</span>
+              <span className="font-medium text-violet-500">{nextMilestone} {tGamification.days || 'days'}</span>
             </div>
             {/* Progress bar */}
             <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
               <div
-                className="h-full bg-gradient-to-r from-[#D4FF00] to-[#A0E000] transition-all duration-500 rounded-full"
+                className="h-full bg-gradient-to-r from-violet-500 to-[#A0E000] transition-all duration-500 rounded-full"
                 style={{ width: `${progressToNext}%` }}
               />
             </div>
@@ -163,7 +163,7 @@ export function StreakCard({ currentStreak, longestStreak, isActive, graceAvaila
       {!isActive && onMaintainStreak && (
         <button
           onClick={onMaintainStreak}
-          className="w-full py-3 bg-[#D4FF00] text-[#1A1A1A] font-bold rounded-full hover:bg-[#E5FF33] transition-colors"
+          className="w-full py-3 bg-violet-500 text-white font-bold rounded-full hover:bg-violet-600 transition-colors"
         >
           {tGamification.completeToday || 'Complete Today'}
         </button>
@@ -172,7 +172,7 @@ export function StreakCard({ currentStreak, longestStreak, isActive, graceAvaila
       {/* Stats */}
       <div className="grid grid-cols-2 gap-4 mt-4 pt-4 border-t border-white/5">
         <div>
-          <div className="text-2xl font-bold text-[#D4FF00]">{currentStreak}</div>
+          <div className="text-2xl font-bold text-violet-500">{currentStreak}</div>
           <div className="text-xs text-gray-400">{tGamification.current || 'Current'}</div>
         </div>
         <div>

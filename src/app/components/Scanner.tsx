@@ -325,7 +325,7 @@ export function Scanner() {
   };
 
   return (
-    <div className="min-h-screen p-6 md:p-8 bg-[#FAFAFA]">
+    <div className="min-h-screen p-6 md:p-8 bg-violet-50">
       <div className="max-w-[1600px] mx-auto">
         {/* Hidden file inputs */}
         <input
@@ -348,24 +348,24 @@ export function Scanner() {
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
           <div>
             <div className="flex items-center gap-3 mb-1">
-              <h1 className="text-3xl font-bold text-[#1a1a1a]">
+              <h1 className="text-3xl font-bold text-violet-950">
                 {t.scanner.title}
               </h1>
-              <div className="w-2 h-2 rounded-full bg-[#D4FF00]"></div>
+              <div className="w-2 h-2 rounded-full bg-violet-500"></div>
             </div>
             <p className="text-sm text-gray-400">{t.scanner.subtitle}</p>
           </div>
           <div className="flex gap-3">
             <button
               onClick={() => cameraInputRef.current?.click()}
-              className="flex items-center gap-3 bg-[#1a1a1a] text-white px-6 py-3.5 rounded-2xl font-bold hover:bg-black transition-all shadow-lg"
+              className="flex items-center gap-3 bg-violet-500 text-white px-6 py-3.5 rounded-2xl font-bold hover:bg-violet-700 transition-all shadow-lg"
             >
               <Camera className="w-5 h-5" />
               {t.scanner.scanProduct}
             </button>
             <button
               onClick={() => fileInputRef.current?.click()}
-              className="flex items-center gap-3 bg-white text-[#1a1a1a] px-6 py-3.5 rounded-2xl font-bold border border-gray-200 hover:border-gray-300 transition-all"
+              className="flex items-center gap-3 bg-white text-violet-950 px-6 py-3.5 rounded-2xl font-bold border border-gray-200 hover:border-gray-300 transition-all"
             >
               <Upload className="w-5 h-5" />
               Upload
@@ -377,7 +377,7 @@ export function Scanner() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           <div className="bg-white rounded-2xl p-5 border border-gray-100">
             <p className="text-sm text-gray-500 mb-2">{t.scanner.totalScans}</p>
-            <p className="text-4xl font-bold text-[#1a1a1a]">{stats.total}</p>
+            <p className="text-4xl font-bold text-violet-950">{stats.total}</p>
             {!hasRealData && (
               <p className="text-[10px] text-gray-300 mt-1">Example data</p>
             )}
@@ -387,21 +387,21 @@ export function Scanner() {
               {t.scanner.goodChoices}
             </p>
             <div className="flex items-baseline gap-2">
-              <p className="text-4xl font-bold text-[#1a1a1a]">{stats.good}</p>
-              <span className="text-sm text-[#D4FF00] font-bold">
+              <p className="text-4xl font-bold text-violet-950">{stats.good}</p>
+              <span className="text-sm text-violet-500 font-bold">
                 {stats.rate}%
               </span>
             </div>
           </div>
           <div className="bg-white rounded-2xl p-5 border border-gray-100">
             <p className="text-sm text-gray-500 mb-2">{t.scanner.avoided}</p>
-            <p className="text-4xl font-bold text-[#1a1a1a]">{stats.bad}</p>
+            <p className="text-4xl font-bold text-violet-950">{stats.bad}</p>
           </div>
-          <div className="bg-[#D4FF00] rounded-2xl p-5">
-            <p className="text-sm text-black/70 mb-2 font-semibold">
+          <div className="bg-violet-500 rounded-2xl p-5">
+            <p className="text-sm text-white/80 mb-2 font-semibold">
               {t.scanner.successRate}
             </p>
-            <p className="text-4xl font-bold text-[#1a1a1a]">{stats.rate}%</p>
+            <p className="text-4xl font-bold text-white">{stats.rate}%</p>
           </div>
         </div>
 
@@ -411,7 +411,7 @@ export function Scanner() {
           <div className="lg:col-span-2 space-y-6">
             <div className="bg-white rounded-3xl p-6 border border-gray-200/50 shadow-sm">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-xl font-bold text-[#1a1a1a]">
+                <h3 className="text-xl font-bold text-violet-950">
                   {t.scanner.scanHistory}
                 </h3>
                 <div className="flex gap-2">
@@ -421,7 +421,7 @@ export function Scanner() {
                       onClick={() => setFilter(f)}
                       className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                         filter === f
-                          ? "bg-[#1a1a1a] text-white"
+                          ? "bg-violet-500 text-white"
                           : "text-gray-500 hover:bg-gray-100"
                       }`}
                     >
@@ -464,8 +464,8 @@ export function Scanner() {
                             <div
                               className={`w-16 h-16 rounded-2xl flex items-center justify-center text-2xl font-bold ${
                                 scan.verdict === "GOOD"
-                                  ? "bg-[#D4FF00] text-[#1a1a1a]"
-                                  : "bg-[#1a1a1a] text-white"
+                                  ? "bg-violet-500 text-white"
+                                  : "bg-violet-500 text-white"
                               }`}
                             >
                               {scan.score}
@@ -474,13 +474,13 @@ export function Scanner() {
                               <div
                                 className={`inline-block px-3 py-1 rounded-lg text-xs font-bold mb-2 ${
                                   scan.verdict === "GOOD"
-                                    ? "bg-[#D4FF00]/20 text-[#1a1a1a]"
-                                    : "bg-[#1a1a1a]/10 text-[#1a1a1a]"
+                                    ? "bg-violet-500/20 text-violet-950"
+                                    : "bg-violet-950/10 text-violet-950"
                                 }`}
                               >
                                 {scan.verdict}
                               </div>
-                              <h4 className="font-bold text-[#1a1a1a] text-lg mb-1">
+                              <h4 className="font-bold text-violet-950 text-lg mb-1">
                                 {scan.product_name}
                               </h4>
                               <div className="flex items-center gap-3">
@@ -496,9 +496,9 @@ export function Scanner() {
                             </div>
                           </div>
                           {scan.verdict === "GOOD" ? (
-                            <CheckCircle className="w-6 h-6 text-[#D4FF00]" />
+                            <CheckCircle className="w-6 h-6 text-violet-500" />
                           ) : (
-                            <XCircle className="w-6 h-6 text-[#1a1a1a]" />
+                            <XCircle className="w-6 h-6 text-violet-950" />
                           )}
                         </div>
 
@@ -515,7 +515,7 @@ export function Scanner() {
                                 (i) => i.category === "BAD"
                               ).length > 0 && (
                                 <div className="mb-4">
-                                  <p className="text-xs font-bold text-[#1a1a1a] mb-2 flex items-center gap-2">
+                                  <p className="text-xs font-bold text-violet-950 mb-2 flex items-center gap-2">
                                     <AlertCircle className="w-4 h-4" />
                                     {t.scanner.inflammatoryFlags}
                                   </p>
@@ -525,7 +525,7 @@ export function Scanner() {
                                       .map((ing, i) => (
                                         <span
                                           key={i}
-                                          className="px-3 py-1.5 bg-[#1a1a1a]/5 text-[#1a1a1a] rounded-xl text-xs font-semibold"
+                                          className="px-3 py-1.5 bg-violet-950/5 text-violet-950 rounded-xl text-xs font-semibold"
                                         >
                                           {ing.name}
                                         </span>
@@ -540,9 +540,9 @@ export function Scanner() {
                                     className="flex items-center gap-2 text-sm text-gray-700"
                                   >
                                     {ing.category === "GOOD" ? (
-                                      <CheckCircle className="w-4 h-4 text-[#D4FF00] flex-shrink-0" />
+                                      <CheckCircle className="w-4 h-4 text-violet-500 flex-shrink-0" />
                                     ) : ing.category === "BAD" ? (
-                                      <XCircle className="w-4 h-4 text-[#1a1a1a] flex-shrink-0" />
+                                      <XCircle className="w-4 h-4 text-violet-950 flex-shrink-0" />
                                     ) : (
                                       <AlertCircle className="w-4 h-4 text-gray-400 flex-shrink-0" />
                                     )}
@@ -570,11 +570,11 @@ export function Scanner() {
           <div className="space-y-6">
             {/* Ingredient Guide */}
             <div className="bg-white rounded-3xl p-6 border border-gray-200/50 shadow-sm">
-              <h3 className="text-xl font-bold text-[#1a1a1a] mb-6">
+              <h3 className="text-xl font-bold text-violet-950 mb-6">
                 {t.scanner.ingredientGuide}
               </h3>
               <div className="mb-6">
-                <h4 className="text-sm font-bold text-[#1a1a1a] mb-3 flex items-center gap-2">
+                <h4 className="text-sm font-bold text-violet-950 mb-3 flex items-center gap-2">
                   <XCircle className="w-4 h-4" />
                   {t.scanner.avoidThese}
                 </h4>
@@ -582,8 +582,8 @@ export function Scanner() {
                   {ingredientGuide
                     .filter((i) => i.type === "BAD")
                     .map((ing, idx) => (
-                      <div key={idx} className="p-4 bg-[#1a1a1a]/5 rounded-xl">
-                        <p className="text-sm font-bold text-[#1a1a1a] mb-1">
+                      <div key={idx} className="p-4 bg-violet-950/5 rounded-xl">
+                        <p className="text-sm font-bold text-violet-950 mb-1">
                           {ing.name}
                         </p>
                         <p className="text-xs text-gray-600">{ing.impact}</p>
@@ -592,7 +592,7 @@ export function Scanner() {
                 </div>
               </div>
               <div>
-                <h4 className="text-sm font-bold text-[#1a1a1a] mb-3 flex items-center gap-2">
+                <h4 className="text-sm font-bold text-violet-950 mb-3 flex items-center gap-2">
                   <CheckCircle className="w-4 h-4" />
                   {t.scanner.chooseThese}
                 </h4>
@@ -602,9 +602,9 @@ export function Scanner() {
                     .map((ing, idx) => (
                       <div
                         key={idx}
-                        className="p-4 bg-[#D4FF00]/10 rounded-xl border border-[#D4FF00]/20"
+                        className="p-4 bg-violet-500/10 rounded-xl border border-violet-500/20"
                       >
-                        <p className="text-sm font-bold text-[#1a1a1a] mb-1">
+                        <p className="text-sm font-bold text-violet-950 mb-1">
                           {ing.name}
                         </p>
                         <p className="text-xs text-gray-700">{ing.impact}</p>
@@ -615,16 +615,16 @@ export function Scanner() {
             </div>
 
             {/* Zeno Insight */}
-            <div className="bg-[#D4FF00] rounded-3xl p-6 shadow-lg">
+            <div className="bg-violet-500 rounded-3xl p-6 shadow-lg">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-[#1a1a1a] rounded-xl flex items-center justify-center">
+                <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
                   <span className="text-xl">🤖</span>
                 </div>
-                <h4 className="text-lg font-bold text-[#1a1a1a]">
+                <h4 className="text-lg font-bold text-white">
                   {t.scanner.zenoInsight}
                 </h4>
               </div>
-              <p className="text-sm text-black/80 leading-relaxed">
+              <p className="text-sm text-white/85 leading-relaxed">
                 {t.scanner.zenoInsightText}
               </p>
             </div>
@@ -639,7 +639,7 @@ export function Scanner() {
             <div className="p-6">
               {/* Modal Header */}
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-xl font-bold text-[#1a1a1a]">
+                <h3 className="text-xl font-bold text-violet-950">
                   Scan Result
                 </h3>
                 <button
@@ -669,8 +669,8 @@ export function Scanner() {
               {/* Scanning State */}
               {scanning && (
                 <div className="text-center py-8">
-                  <Loader2 className="w-10 h-10 animate-spin text-[#D4FF00] mx-auto mb-4" />
-                  <p className="text-sm font-semibold text-[#1a1a1a]">
+                  <Loader2 className="w-10 h-10 animate-spin text-violet-500 mx-auto mb-4" />
+                  <p className="text-sm font-semibold text-violet-950">
                     Analyzing ingredients...
                   </p>
                   <p className="text-xs text-gray-400 mt-1">
@@ -685,7 +685,7 @@ export function Scanner() {
                   <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
                     <AlertCircle className="w-8 h-8 text-gray-400" />
                   </div>
-                  <p className="text-sm font-semibold text-[#1a1a1a] mb-2">
+                  <p className="text-sm font-semibold text-violet-950 mb-2">
                     {scanError}
                   </p>
                   <p className="text-xs text-gray-400 mb-6">
@@ -697,7 +697,7 @@ export function Scanner() {
                       setPreviewImage(null);
                       setScanError(null);
                     }}
-                    className="px-6 py-3 bg-[#1a1a1a] text-white rounded-xl font-bold text-sm hover:bg-black transition-all"
+                    className="px-6 py-3 bg-violet-500 text-white rounded-xl font-bold text-sm hover:bg-violet-700 transition-all"
                   >
                     Got it
                   </button>
@@ -711,8 +711,8 @@ export function Scanner() {
                     <div
                       className={`w-20 h-20 rounded-2xl flex items-center justify-center text-3xl font-bold ${
                         scanResult.verdict === "GOOD"
-                          ? "bg-[#D4FF00] text-[#1a1a1a]"
-                          : "bg-[#1a1a1a] text-white"
+                          ? "bg-violet-500 text-white"
+                          : "bg-violet-500 text-white"
                       }`}
                     >
                       {scanResult.score}
@@ -721,13 +721,13 @@ export function Scanner() {
                       <div
                         className={`inline-block px-3 py-1 rounded-lg text-xs font-bold mb-1 ${
                           scanResult.verdict === "GOOD"
-                            ? "bg-[#D4FF00]/20 text-[#1a1a1a]"
-                            : "bg-[#1a1a1a]/10 text-[#1a1a1a]"
+                            ? "bg-violet-500/20 text-violet-950"
+                            : "bg-violet-950/10 text-violet-950"
                         }`}
                       >
                         {scanResult.verdict}
                       </div>
-                      <h4 className="text-lg font-bold text-[#1a1a1a]">
+                      <h4 className="text-lg font-bold text-violet-950">
                         {scanResult.product_name}
                       </h4>
                       {scanResult.brand && (
@@ -752,13 +752,13 @@ export function Scanner() {
                           className="flex items-center gap-2 text-sm"
                         >
                           {ing.category === "GOOD" ? (
-                            <CheckCircle className="w-4 h-4 text-[#D4FF00] flex-shrink-0" />
+                            <CheckCircle className="w-4 h-4 text-violet-500 flex-shrink-0" />
                           ) : ing.category === "BAD" ? (
-                            <XCircle className="w-4 h-4 text-[#1a1a1a] flex-shrink-0" />
+                            <XCircle className="w-4 h-4 text-violet-950 flex-shrink-0" />
                           ) : (
                             <AlertCircle className="w-4 h-4 text-gray-400 flex-shrink-0" />
                           )}
-                          <span className="font-medium text-[#1a1a1a]">
+                          <span className="font-medium text-violet-950">
                             {ing.name}
                           </span>
                           <span className="text-xs text-gray-500">
@@ -775,7 +775,7 @@ export function Scanner() {
                       setPreviewImage(null);
                       setScanResult(null);
                     }}
-                    className="w-full py-3.5 bg-[#1a1a1a] text-white rounded-xl font-bold text-sm hover:bg-black transition-all"
+                    className="w-full py-3.5 bg-violet-500 text-white rounded-xl font-bold text-sm hover:bg-violet-700 transition-all"
                   >
                     Done
                   </button>
