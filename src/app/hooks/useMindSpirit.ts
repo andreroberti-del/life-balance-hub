@@ -39,6 +39,8 @@ export interface Devotional {
   reflection_pt: string;
   prayer_pt: string | null;
   action_pt: string | null;
+  action_starter_minutes: number | null;
+  action_progression_pt: string | null;
   category: string | null;
   estimated_minutes: number;
   xp_reward: number;
