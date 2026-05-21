@@ -12,6 +12,10 @@ import { AuthGuard } from "./components/auth/AuthGuard";
 import { OnboardingFlow } from "./components/onboarding/OnboardingFlow";
 import { WorkoutPlanner } from "./components/WorkoutPlanner";
 import { DailyTrackerPage } from "./components/DailyTrackerPage";
+import { EducationHub } from "./components/education/EducationHub";
+import { CourseDetail } from "./components/education/CourseDetail";
+import { LessonPlayer } from "./components/education/LessonPlayer";
+import { ReferralsHub } from "./components/referrals/ReferralsHub";
 
 function Protected({ children }: { children: React.ReactNode }) {
   return <AuthGuard>{children}</AuthGuard>;
@@ -42,6 +46,10 @@ export const router = createBrowserRouter([
       { path: "profile", Component: Profile },
       { path: "workout", Component: WorkoutPlanner },
       { path: "daily-tracker", Component: DailyTrackerPage },
+      { path: "education", Component: EducationHub },
+      { path: "education/:courseId", Component: CourseDetail },
+      { path: "education/lesson/:lessonId", Component: LessonPlayer },
+      { path: "referrals", Component: ReferralsHub },
     ],
   },
 ]);

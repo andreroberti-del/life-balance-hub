@@ -1,8 +1,10 @@
-import { User, Mail, Calendar, Bell, Lock, Palette, Globe, Target, Droplet, Moon, TrendingUp, Users, Crown, Edit, Trophy, Zap, Pill, Award } from "lucide-react";
+import { User, Mail, Calendar, Bell, Lock, Palette, Globe, Target, Droplet, Moon, TrendingUp, Users, Crown, Edit, Trophy, Zap, Pill, Award, Users2 } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useLanguage } from "../contexts/LanguageContext";
 import { useAuth } from "../contexts/AuthContext";
+import { useLevels } from "../hooks/useLevels";
+import { useReferrals } from "../hooks/useReferrals";
 import { GarminConnectCard } from "./garmin/GarminConnectCard";
 import { EditProfileModal } from "./EditProfileModal";
 
@@ -17,6 +19,8 @@ const cardEntry = {
 export function Profile() {
   const { t } = useLanguage();
   const { profile } = useAuth();
+  const { current: currentLevel, userLevel } = useLevels();
+  const { myCode, stats: referralStats } = useReferrals();
   const [editOpen, setEditOpen] = useState(false);
   const profileData = {
     name: profile?.display_name || t.user.name,
@@ -107,9 +111,9 @@ export function Profile() {
         {/* IMPACT STATS (3-col) */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           {[
-            { label: 'Total XP', value: '1,600', sub: 'Lifetime points', icon: Zap, accent: 'yellow' },
-            { label: 'Achievements', value: '4/8', sub: '50% unlocked', icon: Trophy, accent: 'violet' },
-            { label: 'Community Rank', value: '#3', sub: 'Top 5% global', icon: Award, accent: 'violet-solid' },
+            { label: 'Total XP', value: (userLevel?.total_xp ?? 0).toLocaleString(), sub: `Nível ${currentLevel?.name_pt ?? 'Iniciante'}`, icon: Zap, accent: 'yellow' },
+            { label: 'Indicações ativas', value: `${referralStats.active}/3`, sub: referralStats.untilNextReward === 0 ? 'Reward desbloqueado' : `Faltam ${referralStats.untilNextReward}`, icon: Users2, accent: 'violet' },
+            { label: 'Código M7', value: myCode?.code ?? 'M7-•••', sub: `${referralStats.total} indicações totais`, icon: Crown, accent: 'violet-solid' },
           ].map((stat, i) => (
             <motion.div
               key={stat.label}

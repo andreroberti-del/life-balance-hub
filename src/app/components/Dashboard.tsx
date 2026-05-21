@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useLanguage } from "../contexts/LanguageContext";
 import { useAuth } from "../contexts/AuthContext";
+import { useLevels } from "../hooks/useLevels";
 import { GarminDashboardWidget } from "./garmin/GarminDashboardWidget";
 import { GarminSleepCard } from "./garmin/GarminSleepCard";
 import { GarminActivityFeed } from "./garmin/GarminActivityFeed";
@@ -37,6 +38,7 @@ export function Dashboard() {
   const { t } = useLanguage();
   const { profile } = useAuth();
   const navigate = useNavigate();
+  const { current: currentLevel, userLevel, progressPct: levelProgress } = useLevels();
   const displayName = profile?.display_name || profile?.email?.split('@')[0] || '';
 
   const dailyGoals = [
@@ -47,8 +49,8 @@ export function Dashboard() {
   ];
 
   const streak = 23;
-  const xpToday = 20;
-  const xpTarget = 100;
+  const totalXp = userLevel?.total_xp ?? 0;
+  const levelName = currentLevel?.name_pt ?? 'Iniciante';
 
   return (
     <div className="min-h-screen bg-violet-50">
@@ -88,17 +90,17 @@ export function Dashboard() {
                 </div>
               </div>
 
-              {/* XP */}
-              <div className="bg-white/15 backdrop-blur rounded-2xl px-6 py-5 border border-white/20 min-w-[180px]">
+              {/* XP + Level */}
+              <div className="bg-white/15 backdrop-blur rounded-2xl px-6 py-5 border border-white/20 min-w-[200px]">
                 <div className="flex items-center gap-2 mb-2">
                   <Zap className="w-4 h-4 text-yellow-300" />
-                  <span className="text-xs text-white/80 font-medium">XP hoje</span>
+                  <span className="text-xs text-white/80 font-medium uppercase tracking-wider">{levelName}</span>
                 </div>
-                <div className="text-2xl font-bold text-white mb-2">{xpToday}<span className="text-sm text-white/60">/{xpTarget}</span></div>
+                <div className="text-2xl font-bold text-white mb-2">{totalXp.toLocaleString()}<span className="text-sm text-white/60"> XP</span></div>
                 <div className="h-2 bg-white/20 rounded-full overflow-hidden">
                   <motion.div
                     initial={{ width: 0 }}
-                    animate={{ width: `${(xpToday / xpTarget) * 100}%` }}
+                    animate={{ width: `${levelProgress}%` }}
                     transition={{ duration: 1, delay: 0.4 }}
                     className="h-full bg-yellow-300 rounded-full"
                   />
