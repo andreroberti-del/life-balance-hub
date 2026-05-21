@@ -8,6 +8,11 @@ interface ZenoCoreProps {
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
   showGlow?: boolean;
   className?: string;
+  /**
+   * Amplitude de voz (0-1). Quando setado, sobrepõe a animação baseada em state
+   * e escala a esfera dinamicamente em real-time.
+   */
+  amplitude?: number;
 }
 
 const sizeMap = {
@@ -28,7 +33,11 @@ const glowSizeMap = {
   '2xl': 'blur-3xl',
 };
 
-export function ZenoCore({ state = 'idle', size = 'md', showGlow = true, className = '' }: ZenoCoreProps) {
+export function ZenoCore({ state = 'idle', size = 'md', showGlow = true, className = '', amplitude }: ZenoCoreProps) {
+  // Voice-reactive mode: amplitude sobrepõe outras animações
+  const liveScale = amplitude !== undefined ? 1 + amplitude * 0.4 : undefined;
+  const liveGlowOpacity = amplitude !== undefined ? 0.3 + amplitude * 0.6 : undefined;
+
   const animation = useMemo(() => {
     switch (state) {
       case 'speaking':
@@ -85,12 +94,16 @@ export function ZenoCore({ state = 'idle', size = 'md', showGlow = true, classNa
     }
   }, [state]);
 
+  const isLive = amplitude !== undefined;
+  const finalAnim = isLive ? { scale: liveScale, transition: { duration: 0.08, ease: 'easeOut' as const } } : animation;
+  const finalGlow = isLive ? { opacity: liveGlowOpacity, transition: { duration: 0.08, ease: 'easeOut' as const } } : glowAnimation;
+
   return (
     <div className={`relative inline-flex items-center justify-center ${sizeMap[size]} ${className}`}>
       {showGlow && (
         <motion.div
           className={`absolute inset-0 rounded-full ${glowSizeMap[size]} bg-gradient-to-br from-violet-500 via-fuchsia-500 to-amber-400`}
-          animate={glowAnimation}
+          animate={finalGlow}
         />
       )}
       <motion.img
@@ -98,10 +111,8 @@ export function ZenoCore({ state = 'idle', size = 'md', showGlow = true, classNa
         alt="ZENO"
         className="relative w-full h-full object-contain select-none drop-shadow-2xl"
         draggable={false}
-        animate={animation}
+        animate={finalAnim}
         initial={{ scale: 0.9, opacity: 0 }}
-        // @ts-expect-error framer-motion accepts both initial and animate
-        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       />
     </div>
   );

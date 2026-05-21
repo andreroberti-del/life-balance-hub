@@ -19,7 +19,7 @@ import {
   Eye,
   EyeOff
 } from 'lucide-react';
-import { WorkoutPlan } from './WorkoutPlan';
+import { ActiveWorkoutPlan } from './workout/ActiveWorkoutPlan';
 
 // Mock data
 const mockGoals = [
@@ -263,8 +263,8 @@ export function WorkoutPlanner() {
         </div>
       </div>
 
-      {/* Workout Plan Section */}
-      <WorkoutPlan />
+      {/* Active Workout Plan (real data) */}
+      <ActiveWorkoutPlan onRegenerate={() => setShowWizard(true)} />
 
       {/* Wizard Modal */}
       {showWizard && (
