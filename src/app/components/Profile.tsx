@@ -5,6 +5,7 @@ import { useLanguage } from "../contexts/LanguageContext";
 import { useAuth } from "../contexts/AuthContext";
 import { useLevels } from "../hooks/useLevels";
 import { useReferrals } from "../hooks/useReferrals";
+import { usePeerBenchmark } from "../hooks/useMindSpirit";
 import { GarminConnectCard } from "./garmin/GarminConnectCard";
 import { EditProfileModal } from "./EditProfileModal";
 
@@ -21,6 +22,7 @@ export function Profile() {
   const { profile } = useAuth();
   const { current: currentLevel, userLevel } = useLevels();
   const { myCode, stats: referralStats } = useReferrals();
+  const { benchmark } = usePeerBenchmark();
   const [editOpen, setEditOpen] = useState(false);
   const profileData = {
     name: profile?.display_name || t.user.name,
@@ -39,13 +41,28 @@ export function Profile() {
     { label: t.profile.protocol, value: t.common.day + " 47", icon: Calendar, color: "violet" },
   ];
   const peerBenchmark = {
-    group: "Men, 35-40 years, 85-90 kg, Florida", totalPeers: 247,
-    metrics: [
-      { label: t.dashboard.omegaRatio, yourValue: 4.2, peerAvg: 6.8, better: true },
-      { label: t.profile.weightLoss, yourValue: 2.7, peerAvg: 1.9, better: true, unit: "kg" },
-      { label: t.profile.sleepQuality, yourValue: 3.8, peerAvg: 3.2, better: true },
-      { label: t.profile.streak, yourValue: 21, peerAvg: 14, better: true, unit: t.common.days },
-    ]
+    group: benchmark?.peer_group_label_pt || "Complete seu perfil pra comparações",
+    totalPeers: benchmark?.peer_count ?? 0,
+    metrics: benchmark && benchmark.peer_count > 0 ? [
+      {
+        label: 'XP Total',
+        yourValue: benchmark.my_xp,
+        peerAvg: Math.round(Number(benchmark.peer_avg_xp)),
+        better: benchmark.my_xp > Number(benchmark.peer_avg_xp),
+      },
+      {
+        label: 'Nível atual',
+        yourValue: benchmark.my_level,
+        peerAvg: Number(benchmark.peer_avg_level).toFixed(1),
+        better: benchmark.my_level > Number(benchmark.peer_avg_level),
+      },
+      {
+        label: 'Seu percentil',
+        yourValue: `Top ${100 - benchmark.percentile}%`,
+        peerAvg: `Top 50%`,
+        better: benchmark.percentile >= 50,
+      },
+    ] : []
   };
   const settingsSections = [
     { title: t.profile.zenoNotifications, items: [

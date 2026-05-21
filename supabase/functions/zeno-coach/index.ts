@@ -17,7 +17,7 @@ serve(async (req) => {
 
     const anthropicKey = Deno.env.get('ANTHROPIC_API_KEY');
     if (!anthropicKey) {
-      return new Response(JSON.stringify({ error: 'AI service not configured' }), {
+      return new Response(JSON.stringify({ error: 'AI service not configured. Add ANTHROPIC_API_KEY to Supabase secrets.' }), {
         status: 503,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });
@@ -26,45 +26,84 @@ serve(async (req) => {
     const { message } = await req.json();
     const supabase = getServiceClient();
 
-    // Gather user context
-    const [profileRes, checkinsRes, scansRes] = await Promise.all([
-      supabase.from('profiles').select('*').eq('id', userId).single(),
-      supabase.from('daily_checkins').select('*').eq('user_id', userId).order('check_date', { ascending: false }).limit(14),
-      supabase.from('scan_results').select('product_name, score, verdict, created_at').eq('user_id', userId).order('created_at', { ascending: false }).limit(10),
+    // Gather user context using CORRECT table names
+    const [
+      profileRes,
+      metricsRes,
+      scansRes,
+      levelRes,
+      emotionalRes,
+      gratitudeRes,
+      courseProgressRes,
+    ] = await Promise.all([
+      supabase.from('profiles').select('*').eq('id', userId).maybeSingle(),
+      supabase.from('health_metrics').select('*').eq('user_id', userId).order('date', { ascending: false }).limit(14),
+      supabase.from('scans').select('product_name, score, verdict, created_at').eq('user_id', userId).order('created_at', { ascending: false }).limit(10),
+      supabase.from('user_levels').select('total_xp, current_level, level_up_count').eq('user_id', userId).maybeSingle(),
+      supabase.from('emotional_checkins').select('mood, stress, anxiety, energy, check_date').eq('user_id', userId).order('check_date', { ascending: false }).limit(7),
+      supabase.from('gratitude_entries').select('item_1, item_2, item_3, entry_date').eq('user_id', userId).order('entry_date', { ascending: false }).limit(7),
+      supabase.from('user_course_progress').select('course_id, progress_pct, status').eq('user_id', userId).order('updated_at', { ascending: false }).limit(5),
     ]);
 
     const profile = profileRes.data;
-    const checkins = checkinsRes.data || [];
+    const metrics = metricsRes.data || [];
     const scans = scansRes.data || [];
+    const level = levelRes.data;
+    const emotional = emotionalRes.data || [];
+    const gratitude = gratitudeRes.data || [];
+    const courseProgress = courseProgressRes.data || [];
 
-    // Calculate streak
+    // Calculate streak from health_metrics
     let streak = 0;
-    const today = new Date().toISOString().split('T')[0];
-    const checkDates = checkins.map((c: any) => c.check_date);
-    let checkDay = new Date();
+    const checkDates = metrics.map((c: { date: string }) => c.date);
+    const checkDay = new Date();
     while (checkDates.includes(checkDay.toISOString().split('T')[0])) {
       streak++;
       checkDay.setDate(checkDay.getDate() - 1);
     }
 
-    // Build context
-    const context = `User Profile:
-- Name: ${profile?.display_name || 'User'}
-- Age: ${profile?.age || 'unknown'}
-- Gender: ${profile?.gender || 'unknown'}
-- Height: ${profile?.height_cm || 'unknown'} cm
-- Weight: ${profile?.weight_kg || 'unknown'} kg
-- Waist: ${profile?.waist_cm || 'unknown'} cm
-- Activity: ${profile?.activity_level || 'unknown'}
-- Protocol day: ${profile?.protocol_start_date ? Math.floor((Date.now() - new Date(profile.protocol_start_date).getTime()) / 86400000) + 1 : 'not started'}
+    // Average emotional state
+    const avgMood = emotional.length > 0
+      ? (emotional.reduce((s: number, c: { mood: number }) => s + c.mood, 0) / emotional.length).toFixed(1)
+      : 'sem dados';
+    const avgStress = emotional.length > 0
+      ? (emotional.reduce((s: number, c: { stress: number | null }) => s + (c.stress || 0), 0) / emotional.length).toFixed(1)
+      : 'sem dados';
 
-Recent Check-ins (last 14 days):
-${checkins.length > 0 ? checkins.map((c: any) => `- ${c.check_date}: weight=${c.weight}kg, sleep=${c.sleep_quality}/5, water=${c.water_liters}L, omega=${c.took_omega ? 'yes' : 'no'}`).join('\n') : 'No check-ins yet'}
+    // Build context (in Portuguese, since user-facing)
+    const context = `Perfil do usuário:
+- Nome: ${profile?.display_name || 'Usuário'}
+- Idade: ${profile?.age || 'não informada'}
+- Gênero: ${profile?.gender || 'não informado'}
+- Altura: ${profile?.height_cm || 'não informada'} cm
+- Peso: ${profile?.weight_kg || 'não informado'} kg
+- Cintura: ${profile?.waist_cm || 'não informada'} cm
+- Atividade: ${profile?.activity_level || 'não informado'}
+- Dia do Protocol 120: ${profile?.protocol_start_date ? Math.floor((Date.now() - new Date(profile.protocol_start_date).getTime()) / 86400000) + 1 : 'não iniciado'}
 
-Current streak: ${streak} days
+Engajamento:
+- Nível atual: ${level?.current_level || 1}
+- XP total: ${level?.total_xp || 0}
+- Streak de check-ins: ${streak} dias
+- Cursos em andamento: ${courseProgress.filter((c: { status: string }) => c.status === 'in_progress').length}
 
-Recent Food Scans:
-${scans.length > 0 ? scans.map((s: any) => `- ${s.product_name}: score ${s.score} (${s.verdict})`).join('\n') : 'No scans yet'}`;
+Check-ins físicos (últimos 14 dias):
+${metrics.length > 0 ? metrics.map((c: { date: string; weight_kg: number; sleep_quality: number; water_liters: number; omega_supplement_taken: boolean }) =>
+  `- ${c.date}: peso=${c.weight_kg}kg, sono=${c.sleep_quality}/5, água=${c.water_liters}L, ômega=${c.omega_supplement_taken ? 'sim' : 'não'}`
+).join('\n') : 'Nenhum check-in ainda'}
+
+Estado emocional (últimos 7 dias):
+- Humor médio: ${avgMood}/5
+- Estresse médio: ${avgStress}/5
+${emotional.length > 0 ? `- Registros recentes: ${emotional.length}` : '- Sem check-ins emocionais ainda'}
+
+Gratidão recente:
+${gratitude.slice(0, 3).map((g: { item_1: string }) => `- "${g.item_1}"`).join('\n') || '- Sem registros de gratidão'}
+
+Scans alimentares recentes:
+${scans.length > 0 ? scans.slice(0, 5).map((s: { product_name: string; score: number; verdict: string }) =>
+  `- ${s.product_name}: score ${s.score} (${s.verdict})`
+).join('\n') : 'Nenhum scan ainda'}`;
 
     const claudeRes = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
@@ -74,34 +113,37 @@ ${scans.length > 0 ? scans.map((s: any) => `- ${s.product_name}: score ${s.score
         'content-type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        system: `You are ZENO, an AI wellness coach inside the Life Balance app. Your name is inspired by Zeno of Citium (Stoicism).
+        model: 'claude-haiku-4-5-20251001',
+        max_tokens: 800,
+        system: `Você é ZENO, o coach de IA do M7 Life Balance. Inspirado em Zeno de Cítio (estoicismo).
 
-Your personality:
-- Direct, science-based, no BS
-- Motivating but honest
-- Connect food → inflammation → real health data
-- Reference the user's actual data when giving advice
-- Use emojis sparingly for encouragement
-- Respond in the same language the user writes in (Portuguese, English, or Spanish)
+Personalidade:
+- Direto, baseado em ciência, sem enrolar
+- Motivador mas honesto
+- Conecta alimentação → inflamação → biomarcadores → resultado real
+- Sempre referencia os dados reais do usuário
+- Responde no idioma que o usuário escreve (PT, EN, ES)
+- Sem emojis. Use ícones quando aparecer no app, mas no texto que você gera, sem emojis.
 
-Your expertise:
-- Anti-inflammatory nutrition (Omega-3/6 ratio)
-- Sleep quality optimization
-- Weight management through inflammation reduction
-- Protocol 120 days (wellness transformation program)
-- Food ingredient analysis (inflammatory vs anti-inflammatory)
+Domínio:
+- Nutrição anti-inflamatória (razão Ômega-6/3)
+- Qualidade do sono
+- Gestão de peso via redução de inflamação
+- Protocol 120 dias (programa OAM)
+- Análise de ingredientes (pró-inflamatório vs anti)
+- Saúde mental e gratidão como mecanismo neuroplástico
+- As 7 saúdes Mind7 (Familiar, Espiritual, Física, Financeira, Intelectual, Profissional, Social)
 
-Rules:
-- Never mention "Zinzino" by name
-- Refer to omega supplements generically
-- Be concise (2-4 paragraphs max)
-- Always end with a specific, actionable suggestion`,
+Regras:
+- NUNCA mencione "Zinzino" pelo nome
+- Refira a suplementos de ômega de forma genérica
+- Seja conciso (2-4 parágrafos)
+- Sempre termine com uma sugestão acionável e específica
+- Se o usuário não tem dados ainda, encoraje a fazer o primeiro check-in e seja gentil`,
         messages: [
           {
             role: 'user',
-            content: `${context}\n\nUser message: ${message || 'Give me a daily insight based on my data'}`,
+            content: `${context}\n\nMensagem do usuário: ${message || 'Me dê um insight diário baseado nos meus dados'}`,
           },
         ],
       }),
@@ -110,21 +152,29 @@ Rules:
     if (!claudeRes.ok) {
       const err = await claudeRes.text();
       console.error('Claude API error:', err);
-      return new Response(JSON.stringify({ error: 'AI service unavailable' }), {
+      return new Response(JSON.stringify({ error: 'AI service unavailable', details: err }), {
         status: 502,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });
     }
 
     const claudeData = await claudeRes.json();
-    const reply = claudeData.content?.[0]?.text || 'Unable to generate insight right now.';
+    const reply = claudeData.content?.[0]?.text || 'Não consegui gerar insight no momento.';
 
-    return new Response(JSON.stringify({ reply, streak, checkinsCount: checkins.length, scansCount: scans.length }), {
+    return new Response(JSON.stringify({
+      reply,
+      streak,
+      level: level?.current_level || 1,
+      total_xp: level?.total_xp || 0,
+      checkinsCount: metrics.length,
+      emotionalCount: emotional.length,
+      scansCount: scans.length,
+    }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   } catch (err) {
     console.error('Error in zeno-coach:', err);
-    return new Response(JSON.stringify({ error: 'Internal server error' }), {
+    return new Response(JSON.stringify({ error: 'Internal server error', message: String(err) }), {
       status: 500,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });

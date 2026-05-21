@@ -113,9 +113,29 @@ export function WorkoutPlanner() {
     setWizardStep(1);
   };
 
-  const generatePlan = () => {
-    console.log('Gerando plano com:', wizardData);
-    closeWizard();
+  const generatePlan = async () => {
+    const { supabase } = await import('../services/supabase');
+    const { toastSuccess, toastError } = await import('./ui/feedback');
+    try {
+      toastSuccess('Gerando plano', 'ZENO está analisando seus dados...');
+      const { data, error } = await supabase.functions.invoke('generate-workout-plan', {
+        body: wizardData,
+      });
+      if (error || !data?.plan) {
+        if (data?.fallback_plan) {
+          toastError('IA não configurada', 'Usando plano padrão. Configure ANTHROPIC_API_KEY no Supabase.');
+        } else {
+          toastError('Erro ao gerar', String(error?.message || 'Tente novamente'));
+        }
+      } else {
+        toastSuccess('Plano pronto', data.plan.name_pt);
+      }
+    } catch (e) {
+      const { toastError } = await import('./ui/feedback');
+      toastError('Erro', String(e));
+    } finally {
+      closeWizard();
+    }
   };
 
   const getObjectiveData = (objId: string) => {

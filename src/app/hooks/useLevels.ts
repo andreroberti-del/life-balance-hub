@@ -126,7 +126,20 @@ export async function addXP(
     p_metadata: metadata,
   });
   if (error) throw error;
-  return data?.[0] as
+  const result = data?.[0] as
     | { new_total_xp: number; new_level: number; leveled_up: boolean; level_name_pt: string }
     | undefined;
+
+  if (result) {
+    try {
+      const { toastXP } = await import('../components/ui/feedback');
+      toastXP({
+        xp: amount,
+        reason,
+        leveledUp: result.leveled_up,
+        newLevelName: result.level_name_pt,
+      });
+    } catch (e) { void e; }
+  }
+  return result;
 }
