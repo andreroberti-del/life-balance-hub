@@ -1,5 +1,5 @@
 import { Outlet, NavLink, useNavigate } from "react-router-dom";
-import { Activity, Scan, Users, TrendingUp, User, LayoutDashboard, Bell, Menu, X, LogOut, Dumbbell, ClipboardCheck, GraduationCap, Users2 } from "lucide-react";
+import { Activity, Scan, Users, TrendingUp, User, LayoutDashboard, Bell, Menu, X, LogOut, Dumbbell, ClipboardCheck, GraduationCap, Users2, FlaskConical, Shield } from "lucide-react";
 import { useState } from "react";
 import { useLanguage } from "../contexts/LanguageContext";
 import { useAuth } from "../contexts/AuthContext";
@@ -19,9 +19,11 @@ export function Layout() {
   const navItems = [
     { to: "/", icon: LayoutDashboard, label: t.nav.dashboard, end: true },
     { to: "/education", icon: GraduationCap, label: "Education" },
+    { to: "/omega", icon: FlaskConical, label: "Omega Audit" },
     { to: "/scanner", icon: Scan, label: t.nav.scanner },
     { to: "/community", icon: Users, label: t.nav.community },
     { to: "/referrals", icon: Users2, label: "Família M7" },
+    { to: "/distributor", icon: Shield, label: "Distribuidor" },
     { to: "/progress", icon: TrendingUp, label: t.nav.protocol120 },
     { to: "/workout", icon: Dumbbell, label: (t as any).nav?.workout || "Workout" },
     { to: "/daily-tracker", icon: ClipboardCheck, label: (t as any).nav?.dailyTracker || "Daily Tracker" },

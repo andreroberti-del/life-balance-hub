@@ -16,6 +16,8 @@ import { EducationHub } from "./components/education/EducationHub";
 import { CourseDetail } from "./components/education/CourseDetail";
 import { LessonPlayer } from "./components/education/LessonPlayer";
 import { ReferralsHub } from "./components/referrals/ReferralsHub";
+import { OmegaAudit } from "./components/omega/OmegaAudit";
+import { DistributorHub } from "./components/distributor/DistributorHub";
 
 function Protected({ children }: { children: React.ReactNode }) {
   return <AuthGuard>{children}</AuthGuard>;
@@ -50,6 +52,8 @@ export const router = createBrowserRouter([
       { path: "education/:courseId", Component: CourseDetail },
       { path: "education/lesson/:lessonId", Component: LessonPlayer },
       { path: "referrals", Component: ReferralsHub },
+      { path: "omega", Component: OmegaAudit },
+      { path: "distributor", Component: DistributorHub },
     ],
   },
 ]);
