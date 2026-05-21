@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <title>ZENO Characters Preview · M7 Life Balance</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --violet-50: #F0F2FF;
+        --violet-100: #DCE3FF;
+        --violet-500: #668DFF;
+        --violet-700: #3646F4;
+        --violet-950: #161B50;
+        --yellow: #FBBF24;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: 'DM Sans', sans-serif;
+        background: var(--violet-50);
+        color: var(--violet-950);
+        -webkit-font-smoothing: antialiased;
+        letter-spacing: -0.01em;
+      }
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 48px 32px;
+      }
+      h1 { font-size: 40px; margin: 0 0 8px; letter-spacing: -0.02em; }
+      .subtitle { color: #6B7280; font-size: 16px; margin: 0 0 40px; }
+      h2 {
+        font-size: 28px;
+        margin: 48px 0 8px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .pill {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 800;
+        padding: 4px 10px;
+        border-radius: 999px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+      .pill-violet { background: var(--violet-100); color: var(--violet-700); }
+      .pill-gold { background: #FEF3C7; color: #92400E; }
+      .pill-mix { background: linear-gradient(135deg, var(--violet-100), #FEF3C7); color: var(--violet-700); }
+      .section-desc {
+        color: #6B7280;
+        font-size: 14px;
+        margin: 0 0 24px;
+        max-width: 780px;
+        line-height: 1.6;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 24px;
+      }
+      .grid-core {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+      }
+      @media (max-width: 900px) {
+        .grid-core { grid-template-columns: 1fr; }
+      }
+      .card {
+        background: white;
+        border-radius: 24px;
+        padding: 24px;
+        border: 1px solid #EDE9FE;
+        transition: transform 200ms, box-shadow 200ms;
+      }
+      .card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 30px rgba(102, 141, 255, 0.15);
+      }
+      .card-core {
+        background: #0a0a14;
+        border-color: #1a1a2e;
+        color: white;
+      }
+      .card-core h3 { color: white; }
+      .card-core p { color: rgba(255,255,255,0.7); }
+      .character-img {
+        width: 100%;
+        aspect-ratio: 1;
+        border-radius: 16px;
+        background: linear-gradient(135deg, var(--violet-100), white);
+        margin-bottom: 16px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .core-img-wrap {
+        background: #0a0a14;
+        border-radius: 16px;
+        aspect-ratio: 1;
+        overflow: hidden;
+        margin-bottom: 16px;
+      }
+      .character-img img,
+      .core-img-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      h3 {
+        font-size: 18px;
+        margin: 0 0 4px;
+        letter-spacing: -0.01em;
+      }
+      .card p {
+        font-size: 13px;
+        color: #6B7280;
+        margin: 0;
+        line-height: 1.5;
+      }
+      .role-tag {
+        display: inline-block;
+        margin-top: 12px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding: 6px 12px;
+        background: var(--violet-100);
+        color: var(--violet-700);
+        border-radius: 999px;
+      }
+      .doc-card {
+        background: linear-gradient(135deg, #F5F3FF, white);
+        border-radius: 24px;
+        padding: 32px;
+        border: 1px solid #EDE9FE;
+        display: grid;
+        grid-template-columns: 240px 1fr;
+        gap: 32px;
+        align-items: center;
+      }
+      @media (max-width: 700px) {
+        .doc-card { grid-template-columns: 1fr; text-align: center; }
+      }
+      .doc-img {
+        width: 100%;
+        aspect-ratio: 1;
+        border-radius: 20px;
+        overflow: hidden;
+      }
+      .doc-img img { width: 100%; height: 100%; object-fit: cover; }
+      .strategy {
+        background: var(--violet-500);
+        color: white;
+        border-radius: 24px;
+        padding: 32px;
+        margin-top: 48px;
+        box-shadow: 0 20px 40px rgba(102, 141, 255, 0.2);
+      }
+      .strategy h2 { color: white; margin-top: 0; }
+      .strategy-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        margin-top: 24px;
+      }
+      @media (max-width: 700px) { .strategy-grid { grid-template-columns: 1fr; } }
+      .strategy-item {
+        background: rgba(255,255,255,0.12);
+        backdrop-filter: blur(10px);
+        border-radius: 18px;
+        padding: 20px;
+        border: 1px solid rgba(255,255,255,0.2);
+      }
+      .strategy-item h4 {
+        font-size: 14px;
+        margin: 0 0 6px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        opacity: 0.8;
+      }
+      .strategy-item p { color: rgba(255,255,255,0.92); font-size: 14px; }
+
+      /* Subtle rotation for core spheres */
+      @keyframes slowRotate {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+      .core-img-wrap img { animation: slowRotate 60s linear infinite; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>ZENO · Galeria de Personagens</h1>
+      <p class="subtitle">Comparativo de todas as direções visuais geradas. Você decide qual segue.</p>
+
+      <h2>
+        Mascote ZENO <span class="pill pill-violet">Coruja · Duolingo style</span>
+      </h2>
+      <p class="section-desc">
+        Mascote amigável. Ideal pra Daily Quests, level up, empty states, gamification lúdica.
+        Não compete com a IA, é a "marca" do app. 6 poses geradas.
+      </p>
+      <div class="grid">
+        <div class="card">
+          <div class="character-img"><img src="/zeno/zeno-default.png" alt="ZENO default" /></div>
+          <h3>Default</h3>
+          <p>Saudação acolhedora. Dashboard hero.</p>
+          <span class="role-tag">Home · Welcome</span>
+        </div>
+        <div class="card">
+          <div class="character-img"><img src="/zeno/zeno-celebrate.png" alt="ZENO celebrate" /></div>
+          <h3>Celebrate</h3>
+          <p>Asas pra cima. Quando você sobe de nível.</p>
+          <span class="role-tag">Level Up</span>
+        </div>
+        <div class="card">
+          <div class="character-img"><img src="/zeno/zeno-meditation.png" alt="ZENO meditation" /></div>
+          <h3>Meditation</h3>
+          <p>Lótus zen. Spirit hero, sessões de respiração.</p>
+          <span class="role-tag">Spirit · Mind</span>
+        </div>
+        <div class="card">
+          <div class="character-img"><img src="/zeno/zeno-thinking.png" alt="ZENO thinking" /></div>
+          <h3>Thinking</h3>
+          <p>Pensativa. ZENO Insight no Dashboard.</p>
+          <span class="role-tag">AI Insight Card</span>
+        </div>
+        <div class="card">
+          <div class="character-img"><img src="/zeno/zeno-sleep.png" alt="ZENO sleep" /></div>
+          <h3>Sleep</h3>
+          <p>Dormindo na lua. Brain Dump hero.</p>
+          <span class="role-tag">Brain Dump · Sleep</span>
+        </div>
+        <div class="card">
+          <div class="character-img"><img src="/zeno/zeno-workout.png" alt="ZENO workout" /></div>
+          <h3>Workout</h3>
+          <p>Halterzinho. Sessão de treino.</p>
+          <span class="role-tag">Workout</span>
+        </div>
+      </div>
+
+      <h2>
+        Dr. ZENO <span class="pill pill-violet">Avatar humano · Autoridade científica</span>
+      </h2>
+      <p class="section-desc">
+        Médico longevity ~55 anos. Editorial semi-realista. Pra usar nos lugares de
+        <strong>autoridade científica</strong>: ZENO Coach, Education hero, Omega Audit hero.
+        Apenas 1 pose gerada (precisa decisão antes de gerar as outras 5).
+      </p>
+      <div class="doc-card">
+        <div class="doc-img"><img src="/dr-zeno/dr-zeno-portrait-v1.png" alt="Dr. ZENO" /></div>
+        <div>
+          <h3>Dr. ZENO · Portrait v1</h3>
+          <p>Vibe Peter Attia, Andrew Huberman, Mark Hyman. Henley violet, sem jaleco branco (menos clínico, mais wellness-coach). Background lilás suave.</p>
+          <p style="margin-top: 12px;"><strong>Próximas poses se aprovado:</strong> Apresentando, escutando, sorrindo, autoridade, gesticulando.</p>
+        </div>
+      </div>
+
+      <h2>
+        ZENO Core <span class="pill pill-mix">Esfera de partículas · A IA em si</span>
+      </h2>
+      <p class="section-desc">
+        Representação visual da IA quando está <strong>ativa, falando, processando, ouvindo</strong>.
+        Tipo JARVIS, HAL 9000, ChatGPT Voice mas com identidade própria Mind7.
+        Voice-reactive na versão final: vibra/modula conforme você fala. 3 paletas pra comparar.
+      </p>
+      <div class="grid-core">
+        <div class="card card-core">
+          <div class="core-img-wrap"><img src="/zeno-core/zeno-core-violet.png" alt="ZENO Core violet" /></div>
+          <h3>Violet · Brand Mind7</h3>
+          <p>Coerente com a paleta do app. Premium, calmo, inteligente. Não rouba a cena.</p>
+        </div>
+        <div class="card card-core">
+          <div class="core-img-wrap"><img src="/zeno-core/zeno-core-mix.png" alt="ZENO Core mix" /></div>
+          <h3>Mix · Violet → Gold</h3>
+          <p>Gradient sofisticado. Mais "epic" e único. Funciona como signature.</p>
+        </div>
+        <div class="card card-core">
+          <div class="core-img-wrap"><img src="/zeno-core/zeno-core-golden.png" alt="ZENO Core golden" /></div>
+          <h3>Golden · HAL/JARVIS</h3>
+          <p>Vibe ancestral-futurista. Imponente, autoritária. Pode quebrar a paleta do app.</p>
+        </div>
+      </div>
+
+      <div class="strategy">
+        <h2 style="margin-top: 0;">Recomendação: usar os 3 juntos</h2>
+        <p style="opacity: 0.95;">Cada um tem função diferente. Não competem, se complementam.</p>
+        <div class="strategy-grid">
+          <div class="strategy-item">
+            <h4>Mascote Coruja</h4>
+            <p>Daily Quests, Level Up, empty states, gamificação Duolingo. <strong>Personagem amigável da marca.</strong></p>
+          </div>
+          <div class="strategy-item">
+            <h4>Dr. ZENO</h4>
+            <p>Hero do Education, Omega Audit, perfil do mentor. <strong>Autoridade científica.</strong></p>
+          </div>
+          <div class="strategy-item">
+            <h4>ZENO Core</h4>
+            <p>ZENO Coach card, chat com IA, scanner processando, brain dump premium. <strong>A IA acontecendo ao vivo.</strong></p>
+          </div>
+          <div class="strategy-item">
+            <h4>Lógica</h4>
+            <p>Você fala com a Coruja sobre o app. Vê Dr. ZENO nos conteúdos sérios. Vê ZENO Core quando a IA está ativa processando algo seu.</p>
+          </div>
+        </div>
+      </div>
+
+      <p style="text-align: center; margin-top: 48px; color: #6B7280; font-size: 13px;">
+        Geradas via Gemini 2.5 Flash Image · M7 Life Balance · {{date}}
+      </p>
+    </div>
+    <script>
+      document.body.innerHTML = document.body.innerHTML.replace('{{date}}', new Date().toLocaleDateString('pt-BR'));
+    </script>
+  </body>
+</html>
