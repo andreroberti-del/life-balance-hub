@@ -1,5 +1,6 @@
 import { serve } from 'https://deno.land/std@0.208.0/http/server.ts';
 import { getServiceClient, getUserFromRequest, corsHeaders } from '../_shared/supabase-client.ts';
+import { callAI, getProvider } from '../_shared/ai-provider.ts';
 
 interface WizardData {
   objective: string;
@@ -27,10 +28,9 @@ serve(async (req) => {
       });
     }
 
-    const anthropicKey = Deno.env.get('ANTHROPIC_API_KEY');
-    if (!anthropicKey) {
+    if (!getProvider()) {
       return new Response(JSON.stringify({
-        error: 'AI service not configured. Add ANTHROPIC_API_KEY to Supabase secrets.',
+        error: 'AI service not configured. Add GEMINI_API_KEY (free) or ANTHROPIC_API_KEY (paid) to Supabase secrets.',
         fallback_plan: defaultFallbackPlan(),
       }), {
         status: 503,
@@ -105,46 +105,34 @@ Considere os princípios:
 - Retorne entre 3 e 5 exercícios por dia
 - Sem emojis em nenhum campo`;
 
-    const claudeRes = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'x-api-key': anthropicKey,
-        'anthropic-version': '2023-06-01',
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-6-20251022',
-        max_tokens: 4000,
-        system: 'Você é um personal trainer NSCA certificado. Retorne sempre JSON puro, sem markdown, sem texto extra.',
-        messages: [{ role: 'user', content: prompt }],
-      }),
+    const aiResult = await callAI({
+      system: 'Você é um personal trainer NSCA certificado. Retorne sempre JSON puro, sem markdown, sem texto extra.',
+      messages: [{ role: 'user', content: prompt }],
+      max_tokens: 4000,
+      model_tier: 'best',
+      json_mode: true,
     });
 
-    if (!claudeRes.ok) {
-      const err = await claudeRes.text();
-      console.error('Claude API error:', err);
+    if (aiResult.error) {
       return new Response(JSON.stringify({
         error: 'AI service unavailable',
-        details: err,
+        details: aiResult.error,
         fallback_plan: defaultFallbackPlan(),
       }), {
         status: 502,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });
     }
-
-    const claudeData = await claudeRes.json();
-    const responseText = claudeData.content?.[0]?.text || '';
 
     let plan;
     try {
-      const cleaned = responseText.replace(/^```json\n?/, '').replace(/\n?```$/, '').trim();
+      const cleaned = aiResult.text.replace(/^```json\n?/, '').replace(/\n?```$/, '').trim();
       plan = JSON.parse(cleaned);
     } catch (e) {
-      console.error('Failed to parse Claude JSON:', e, responseText);
+      console.error('Failed to parse AI JSON:', e, aiResult.text);
       return new Response(JSON.stringify({
         error: 'AI returned invalid JSON',
-        raw: responseText,
+        raw: aiResult.text,
         fallback_plan: defaultFallbackPlan(),
       }), {
         status: 502,
@@ -152,10 +140,8 @@ Considere os princípios:
       });
     }
 
-    // Deactivate previous plans
     await supabase.from('workout_plans').update({ is_active: false }).eq('user_id', userId).eq('is_active', true);
 
-    // Save new plan
     const { data: saved } = await supabase
       .from('workout_plans')
       .insert({
@@ -170,12 +156,14 @@ Considere os princípios:
         experience_level: wizardData.experience_level || 'beginner',
         equipment: wizardData.equipment || 'gym',
         plan_json: plan,
-        generated_by: 'ai',
+        generated_by: aiResult.provider,
       })
       .select()
       .maybeSingle();
 
-    return new Response(JSON.stringify({ plan, saved }), {
+    return new Response(JSON.stringify({
+      plan, saved, provider: aiResult.provider, model_used: aiResult.model_used,
+    }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   } catch (err) {
@@ -190,7 +178,7 @@ Considere os princípios:
 function defaultFallbackPlan() {
   return {
     name_pt: 'Plano padrão (sem IA)',
-    weekly_summary_pt: 'Plano genérico full-body para 3x na semana. Ative ANTHROPIC_API_KEY pra personalização real.',
+    weekly_summary_pt: 'Plano genérico full-body para 3x na semana. Configure GEMINI_API_KEY pra personalização real.',
     weekly_calorie_target: 1500,
     days: [
       {
@@ -206,6 +194,6 @@ function defaultFallbackPlan() {
         ],
       },
     ],
-    zeno_tip_pt: 'Ative a IA do M7 pra um plano personalizado pros seus dados reais.',
+    zeno_tip_pt: 'Configure GEMINI_API_KEY (grátis) ou ANTHROPIC_API_KEY (pago) pra plano personalizado.',
   };
 }
