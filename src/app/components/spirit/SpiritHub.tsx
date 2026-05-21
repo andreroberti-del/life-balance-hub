@@ -151,8 +151,21 @@ export function SpiritHub() {
                             )}
                             {d.action_pt && (
                               <div className="p-4 bg-emerald-50 rounded-2xl border border-emerald-200">
-                                <p className="text-xs font-bold uppercase tracking-wider text-emerald-700 mb-2">Ação prática hoje</p>
+                                <div className="flex items-center justify-between mb-2">
+                                  <p className="text-xs font-bold uppercase tracking-wider text-emerald-700">Ação prática hoje</p>
+                                  {d.action_starter_minutes && (
+                                    <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 bg-emerald-600 text-white rounded-full">
+                                      {d.action_starter_minutes} min · começa pequeno
+                                    </span>
+                                  )}
+                                </div>
                                 <p className="text-sm text-emerald-900">{d.action_pt}</p>
+                                {d.action_progression_pt && (
+                                  <div className="mt-3 pt-3 border-t border-emerald-200">
+                                    <p className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 mb-1">Progressão sugerida</p>
+                                    <p className="text-xs text-emerald-800/90 leading-relaxed">{d.action_progression_pt}</p>
+                                  </div>
+                                )}
                               </div>
                             )}
                             {!isRead && (
