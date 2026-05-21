@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 import { useLanguage } from "../contexts/LanguageContext";
 import { useAuth } from "../contexts/AuthContext";
 import { useLevels } from "../hooks/useLevels";
+import { ZenoMascot } from "./zeno/ZenoMascot";
+import { DailyQuests } from "./dashboard/DailyQuests";
 import { GarminDashboardWidget } from "./garmin/GarminDashboardWidget";
 import { GarminSleepCard } from "./garmin/GarminSleepCard";
 import { GarminActivityFeed } from "./garmin/GarminActivityFeed";
@@ -68,14 +70,17 @@ export function Dashboard() {
           <div className="absolute -right-10 -bottom-20 w-56 h-56 bg-violet-300/30 rounded-full blur-3xl" />
 
           <div className="relative flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
-            <div>
-              <p className="text-white/80 text-sm font-medium mb-2">{t.common.welcomeBack},</p>
-              <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight mb-3">
-                {displayName || 'André'}
-              </h1>
-              <p className="text-white/80 text-base max-w-md">
-                Você está no <span className="font-bold text-white">Dia 47</span> do Protocol 120. Continue assim, sua razão Ômega já caiu de 15:1 pra 4.2:1.
-              </p>
+            <div className="flex items-center gap-5">
+              <ZenoMascot pose="default" size="lg" className="flex-shrink-0 hidden md:block" />
+              <div>
+                <p className="text-white/80 text-sm font-medium mb-2">{t.common.welcomeBack},</p>
+                <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight mb-3">
+                  {displayName || 'André'}
+                </h1>
+                <p className="text-white/80 text-base max-w-md">
+                  Você está no <span className="font-bold text-white">Dia 47</span> do Protocol 120. Continue assim, sua razão Ômega já caiu de 15:1 pra 4.2:1.
+                </p>
+              </div>
             </div>
 
             <div className="flex items-center gap-4">
@@ -357,6 +362,9 @@ export function Dashboard() {
             {/* Garmin Activities */}
             <GarminActivityFeed />
 
+            {/* Daily Quests */}
+            <DailyQuests />
+
             {/* ZENO AI Insight */}
             <motion.div
               initial="hidden" animate="show" custom={6} variants={cardEntry}
@@ -364,13 +372,11 @@ export function Dashboard() {
             >
               <div className="absolute -right-8 -top-8 w-32 h-32 bg-white/10 rounded-full blur-2xl" />
               <div className="relative flex items-start gap-4">
-                <div className="w-12 h-12 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center flex-shrink-0">
-                  <Sparkles className="w-6 h-6 text-white" />
-                </div>
+                <ZenoMascot pose="thinking" size="sm" className="flex-shrink-0" />
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-2">
-                    <h3 className="text-base font-bold text-white">ZENO AI</h3>
-                    <span className="text-[10px] font-bold text-white/70 bg-white/20 px-2 py-0.5 rounded-full">SMART INSIGHT</span>
+                    <h3 className="text-base font-bold text-white">ZENO</h3>
+                    <span className="text-[10px] font-bold text-white/70 bg-white/20 px-2 py-0.5 rounded-full">INSIGHT DO DIA</span>
                   </div>
                   <p className="text-sm text-white/90 leading-relaxed">
                     Boa, André! Sua razão Omega-6:3 melhorou 8% essa semana. Continue com a suplementação diária.

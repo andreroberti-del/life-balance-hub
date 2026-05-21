@@ -67,6 +67,7 @@ export function SpiritHub() {
                 {gratitudeHistory.length} dias de gratidão
               </p>
             </div>
+            </div>
           </div>
         </motion.div>
 
