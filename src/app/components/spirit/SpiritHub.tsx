@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Heart, BookOpen, Sparkles, CheckCircle, ChevronDown, ChevronUp } from 'lucide-react';
 import { useDevotionals, useGratitude, Devotional } from '../../hooks/useMindSpirit';
+import { ZenoMascot } from '../zeno/ZenoMascot';
 
 const categoryColor: Record<string, string> = {
   descanso: 'bg-blue-100 text-blue-700',
