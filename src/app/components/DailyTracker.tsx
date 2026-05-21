@@ -12,7 +12,8 @@ import {
   Bell,
   TrendingUp,
   Award,
-  Flame
+  Flame,
+  Zap
 } from 'lucide-react';
 
 interface DailyTask {
@@ -163,90 +164,70 @@ export function DailyTracker({ currentStreak = 23, onStreakUpdate }: DailyTracke
 
   return (
     <div className="space-y-6">
-      {/* Header Card with Overall Progress */}
-      <div className="bg-gradient-to-br from-[#1A1A1A] to-[#242424] rounded-3xl p-6 border border-white/10 relative overflow-hidden">
-        {/* Background Glow Effect */}
+      {/* HERO Header */}
+      <div className="relative overflow-hidden bg-violet-500 rounded-3xl p-8 md:p-10 shadow-xl shadow-violet-500/20">
+        <div className="absolute -right-20 -top-20 w-72 h-72 bg-white/10 rounded-full blur-3xl" />
         {isPerfectDay && (
-          <div className="absolute top-0 right-0 w-64 h-64 bg-violet-500/20 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute top-0 right-0 w-64 h-64 bg-yellow-300/30 rounded-full blur-3xl animate-pulse" />
         )}
 
         <div className="relative z-10">
-          {/* Top Section: Streak + Date */}
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-6">
             <div>
-              <h2 className="text-2xl font-bold text-white mb-1">
+              <p className="text-white/80 text-sm font-medium mb-2 uppercase tracking-wider">Daily Habits</p>
+              <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight mb-2">
                 {language === 'pt' ? 'Rastreador Di\u00E1rio' : language === 'es' ? 'Rastreador Diario' : 'Daily Tracker'}
               </h2>
-              <p className="text-sm text-gray-400">
+              <p className="text-white/85 text-sm">
                 {new Date().toLocaleDateString(language === 'pt' ? 'pt-BR' : language === 'es' ? 'es-ES' : 'en-US', {
-                  weekday: 'long',
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
+                  weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
                 })}
               </p>
             </div>
 
-            {/* Streak Display */}
-            <div className="flex items-center gap-3 bg-[#2A2A2A] rounded-2xl px-4 py-3">
-              <div className="text-2xl animate-pulse">{'\u{1F525}'}</div>
-              <div>
-                <div className="text-2xl font-bold text-violet-500">{currentStreak}</div>
-                <div className="text-xs text-gray-400">
-                  {language === 'pt' ? 'dias' : language === 'es' ? 'd\u00EDas' : 'days'}
+            <div className="bg-white/15 backdrop-blur rounded-2xl px-6 py-5 border border-white/20">
+              <div className="flex items-center gap-3">
+                <Flame className="w-8 h-8 text-yellow-300" strokeWidth={2.5} />
+                <div>
+                  <div className="text-3xl font-bold text-white leading-none">{currentStreak}</div>
+                  <div className="text-xs text-white/70 mt-1">{language === 'pt' ? 'dias' : language === 'es' ? 'd\u00EDas' : 'days'}</div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Progress Ring + Stats */}
-          <div className="flex items-center gap-6 mb-6">
-            {/* Circular Progress */}
-            <div className="relative w-32 h-32 flex-shrink-0">
-              <svg className="w-32 h-32 transform -rotate-90">
-                <circle
-                  cx="64"
-                  cy="64"
-                  r="56"
-                  fill="none"
-                  stroke="rgba(255, 255, 255, 0.1)"
-                  strokeWidth="12"
-                />
-                <circle
-                  cx="64"
-                  cy="64"
-                  r="56"
-                  fill="none"
-                  stroke="#6366F1"
-                  strokeWidth="12"
-                  strokeDasharray={`${2 * Math.PI * 56}`}
-                  strokeDashoffset={`${2 * Math.PI * 56 * (1 - completionPercentage / 100)}`}
-                  strokeLinecap="round"
-                  className="transition-all duration-500"
-                />
-              </svg>
-              <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <div className="text-3xl font-bold text-violet-500">{Math.round(completionPercentage)}%</div>
-                <div className="text-xs text-gray-400">{language === 'pt' ? 'completo' : language === 'es' ? 'completo' : 'complete'}</div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Progress Ring */}
+            <div className="bg-white/15 backdrop-blur rounded-2xl p-5 border border-white/20 flex items-center gap-4">
+              <div className="relative w-20 h-20 flex-shrink-0">
+                <svg className="w-20 h-20 transform -rotate-90" viewBox="0 0 80 80">
+                  <circle cx="40" cy="40" r="34" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="8" />
+                  <circle
+                    cx="40" cy="40" r="34" fill="none" stroke="#FDE047" strokeWidth="8"
+                    strokeDasharray={`${2 * Math.PI * 34}`}
+                    strokeDashoffset={`${2 * Math.PI * 34 * (1 - completionPercentage / 100)}`}
+                    strokeLinecap="round"
+                    className="transition-all duration-700"
+                  />
+                </svg>
+                <div className="absolute inset-0 flex items-center justify-center text-xl font-bold text-white">
+                  {Math.round(completionPercentage)}%
+                </div>
+              </div>
+              <div>
+                <div className="text-xs text-white/70 uppercase font-bold tracking-wider">{language === 'pt' ? 'Completo' : language === 'es' ? 'Completo' : 'Complete'}</div>
+                <div className="text-lg font-bold text-white mt-1">Today</div>
               </div>
             </div>
 
-            {/* Stats Grid */}
-            <div className="flex-1 grid grid-cols-2 gap-4">
-              <div className="bg-[#2A2A2A] rounded-xl p-4">
-                <div className="text-xs text-gray-400 mb-1">
-                  {language === 'pt' ? 'Tarefas' : language === 'es' ? 'Tareas' : 'Tasks'}
-                </div>
-                <div className="text-2xl font-bold text-white">
-                  {completedTasks}/{totalTasks}
-                </div>
-              </div>
-              <div className="bg-[#2A2A2A] rounded-xl p-4">
-                <div className="text-xs text-gray-400 mb-1">XP {language === 'pt' ? 'Ganho' : language === 'es' ? 'Ganado' : 'Earned'}</div>
-                <div className="text-2xl font-bold text-violet-500">
-                  {totalXP}<span className="text-sm text-gray-400">/{potentialXP}</span>
-                </div>
-              </div>
+            <div className="bg-white/15 backdrop-blur rounded-2xl p-5 border border-white/20">
+              <div className="text-xs text-white/70 uppercase font-bold tracking-wider mb-2">{language === 'pt' ? 'Tarefas' : language === 'es' ? 'Tareas' : 'Tasks'}</div>
+              <div className="text-3xl font-bold text-white">{completedTasks}<span className="text-lg text-white/60">/{totalTasks}</span></div>
+            </div>
+
+            <div className="bg-white/15 backdrop-blur rounded-2xl p-5 border border-white/20">
+              <div className="flex items-center gap-2 mb-2"><Zap className="w-4 h-4 text-yellow-300" /><span className="text-xs text-white/70 uppercase font-bold tracking-wider">XP {language === 'pt' ? 'Ganho' : language === 'es' ? 'Ganado' : 'Earned'}</span></div>
+              <div className="text-3xl font-bold text-white">{totalXP}<span className="text-lg text-white/60">/{potentialXP}</span></div>
             </div>
           </div>
 
@@ -257,7 +238,7 @@ export function DailyTracker({ currentStreak = 23, onStreakUpdate }: DailyTracke
                 <Award className="w-6 h-6 text-violet-500" />
                 <div>
                   <div className="text-sm font-bold text-violet-500">
-                    {language === 'pt' ? '\u{1F389} Dia Perfeito!' : language === 'es' ? '\u{1F389} \u00A1D\u00EDa Perfecto!' : '\u{1F389} Perfect Day!'}
+                    {language === 'pt' ? 'Dia Perfeito!' : language === 'es' ? '\u00A1D\u00EDa Perfecto!' : 'Perfect Day!'}
                   </div>
                   <div className="text-xs text-gray-400">
                     {language === 'pt'
@@ -274,14 +255,14 @@ export function DailyTracker({ currentStreak = 23, onStreakUpdate }: DailyTracke
       </div>
 
       {/* Daily Tasks */}
-      <div className="bg-[#242424] rounded-3xl p-6 border border-white/5">
+      <div className="bg-white rounded-3xl p-6 border border-violet-100">
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-bold text-white">
+          <h3 className="text-lg font-bold text-violet-950">
             {language === 'pt' ? 'H\u00E1bitos Di\u00E1rios' : language === 'es' ? 'H\u00E1bitos Diarios' : 'Daily Habits'}
           </h3>
           <button
             onClick={() => setShowReminders(!showReminders)}
-            className="flex items-center gap-2 px-3 py-2 bg-[#2A2A2A] hover:bg-[#333333] rounded-xl transition-colors text-sm text-gray-300"
+            className="flex items-center gap-2 px-3 py-2 bg-violet-50 hover:bg-violet-100 rounded-xl transition-colors text-sm text-violet-700"
           >
             <Bell className="w-4 h-4" />
             {language === 'pt' ? 'Lembretes' : language === 'es' ? 'Recordatorios' : 'Reminders'}
@@ -296,8 +277,8 @@ export function DailyTracker({ currentStreak = 23, onStreakUpdate }: DailyTracke
             return (
               <div
                 key={task.id}
-                className={`bg-[#2A2A2A] rounded-2xl p-5 border-2 transition-all ${
-                  isComplete ? 'border-violet-500 bg-violet-500/5' : 'border-transparent hover:border-white/10'
+                className={`bg-violet-50 rounded-2xl p-5 border-2 transition-all ${
+                  isComplete ? 'border-violet-500 bg-violet-500/5' : 'border-transparent hover:border-violet-200'
                 }`}
               >
                 <div className="flex items-center justify-between mb-3">
@@ -309,7 +290,7 @@ export function DailyTracker({ currentStreak = 23, onStreakUpdate }: DailyTracke
                       {task.icon}
                     </div>
                     <div>
-                      <h4 className="text-sm font-bold text-white">{getTaskName(task)}</h4>
+                      <h4 className="text-sm font-bold text-violet-950">{getTaskName(task)}</h4>
                       {task.reminder && showReminders && (
                         <p className="text-xs text-gray-500 flex items-center gap-1 mt-1">
                           <Bell className="w-3 h-3" />
@@ -334,7 +315,7 @@ export function DailyTracker({ currentStreak = 23, onStreakUpdate }: DailyTracke
                     className={`w-full py-3 rounded-xl font-semibold transition-all ${
                       isComplete
                         ? 'bg-violet-500 text-white hover:bg-violet-600'
-                        : 'bg-[#333333] text-gray-300 hover:bg-[#3A3A3A]'
+                        : 'bg-violet-100 text-violet-400 hover:bg-violet-200'
                     }`}
                   >
                     {isComplete ? (
@@ -349,7 +330,7 @@ export function DailyTracker({ currentStreak = 23, onStreakUpdate }: DailyTracke
                 ) : task.type === 'counter' ? (
                   <div className="space-y-3">
                     {/* Progress Bar */}
-                    <div className="w-full h-2 bg-[#1A1A1A] rounded-full overflow-hidden">
+                    <div className="w-full h-2 bg-violet-100 rounded-full overflow-hidden">
                       <div
                         className="h-full rounded-full transition-all duration-300"
                         style={{ width: `${progress}%`, backgroundColor: task.color }}
@@ -360,14 +341,14 @@ export function DailyTracker({ currentStreak = 23, onStreakUpdate }: DailyTracke
                     <div className="flex items-center justify-between">
                       <button
                         onClick={() => updateTaskValue(task.id, -1)}
-                        className="w-10 h-10 flex items-center justify-center rounded-xl bg-[#333333] hover:bg-[#3A3A3A] text-white transition-colors"
+                        className="w-10 h-10 flex items-center justify-center rounded-xl bg-violet-100 hover:bg-violet-200 text-violet-700 transition-colors"
                         disabled={task.currentValue === 0}
                       >
                         <Minus className="w-5 h-5" />
                       </button>
 
                       <div className="text-center">
-                        <div className="text-2xl font-bold text-white">
+                        <div className="text-2xl font-bold text-violet-950">
                           {task.currentValue}
                           <span className="text-sm text-gray-500">/{task.targetValue}</span>
                         </div>
@@ -386,7 +367,7 @@ export function DailyTracker({ currentStreak = 23, onStreakUpdate }: DailyTracke
                   // Range type
                   <div className="space-y-3">
                     {/* Progress Bar */}
-                    <div className="w-full h-2 bg-[#1A1A1A] rounded-full overflow-hidden">
+                    <div className="w-full h-2 bg-violet-100 rounded-full overflow-hidden">
                       <div
                         className="h-full rounded-full transition-all duration-300"
                         style={{ width: `${progress}%`, backgroundColor: task.color }}
@@ -398,7 +379,7 @@ export function DailyTracker({ currentStreak = 23, onStreakUpdate }: DailyTracke
                       <span className="text-gray-400">
                         {task.currentValue.toLocaleString()} {getTaskUnit(task)}
                       </span>
-                      <span className="text-white font-semibold">
+                      <span className="text-violet-950 font-semibold">
                         {language === 'pt' ? 'Meta: ' : language === 'es' ? 'Meta: ' : 'Goal: '}
                         {task.targetValue.toLocaleString()}
                       </span>
@@ -412,8 +393,8 @@ export function DailyTracker({ currentStreak = 23, onStreakUpdate }: DailyTracke
       </div>
 
       {/* Weekly Overview */}
-      <div className="bg-[#242424] rounded-3xl p-6 border border-white/5">
-        <h3 className="text-lg font-bold text-white mb-4">
+      <div className="bg-white rounded-3xl p-6 border border-violet-100">
+        <h3 className="text-lg font-bold text-violet-950 mb-4">
           {language === 'pt' ? 'Vis\u00E3o Semanal' : language === 'es' ? 'Vista Semanal' : 'Weekly Overview'}
         </h3>
 
@@ -432,10 +413,10 @@ export function DailyTracker({ currentStreak = 23, onStreakUpdate }: DailyTracke
                     isToday
                       ? 'bg-violet-500 text-white ring-4 ring-violet-300'
                       : isPerfect && index < 6
-                      ? 'bg-[#4ADE80] text-white'
+                      ? 'bg-[#10B981] text-white'
                       : index < 6
-                      ? 'bg-[#2A2A2A] text-gray-500'
-                      : 'bg-[#2A2A2A] text-gray-400'
+                      ? 'bg-violet-50 text-gray-500'
+                      : 'bg-violet-50 text-gray-400'
                   }`}
                 >
                   {isPerfect ? '\u2713' : Math.round(dayProgress[index])}
@@ -446,7 +427,7 @@ export function DailyTracker({ currentStreak = 23, onStreakUpdate }: DailyTracke
         </div>
 
         {/* Weekly Stats */}
-        <div className="grid grid-cols-3 gap-4 mt-6 pt-6 border-t border-white/5">
+        <div className="grid grid-cols-3 gap-4 mt-6 pt-6 border-t border-violet-100">
           <div className="text-center">
             <div className="text-2xl font-bold text-violet-500">5</div>
             <div className="text-xs text-gray-400">
@@ -454,7 +435,7 @@ export function DailyTracker({ currentStreak = 23, onStreakUpdate }: DailyTracke
             </div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-white">92%</div>
+            <div className="text-2xl font-bold text-violet-950">92%</div>
             <div className="text-xs text-gray-400">
               {language === 'pt' ? 'M\u00E9dia' : language === 'es' ? 'Promedio' : 'Average'}
             </div>

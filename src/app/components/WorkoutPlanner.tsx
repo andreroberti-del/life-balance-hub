@@ -182,28 +182,29 @@ export function WorkoutPlanner() {
       </div>
 
       {/* Main CTA */}
-      <div className="bg-gradient-to-br from-[#1a1a1a] to-[#2a2a2a] rounded-3xl p-8 mb-8 text-white">
+      <div className="bg-violet-500 rounded-3xl p-8 mb-8 text-white shadow-xl">
         <div className="flex items-center gap-4 mb-6">
-          <div className="w-16 h-16 bg-violet-500 rounded-2xl flex items-center justify-center text-3xl">
-            {'\u{1F3AF}'}
+          <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur">
+            <Target className="w-8 h-8 text-white" strokeWidth={2.5} />
           </div>
           <div>
-            <h2 className="text-2xl font-bold mb-1">{t.workout.selectObjective}</h2>
-            <p className="text-gray-400 text-sm">{t.workout.selectObjectiveDesc}</p>
+            <h2 className="text-2xl font-bold mb-1 text-white">{t.workout.selectObjective}</h2>
+            <p className="text-white/80 text-sm">{t.workout.selectObjectiveDesc}</p>
           </div>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {objectives.map((obj) => {
             const label = language === 'pt' ? obj.label_pt : language === 'es' ? obj.label_es : obj.label_en;
+            const Icon = obj.icon;
 
             return (
               <button
                 key={obj.id}
                 onClick={() => handleObjectiveClick(obj.id)}
-                className="group relative bg-white/5 hover:bg-white/10 backdrop-blur rounded-2xl p-6 border border-white/10 transition-all hover:scale-105 hover:border-violet-500"
+                className="group relative bg-white/15 hover:bg-white/25 backdrop-blur rounded-2xl p-6 border border-white/20 transition-all hover:scale-105 hover:border-white/40"
               >
-                <div className="text-4xl mb-3">{obj.emoji}</div>
+                <div className="w-14 h-14 mx-auto mb-3 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center"><Icon className="w-7 h-7 text-white" strokeWidth={2} /></div>
                 <p className="text-sm font-bold text-white">{label}</p>
               </button>
             );
@@ -292,6 +293,7 @@ export function WorkoutPlanner() {
                     {objectives.map((obj) => {
                       const label = language === 'pt' ? obj.label_pt : language === 'es' ? obj.label_es : obj.label_en;
                       const isSelected = wizardData.objective === obj.id;
+                      const Icon = obj.icon;
 
                       return (
                         <button
@@ -303,7 +305,7 @@ export function WorkoutPlanner() {
                               : 'border-gray-200 hover:border-gray-300'
                           }`}
                         >
-                          <div className="text-4xl mb-3">{obj.emoji}</div>
+                          <div className={`w-14 h-14 mx-auto mb-3 rounded-2xl flex items-center justify-center ${isSelected ? 'bg-violet-500 text-white' : 'bg-violet-100 text-violet-700'}`}><Icon className="w-7 h-7" strokeWidth={2} /></div>
                           <p className="text-xs font-bold text-violet-950">{label}</p>
                         </button>
                       );

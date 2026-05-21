@@ -325,8 +325,8 @@ export function Scanner() {
   };
 
   return (
-    <div className="min-h-screen p-6 md:p-8 bg-violet-50">
-      <div className="max-w-[1600px] mx-auto">
+    <div className="min-h-screen bg-violet-50">
+      <div className="max-w-[1400px] mx-auto px-6 md:px-10 py-8 md:py-10">
         {/* Hidden file inputs */}
         <input
           ref={fileInputRef}
@@ -344,65 +344,63 @@ export function Scanner() {
           onChange={handleFileSelect}
         />
 
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-          <div>
-            <div className="flex items-center gap-3 mb-1">
-              <h1 className="text-3xl font-bold text-violet-950">
-                {t.scanner.title}
-              </h1>
-              <div className="w-2 h-2 rounded-full bg-violet-500"></div>
+        {/* HERO */}
+        <div className="relative overflow-hidden bg-violet-500 rounded-3xl p-8 md:p-10 mb-8 shadow-xl shadow-violet-500/20">
+          <div className="absolute -right-20 -top-20 w-72 h-72 bg-white/10 rounded-full blur-3xl" />
+          <div className="absolute -left-10 -bottom-20 w-56 h-56 bg-violet-300/30 rounded-full blur-3xl" />
+          <div className="relative flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+            <div>
+              <p className="text-white/80 text-sm font-medium mb-2 uppercase tracking-wider">Inflammation Scanner</p>
+              <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight mb-3">{t.scanner.title}</h1>
+              <p className="text-white/85 text-base max-w-lg">{t.scanner.subtitle}. Sua taxa de sucesso esse mês: <span className="font-bold text-yellow-300">{stats.rate}%</span></p>
             </div>
-            <p className="text-sm text-gray-400">{t.scanner.subtitle}</p>
-          </div>
-          <div className="flex gap-3">
-            <button
-              onClick={() => cameraInputRef.current?.click()}
-              className="flex items-center gap-3 bg-violet-500 text-white px-6 py-3.5 rounded-2xl font-bold hover:bg-violet-700 transition-all shadow-lg"
-            >
-              <Camera className="w-5 h-5" />
-              {t.scanner.scanProduct}
-            </button>
-            <button
-              onClick={() => fileInputRef.current?.click()}
-              className="flex items-center gap-3 bg-white text-violet-950 px-6 py-3.5 rounded-2xl font-bold border border-gray-200 hover:border-gray-300 transition-all"
-            >
-              <Upload className="w-5 h-5" />
-              Upload
-            </button>
+            <div className="flex gap-3">
+              <button
+                onClick={() => cameraInputRef.current?.click()}
+                className="flex items-center gap-3 bg-white text-violet-700 px-6 py-3.5 rounded-2xl font-bold hover:scale-105 transition-all shadow-lg"
+              >
+                <Camera className="w-5 h-5" />
+                {t.scanner.scanProduct}
+              </button>
+              <button
+                onClick={() => fileInputRef.current?.click()}
+                className="flex items-center gap-3 bg-white/15 backdrop-blur text-white px-6 py-3.5 rounded-2xl font-bold border border-white/20 hover:bg-white/25 transition-all"
+              >
+                <Upload className="w-5 h-5" />
+                Upload
+              </button>
+            </div>
           </div>
         </div>
 
         {/* Stats Row */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          <div className="bg-white rounded-2xl p-5 border border-gray-100">
-            <p className="text-sm text-gray-500 mb-2">{t.scanner.totalScans}</p>
-            <p className="text-4xl font-bold text-violet-950">{stats.total}</p>
-            {!hasRealData && (
-              <p className="text-[10px] text-gray-300 mt-1">Example data</p>
-            )}
-          </div>
-          <div className="bg-white rounded-2xl p-5 border border-gray-100">
-            <p className="text-sm text-gray-500 mb-2">
-              {t.scanner.goodChoices}
-            </p>
-            <div className="flex items-baseline gap-2">
-              <p className="text-4xl font-bold text-violet-950">{stats.good}</p>
-              <span className="text-sm text-violet-500 font-bold">
-                {stats.rate}%
-              </span>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+          {[
+            { label: t.scanner.totalScans, value: stats.total, accent: 'white' },
+            { label: t.scanner.goodChoices, value: stats.good, sub: `${stats.rate}%`, accent: 'white' },
+            { label: t.scanner.avoided, value: stats.bad, accent: 'white' },
+            { label: t.scanner.successRate, value: `${stats.rate}%`, accent: 'violet-solid' },
+          ].map((stat, i) => (
+            <div
+              key={i}
+              className={`rounded-3xl p-6 shadow-lg transition-shadow hover:shadow-xl ${
+                stat.accent === 'violet-solid' ? 'bg-violet-500 shadow-violet-500/20' : 'bg-white border border-violet-100'
+              }`}
+            >
+              <p className={`text-xs font-semibold uppercase tracking-wider mb-3 ${
+                stat.accent === 'violet-solid' ? 'text-white/70' : 'text-gray-400'
+              }`}>{stat.label}</p>
+              <div className="flex items-baseline gap-2">
+                <p className={`text-5xl font-bold tracking-tight ${
+                  stat.accent === 'violet-solid' ? 'text-white' : 'text-violet-950'
+                }`}>{stat.value}</p>
+                {stat.sub && <span className={`text-sm font-bold ${stat.accent === 'violet-solid' ? 'text-yellow-300' : 'text-violet-500'}`}>{stat.sub}</span>}
+              </div>
+              {!hasRealData && stat.label === t.scanner.totalScans && (
+                <p className="text-[10px] text-gray-300 mt-1">Example data</p>
+              )}
             </div>
-          </div>
-          <div className="bg-white rounded-2xl p-5 border border-gray-100">
-            <p className="text-sm text-gray-500 mb-2">{t.scanner.avoided}</p>
-            <p className="text-4xl font-bold text-violet-950">{stats.bad}</p>
-          </div>
-          <div className="bg-violet-500 rounded-2xl p-5">
-            <p className="text-sm text-white/80 mb-2 font-semibold">
-              {t.scanner.successRate}
-            </p>
-            <p className="text-4xl font-bold text-white">{stats.rate}%</p>
-          </div>
+          ))}
         </div>
 
         {/* Main Grid */}

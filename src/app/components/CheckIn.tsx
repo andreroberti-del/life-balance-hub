@@ -13,6 +13,7 @@ import {
   ChevronUp,
   Loader2,
   Star,
+  Zap,
 } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import { supabase } from "../services/supabase";
@@ -196,21 +197,32 @@ export function CheckIn() {
   }
 
   return (
-    <div className="min-h-screen p-6 md:p-8 bg-violet-50">
-      <div className="max-w-[1200px] mx-auto">
-        {/* Header */}
-        <div className="mb-8">
-          <div className="flex items-center gap-3 mb-1">
-            <h1 className="text-3xl font-bold text-violet-950">
-              Daily Check-in
-            </h1>
-            <div className="w-2 h-2 rounded-full bg-violet-500"></div>
+    <div className="min-h-screen bg-violet-50">
+      <div className="max-w-[1400px] mx-auto px-6 md:px-10 py-8 md:py-10">
+        {/* HERO */}
+        <div className="relative overflow-hidden bg-violet-500 rounded-3xl p-8 md:p-10 mb-8 shadow-xl shadow-violet-500/20">
+          <div className="absolute -right-20 -top-20 w-72 h-72 bg-white/10 rounded-full blur-3xl" />
+          <div className="absolute -left-10 -bottom-20 w-56 h-56 bg-violet-300/30 rounded-full blur-3xl" />
+          <div className="relative flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+            <div>
+              <p className="text-white/80 text-sm font-medium mb-2 uppercase tracking-wider">Daily Wellness</p>
+              <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight mb-3">
+                Daily Check-in
+              </h1>
+              <p className="text-white/85 text-base max-w-md">
+                {isEditMode ? "Update today's health metrics" : "Log your daily health metrics to earn +20 XP and keep your streak alive."}
+              </p>
+            </div>
+            <div className="bg-white/15 backdrop-blur rounded-2xl px-6 py-5 border border-white/20">
+              <div className="flex items-center gap-3">
+                <Zap className="w-8 h-8 text-yellow-300" strokeWidth={2.5} />
+                <div>
+                  <div className="text-3xl font-bold text-white leading-none">+20</div>
+                  <div className="text-xs text-white/70 mt-1">XP reward</div>
+                </div>
+              </div>
+            </div>
           </div>
-          <p className="text-sm text-gray-400">
-            {isEditMode
-              ? "Update today's health metrics"
-              : "Log your daily health metrics"}
-          </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

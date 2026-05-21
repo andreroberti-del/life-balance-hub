@@ -58,7 +58,7 @@ export function Layout() {
                 <>
                   <item.icon className="w-5 h-5" />
                   {isActive && (
-                    <div className="absolute -left-0.5 top-1/2 -translate-y-1/2 w-1 h-6 bg-violet-500 rounded-r-full"></div>
+                    <div className="absolute left-1 top-1/2 -translate-y-1/2 w-1 h-6 bg-gray-300 rounded-full"></div>
                   )}
                   {/* Tooltip on hover */}
                   <div className="absolute left-full ml-4 px-3 py-2 bg-violet-500 text-white text-xs font-medium rounded-lg opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity whitespace-nowrap z-50">
@@ -94,8 +94,8 @@ export function Layout() {
             </button>
           )}
 
-          <button className="w-12 h-12 flex items-center justify-center rounded-xl bg-gradient-to-br from-gray-100 to-gray-200 text-lg">
-            👤
+          <button className="w-12 h-12 flex items-center justify-center rounded-xl bg-gradient-to-br from-gray-100 to-gray-200 hover:from-violet-100 hover:to-violet-200 transition-colors">
+            <User className="w-5 h-5 text-gray-500" />
           </button>
         </div>
       </aside>

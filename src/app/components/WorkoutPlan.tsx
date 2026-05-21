@@ -377,7 +377,7 @@ export function WorkoutPlan() {
               className="group bg-white rounded-3xl p-6 border border-gray-100 hover:border-violet-500 transition-all hover:scale-105 text-left"
             >
               <div className="flex items-center justify-between mb-4">
-                <div className="text-4xl">{workout.data.emoji}</div>
+                <div className="w-12 h-12 bg-violet-500 rounded-xl flex items-center justify-center"><Dumbbell className="w-6 h-6 text-white" /></div>
                 <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-violet-500 transition-colors" />
               </div>
 
@@ -421,7 +421,7 @@ export function WorkoutPlan() {
             <div className="p-6 border-b border-gray-100">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                  <div className="text-5xl">{selectedDay.emoji}</div>
+                  <div className="w-14 h-14 bg-violet-500 rounded-2xl flex items-center justify-center"><Dumbbell className="w-7 h-7 text-white" /></div>
                   <div>
                     <h2 className="text-2xl font-bold text-violet-950">{getDayName(selectedDay)}</h2>
                     <div className="flex items-center gap-4 text-sm text-gray-500 mt-1">
