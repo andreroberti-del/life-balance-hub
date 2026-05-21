@@ -278,26 +278,34 @@ export function Profile() {
                   <p className="text-xs text-gray-500">{t.profile.similarPeople}</p>
                 </div>
               </div>
-              <div className="space-y-3">
-                {peerBenchmark.metrics.map((m, i) => (
-                  <div key={i} className="p-5 rounded-2xl bg-violet-50 border border-violet-100">
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-sm font-bold text-violet-950">{m.label}</span>
-                      {m.better && <span className="px-3 py-1.5 bg-emerald-500 text-white rounded-full text-xs font-bold">↑ {t.profile.betterThanAvg}</span>}
-                    </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <p className="text-xs text-violet-500 mb-2 font-bold uppercase tracking-wider">{t.profile.you}</p>
-                        <p className="text-3xl font-bold text-violet-950">{m.yourValue}{m.unit && <span className="text-base text-gray-500 ml-1">{m.unit}</span>}</p>
+              {peerBenchmark.metrics.length === 0 ? (
+                <div className="p-6 rounded-2xl bg-violet-50 border border-violet-100 text-center">
+                  <Users className="w-10 h-10 text-violet-400 mx-auto mb-3" />
+                  <p className="text-sm font-bold text-violet-950 mb-1">Sem peers ainda</p>
+                  <p className="text-xs text-gray-500">Quando mais pessoas da sua faixa etária e gênero entrarem, a comparação aparece aqui.</p>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  {peerBenchmark.metrics.map((m, i) => (
+                    <div key={i} className="p-5 rounded-2xl bg-violet-50 border border-violet-100">
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="text-sm font-bold text-violet-950">{m.label}</span>
+                        {m.better && <span className="px-3 py-1.5 bg-emerald-500 text-white rounded-full text-xs font-bold">↑ {t.profile.betterThanAvg}</span>}
                       </div>
-                      <div>
-                        <p className="text-xs text-gray-400 mb-2 font-bold uppercase tracking-wider">{t.profile.peerAverage}</p>
-                        <p className="text-3xl font-bold text-gray-300">{m.peerAvg}{m.unit && <span className="text-base text-gray-300 ml-1">{m.unit}</span>}</p>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <p className="text-xs text-violet-500 mb-2 font-bold uppercase tracking-wider">{t.profile.you}</p>
+                          <p className="text-3xl font-bold text-violet-950">{m.yourValue}</p>
+                        </div>
+                        <div>
+                          <p className="text-xs text-gray-400 mb-2 font-bold uppercase tracking-wider">{t.profile.peerAverage}</p>
+                          <p className="text-3xl font-bold text-gray-300">{m.peerAvg}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </motion.div>
           </div>
 
