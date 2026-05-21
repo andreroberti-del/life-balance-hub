@@ -1,6 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Layout } from "./components/Layout";
 import { Dashboard } from "./components/Dashboard";
+import { TodayHub } from "./components/today/TodayHub";
+import { BodyHub } from "./components/hubs/BodyHub";
+import { GrowHub } from "./components/hubs/GrowHub";
 import { Scanner } from "./components/Scanner";
 import { Community } from "./components/Community";
 import { Progress } from "./components/Progress";
@@ -45,7 +48,10 @@ export const router = createBrowserRouter([
     path: "/",
     element: <Protected><Layout /></Protected>,
     children: [
-      { index: true, Component: Dashboard },
+      { index: true, Component: TodayHub },
+      { path: "dashboard", Component: Dashboard },
+      { path: "body", Component: BodyHub },
+      { path: "grow", Component: GrowHub },
       { path: "scanner", Component: Scanner },
       { path: "community", Component: Community },
       { path: "progress", Component: Progress },

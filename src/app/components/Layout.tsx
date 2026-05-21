@@ -1,4 +1,5 @@
 import { Outlet, NavLink, useNavigate } from "react-router-dom";
+import { ZenoFloatingButton } from "./zeno/ZenoFloatingButton";
 import { Activity, Scan, Users, TrendingUp, User, LayoutDashboard, Bell, Menu, X, LogOut, Dumbbell, ClipboardCheck, GraduationCap, Users2, FlaskConical, Shield, Brain, Heart, Moon, Sparkles } from "lucide-react";
 import { useState } from "react";
 import { useLanguage } from "../contexts/LanguageContext";
@@ -16,22 +17,13 @@ export function Layout() {
     navigate('/login');
   };
 
+  // Sidebar simplificada: 5 hubs principais. ZENO é botão flutuante global. Profile vai no avatar bottom.
   const navItems = [
-    { to: "/", icon: LayoutDashboard, label: t.nav.dashboard, end: true },
-    { to: "/zeno", icon: Sparkles, label: "ZENO" },
+    { to: "/", icon: LayoutDashboard, label: "Hoje", end: true },
+    { to: "/body", icon: Activity, label: "Body" },
     { to: "/mind", icon: Brain, label: "Mind" },
     { to: "/spirit", icon: Heart, label: "Spirit" },
-    { to: "/brain-dump", icon: Moon, label: "Brain Dump" },
-    { to: "/education", icon: GraduationCap, label: "Education" },
-    { to: "/omega", icon: FlaskConical, label: "Omega Audit" },
-    { to: "/scanner", icon: Scan, label: t.nav.scanner },
-    { to: "/community", icon: Users, label: t.nav.community },
-    { to: "/referrals", icon: Users2, label: "Família M7" },
-    { to: "/distributor", icon: Shield, label: "Distribuidor" },
-    { to: "/progress", icon: TrendingUp, label: t.nav.protocol120 },
-    { to: "/workout", icon: Dumbbell, label: (t as any).nav?.workout || "Workout" },
-    { to: "/daily-tracker", icon: ClipboardCheck, label: (t as any).nav?.dailyTracker || "Daily Tracker" },
-    { to: "/profile", icon: User, label: t.nav.profile },
+    { to: "/grow", icon: Sparkles, label: "Grow" },
   ];
 
   return (
@@ -102,9 +94,18 @@ export function Layout() {
             </button>
           )}
 
-          <button className="w-12 h-12 flex items-center justify-center rounded-xl bg-gradient-to-br from-gray-100 to-gray-200 hover:from-violet-100 hover:to-violet-200 transition-colors">
-            <User className="w-5 h-5 text-gray-500" />
-          </button>
+          <NavLink
+            to="/profile"
+            className={({ isActive }) =>
+              `w-12 h-12 flex items-center justify-center rounded-xl transition-colors ${
+                isActive
+                  ? 'bg-violet-500 text-white'
+                  : 'bg-gradient-to-br from-gray-100 to-gray-200 text-gray-500 hover:from-violet-100 hover:to-violet-200'
+              }`
+            }
+          >
+            <User className="w-5 h-5" />
+          </NavLink>
         </div>
       </aside>
 
@@ -188,6 +189,9 @@ export function Layout() {
       <main className="flex-1 overflow-auto pt-16 md:pt-0">
         <Outlet />
       </main>
+
+      {/* Floating ZENO assistant (global) */}
+      <ZenoFloatingButton />
     </div>
   );
 }
