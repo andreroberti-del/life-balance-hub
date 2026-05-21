@@ -22,6 +22,7 @@ import { MindHub } from "./components/mind/MindHub";
 import { SpiritHub } from "./components/spirit/SpiritHub";
 import { BrainDump } from "./components/brain/BrainDump";
 import { WorkoutSessionPage } from "./components/workout/WorkoutSessionPage";
+import { ZenoChat } from "./components/zeno/ZenoChat";
 
 function Protected({ children }: { children: React.ReactNode }) {
   return <AuthGuard>{children}</AuthGuard>;
@@ -62,6 +63,7 @@ export const router = createBrowserRouter([
       { path: "spirit", Component: SpiritHub },
       { path: "brain-dump", Component: BrainDump },
       { path: "workout/session/:sessionId", Component: WorkoutSessionPage },
+      { path: "zeno", Component: ZenoChat },
     ],
   },
 ]);

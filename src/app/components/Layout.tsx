@@ -1,5 +1,5 @@
 import { Outlet, NavLink, useNavigate } from "react-router-dom";
-import { Activity, Scan, Users, TrendingUp, User, LayoutDashboard, Bell, Menu, X, LogOut, Dumbbell, ClipboardCheck, GraduationCap, Users2, FlaskConical, Shield, Brain, Heart, Moon } from "lucide-react";
+import { Activity, Scan, Users, TrendingUp, User, LayoutDashboard, Bell, Menu, X, LogOut, Dumbbell, ClipboardCheck, GraduationCap, Users2, FlaskConical, Shield, Brain, Heart, Moon, Sparkles } from "lucide-react";
 import { useState } from "react";
 import { useLanguage } from "../contexts/LanguageContext";
 import { useAuth } from "../contexts/AuthContext";
@@ -18,6 +18,7 @@ export function Layout() {
 
   const navItems = [
     { to: "/", icon: LayoutDashboard, label: t.nav.dashboard, end: true },
+    { to: "/zeno", icon: Sparkles, label: "ZENO" },
     { to: "/mind", icon: Brain, label: "Mind" },
     { to: "/spirit", icon: Heart, label: "Spirit" },
     { to: "/brain-dump", icon: Moon, label: "Brain Dump" },
