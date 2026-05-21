@@ -20,6 +20,7 @@ import { OmegaAudit } from "./components/omega/OmegaAudit";
 import { DistributorHub } from "./components/distributor/DistributorHub";
 import { MindHub } from "./components/mind/MindHub";
 import { SpiritHub } from "./components/spirit/SpiritHub";
+import { BrainDump } from "./components/brain/BrainDump";
 
 function Protected({ children }: { children: React.ReactNode }) {
   return <AuthGuard>{children}</AuthGuard>;
@@ -58,6 +59,7 @@ export const router = createBrowserRouter([
       { path: "distributor", Component: DistributorHub },
       { path: "mind", Component: MindHub },
       { path: "spirit", Component: SpiritHub },
+      { path: "brain-dump", Component: BrainDump },
     ],
   },
 ]);
