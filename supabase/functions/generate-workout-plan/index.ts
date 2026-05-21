@@ -1,6 +1,6 @@
 import { serve } from 'https://deno.land/std@0.208.0/http/server.ts';
 import { getServiceClient, getUserFromRequest, corsHeaders } from '../_shared/supabase-client.ts';
-import { callAI, getProvider } from '../_shared/ai-provider.ts';
+import { callAIWithQuota, getProvider } from '../_shared/ai-provider.ts';
 
 interface WizardData {
   objective: string;
@@ -105,13 +105,24 @@ Considere os princípios:
 - Retorne entre 3 e 5 exercícios por dia
 - Sem emojis em nenhum campo`;
 
-    const aiResult = await callAI({
+    const aiResult = await callAIWithQuota('generate-workout-plan', userId, {
       system: 'Você é um personal trainer NSCA certificado. Retorne sempre JSON puro, sem markdown, sem texto extra.',
       messages: [{ role: 'user', content: prompt }],
       max_tokens: 4000,
       model_tier: 'best',
       json_mode: true,
-    });
+    }, supabase);
+
+    if (aiResult.quota_blocked) {
+      return new Response(JSON.stringify({
+        error: aiResult.quota_reason || 'Limite diário atingido.',
+        quota_blocked: true,
+        fallback_plan: defaultFallbackPlan(),
+      }), {
+        status: 429,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
 
     if (aiResult.error) {
       return new Response(JSON.stringify({

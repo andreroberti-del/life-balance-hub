@@ -47,16 +47,19 @@ export function SpiritHub() {
         >
           <div className="absolute -right-20 -top-20 w-72 h-72 bg-white/10 rounded-full blur-3xl" />
           <div className="relative flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-            <div>
-              <div className="flex items-center gap-2 mb-2">
-                <Heart className="w-5 h-5 text-white/80" />
-                <p className="text-white/80 text-sm font-medium uppercase tracking-wider">Saúde Espiritual</p>
+            <div className="flex items-center gap-5">
+              <ZenoMascot pose="meditation" size="lg" className="hidden md:block flex-shrink-0" />
+              <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <Heart className="w-5 h-5 text-white/80" />
+                  <p className="text-white/80 text-sm font-medium uppercase tracking-wider">Saúde Espiritual</p>
+                </div>
+                <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight mb-3">Spirit</h1>
+                <p className="text-white/85 text-base max-w-xl">
+                  Cresça por fora sem se perder por dentro. Devocional diário, gratidão prática,
+                  propósito acima do número.
+                </p>
               </div>
-              <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight mb-3">Spirit</h1>
-              <p className="text-white/85 text-base max-w-xl">
-                Cresça por fora sem se perder por dentro. Devocional diário, gratidão prática,
-                propósito acima do número.
-              </p>
             </div>
             <div className="bg-white/15 backdrop-blur rounded-2xl px-6 py-5 border border-white/20 min-w-[220px]">
               <p className="text-xs text-white/80 font-bold uppercase tracking-wider mb-2">Sua jornada</p>
@@ -66,7 +69,6 @@ export function SpiritHub() {
               <p className="text-xs text-white/70">
                 {gratitudeHistory.length} dias de gratidão
               </p>
-            </div>
             </div>
           </div>
         </motion.div>

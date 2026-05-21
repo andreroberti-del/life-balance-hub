@@ -1,6 +1,6 @@
 import { serve } from 'https://deno.land/std@0.208.0/http/server.ts';
 import { getServiceClient, getUserFromRequest, corsHeaders } from '../_shared/supabase-client.ts';
-import { callAI, getProvider } from '../_shared/ai-provider.ts';
+import { callAIWithQuota, getProvider } from '../_shared/ai-provider.ts';
 
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
@@ -35,8 +35,9 @@ serve(async (req) => {
 
     const cleanImage = image.replace(/^data:image\/\w+;base64,/, '');
     const mimeType = image.match(/^data:(image\/\w+);base64,/)?.[1] || 'image/jpeg';
+    const supabase = getServiceClient();
 
-    const aiResult = await callAI({
+    const aiResult = await callAIWithQuota('scan-food', userId, {
       system: 'You are an anti-inflammatory food scanner AI. You analyze ingredient lists from product packaging and return structured JSON analysis.',
       messages: [{
         role: 'user',
@@ -75,7 +76,17 @@ Return ONLY the JSON, no markdown, no other text.`,
       max_tokens: 2000,
       model_tier: 'best',
       json_mode: true,
-    });
+    }, supabase);
+
+    if (aiResult.quota_blocked) {
+      return new Response(JSON.stringify({
+        error: aiResult.quota_reason || 'Limite diário de scans atingido.',
+        quota_blocked: true,
+      }), {
+        status: 429,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
 
     if (aiResult.error) {
       return new Response(JSON.stringify({ error: 'AI analysis failed', details: aiResult.error }), {
@@ -95,8 +106,6 @@ Return ONLY the JSON, no markdown, no other text.`,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });
     }
-
-    const supabase = getServiceClient();
 
     const { data: scanResult, error: scanError } = await supabase
       .from('scans')
