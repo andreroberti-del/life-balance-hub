@@ -3,12 +3,14 @@ import { Toaster } from "sonner";
 import { router } from "./routes";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import { AuthProvider } from "./contexts/AuthContext";
+import { ThemeProvider } from "./contexts/ThemeContext";
 
 export default function App() {
   return (
     <AuthProvider>
       <LanguageProvider>
-        <RouterProvider router={router} />
+        <ThemeProvider>
+          <RouterProvider router={router} />
         <Toaster
           position="top-right"
           richColors
@@ -22,6 +24,7 @@ export default function App() {
             className: 'm7-toast',
           }}
         />
+        </ThemeProvider>
       </LanguageProvider>
     </AuthProvider>
   );
