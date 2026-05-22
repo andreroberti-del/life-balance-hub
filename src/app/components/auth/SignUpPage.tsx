@@ -5,7 +5,20 @@ import { useAuth } from '../../contexts/AuthContext';
 import { applyReferralCode } from '../../hooks/useReferrals';
 import { supabase } from '../../services/supabase';
 import { FlickeringGrid } from '../../../components/ui/flickering-grid';
-import { Mind7Icon } from '../../../components/ui/mind7-icon';
+
+const LOGO_MASK_URL = '/logo-m7-white.png';
+
+const maskStyle: React.CSSProperties = {
+  WebkitMaskImage: `url('${LOGO_MASK_URL}')`,
+  WebkitMaskSize: 'contain',
+  WebkitMaskPosition: 'center',
+  WebkitMaskRepeat: 'no-repeat',
+  maskImage: `url('${LOGO_MASK_URL}')`,
+  maskSize: 'contain',
+  maskPosition: 'center',
+  maskRepeat: 'no-repeat',
+  filter: 'drop-shadow(0 0 24px rgba(167, 139, 250, 0.6)) drop-shadow(0 0 8px rgba(124, 58, 237, 0.4))',
+};
 
 export function SignUpPage() {
   const { signUp, user } = useAuth();
@@ -78,8 +91,14 @@ export function SignUpPage() {
 
       <div className="relative z-20 w-full max-w-md">
         <div className="relative rounded-3xl border border-white/10 bg-black/40 backdrop-blur-xl p-8 pt-10 shadow-2xl shadow-violet-950/40 overflow-hidden">
-          <div className="flex items-center justify-center mb-4">
-            <Mind7Icon size={84} />
+          <div className="relative w-[140px] h-[140px] mx-auto mb-4" style={maskStyle}>
+            <FlickeringGrid
+              color="#DDD6FE"
+              maxOpacity={1}
+              flickerChance={0.45}
+              squareSize={2}
+              gridGap={2}
+            />
           </div>
 
           <div className="text-center mb-6">
