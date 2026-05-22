@@ -14,4 +14,4 @@ npm-debug.*
 /android
 supabase/.temp/
 .env.hostinger
-.deploy/
+.deploy/hostinger_ed25519*
