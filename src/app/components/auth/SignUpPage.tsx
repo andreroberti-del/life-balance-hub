@@ -80,29 +80,27 @@ export function SignUpPage() {
       />
 
       <FlickeringGrid
-        className="absolute inset-0 z-0 [mask-image:radial-gradient(900px_circle_at_center,white,transparent)]"
-        color="#7C3AED"
-        maxOpacity={0.12}
-        flickerChance={0.1}
+        className="absolute inset-0 z-0 [mask-image:radial-gradient(700px_circle_at_center,white,transparent)]"
+        color="#A78BFA"
+        maxOpacity={0.08}
+        flickerChance={0.08}
         squareSize={3}
-        gridGap={5}
+        gridGap={6}
       />
 
-      <div
-        className="absolute left-1/2 top-[4%] -translate-x-1/2 w-[160px] h-[160px] z-10 pointer-events-none md:w-[200px] md:h-[200px]"
-        style={maskStyle}
-      >
-        <FlickeringGrid
-          color="#6D28D9"
-          maxOpacity={0.85}
-          flickerChance={0.22}
-          squareSize={3}
-          gridGap={4}
-        />
-      </div>
+      <div className="relative z-20 w-full max-w-md">
+        <div className="relative rounded-3xl border border-violet-100 bg-white/80 backdrop-blur-xl p-8 pt-10 shadow-2xl shadow-violet-200/40 overflow-hidden">
+          {/* Logo flickering grid DENTRO do card */}
+          <div className="relative w-[120px] h-[120px] mx-auto mb-4" style={maskStyle}>
+            <FlickeringGrid
+              color="#6D28D9"
+              maxOpacity={0.9}
+              flickerChance={0.25}
+              squareSize={3}
+              gridGap={4}
+            />
+          </div>
 
-      <div className="relative z-20 w-full max-w-md mt-[160px] md:mt-[180px]">
-        <div className="rounded-3xl border border-violet-100 bg-white/80 backdrop-blur-xl p-8 shadow-2xl shadow-violet-200/40">
           <div className="text-center mb-6">
             <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-violet-600">
               MIND7 LIFE BALANCE

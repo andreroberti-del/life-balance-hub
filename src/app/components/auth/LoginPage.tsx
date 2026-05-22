@@ -76,33 +76,30 @@ export function LoginPage() {
         }}
       />
 
-      {/* Layer 2: Flickering grid ambiente (sutil em violet sobre fundo claro) */}
+      {/* Layer 2: Flickering grid ambiente sutilíssimo */}
       <FlickeringGrid
-        className="absolute inset-0 z-0 [mask-image:radial-gradient(900px_circle_at_center,white,transparent)]"
-        color="#7C3AED"
-        maxOpacity={0.12}
-        flickerChance={0.1}
+        className="absolute inset-0 z-0 [mask-image:radial-gradient(700px_circle_at_center,white,transparent)]"
+        color="#A78BFA"
+        maxOpacity={0.08}
+        flickerChance={0.08}
         squareSize={3}
-        gridGap={5}
+        gridGap={6}
       />
 
-      {/* Layer 3: Logo com flickering grid (menor e violet vibrante) */}
-      <div
-        className="absolute left-1/2 top-[10%] -translate-x-1/2 w-[200px] h-[200px] z-10 pointer-events-none md:w-[240px] md:h-[240px]"
-        style={maskStyle}
-      >
-        <FlickeringGrid
-          color="#6D28D9"
-          maxOpacity={0.85}
-          flickerChance={0.22}
-          squareSize={3}
-          gridGap={4}
-        />
-      </div>
+      {/* Card form */}
+      <div className="relative z-20 w-full max-w-md">
+        <div className="relative rounded-3xl border border-violet-100 bg-white/80 backdrop-blur-xl p-8 pt-10 shadow-2xl shadow-violet-200/40 overflow-hidden">
+          {/* Logo flickering grid DENTRO do card */}
+          <div className="relative w-[140px] h-[140px] mx-auto mb-4" style={maskStyle}>
+            <FlickeringGrid
+              color="#6D28D9"
+              maxOpacity={0.9}
+              flickerChance={0.25}
+              squareSize={3}
+              gridGap={4}
+            />
+          </div>
 
-      {/* Layer 4: Card form (light) */}
-      <div className="relative z-20 w-full max-w-md mt-[180px] md:mt-[200px]">
-        <div className="rounded-3xl border border-violet-100 bg-white/80 backdrop-blur-xl p-8 shadow-2xl shadow-violet-200/40">
           <div className="text-center mb-6">
             <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-violet-600">
               MIND7 LIFE BALANCE
