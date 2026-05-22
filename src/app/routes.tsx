@@ -26,6 +26,10 @@ import { SpiritHub } from "./components/spirit/SpiritHub";
 import { BrainDump } from "./components/brain/BrainDump";
 import { WorkoutSessionPage } from "./components/workout/WorkoutSessionPage";
 import { ZenoChat } from "./components/zeno/ZenoChat";
+import { AdminLayout } from "./components/admin/AdminLayout";
+import { AdminOverview } from "./components/admin/AdminOverview";
+import { AdminUsers } from "./components/admin/AdminUsers";
+import { AdminRevenue, AdminEngagement, AdminGrowth, AdminAIUsage, AdminSettings } from "./components/admin/AdminCharts";
 
 function Protected({ children }: { children: React.ReactNode }) {
   return <AuthGuard>{children}</AuthGuard>;
@@ -70,6 +74,19 @@ export const router = createBrowserRouter([
       { path: "brain-dump", Component: BrainDump },
       { path: "workout/session/:sessionId", Component: WorkoutSessionPage },
       { path: "zeno", Component: ZenoChat },
+    ],
+  },
+  {
+    path: "/admin",
+    element: <Protected><AdminLayout /></Protected>,
+    children: [
+      { index: true, Component: AdminOverview },
+      { path: "users", Component: AdminUsers },
+      { path: "revenue", Component: AdminRevenue },
+      { path: "engagement", Component: AdminEngagement },
+      { path: "growth", Component: AdminGrowth },
+      { path: "ai-usage", Component: AdminAIUsage },
+      { path: "settings", Component: AdminSettings },
     ],
   },
 ]);
