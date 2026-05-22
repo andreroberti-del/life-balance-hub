@@ -13,3 +13,5 @@ npm-debug.*
 /ios
 /android
 supabase/.temp/
+.env.hostinger
+.deploy/
