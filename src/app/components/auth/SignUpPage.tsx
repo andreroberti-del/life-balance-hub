@@ -70,31 +70,30 @@ export function SignUpPage() {
   }
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-white flex items-center justify-center px-4 py-8">
+    <div className="relative min-h-screen overflow-hidden bg-black flex items-center justify-center px-4 py-8">
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'radial-gradient(ellipse 90% 70% at 50% 30%, rgba(196, 181, 253, 0.55) 0%, rgba(221, 214, 254, 0.35) 35%, rgba(245, 243, 255, 0.6) 70%, #ffffff 100%)',
+            'radial-gradient(ellipse 80% 60% at 50% 30%, rgba(109, 40, 217, 0.45) 0%, rgba(76, 29, 149, 0.25) 40%, rgba(0, 0, 0, 0.95) 80%, #000 100%)',
         }}
       />
 
       <FlickeringGrid
-        className="absolute inset-0 z-0 [mask-image:radial-gradient(700px_circle_at_center,white,transparent)]"
-        color="#A78BFA"
-        maxOpacity={0.08}
-        flickerChance={0.08}
+        className="absolute inset-0 z-0 [mask-image:radial-gradient(800px_circle_at_center,white,transparent)]"
+        color="#7C3AED"
+        maxOpacity={0.15}
+        flickerChance={0.1}
         squareSize={3}
-        gridGap={6}
+        gridGap={5}
       />
 
       <div className="relative z-20 w-full max-w-md">
-        <div className="relative rounded-3xl border border-violet-100 bg-white/80 backdrop-blur-xl p-8 pt-10 shadow-2xl shadow-violet-200/40 overflow-hidden">
-          {/* Logo flickering grid DENTRO do card */}
+        <div className="relative rounded-3xl border border-white/10 bg-black/40 backdrop-blur-xl p-8 pt-10 shadow-2xl shadow-violet-950/40 overflow-hidden">
           <div className="relative w-[120px] h-[120px] mx-auto mb-4" style={maskStyle}>
             <FlickeringGrid
-              color="#6D28D9"
-              maxOpacity={0.9}
+              color="#C4B5FD"
+              maxOpacity={0.95}
               flickerChance={0.25}
               squareSize={3}
               gridGap={4}
@@ -102,21 +101,21 @@ export function SignUpPage() {
           </div>
 
           <div className="text-center mb-6">
-            <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-violet-600">
+            <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-violet-300/80">
               MIND7 LIFE BALANCE
             </p>
-            <p className="text-xs text-gray-500 mt-1">Comece sua jornada</p>
+            <p className="text-xs text-violet-200/60 mt-1">Comece sua jornada</p>
           </div>
 
           {error && (
-            <div className="mb-5 p-3 rounded-xl bg-red-50 border border-red-200 text-red-600 text-sm text-center">
+            <div className="mb-5 p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-300 text-sm text-center">
               {error}
             </div>
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label htmlFor="displayName" className="block text-[11px] font-bold uppercase tracking-wider text-gray-500 mb-1.5">
+              <label htmlFor="displayName" className="block text-[11px] font-bold uppercase tracking-wider text-violet-200/70 mb-1.5">
                 Nome
               </label>
               <input
@@ -126,12 +125,12 @@ export function SignUpPage() {
                 onChange={(e) => setDisplayName(e.target.value)}
                 required
                 placeholder="Seu nome"
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-violet-950 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all"
+                className="w-full px-4 py-3 rounded-xl border border-white/15 bg-white/5 text-white placeholder-violet-200/30 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all"
               />
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-[11px] font-bold uppercase tracking-wider text-gray-500 mb-1.5">
+              <label htmlFor="email" className="block text-[11px] font-bold uppercase tracking-wider text-violet-200/70 mb-1.5">
                 Email
               </label>
               <input
@@ -141,12 +140,12 @@ export function SignUpPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 placeholder="seu@email.com"
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-violet-950 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all"
+                className="w-full px-4 py-3 rounded-xl border border-white/15 bg-white/5 text-white placeholder-violet-200/30 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all"
               />
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-[11px] font-bold uppercase tracking-wider text-gray-500 mb-1.5">
+              <label htmlFor="password" className="block text-[11px] font-bold uppercase tracking-wider text-violet-200/70 mb-1.5">
                 Senha
               </label>
               <input
@@ -156,12 +155,12 @@ export function SignUpPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 placeholder="Min. 6 caracteres"
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-violet-950 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all"
+                className="w-full px-4 py-3 rounded-xl border border-white/15 bg-white/5 text-white placeholder-violet-200/30 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all"
               />
             </div>
 
             <div>
-              <label htmlFor="confirmPassword" className="block text-[11px] font-bold uppercase tracking-wider text-gray-500 mb-1.5">
+              <label htmlFor="confirmPassword" className="block text-[11px] font-bold uppercase tracking-wider text-violet-200/70 mb-1.5">
                 Confirmar senha
               </label>
               <input
@@ -171,15 +170,15 @@ export function SignUpPage() {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
                 placeholder="Repita a senha"
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-violet-950 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all"
+                className="w-full px-4 py-3 rounded-xl border border-white/15 bg-white/5 text-white placeholder-violet-200/30 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all"
               />
             </div>
 
             <div>
-              <label htmlFor="referralCode" className="text-[11px] font-bold uppercase tracking-wider text-gray-500 mb-1.5 flex items-center gap-2">
-                <Users2 className="w-3.5 h-3.5 text-violet-500" />
+              <label htmlFor="referralCode" className="text-[11px] font-bold uppercase tracking-wider text-violet-200/70 mb-1.5 flex items-center gap-2">
+                <Users2 className="w-3.5 h-3.5 text-violet-300" />
                 Código de indicação
-                <span className="text-[10px] text-gray-400 font-normal normal-case">opcional</span>
+                <span className="text-[10px] text-violet-200/40 font-normal normal-case">opcional</span>
               </label>
               <input
                 id="referralCode"
@@ -187,33 +186,33 @@ export function SignUpPage() {
                 value={referralCode}
                 onChange={(e) => setReferralCode(e.target.value.toUpperCase())}
                 placeholder="M7-XXXXXX"
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-violet-950 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all tracking-wider font-bold uppercase"
+                className="w-full px-4 py-3 rounded-xl border border-white/15 bg-white/5 text-white placeholder-violet-200/30 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all tracking-wider font-bold uppercase"
               />
-              <p className="text-[11px] text-gray-400 mt-1.5">Entrou por indicação? Cole o código M7 do amigo aqui.</p>
+              <p className="text-[11px] text-violet-200/50 mt-1.5">Entrou por indicação? Cole o código M7 do amigo aqui.</p>
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white font-bold rounded-xl hover:from-violet-600 hover:to-fuchsia-600 active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg shadow-violet-500/30"
+              className="w-full py-3 bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white font-bold rounded-xl hover:from-violet-400 hover:to-fuchsia-400 active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg shadow-violet-500/30"
             >
               {loading && <Loader2 className="w-4 h-4 animate-spin" />}
               {loading ? 'Criando conta...' : 'Criar conta'}
             </button>
           </form>
 
-          <p className="mt-6 text-center text-sm text-gray-500">
+          <p className="mt-6 text-center text-sm text-violet-200/60">
             Já tem conta?{' '}
             <button
               onClick={() => navigate('/login')}
-              className="text-violet-700 font-semibold hover:text-violet-800 hover:underline"
+              className="text-violet-300 font-semibold hover:text-violet-200 hover:underline"
             >
               Entrar
             </button>
           </p>
         </div>
 
-        <p className="mt-6 text-center text-[10px] tracking-[0.3em] uppercase text-violet-500/60">
+        <p className="mt-6 text-center text-[10px] tracking-[0.3em] uppercase text-violet-300/40">
           Mind7 · Instituto de saúde integral
         </p>
       </div>

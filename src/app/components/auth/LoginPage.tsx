@@ -66,34 +66,33 @@ export function LoginPage() {
   function switchToLogin() { setError(''); setResetSent(false); setView('login'); }
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-white flex items-center justify-center px-4">
-      {/* Layer 1: Gradient branco → lilás claro */}
+    <div className="relative min-h-screen overflow-hidden bg-black flex items-center justify-center px-4">
+      {/* Bg gradient preto → roxo */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'radial-gradient(ellipse 90% 70% at 50% 35%, rgba(196, 181, 253, 0.55) 0%, rgba(221, 214, 254, 0.35) 35%, rgba(245, 243, 255, 0.6) 70%, #ffffff 100%)',
+            'radial-gradient(ellipse 80% 60% at 50% 40%, rgba(109, 40, 217, 0.45) 0%, rgba(76, 29, 149, 0.25) 40%, rgba(0, 0, 0, 0.95) 80%, #000 100%)',
         }}
       />
 
-      {/* Layer 2: Flickering grid ambiente sutilíssimo */}
+      {/* Flickering ambiente sutil */}
       <FlickeringGrid
-        className="absolute inset-0 z-0 [mask-image:radial-gradient(700px_circle_at_center,white,transparent)]"
-        color="#A78BFA"
-        maxOpacity={0.08}
-        flickerChance={0.08}
+        className="absolute inset-0 z-0 [mask-image:radial-gradient(800px_circle_at_center,white,transparent)]"
+        color="#7C3AED"
+        maxOpacity={0.15}
+        flickerChance={0.1}
         squareSize={3}
-        gridGap={6}
+        gridGap={5}
       />
 
-      {/* Card form */}
       <div className="relative z-20 w-full max-w-md">
-        <div className="relative rounded-3xl border border-violet-100 bg-white/80 backdrop-blur-xl p-8 pt-10 shadow-2xl shadow-violet-200/40 overflow-hidden">
-          {/* Logo flickering grid DENTRO do card */}
+        <div className="relative rounded-3xl border border-white/10 bg-black/40 backdrop-blur-xl p-8 pt-10 shadow-2xl shadow-violet-950/40 overflow-hidden">
+          {/* Logo flickering DENTRO do card em violet claro */}
           <div className="relative w-[140px] h-[140px] mx-auto mb-4" style={maskStyle}>
             <FlickeringGrid
-              color="#6D28D9"
-              maxOpacity={0.9}
+              color="#C4B5FD"
+              maxOpacity={0.95}
               flickerChance={0.25}
               squareSize={3}
               gridGap={4}
@@ -101,16 +100,16 @@ export function LoginPage() {
           </div>
 
           <div className="text-center mb-6">
-            <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-violet-600">
+            <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-violet-300/80">
               MIND7 LIFE BALANCE
             </p>
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-xs text-violet-200/60 mt-1">
               {view === 'login' ? 'Bem-vindo de volta' : 'Redefina sua senha'}
             </p>
           </div>
 
           {error && (
-            <div className="mb-5 p-3 rounded-xl bg-red-50 border border-red-200 text-red-600 text-sm text-center">
+            <div className="mb-5 p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-300 text-sm text-center">
               {error}
             </div>
           )}
@@ -119,7 +118,7 @@ export function LoginPage() {
             <>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label htmlFor="email" className="block text-[11px] font-bold uppercase tracking-wider text-gray-500 mb-1.5">
+                  <label htmlFor="email" className="block text-[11px] font-bold uppercase tracking-wider text-violet-200/70 mb-1.5">
                     Email
                   </label>
                   <input
@@ -129,19 +128,19 @@ export function LoginPage() {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                     placeholder="seu@email.com"
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-violet-950 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 rounded-xl border border-white/15 bg-white/5 text-white placeholder-violet-200/30 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all"
                   />
                 </div>
 
                 <div>
                   <div className="flex items-center justify-between mb-1.5">
-                    <label htmlFor="password" className="block text-[11px] font-bold uppercase tracking-wider text-gray-500">
+                    <label htmlFor="password" className="block text-[11px] font-bold uppercase tracking-wider text-violet-200/70">
                       Senha
                     </label>
                     <button
                       type="button"
                       onClick={switchToForgot}
-                      className="text-[11px] font-semibold text-violet-600 hover:text-violet-700 transition-colors"
+                      className="text-[11px] font-semibold text-violet-300 hover:text-violet-200 transition-colors"
                     >
                       Esqueceu?
                     </button>
@@ -153,14 +152,14 @@ export function LoginPage() {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                     placeholder="••••••••"
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-violet-950 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 rounded-xl border border-white/15 bg-white/5 text-white placeholder-violet-200/30 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all"
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-3 bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white font-bold rounded-xl hover:from-violet-600 hover:to-fuchsia-600 active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg shadow-violet-500/30"
+                  className="w-full py-3 bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white font-bold rounded-xl hover:from-violet-400 hover:to-fuchsia-400 active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg shadow-violet-500/30"
                 >
                   {loading && <Loader2 className="w-4 h-4 animate-spin" />}
                   {loading ? 'Entrando...' : 'Entrar'}
@@ -170,17 +169,17 @@ export function LoginPage() {
               {isDemoMode && (
                 <button
                   onClick={handleDemoMode}
-                  className="w-full mt-3 py-3 bg-violet-50 border border-violet-100 text-violet-700 font-bold rounded-xl hover:bg-violet-100 transition-all"
+                  className="w-full mt-3 py-3 bg-white/5 border border-white/10 text-violet-200 font-bold rounded-xl hover:bg-white/10 transition-all"
                 >
                   Continuar como Demo
                 </button>
               )}
 
-              <p className="mt-6 text-center text-sm text-gray-500">
+              <p className="mt-6 text-center text-sm text-violet-200/60">
                 Ainda não tem conta?{' '}
                 <button
                   onClick={() => navigate('/signup')}
-                  className="text-violet-700 font-semibold hover:text-violet-800 hover:underline"
+                  className="text-violet-300 font-semibold hover:text-violet-200 hover:underline"
                 >
                   Criar agora
                 </button>
@@ -190,29 +189,29 @@ export function LoginPage() {
             <>
               <button
                 onClick={switchToLogin}
-                className="flex items-center gap-2 text-xs text-gray-500 hover:text-violet-700 transition-colors mb-4"
+                className="flex items-center gap-2 text-xs text-violet-200/70 hover:text-violet-200 transition-colors mb-4"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 Voltar
               </button>
 
-              <h2 className="text-xl font-bold text-violet-950 mb-2">Esqueceu sua senha?</h2>
-              <p className="text-sm text-gray-500 mb-6">
+              <h2 className="text-xl font-bold text-white mb-2">Esqueceu sua senha?</h2>
+              <p className="text-sm text-violet-200/60 mb-6">
                 Mandamos um link seguro pra resetar. Confere a caixa de entrada em alguns minutos.
               </p>
 
               {resetSent ? (
-                <div className="p-6 bg-emerald-50 border border-emerald-200 rounded-2xl text-center">
+                <div className="p-6 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl text-center">
                   <div className="w-12 h-12 bg-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-3">
                     <CheckCircle className="w-6 h-6 text-white" />
                   </div>
-                  <p className="text-sm font-bold text-emerald-900 mb-1">Email enviado</p>
-                  <p className="text-xs text-emerald-700">
+                  <p className="text-sm font-bold text-emerald-300 mb-1">Email enviado</p>
+                  <p className="text-xs text-emerald-200/80">
                     Confere <span className="font-semibold">{email}</span> — pode demorar alguns minutos.
                   </p>
                   <button
                     onClick={switchToLogin}
-                    className="mt-4 text-xs font-bold text-emerald-700 hover:underline"
+                    className="mt-4 text-xs font-bold text-emerald-300 hover:underline"
                   >
                     Voltar pro login
                   </button>
@@ -220,7 +219,7 @@ export function LoginPage() {
               ) : (
                 <form onSubmit={handleForgotPassword} className="space-y-4">
                   <div>
-                    <label htmlFor="reset-email" className="block text-[11px] font-bold uppercase tracking-wider text-gray-500 mb-1.5">
+                    <label htmlFor="reset-email" className="block text-[11px] font-bold uppercase tracking-wider text-violet-200/70 mb-1.5">
                       Email
                     </label>
                     <input
@@ -230,14 +229,14 @@ export function LoginPage() {
                       onChange={(e) => setEmail(e.target.value)}
                       required
                       placeholder="seu@email.com"
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-violet-950 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all"
+                      className="w-full px-4 py-3 rounded-xl border border-white/15 bg-white/5 text-white placeholder-violet-200/30 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all"
                     />
                   </div>
 
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full py-3 bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white font-bold rounded-xl hover:from-violet-600 hover:to-fuchsia-600 active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg shadow-violet-500/30"
+                    className="w-full py-3 bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white font-bold rounded-xl hover:from-violet-400 hover:to-fuchsia-400 active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg shadow-violet-500/30"
                   >
                     {loading && <Loader2 className="w-4 h-4 animate-spin" />}
                     {loading ? 'Enviando...' : 'Mandar link'}
@@ -248,7 +247,7 @@ export function LoginPage() {
           )}
         </div>
 
-        <p className="mt-6 text-center text-[10px] tracking-[0.3em] uppercase text-violet-500/60">
+        <p className="mt-6 text-center text-[10px] tracking-[0.3em] uppercase text-violet-300/40">
           Mind7 · Instituto de saúde integral
         </p>
       </div>
